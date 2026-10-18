@@ -15,8 +15,8 @@
 - **Build planner:** your next build, when you can afford it, and when gold is sitting idle.
 - **Alliance timers** and incoming attacks against your own troops.
 - **One decision card at a time:** big attack incoming, exposed after a push, city affordable.
-- **Spawn heat map:** during the spawn phase, the map shows open land with coast, away from players who already landed.
-- **Match history:** your matches are saved on your PC with one coaching note each and a trend over your last 10.
+- **Spawn heat map:** hold Space during the spawn phase to see open land with coast, away from players who already landed. A notification and chime tell you when spawn starts.
+- **Match review:** a synced timeline, bookmarks, a death debrief, personal bests and a share card for Discord.
 - **OBS overlay** for streamers.
 
 ![Spawn heat map](screenshots/2-spawn-heat-map.jpg)
@@ -30,7 +30,7 @@
 - **Read-only.** FlashFront never clicks, sends, builds or attacks for you.
 - **Your numbers only**, plus where players land during the spawn phase (which the game already shows everyone).
 - **Hidden in ranked** by default.
-- **Nothing uploaded.** Matches stay on your PC.
+- **Nothing uploaded unless you send feedback.** Matches stay on your PC.
 
 ## Install
 
@@ -38,7 +38,7 @@
 2. Windows may show "Windows protected your PC" because the installer isn't code-signed yet. Choose **More info**, then **Run anyway**.
 3. FlashFront opens a short setup that walks you through adding one Steam launch option for OpenFront.
 
-FlashFront then appears on your desktop and in the Start menu. Uninstall it from Windows Settings, then Apps.
+FlashFront then appears on your desktop and in the Start menu, and from 0.2.0 on it updates itself ("Restart to update"). Uninstall it from Windows Settings, then Apps.
 
 **Requirements:** Windows 10 or 11 and the Steam version of OpenFront. The browser version isn't supported yet.
 
