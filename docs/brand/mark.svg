@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FlashFront">
+  <!-- FlashFront mark A, "Front bolt" (approved 2026-10-17): a bolt that is also the front line of a territory tile. -->
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="#121316" stroke="#2A2D34" stroke-width="2"/>
+  <path d="M4 16 Q4 4 16 4 H34 L26 28 H36 L22 60 H16 Q4 60 4 48 Z" fill="#E8192C"/>
+  <path d="M34 4 L26 28 H36 L22 60" fill="none" stroke="#F2F3F5" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

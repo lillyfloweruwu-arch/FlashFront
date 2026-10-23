@@ -1,0 +1,5 @@
+import { formatPct, type PlayerProfile } from "@flashfront/core";
+import { AnimatedNumber, integer, Panel } from "../shared";
+export function ProfileHeader({ profile }: { profile: PlayerProfile }) {
+  return <Panel className="profile-header"><div className="identity"><div className="avatar large" aria-hidden="true">{profile.name.slice(0, 1)}</div><div><h1>{profile.clanTag && <span className="muted">[{profile.clanTag}] </span>}{profile.name}</h1><span className="tier-badge">{profile.rankedTier ?? "Unranked"}</span></div></div><div className="profile-metrics"><div><span className="label">Ranked ELO</span><strong>{profile.rankedElo === undefined ? "—" : <AnimatedNumber value={profile.rankedElo} format={integer} />}</strong></div><div><span className="label">Games</span><strong><AnimatedNumber value={profile.gamesPlayed} format={integer} /></strong></div><div><span className="label">Win rate</span><strong><AnimatedNumber value={profile.gamesPlayed ? profile.wins / profile.gamesPlayed * 100 : 0} format={formatPct} /></strong></div></div></Panel>;
+}

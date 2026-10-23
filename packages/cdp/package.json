@@ -1,0 +1,25 @@
+{
+  "license": "AGPL-3.0-only",
+  "name": "@flashfront/cdp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --pool=threads",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@flashfront/core": "workspace:*"
+  },
+  "devDependencies": {
+    "jsdom": "^27.0.0",
+    "@types/jsdom": "^27.0.0",
+    "ws": "^8.18.3",
+    "@types/ws": "^8.18.1"
+  }
+}

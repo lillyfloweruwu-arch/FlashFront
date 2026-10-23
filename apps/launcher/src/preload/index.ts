@@ -1,0 +1,31 @@
+import { contextBridge, ipcRenderer } from "electron";
+import type { LauncherApi, LauncherState, Settings } from "../shared";
+const api: LauncherApi = {
+  subscribeCamera(cb) { const listener = (_event: unknown, camera: import("@flashfront/core").SpawnCamera) => cb(camera); ipcRenderer.on("spawn-camera", listener); return () => { ipcRenderer.removeListener("spawn-camera", listener); }; },
+  onSurfaceActive(cb) { const listener = (_event: unknown, active: boolean) => cb(active); ipcRenderer.on("surface-active", listener); return () => { ipcRenderer.removeListener("surface-active", listener); }; },
+  onViewport(cb) { const listener = (_event: unknown, viewport: LauncherState["overlayViewport"]) => cb(viewport); ipcRenderer.on("overlay-viewport", listener); return () => { ipcRenderer.removeListener("overlay-viewport", listener); }; },
+  getState: () => ipcRenderer.invoke("state"),
+  subscribe(cb) { const listener = (_event: unknown, state: LauncherState) => cb(state); ipcRenderer.on("state", listener); return () => { ipcRenderer.removeListener("state", listener); }; },
+  launch: () => ipcRenderer.invoke("launch"),
+  saveSettings: (settings: Settings) => ipcRenderer.invoke("settings", settings),
+  copySetup: () => ipcRenderer.invoke("copy-setup"),
+  restartToUpdate: () => ipcRenderer.invoke("update-restart"),
+  suggestIdea: () => ipcRenderer.invoke("feedback-open"),
+  previewSupportReport: () => ipcRenderer.invoke("support-preview"),
+  copySupportReport: () => ipcRenderer.invoke("support-copy"),
+  openReleaseNotes: version => ipcRenderer.invoke("release-notes-open", version),
+  reportDecision: (gameId, tick, decision) => ipcRenderer.send("overlay-decision", gameId, tick, decision),
+  copyPreset: id => ipcRenderer.invoke("copy-preset", id),
+  toggleHud: () => ipcRenderer.invoke("toggle-hud"),
+  toggleEdit: () => ipcRenderer.invoke("toggle-edit"),
+  listMatches: () => ipcRenderer.invoke("matches-list"),
+  getMatch: file => ipcRenderer.invoke("matches-get", file),
+  deleteMatch: file => ipcRenderer.invoke("matches-delete", file),
+  showMatch: file => ipcRenderer.invoke("matches-show", file),
+  onMatchesChanged(cb) { const listener = () => cb(); ipcRenderer.on("matches-changed", listener); return () => { ipcRenderer.removeListener("matches-changed", listener); }; },
+  annotateMatch: (file, t, note) => ipcRenderer.invoke("matches-annotate", file, t, note),
+  saveShare: png => ipcRenderer.invoke("share-save", png),
+  stats: path => ipcRenderer.invoke("stats-api", path),
+  reportShape: rects => ipcRenderer.send("overlay-shape", rects),
+};
+contextBridge.exposeInMainWorld("flashfront", api);

@@ -1,0 +1,9 @@
+{
+  "name": "@flashfront/public", "private": true, "type": "module",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --pool=threads --testTimeout=30000",
+    "build": "tsc --noEmit"
+  }
+}

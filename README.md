@@ -45,3 +45,23 @@ FlashFront then appears on your desktop and in the Start menu, and from 0.2.0 on
 ---
 
 FlashFront is an independent fan project. It is not affiliated with or endorsed by OpenFront. Map data © OpenFront contributors, CC BY-SA 4.0.
+
+## Building from source
+
+Use Node.js 24 and pnpm 11.20.0. From the repository root:
+
+```sh
+pnpm install
+pnpm test
+pnpm --dir apps/launcher dist
+```
+
+`pnpm test` runs `pnpm -r test` across the workspace. The launcher `dist` script runs `electron-vite build && electron-builder --win --publish never` and writes the Windows installer to `apps/launcher/release/`.
+
+## License
+
+AGPL-3.0-only. See [LICENSE](LICENSE).
+
+## Credits
+
+See the [map data and derived assets attribution](packages/core/src/spawn/LICENSE-MAPDATA.md) for sources, licensing, and modifications.

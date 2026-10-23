@@ -1,0 +1,9 @@
+{
+  "license": "AGPL-3.0-only",
+  "name": "@flashfront/spawn", "private": true, "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --pool=threads",
+    "build": "tsc --noEmit"
+  }
+}

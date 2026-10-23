@@ -1,0 +1,15 @@
+node_modules/
+.pnpm-store/
+dist/
+out/
+.vite/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+tools/spawn/.cache/
+playtest/
+release/
+.superpowers/
+tools/public/personal.local.json
+.flashfront-export

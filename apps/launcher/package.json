@@ -1,0 +1,92 @@
+{
+  "license": "AGPL-3.0-only",
+  "name": "@flashfront/launcher",
+  "version": "0.2.2",
+  "private": true,
+  "type": "module",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --pool=threads",
+    "build": "tsc --noEmit && electron-vite build",
+    "postinstall": "node node_modules/electron/install.js",
+    "lint": "tsc --noEmit",
+    "dist": "electron-vite build && electron-builder --win --publish never"
+  },
+  "dependencies": {
+    "@flashfront/cdp": "workspace:*",
+    "@flashfront/core": "workspace:*",
+    "@flashfront/ui": "workspace:*",
+    "electron-updater": "^6.8.9",
+    "koffi": "^3.3.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/ws": "^8.18.1",
+    "electron": "^44.7.2",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "jsdom": "^27.0.0"
+  },
+  "productName": "FlashFront",
+  "description": "FlashFront, a fair-play companion for OpenFront",
+  "author": "FlashFront contributors",
+  "build": {
+    "publish": {
+      "provider": "github",
+      "owner": "destoryer10",
+      "repo": "FlashFront"
+    },
+    "appId": "com.flashfront.launcher",
+    "productName": "FlashFront",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "build/icon.png",
+      "package.json",
+      "!node_modules/@flashfront/**",
+      "!node_modules/@koromix/**",
+      "!node_modules/koffi/**",
+      "!node_modules/react/**",
+      "!node_modules/react-dom/**",
+      "!node_modules/scheduler/**",
+      "!node_modules/ws/**"
+    ],
+    "extraResources": [
+      {
+        "from": "../../node_modules/.pnpm/@koromix+koffi-win32-x64@3.3.3/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+        "to": "koffi/win32_x64/koffi.node"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "FlashFront",
+      "runAfterFinish": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "uninstallDisplayName": "FlashFront ${version}"
+    },
+    "electronLanguages": [
+      "en-US"
+    ],
+    "extraMetadata": {
+      "name": "flashfront"
+    },
+    "artifactName": "FlashFront-Setup-${version}.${ext}"
+  }
+}

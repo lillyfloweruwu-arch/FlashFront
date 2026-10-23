@@ -1,0 +1,16 @@
+packages:
+  - packages/*
+  - apps/*
+  - tools/spawn
+  - tools/public
+allowBuilds:
+  '@tailwindcss/oxide': true
+  electron-winstaller: false # Squirrel target unused; NSIS only
+  koffi: false # prebuilt binaries are used; its build script is not needed
+  rolldown: true
+minimumReleaseAgeExclude:
+  - '@vitest/mocker@5.0.5'
+  - '@vitest/spy@5.0.5'
+  - vitest@5.0.5
+workspaceConcurrency: 1
+storeDir: .pnpm-store
