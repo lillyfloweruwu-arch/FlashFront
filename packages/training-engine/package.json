@@ -1,0 +1,26 @@
+{
+  "license": "AGPL-3.0-only",
+  "name": "@flashfront/training-engine",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./contracts": "./src/contracts.ts",
+    "./client": "./src/client.ts",
+    "./protocol": "./src/protocol.ts",
+    "./dev-board": "./src/dev-board.ts",
+    "./drill-evidence": "./src/drill-evidence.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.upstream.json",
+    "test": "vitest run --pool=threads",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@flashfront/core": "workspace:*",
+    "@openfront/engine": "workspace:*",
+    "@openfront/engine-api": "workspace:*",
+    "@openfront/engine-lib": "workspace:*",
+    "@openfront/zbin": "workspace:*"
+  }
+}

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { attackPreview, formatTroopRate, percentOfMax, stableZone, zoneStatus, type GameSnapshot, type SelfState, type TroopZone } from "@flashfront/core";
+import { attackPreview, formatTroopRate, percentOfMax, stableZone, zoneLabel, zoneStatus, type GameSnapshot, type SelfState, type TroopZone } from "@flashfront/core";
 
 /** Troop growth owns routine growth state (0.2.1): facts only, never commands, in the shared zone words. */
 const percent = (fraction: number) => `${percentOfMax(fraction)}%`;
@@ -32,7 +32,7 @@ export function GrowthGauge({ self, phase }: { self: SelfState | null; phase?: G
   const bands = [{ zone: "exposed", width: 0.25 }, { zone: "low", width: lowEnd - 0.25 }, { zone: "sweet", width: sweetEnd - lowEnd }, { zone: "high", width: 0.7 - sweetEnd }, { zone: "wasting", width: 0.3 }];
   const now = clamp(fraction), after = clamp(preview.remainingFraction);
   return <div className="growth-gauge stack" data-zone={spawning ? "spawn" : zone}>
-    <p className="growth-headline"><strong>{percent(fraction)}</strong><small>of max · sweet spot {percent(preview.sweet)}</small></p>
+    <p className="growth-headline"><strong>{percent(fraction)}</strong><small>{formatTroopRate(preview.growthNowPerSec)}<br />of max · sweet spot {percent(preview.sweet)}</small></p>
     <div className="growth-meter">
       <div className="growth-track" role="meter" aria-label="Troops as percent of maximum" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentOfMax(now)}>
         {bands.map(b => <span key={b.zone} className={`growth-band zone-${b.zone}`} style={{ width: `${b.width * 100}%` }} />)}
@@ -41,6 +41,7 @@ export function GrowthGauge({ self, phase }: { self: SelfState | null; phase?: G
       </div>
       <div className="gauge-marker-labels" aria-hidden="true">{markerLabels(now, after).map(label =>
         <span key={label.text} className={`gauge-marker-label anchor-${label.anchor}`} style={{ left: `${label.left * 100}%` }}>{label.text}</span>)}</div>
+      <div className="growth-zone-labels"><span>{zoneLabel("low")}</span><span>{zoneLabel("sweet")}</span><span>{zoneLabel("wasting")}</span></div>
     </div>
     <p className="growth-rate">{formatTroopRate(preview.growthNowPerSec)} now · {formatTroopRate(preview.growthAtSweetPerSec)} at sweet spot</p>
     <p className={`zone-status zone-chip ${spawning ? "muted" : `text-${zone}`}`}>{spawning ? "Spawn phase: troops grow once you land." : zoneStatus(zone)}</p>

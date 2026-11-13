@@ -114,3 +114,10 @@ it("serves the allowlisted public proxy, rejects non-GET requests and never forw
   expect((await fetch(`${base}/api/player/short`)).status).toBe(400);
   expect((await fetch(`${base}/api/player/OWN12345`, { method: "POST" })).status).toBe(405);
 });
+
+it("never streams ally names or incoming requests", () => {
+  const snapshot = new MockDataSource().getSnapshot(); snapshot.players = [];
+  snapshot.self!.alliances = [{ with: "ally:p7", name: "Ember" }];
+  snapshot.self!.allianceRequests = [{ from: "ally:p7", name: "Ember", atWar: false }];
+  expect(JSON.stringify(streamFrame({ snapshot }, false))).not.toMatch(/Ember|ally:p7/);
+});

@@ -7,8 +7,6 @@ import { BuildPlanner } from "./hud/BuildPlanner";
 import { HudRoot } from "./hud/HudRoot";
 import { LocalStorageLayoutStore, defaultLayout, isHudLayout, snapPosition } from "./hud/layout";
 import { parseStreamOptions, StreamRoot } from "./stream/StreamRoot";
-import { MatchDetail } from "./stats/MatchDetail";
-import { sortMatches } from "./stats/MatchList";
 import { LineChart } from "./charts/LineChart";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -47,14 +45,11 @@ it("renders spectator-safe HUD and SVG charts", () => {
   expect(renderToStaticMarkup(<LineChart points={[]} label="Empty" />)).toContain("No chart data");
   expect(renderToStaticMarkup(<LineChart points={[{ x: 0, y: 5 }]} label="One point" />)).not.toContain("NaN");
 });
-it("sorts matches without mutating history and renders all stream/detail surfaces", async () => {
+it("renders all four stream widgets and drops the removed Lobby from old URLs", async () => {
   const source = new MockDataSource(); const profile = (await source.getProfile("self"))!;
-  const matches = await source.getMatches("self"); const first = matches[0]!.gameId;
-  expect(sortMatches(matches, "placement", "asc")[0]!.placement).toBe(1);
-  expect(sortMatches(matches, "date", "asc")[0]!.gameId).toBe(matches.at(-1)!.gameId);
-  expect(matches[0]!.gameId).toBe(first);
-  const html = renderToStaticMarkup(<StreamRoot snapshot={source.getSnapshot()} profile={profile} lobby={(await source.getLobbies())[0]} result={matches[0]} preview />);
-  for (const widget of ["card", "stats", "top", "lobby", "result"]) expect(html).toContain(`data-widget="${widget}"`);
-  const detail = renderToStaticMarkup(<MatchDetail match={matches[0]!} />);
-  expect(detail).toContain("Buildings constructed"); expect(detail).not.toContain("NaN");
+  const matches = await source.getMatches("self");
+  const html = renderToStaticMarkup(<StreamRoot snapshot={source.getSnapshot()} profile={profile} result={matches[0]} preview />);
+  for (const widget of ["card", "stats", "top", "result"]) expect(html).toContain(`data-widget="${widget}"`);
+  expect(html).not.toContain('data-widget="lobby"');
+  expect(parseStreamOptions("?widgets=lobby,stats").widgets).toEqual(["stats"]);
 });

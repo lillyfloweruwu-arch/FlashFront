@@ -1,0 +1,9 @@
+{
+  "extends": "../../vendor/openfront/tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker.ImportScripts"], "types": ["node"], "noEmit": true, "allowImportingTsExtensions": true,
+    "paths": { "resources/*": ["../../vendor/openfront/resources/*"] }
+  },
+  "include": ["src", "vitest*.ts"],
+  "exclude": []
+}

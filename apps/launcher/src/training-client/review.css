@@ -1,0 +1,5 @@
+/* Upstream creates these layers for its renderer. Keep their game references alive but show only the map. */
+body.review-map > *:not(canvas):not(#app) { visibility: hidden !important; pointer-events: none !important; }
+body.review-map canvas { visibility: visible !important; }
+body.review-map control-panel, body.review-map build-menu, body.review-map player-panel,
+body.review-map win-modal, body.review-map settings-modal { visibility: hidden !important; pointer-events: none !important; }

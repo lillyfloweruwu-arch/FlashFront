@@ -25,10 +25,10 @@ it("reports FlashFront-only insights from the player's own numbers", () => {
   expect(isZoneReport(events.at(-1)!)).toBe(false); expect(isZoneReport(events.at(-2)!)).toBe(true);
   events = feed.observe(snap(50, self({ troops: 400_000, cityLevels: 2, alliances: [{ with: "a", expiresAtTick: 0 }] })));
   // Builds are not reported: the game announces them itself, and live they flooded the feed.
-  expect(events.at(-1)?.text).toBe("Alliance formed (1 active).");
+  expect(events.at(-1)?.text).toBe("Alliance formed with an ally.");
   expect(events.some(e => /built/.test(e.text))).toBe(false);
   events = feed.observe(snap(60, self({ troops: 400_000, cityLevels: 2 })));
-  expect(events.at(-1)?.text).toBe("Alliance ended (0 active).");
+  expect(events.at(-1)?.text).toBe("An alliance ended.");
   expect(new Set(events.map(e => e.id)).size).toBe(events.length);
 });
 
@@ -46,4 +46,13 @@ it("drops everything observed up to the end of a spawn phase", () => {
   expect(feed.observe(snap(20, self({ troops: 1_900_000 })))).toHaveLength(1);
   feed.observe(snap(30, self(), "spawn"));
   expect(feed.observe(snap(40, self()))).toEqual([]);
+});
+
+it("alliance reports name each added or removed ally, including simultaneous changes", () => {
+  const feed = new InsightFeed(); feed.observe(snap(10, self()));
+  const ember = { with: "ally:p7", name: "Ember" }; const northstar = { with: "ally:p9", name: "Northstar" };
+  expect(feed.observe(snap(20, self({ alliances: [ember, northstar] }))).map(e => e.text)).toEqual(["Alliance formed with Ember.", "Alliance formed with Northstar."]);
+  expect(feed.observe(snap(30, self({ alliances: [northstar] }))).at(-1)?.text).toBe("Alliance with Ember ended.");
+  const changed = feed.observe(snap(40, self({ alliances: [{ with: "ally:p8" }] })));
+  expect(changed.slice(-2).map(e => e.text)).toEqual(["Alliance formed with an ally.", "Alliance with Northstar ended."]);
 });

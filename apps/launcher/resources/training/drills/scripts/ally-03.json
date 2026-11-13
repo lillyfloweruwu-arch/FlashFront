@@ -1,0 +1,43 @@
+{
+ "drillId": "ally-03",
+ "cast": {
+  "labels": {
+   "You": "p1",
+   "Neighbour A": "p2"
+  },
+  "clients": {
+   "You": "YouDrill",
+   "Neighbour A": "NbrADril"
+  }
+ },
+ "coach": [
+  {
+   "tick": 910,
+   "actor": "p1",
+   "action": {
+    "kind": "allianceAccept",
+    "target": "p2"
+   }
+  }
+ ],
+ "wrong": [
+  {
+   "tick": 910,
+   "actor": "p1",
+   "action": {
+    "kind": "allianceDecline",
+    "target": "p2"
+   }
+  }
+ ],
+ "opponents": [
+  {
+   "tick": 905,
+   "actor": "p2",
+   "action": {
+    "kind": "allianceRequest",
+    "target": "p1"
+   }
+  }
+ ]
+}

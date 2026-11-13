@@ -116,3 +116,23 @@ it("reads the default config location and tolerates absent settings", () => {
   writeFileSync(join(root, "tools/public/personal.local.json"), JSON.stringify(config));
   expect(loadPersonalConfig(root, { settingsFile: join(root, "missing.json") }).names).toEqual(config.names);
 });
+it("a configured name inside a compressed payload is chance, but an email there still counts", () => {
+  const root = temp();
+  const binary = Buffer.concat([Buffer.from([0xff, 0xfe, 0x80]), Buffer.from(" Testname "), Buffer.from([0xc3]), Buffer.from(" someone@example.test")]);
+  writeFileSync(join(root, "pack.bin.br"), binary);
+  expect(scanFiles(root, ["pack.bin.br"], rules).map(f => f.rule)).toEqual(["email"]);
+});
+it("upstream game data may say the generic vault word; personal markers are still found there", () => {
+  const root = temp();
+  mkdirSync(join(root, "vendor/openfront/resources"), { recursive: true });
+  writeFileSync(join(root, "vendor/openfront/resources/names.json"), `["Ob${"sidian"} Tribe", "private-notes"]`);
+  writeFileSync(join(root, "notes.md"), `Ob${"sidian"}`);
+  expect(scanFiles(root, ["vendor/openfront/resources/names.json"], rules).map(f => f.rule)).toEqual(["vault"]);
+  expect(scanFiles(root, ["vendor/openfront/resources/names.json"], rules).map(f => f.masked)).toEqual(["p***"]);
+  expect(scanFiles(root, ["notes.md"], rules).map(f => f.rule)).toEqual(["vault"]);
+});
+it("only real compressed extensions are opaque; a name in a file ending in 'br' text is still found", () => {
+  const root = temp();
+  writeFileSync(join(root, "notes.zebr"), Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from(" Testname ")]));
+  expect(scanFiles(root, ["notes.zebr"], rules).map(f => f.rule)).toContain("name");
+});

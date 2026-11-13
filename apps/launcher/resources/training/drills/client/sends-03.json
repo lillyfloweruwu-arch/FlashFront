@@ -1,0 +1,74 @@
+{
+ "drillId": "sends-03",
+ "engineCommit": "14ba82badb1e945ef2e758999238339404fdb788",
+ "snapshotFormat": "1",
+ "startTick": 900,
+ "ownClientId": "YouDrill",
+ "gameStartInfo": {
+  "gameID": "drSend03",
+  "lobbyCreatedAt": 1792800000000,
+  "config": {
+   "gameMap": "Black Sea",
+   "difficulty": "Medium",
+   "donateGold": false,
+   "donateTroops": false,
+   "gameType": "Public",
+   "gameMode": "Free For All",
+   "gameMapSize": "Compact",
+   "overtime": {
+    "enabled": true
+   },
+   "publicGameModifiers": {},
+   "nations": "disabled",
+   "bots": 0,
+   "infiniteGold": false,
+   "infiniteTroops": false,
+   "instantBuild": false,
+   "disableClanTags": true,
+   "randomSpawn": false,
+   "maxPlayers": 3,
+   "trusted": true,
+   "spawnImmunityDuration": 50,
+   "disabledUnits": []
+  },
+  "players": [
+   {
+    "clientID": "YouDrill",
+    "username": "You",
+    "clanTag": null
+   },
+   {
+    "clientID": "NbrADril",
+    "username": "Varenth",
+    "clanTag": null
+   },
+   {
+    "clientID": "NbrBDril",
+    "username": "Hessavia",
+    "clanTag": null
+   }
+  ]
+ },
+ "opponents": [],
+ "coach": [
+  {
+   "turn": 0,
+   "intent": {
+    "type": "attack",
+    "targetID": null,
+    "troops": 57588,
+    "clientID": "YouDrill"
+   }
+  }
+ ],
+ "check": {
+  "kind": "send",
+  "minSendPct": 10,
+  "maxSendPct": 20,
+  "minReservePct": 40
+ },
+ "window": {
+  "openTick": 900,
+  "deadlineTick": 1500
+ }
+}

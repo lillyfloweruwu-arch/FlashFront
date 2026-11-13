@@ -1,0 +1,42 @@
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+body { width: 100%; font: 500 13px/1.45 "Inter", "Segoe UI", system-ui, sans-serif; color: var(--ff-fg, #F2F3F5); }
+.end-review-card {
+  box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: center;
+  padding: 16px; background: #121316; border: 1px solid #30333b; border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.07);
+  animation: end-card-in 180ms ease-out;
+}
+.end-ring { position: relative; width: 72px; height: 72px; display: grid; place-items: center; }
+.end-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.end-ring circle { fill: none; stroke-width: 6; }
+.end-ring-track { stroke: var(--ff-edge); }
+.end-ring-value { stroke: var(--gain, var(--ff-fg)); stroke-linecap: round; }
+.end-ring strong { font-size: 18px; }
+.end-body { display: grid; gap: 8px; min-width: 0; }
+.end-title { margin: 0; font: 600 26px/1.1 "Antonio Variable", "Bahnschrift", sans-serif; text-transform: uppercase; }
+.end-review-pending { display: grid; grid-template-columns: 1fr; gap: 9px; padding: 14px 16px; }
+.end-pending-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.end-review-pending .end-title { font-size: 22px; }
+.end-status { font-size: 11px; font-weight: 600; color: var(--ff-muted, #9AA0AB); }
+.end-status::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: 6px; border-radius: 50%; background: currentColor; vertical-align: middle; }
+.end-review-pending .end-actions { align-items: center; justify-content: space-between; }
+.end-brand { font: 600 13px/1 "Antonio Variable", "Bahnschrift", sans-serif; color: #9AA0AB; letter-spacing: .04em; }
+.end-brand span { color: #E8192C; }
+.end-coach-line { margin: 0; font-size: 12px; line-height: 1.4; }
+.end-headline { margin: 0; font-weight: 600; line-height: 1.35; }
+.end-note { margin: 0; color: var(--ff-muted, #9AA0AB); font-size: 13px; line-height: 1.45; }
+.end-counts { display: flex; gap: 14px; margin: 0; padding: 0; list-style: none; font-size: 12px; }
+.end-counts li { display: grid; color: var(--ff-muted); }
+.end-counts strong { color: var(--ff-fg); font-size: 16px; }
+.end-counts .push-great { color: var(--ff-good); }
+.end-counts .push-good { color: var(--ff-ally); }
+.end-counts .push-costly { color: var(--ff-caution); }
+.end-counts .push-blunder { color: var(--ff-rose); }
+.end-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.end-actions button { font: inherit; padding: 7px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); color: var(--ff-fg); cursor: pointer; }
+.end-actions button.primary { background: linear-gradient(180deg, #F02236, #C61224); color: #fff; border-color: var(--ff-red); box-shadow: 0 6px 16px rgba(232,25,44,.25); }
+.end-actions button:disabled { opacity: .5; cursor: default; }
+.end-actions button:focus-visible { outline: 2px solid var(--ff-red); outline-offset: 2px; }
+.ff-lite .end-review-card { animation: none; }
+@media (prefers-reduced-motion: reduce) { .end-review-card { animation: none; } }
+@keyframes end-card-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }

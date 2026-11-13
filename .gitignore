@@ -13,3 +13,6 @@ release/
 .superpowers/
 tools/public/personal.local.json
 .flashfront-export
+
+# Training maps packed by tools/training/vendor.ts (regenerated from the pinned upstream build)
+apps/launcher/build/training-maps/

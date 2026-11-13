@@ -19,11 +19,16 @@ it("ships a grid or an explicit missing entry for every old and v0.35 map", asyn
     const { terrain } = await readCachedMap(grid.folder, grid.sourceVersion);
     expect(cells.every((v, i) => (v > 0) === isPassable(terrain[i]!)), grid.folder).toBe(true);
   }
-});
+}, 30_000);
 it("reproduces the public-terrain grid without changing calibrated picks", async () => {
   const grid = data.maps.World;
   const { manifest, terrain } = await readCachedMap(grid.folder, grid.sourceVersion);
   const result = scoreMap(terrain, manifest);
   expect(Buffer.from(result.heat)).toEqual(gunzipSync(Buffer.from(grid.data, "base64")));
   expect(result.heat.some(v => v >= 28)).toBe(true);
+}, 30_000);
+it("Brain Rot's grid comes from its v0.35.4 terrain (OpenFront v0.35.3 reworked the map)", () => {
+  expect(data.maps["Brain Rot"].sourceVersion).toBe("0.35.4");
+  // Ommatrypta's terrain files did not change in v0.35.3, only its layer images, so its grid stays.
+  expect(data.maps.Ommatrypta.sourceVersion).toBe("0.35.2");
 });

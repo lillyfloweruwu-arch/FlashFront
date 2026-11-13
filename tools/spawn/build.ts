@@ -11,15 +11,17 @@ const root = new URL("../../", import.meta.url);
 const dataDir = new URL("packages/core/src/spawn/", root);
 const imageDir = new URL("apps/launcher/resources/minimaps/", root);
 const galleryDir = new URL("apps/gallery/public/minimaps/", root);
-const license = `# Map data and derived assets\n\nMap data © OpenFront contributors, CC BY-SA 4.0\n\nSources: https://github.com/openfrontio/OpenFrontIO/tree/v0.34.25/resources/maps\nhttps://github.com/openfrontio/OpenFrontIO/tree/v0.35.2/resources/maps\n\nLicense: https://creativecommons.org/licenses/by-sa/4.0/\n\nFlashFront modifications: terrain-derived spawn scores, coordinates and reasons, and\nresized minimaps recolored with the FlashFront palette. The generated spots.json and\nheatmaps.json (four-tile coast/room grids, quantized and gzip-compressed) and minimap PNGs are distributed under CC BY-SA 4.0. Community notes are short paraphrases\nwith separate source metadata. These heuristic suggestions are not win-rate guarantees.\n`;
+const license = `# Map data and derived assets\n\nMap data © OpenFront contributors, CC BY-SA 4.0\n\nSources: https://github.com/openfrontio/OpenFrontIO/tree/v0.34.25/resources/maps\nhttps://github.com/openfrontio/OpenFrontIO/tree/v0.35.2/resources/maps\nhttps://github.com/openfrontio/OpenFrontIO/tree/v0.35.4/resources/maps (Brain Rot)\n\nLicense: https://creativecommons.org/licenses/by-sa/4.0/\n\nFlashFront modifications: terrain-derived spawn scores, coordinates and reasons, and\nresized minimaps recolored with the FlashFront palette. The generated spots.json and\nheatmaps.json (four-tile coast/room grids, quantized and gzip-compressed) and minimap PNGs are distributed under CC BY-SA 4.0. Community notes are short paraphrases\nwith separate source metadata. These heuristic suggestions are not win-rate guarantees.\n`;
 for (const dir of [dataDir, imageDir, galleryDir]) { await mkdir(dir, { recursive: true }); await writeFile(new URL("LICENSE-MAPDATA.md", dir), license); }
 const maps: Record<string, unknown> = {};
 const rows = ["| Map | Picks | Top reason |", "| --- | --- | --- |"];
+// Maps whose terrain changed after v0.35.2 (OpenFront v0.35.3 reworked Brain Rot).
+const NEWER_TERRAIN: Record<string, string> = { brainrot: "0.35.4" };
 const start = Date.now();
 if (process.argv.includes("--heat-only")) {
   const missing: string[] = []; const fallback: string[] = [];
   for (const map of HEAT_MAPS) {
-    let sourceVersion = "0.35.2";
+    let sourceVersion = NEWER_TERRAIN[map.folder] ?? "0.35.2";
     let cached;
     try { cached = await (process.argv.includes("--fetch") ? fetchMap(map.folder, sourceVersion) : readCachedMap(map.folder, sourceVersion)); }
     catch (error) {

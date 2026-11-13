@@ -2,6 +2,8 @@ import type { RawExtract, RecordedMatch } from "@flashfront/core";
 export const validPublicId = (id: unknown): id is string => typeof id === "string" && /^[A-Za-z0-9]{8}$/.test(id);
 export const validGameId = (id: unknown): id is string => typeof id === "string" && /^[A-Za-z0-9]{6,16}$/.test(id);
 export interface ApiResult { status: number; body: unknown; }
+export const RECORD_MAX_BYTES = 25_000_000;
+export const recordUpstreamPath = (gameId: string): string | undefined => validGameId(gameId) ? `/public/game/${gameId}` : undefined;
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" ? value as Record<string, unknown> : {};
 
 /** Closed route map: caller input can never choose a host, method, header or arbitrary upstream path. */
@@ -31,6 +33,40 @@ export class StatsApi {
   private lastStart = -Infinity;
   constructor(private readonly fetcher: typeof fetch = fetch, private readonly now: () => number = Date.now,
     private readonly sleep: (ms: number) => Promise<void> = ms => new Promise(r => setTimeout(r, ms))) {}
+  /** Main process only. Guard is checked at dispatch, after the shared queue wait. */
+  gameRecord(gameId: string, mayStart: () => boolean = () => true): Promise<ApiResult> {
+    const upstream = recordUpstreamPath(gameId);
+    if (!upstream) return Promise.resolve({ status: 400, body: {} });
+    const operation = this.queue.then(async (): Promise<ApiResult> => {
+      await this.sleep(Math.max(0, this.lastStart + 1000 - this.now()));
+      if (!mayStart()) return { status: 425, body: {} };
+      this.lastStart = this.now();
+      try {
+        const response = await this.fetcher(`https://api.openfront.io${upstream}`, {
+          method: "GET", credentials: "omit", redirect: "error", headers: { Accept: "application/json" }, signal: AbortSignal.timeout(30_000),
+        });
+        if (Number(response.headers.get("content-length")) > RECORD_MAX_BYTES) {
+          await response.body?.cancel(); return { status: 413, body: {} };
+        }
+        const reader = response.body?.getReader();
+        if (!reader) return { status: response.status, body: {} };
+        const chunks: Uint8Array[] = []; let size = 0;
+        try {
+          for (;;) {
+            const { done, value } = await reader.read(); if (done) break;
+            size += value.byteLength;
+            if (size > RECORD_MAX_BYTES) { await reader.cancel(); return { status: 413, body: {} }; }
+            chunks.push(value);
+          }
+        } finally { reader.releaseLock(); }
+        let body: unknown;
+        try { body = JSON.parse(Buffer.concat(chunks, size).toString("utf8")); } catch { body = {}; }
+        return { status: response.status, body };
+      } catch { return { status: 502, body: {} }; }
+    });
+    this.queue = operation.catch(() => {});
+    return operation;
+  }
   get(path: string): Promise<ApiResult> {
     const upstream = upstreamPath(path);
     if (!upstream) return Promise.resolve({ status: 400, body: { error: "Invalid public API route or parameters" } });

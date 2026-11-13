@@ -30,6 +30,13 @@ it("previews each theme, saves against current settings, and copies catalog IDs 
     copyPreset.mockRejectedValueOnce(new Error("Clipboard unavailable"));
     await act(async () => (host.querySelector(".builtin-preset button") as HTMLButtonElement).click());
     expect(host.querySelector('[role="status"]')!.textContent).toContain("Clipboard unavailable");
+    await act(async () => root.render(<ThemesTab api={api} settings={{ ...DEFAULT_SETTINGS, theme: "signal" }} compact />));
+    expect(host.querySelector("h1")).toBeNull();
+    expect(host.querySelectorAll(".theme-palette")).toHaveLength(4);
+    expect(host.querySelectorAll(".theme-active")).toHaveLength(1);
+    expect(host.querySelector(".theme-active")!.getAttribute("aria-label")).toBe("Signal");
+    await act(async () => (host.querySelector('.theme-active [aria-pressed]') as HTMLButtonElement).click());
+    expect(saveSettings).toHaveBeenLastCalledWith({ ...latest, theme: "signal" });
     expect(host.textContent).not.toMatch(/\balways\b|\bmust\b|winners do|betray/i);
   } finally { await act(async () => root.unmount()); host.remove(); vi.unstubAllGlobals(); }
 });

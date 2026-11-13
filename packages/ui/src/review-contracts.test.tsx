@@ -10,13 +10,15 @@ const here = dirname(fileURLToPath(import.meta.url));
 const walk = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]);
 
 it("reserves signature red and its aliases for branding and interaction, never data or charts", () => {
-  for (const folder of ["charts", "stats", "stream", "hud"]) {
+  for (const folder of ["charts", "stream", "hud"]) {
     for (const file of walk(join(here, folder)).filter(f => /\.(tsx?|css)$/.test(f))) {
       expect(readFileSync(file, "utf8"), file).not.toMatch(/--ff-red|var\(--(?:primary|accent)\)|className="(?:accent|primary)"/);
     }
   }
   const css = readFileSync(join(here, "theme.css"), "utf8");
   for (const rule of css.matchAll(/([^{}]+)\{([^{}]+)\}/g)) {
+    // Red initials tile is explicit branding in the approved 0.3.0 stream design.
+    if (rule[1]!.trim() === ".stream-root .avatar") continue;
     if (/\.(?:chart|bar-fill|avatar|spawn-(?:marker|pick-number|chip)|player-card|lobby-count)/.test(rule[1]!)) {
       expect(rule[2], rule[1]).not.toMatch(/--ff-red|var\(--(?:primary|accent|accent-soft)\)/);
     }

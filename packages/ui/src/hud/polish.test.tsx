@@ -49,20 +49,20 @@ it("item 1: the growth gauge states facts, and the decision card leaves routine 
     for (let i = 0; i < 30; i++) { s.tick += 10; s.elapsedSec++; await act(async () => root.render(<HudRoot snapshot={s} layoutStore={layoutStore} />)); }
     return host.querySelector('[data-panel="decision"]')!.textContent ?? "";
   };
-  expect(await run(store())).not.toContain("Growth slowing");
+  expect(await run(store(l => { l.decision.hidden = false; }))).not.toContain("Growth slowing");
   await act(async () => root.unmount()); root = createRoot(host);
   s.gameId = "polish-2"; s.elapsedSec = 100; s.tick = 1000;
-  expect(await run(store(l => { l.gauge.hidden = true; }))).toContain("Growth slowing at 90% of max.");
+  expect(await run(store(l => { l.decision.hidden = false; l.gauge.hidden = true; }))).toContain("Growth slowing at 90% of max.");
 });
 
 it("item 1: field reports log zone changes only while the decision card is hidden or snoozed", async () => {
   const s = playing();
-  s.events = [{ id: "polish-990-zone-1", tick: 990, kind: "info", text: "Growth slowing · 70% of max or more." }, { id: "polish-995-2", tick: 995, kind: "allianceRequest", text: "Alliance formed (1 active)." }];
-  await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store()} />));
+  s.events = [{ id: "polish-990-zone-1", tick: 990, kind: "info", text: "Growth slowing · 70% of max or more." }, { id: "polish-995-2", tick: 995, kind: "allianceRequest", text: "Alliance formed with Ember." }];
+  await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store(l => { l.decision.hidden = false; l.events.hidden = false; })} />));
   const events = () => host.querySelector('[data-panel="events"]')!.textContent ?? "";
   expect(events()).toContain("Alliance formed"); expect(events()).not.toContain("Growth slowing");
   await act(async () => root.unmount()); root = createRoot(host);
-  await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store(l => { l.decision.hidden = true; })} />));
+  await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store(l => { l.decision.hidden = true; l.events.hidden = false; })} />));
   expect(events()).toContain("Growth slowing");
 });
 
@@ -104,11 +104,11 @@ it("practice goal and growth gauge share one truncated 70% threshold", async () 
   expect(host.textContent).toContain("70% cap: 0:02 over");
 });
 
-it("item 2: attack preview leads with what is left and compares sizes in one compact table", () => {
+it("attack preview leads with the send, then reserve, and compares sizes in one compact table", () => {
   const self = playing().self!; Object.assign(self, { troops: 3070000, maxTroops: 3810000, attackRatio: 0.2 });
   host.innerHTML = renderToStaticMarkup(<AttackPreview self={self} />);
-  expect(host.querySelector(".attack-headline")?.textContent).toBe("Leaves 245K · 64%");
-  expect(host.querySelector(".send-readout")?.textContent).toContain("Send 20% · 61.4K");
+  expect(host.querySelector(".attack-headline")?.textContent).toBe("Send 20% 61.4K troops");
+  expect(host.querySelector(".send-readout")?.textContent).toContain("Leaves 245K (64%)");
   const table = host.querySelector("table.attack-sizes")!;
   expect([...table.querySelectorAll("th")].map(th => th.textContent)).toEqual(["Send", "Left", "State"]);
   expect(table.querySelectorAll("tbody tr")).toHaveLength(3);

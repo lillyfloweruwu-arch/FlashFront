@@ -41,14 +41,17 @@ it("renders reserve floor math, trade status and neutral copy", () => {
   expect(html).toContain("No trade income yet"); expect(html).toContain("Ports send trade ships automatically");
   expect(html).not.toMatch(/always|must|betray|winners|67%/i);
 });
-it("sorts alliance expiry and shows the caution renew state below 30 seconds", () => {
-  const s = snapshot(); s.self!.alliances = [{ with: "Later", expiresAtTick: 810 }, { with: "Soon", expiresAtTick: 800 }, { with: "Urgent", expiresAtTick: 350 }, { with: "Unknown" }];
+it("sorts named allies by expiry while showing renewal requests instead of countdowns", () => {
+  const s = snapshot();
+  s.self!.alliances = [{ with: "ally:p7", name: "Ember", expiresAtTick: s.tick + 2000 }, { with: "ally:p9", name: "Northstar", expiresAtTick: s.tick + 250, renewRequested: true }, { with: "ally:p8" }];
   const html = renderToStaticMarkup(<AlliancePanel snapshot={s} />);
-  expect(html.indexOf("Urgent")).toBeLessThan(html.indexOf("Soon")); expect(html.indexOf("Soon")).toBeLessThan(html.indexOf("Later"));
-  expect(html).toContain("renew · "); expect(html).toContain('class="warning"'); expect(html).toContain("Expiry unknown");
+  expect(html.indexOf("Northstar")).toBeLessThan(html.indexOf("Ember"));
+  expect(html).toContain("renewal asked"); expect(html).toContain('class="warning"'); expect(html).toContain("formed 0:00 ago");
+  expect(html).not.toMatch(/Expiry unknown|0:25|role="meter"/);
   s.self!.alliances = []; s.elapsedSec = 120;
   expect(renderToStaticMarkup(<AlliancePanel snapshot={s} />)).toContain("No active alliance.");
 });
+
 it("pins a big incoming row until attacks end, then clears it on a new match", async () => {
   const s = snapshot(); s.self!.troops = 201000; s.self!.incomingAttacks = [{ from: "Own incoming record", troops: 130000 }];
   await act(async () => root.render(<EventFeed snapshot={s} />));
@@ -60,7 +63,7 @@ it("pins a big incoming row until attacks end, then clears it on a new match", a
   s.gameId = "new"; s.self!.incomingAttacks[0]!.troops = 100; await act(async () => root.render(<EventFeed snapshot={s} />)); expect(host.querySelector('[role="alert"]')).toBeNull();
 });
 it("keeps completed opening hidden, offers edit controls for new panels and persists visibility", async () => {
-  const s = snapshot(); const store = { load: () => defaultLayout(1920), save: vi.fn() };
+  const s = snapshot(); const store = { load: () => { const layout = defaultLayout(1920); layout.opening.hidden = false; layout.goal.hidden = false; return layout; }, save: vi.fn() };
   await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store} />));
   expect((host.querySelector('[data-panel="opening"]') as HTMLElement).hidden).toBe(false);
   s.self!.portLevels = 1; s.self!.cityLevels = 1; s.self!.alliances = [{ with: "Pact" }];
@@ -94,14 +97,12 @@ it("keeps simultaneously visible panels clear of each other and every game UI zo
   }
 });
 // 0.2.0 fixes (drafted by FlashBot, verified here).
-it("keeps the danger tone for alliances with 15 seconds or less", () => {
-  const s = snapshot();
-  s.self!.alliances = [{ with: "Pact", expiresAtTick: s.tick + 100 }];          // 10 s
-  expect(renderToStaticMarkup(<AlliancePanel snapshot={s} />)).toContain('class="danger"');
-  s.self!.alliances = [{ with: "Pact", expiresAtTick: s.tick + 250 }];          // 25 s
+it("leaves imminent-expiry warnings to nudges, including the final 15 seconds", () => {
+  const s = snapshot(); s.self!.alliances = [{ with: "ally:p7", expiresAtTick: s.tick + 150 }];
   const html = renderToStaticMarkup(<AlliancePanel snapshot={s} />);
-  expect(html).toContain('class="warning"'); expect(html).not.toContain('class="danger"');
+  expect(html).toContain("formed 0:00 ago"); expect(html).not.toMatch(/class="danger"|class="warning"|0:15/);
 });
+
 it("shows the trade monitor for a factory-only economy", async () => {
   const s = snapshot(); s.phase = "playing"; s.self!.portLevels = 0; s.self!.factoryLevels = 1;
   const store = { load: () => defaultLayout(1920), save: vi.fn() };

@@ -8,7 +8,7 @@ import { OpeningPanel } from "./hud/OpeningPanel";
 import { BuildPlanner } from "./hud/BuildPlanner";
 import { AlliancePanel } from "./hud/AlliancePanel";
 import { AttackPreview } from "./hud/AttackPreview";
-import { GAME_UI_ZONES, stackColumns } from "./hud/layout";
+import { defaultLayout, GAME_UI_ZONES, stackColumns } from "./hud/layout";
 let host: HTMLDivElement; let root: Root;
 beforeEach(() => {
   vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
@@ -19,7 +19,8 @@ beforeEach(() => {
 afterEach(async () => { await act(async () => root.unmount()); host.remove(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 const snapshot = () => { const s = new MockDataSource().getSnapshot(); s.phase = "playing"; s.elapsedSec = 100; s.tick = 1000; s.map = "World"; return s; };
 it("snoozes one decision via edit button, keyboard and launcher signal, and hides in spawn", async () => {
-  const s = snapshot(); const store = { load: () => null, save: vi.fn() };
+  const s = snapshot(); const layout = defaultLayout(1920); layout.decision.hidden = false;
+  const store = { load: () => layout, save: vi.fn() };
   vi.spyOn(Date, "now").mockReturnValue(100000);
   await act(async () => root.render(<HudRoot snapshot={s} layoutStore={store} editMode />));
   const card = () => host.querySelector('[data-panel="decision"]')!;
@@ -57,11 +58,11 @@ it("tracks unknown alliance expiry from formation, resets on removal, and labels
   const first = mapToSnapshot(raw)!; raw.tick = 2020;
   const later = mapToSnapshot(raw, first)!;
   await act(async () => root.render(<AlliancePanel snapshot={later} />));
-  expect(host.textContent).toContain("formed 3:12 ago · alliances last 5:00 by default");
+  expect(host.textContent).toContain("formed 3:12 ago");
   later.self!.alliances = []; await act(async () => root.render(<AlliancePanel snapshot={later} />));
   later.self!.alliances = [{ with: "Alliance 1" }]; await act(async () => root.render(<AlliancePanel snapshot={later} />));
   expect(host.textContent).toContain("formed 0:00 ago");
-  later.self!.alliances[0]!.expiresAtTick = later.tick + 290;
+  later.self!.alliances[0]!.expiresAtTick = later.tick + 290; later.self!.alliances[0]!.renewRequested = true;
   await act(async () => root.render(<AlliancePanel snapshot={later} />));
   expect(host.querySelector(".warning")?.textContent).toContain("renew");
 });

@@ -5,8 +5,8 @@ import { attackPreview, attackSizes, percentOfMax, zoneLabel, formatDuration, fo
 const pct = (fraction: number) => `${percentOfMax(fraction)}%`;
 const selected = (a: number, b: number) => Math.abs(a - b) < 0.001;
 /**
- * Answers "what's left?" first: the remaining troops are the glance number, the send and its state
- * sit under it, then a compact 20/30/50% table. Combat rules and push reasons live in match review
+ * Leads with the selected send and keeps the remaining troops directly beneath it, then a compact
+ * 20/30/50% table. Combat rules and push reasons live in match review
  * and Training, not over the map.
  */
 export function AttackPreview({ self, phase, reserveFloor = DEFAULT_RESERVE_FLOOR, snapshot, lastPush, showLastPush = true }: { self: SelfState | null; phase?: GameSnapshot["phase"]; reserveFloor?: number; snapshot?: GameSnapshot; lastPush?: { result?: PushResult }; showLastPush?: boolean }) {
@@ -21,8 +21,8 @@ export function AttackPreview({ self, phase, reserveFloor = DEFAULT_RESERVE_FLOO
   const preserves = preview.remainingFraction * 100 >= reserveFloor;
   const backToSweet = Number.isFinite(preview.secondsBackToSweet) ? formatDuration(Math.ceil(preview.secondsBackToSweet)) : "—";
   return <div className={`attack-preview stack ${exposed ? "attack-exposed" : ""}`} data-zone={preview.zoneAfter}>
-    <p className="attack-headline">Leaves {formatTroops(preview.remaining)} · {pct(preview.remainingFraction)}</p>
-    <p className="attack-send"><span className={`send-readout ${preserves ? "gain" : "warning"}`}>Send {Math.round(self.attackRatio * 100)}% · {formatTroops(preview.sent)}</span> <span className={`zone-chip text-${preview.zoneAfter}`}>{zoneLabel(preview.zoneAfter)}</span></p>
+    <p className="attack-headline">Send {Math.round(self.attackRatio * 100)}% <small>{formatTroops(preview.sent)} troops</small></p>
+    <p className="attack-send"><span className={`send-readout ${preserves ? "gain" : "warning"}`}>Leaves {formatTroops(preview.remaining)} ({pct(preview.remainingFraction)})</span> <span className={`zone-chip text-${preview.zoneAfter}`}>{zoneLabel(preview.zoneAfter)}</span></p>
     <table className="attack-sizes" aria-label="Attack-size comparison">
       <thead><tr><th scope="col">Send</th><th scope="col">Left</th><th scope="col">State</th></tr></thead>
       <tbody>{attackSizes(self.troops, self.maxTroops).map(size => {

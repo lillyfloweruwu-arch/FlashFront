@@ -20,6 +20,7 @@ function gameMode(game: RawExtract["game"]): GameSnapshot["mode"] {
 export function mapToSnapshot(raw: RawExtract, prev?: GameSnapshot | null): GameSnapshot | null {
   if (!raw.inGame) return null;
   const tick = number(raw.tick);
+  const restricted = gameMode(raw.game) === "Ranked" || raw.replay;
   const me = raw.me;
   const continuous = !!prev && tick >= prev.tick && (!raw.gameId || raw.gameId === prev.gameId);
   const gameId = raw.gameId ?? (continuous ? prev.gameId : prev ? `${prev.gameId}:next:${tick}` : "cdp-1");
@@ -69,7 +70,13 @@ export function mapToSnapshot(raw: RawExtract, prev?: GameSnapshot | null): Game
       ...(me.outgoingCount !== undefined ? { outgoingAttacks: me.outgoingCount } : {}),
       tilesOwnedPct: number(ownRow?.landPct) || (number(raw.landTiles) > 0 ? number(me.tiles) / number(raw.landTiles) * 100 : 0),
       rank: number(ownRow?.rank), buildings,
-      alliances: (me.alliances ?? []).map(a => ({ with: a.with, ...(a.renewRequested ? { renewRequested: true } : {}), expiresAtTick: a.expiresInTicks === undefined ? undefined : tick + number(a.expiresInTicks),
+      ...(!restricted && me.allianceRequests?.length ? { allianceRequests: me.allianceRequests.map(request => {
+        const stripTag = (name: string) => name.replace(/^\[[^\]]+\]\s+/, "");
+        const rows = (raw.leaderboard ?? []).filter(row => stripTag(row.name) === stripTag(request.name));
+        return { from: request.from, name: request.name, atWar: request.atWar,
+          ...(rows.length === 1 && Number.isFinite(rows[0]!.landPct) ? { landPct: rows[0]!.landPct } : {}) };
+      }) } : {}),
+      alliances: (me.alliances ?? []).map(a => ({ with: a.with, ...(!restricted && a.name !== undefined ? { name: a.name } : {}), ...(a.renewRequested ? { renewRequested: true } : {}), expiresAtTick: a.expiresInTicks === undefined ? undefined : tick + number(a.expiresInTicks),
         formedAtTick: continuous ? prev.self?.alliances.find(old => old.with === a.with)?.formedAtTick ?? tick : tick })),
     } : null,
     players: (raw.leaderboard ?? []).map(row => ({

@@ -140,3 +140,26 @@ it("ignores ranks from the first 30 seconds when picking the best rank", () => {
   feed(r, at(50, 1)); feed(r, at(600, 7)); feed(r, at(900, 9));
   expect(r.finish()!.summary).toMatchObject({ bestRank: 7, finalRank: 9 });
 });
+
+it("never records ally display names or requests", () => {
+  const r = new MatchRecorder();
+  feed(r, raw(0, 480000, { alliances: [{ with: "ally:p7", name: "Ember" }], allianceRequests: [{ from: "ally:p7", name: "Ember", atWar: false }] }));
+  expect(JSON.stringify(r.finish())).not.toMatch(/Ember|ally:p7/);
+});
+it("records nudge outcomes on the recording clock, never in ranked", () => {
+  const r = new MatchRecorder(() => 0); feed(r, raw(600)); feed(r, raw(620));
+  r.recordNudge("game1234", 620, "danger", "ignored");
+  r.recordNudge("game1234", 620, "bogus", "ignored");
+  r.recordNudge("game1234", 620, "noAlly", "bogus");
+  r.recordNudge("other", 620, "noAlly", "cleared");
+  r.recordNudge("game1234", 1000, "noAlly", "cleared");
+  feed(r, raw(640)); r.recordNudge("game1234", 640, "allyRequest", "cleared");
+  expect(r.finish()!.events.filter(e => e.kind === "nudge")).toEqual([
+    { kind: "nudge", t: 2, nudgeKind: "danger", outcome: "ignored" },
+    { kind: "nudge", t: 4, nudgeKind: "allyRequest", outcome: "cleared" },
+  ]);
+  const ranked = new MatchRecorder(() => 0);
+  const rankedRaw = (tick: number): RawExtract => ({ ...raw(tick), game: { map: "World", mode: "Free For All", rankedType: "ffa" } });
+  feed(ranked, rankedRaw(600)); feed(ranked, rankedRaw(620)); ranked.recordNudge("game1234", 620, "danger", "ignored");
+  expect(ranked.finish()?.events.filter(e => e.kind === "nudge") ?? []).toEqual([]);
+});

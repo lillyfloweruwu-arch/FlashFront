@@ -41,3 +41,12 @@ it("links Full notes to the GitHub release tag", () => {
   expect(releaseNotesUrl("0.2.1")).toBe("https://github.com/lillyfloweruwu-arch/FlashFront/releases/tag/v0.2.1");
   expect(() => releaseNotesUrl("0.2.1/../../evil")).toThrow();
 });
+
+it("ships matching candidate and final highlights and shows the final release after the candidate", () => {
+  expect(WHATS_NEW["0.3.0-rc.1"]!.highlights).toEqual(WHATS_NEW["0.3.0"]!.highlights);
+  expect(WHATS_NEW["0.3.0-rc.1"]!.headline).toContain("release candidate");
+  expect(WHATS_NEW["0.3.0"]!.highlights).toHaveLength(3);
+  const done = { ...DEFAULT_SETTINGS, setupDone: true, lastSeenVersion: "0.3.0-rc.1" };
+  expect(whatsNewAction(done, "0.3.0", "connected-menu")).toBe("show");
+  expect(whatsNewAction(done, "0.3.0", "connected-game")).toBe("none");
+});

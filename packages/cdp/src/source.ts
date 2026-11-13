@@ -8,6 +8,9 @@ export interface Observation { raw: RawExtract | null; snapshot: GameSnapshot | 
 interface EvaluateResult { result?: { value?: RawExtract }; exceptionDetails?: { text?: string; exception?: { className?: string; description?: string } }; }
 /** Minimum spacing of camera fast-lane reads while Space is held in spawn. */
 export const CAMERA_MIN_MS = 8;
+export const CAMERA_LITE_MIN_MS = 33;
+export const POLL_MS = { game: 250, spawn: 125 } as const;
+export const LITE_POLL_MS = { game: 500, spawn: 250 } as const;
 export class CdpDataSource implements DataSource {
   readonly name = "cdp";
   readonly client: CdpClient;
@@ -33,10 +36,13 @@ export class CdpDataSource implements DataSource {
   private logged = new Set<boolean>();
   private session = 0;
   private gameSerial = 0;
+  private lite: boolean;
   constructor(readonly port = 9222, private options: {
     client?: CdpClient; discover?: (port: number) => Promise<CdpTarget | null>; log?: (message: string) => void;
+    lite?: boolean;
   } = {}) {
     validatePort(port);
+    this.lite = options.lite === true;
     this.client = options.client ?? new CdpClient();
     this.client.onConnection(connected => {
       if (!connected && this.running) { this.clear(); this.setStatus("disconnected"); }
@@ -49,6 +55,7 @@ export class CdpDataSource implements DataSource {
   subscribeObservation(cb: (s: Observation) => void): () => void { this.observations.add(cb); cb({ raw: this.raw, snapshot: this.snapshot }); return () => { this.observations.delete(cb); }; }
   subscribeCamera(cb: (camera: SpawnCamera) => void): () => void { this.cameraListeners.add(cb); return () => { this.cameraListeners.delete(cb); }; }
   setCameraHeld(held: boolean): void { this.cameraHeld = held; this.updateCameraLane(); }
+  setLite(lite: boolean): void { this.lite = lite; }
   private updateCameraLane(): void {
     const active = this.running && this.cameraHeld && this.snapshot?.phase === "spawn" && this.snapshot.mode !== "Ranked" && !this.snapshot.observer;
     // Back-to-back reads, at most one per CAMERA_MIN_MS (~120 Hz): a 60 Hz timer jittered on Windows
@@ -58,7 +65,8 @@ export class CdpDataSource implements DataSource {
       const loop = async () => {
         const started = Date.now();
         await this.pollCamera();
-        if (this.cameraTimer && epoch === this.cameraEpoch) this.cameraTimer = setTimeout(() => void loop(), Math.max(0, CAMERA_MIN_MS - (Date.now() - started)));
+        const minMs = this.lite ? CAMERA_LITE_MIN_MS : CAMERA_MIN_MS;
+        if (this.cameraTimer && epoch === this.cameraEpoch) this.cameraTimer = setTimeout(() => void loop(), Math.max(0, minMs - (Date.now() - started)));
       };
       this.cameraTimer = setTimeout(() => void loop(), 0);
     } else if (!active && this.cameraTimer) { clearTimeout(this.cameraTimer); this.cameraTimer = undefined; this.cameraEpoch++; }
@@ -92,9 +100,13 @@ export class CdpDataSource implements DataSource {
     this.running = true; this.generation++; this.setStatus("searching");
     void this.search();
     this.discoveryTimer = setInterval(() => void this.search(), 1000);
-    // 8 Hz during the spawn phase so the on-map heat follows panning; 4 Hz otherwise.
+    // One timer; mode changes take effect on its next tick without reconnecting.
     let ticks = 0;
-    this.pollTimer = setInterval(() => { if (++ticks % 2 === 0 || this.snapshot?.phase === "spawn") void this.poll(); }, 125);
+    this.pollTimer = setInterval(() => {
+      const rates = this.lite ? LITE_POLL_MS : POLL_MS;
+      const interval = this.snapshot?.phase === "spawn" ? rates.spawn : rates.game;
+      if (++ticks % (interval / 125) === 0) void this.poll();
+    }, 125);
   }
   stop(): void {
     this.running = false; this.generation++;

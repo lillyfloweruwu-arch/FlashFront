@@ -9,7 +9,7 @@ import * as core from "@flashfront/core";
 import { HudRoot } from "./HudRoot";
 import { SpawnHeatmap } from "./SpawnHeatmap";
 import { TeamSwatch } from "./TeamSwatch";
-import { arrangePanels, GAME_UI_ZONES, LocalStorageLayoutStore, PANEL_HEIGHTS, PANEL_WIDTH, panelIds, presetLayout } from "./layout";
+import { defaultLayout, arrangePanels, GAME_UI_ZONES, LocalStorageLayoutStore, PANEL_HEIGHTS, PANEL_WIDTH, panelIds, presetLayout } from "./layout";
 
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers(); localStorage.clear(); });
 it("does not mount hidden or collapsed panel bodies", () => {
@@ -138,4 +138,13 @@ it("labels the own team only during a live team spawn", () => {
   const html = renderToStaticMarkup(<TeamSwatch snapshot={snapshot} team={{ team: "TEAL", teamColor: "#009E73" }} />);
   expect(html).toContain("Your team: TEAL"); expect(html).toContain("data-heat-legend");
   for (const patch of [{ mode: "FFA" as const }, { phase: "playing" as const }, { observer: "replay" as const }, { mode: "Ranked" as const }]) expect(renderToStaticMarkup(<TeamSwatch snapshot={{ ...snapshot, ...patch }} team={{ team: "TEAL" }} />)).toBe("");
+});
+
+it("0.3.0 defaults: whole-game panels on, situational panels off but editable", () => {
+  for (const width of [1920, 600]) {
+    const layout = defaultLayout(width);
+    expect(panelIds.filter(id => !layout[id].hidden).sort()).toEqual(["attack", "clock", "gauge", "self", "spawn", "trade"]);
+    expect(presetLayout("custom", width)).toEqual(layout);
+  }
+  expect(panelIds.filter(id => !presetLayout("learning", 1920)[id].hidden)).toEqual([...panelIds]);
 });

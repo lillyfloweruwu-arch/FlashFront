@@ -60,7 +60,7 @@ export function motionFade(current: number, pxPerMs: number, dtMs: number): numb
 
 /** Only DOM transforms change between camera samples; React and the color worker stay idle. */
 export function attachHeatCamera(canvas: HTMLCanvasElement, clip: HTMLDivElement, grid: HeatGrid, initial: SpawnCamera,
-  compact: boolean, subscribe?: CameraSubscription) {
+  compact: boolean, subscribe?: CameraSubscription, lite = false) {
   const predictor = new CameraPredictor();
   let lastFast = -Infinity, frame = 0, fade = 1;
   let prev: { x: number; y: number; w: number; t: number } | undefined;
@@ -91,7 +91,9 @@ export function attachHeatCamera(canvas: HTMLCanvasElement, clip: HTMLDivElement
     const now = performance.now();
     if (!fast && now - lastFast < 250) return;
     if (fast) {
-      lastFast = now; predictor.push(camera, now);
+      lastFast = now;
+      if (lite) { paint(camera); return; }
+      predictor.push(camera, now);
       if (!frame) frame = requestAnimationFrame(animate);
     } else { cancelAnimationFrame(frame); frame = 0; predictor.push(camera, now); paint(camera); }
   };

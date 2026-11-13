@@ -15,7 +15,8 @@ it("uses authored SVGs instead of Unicode pictograms in all app and UI source", 
   for (const root of [here, join(here, "../../../apps")]) {
     for (const file of walk(root).filter(f => /\.(tsx?|css|html)$/.test(f))) {
       // Copyright and trademark characters are textual attribution, not icons.
-      const text = readFileSync(file, "utf8").replace(/[\u00A9\u00AE\u2122]/g, "");
+      // The spec's move-quality glyph for Good is a text check mark, allowed only as a glyph-map entry.
+      const text = readFileSync(file, "utf8").replace(/[\u00A9\u00AE\u2122]/g, "").replace(/good: "\u2713"/g, "");
       expect(text, file).not.toMatch(/[\u2316\u25A3\u25A5\u03DF\u2713\u25CB\u24D8\u2197\u2191\u2193\u2195\u2190]|\p{Extended_Pictographic}/u);
     }
   }

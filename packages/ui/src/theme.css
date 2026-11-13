@@ -1,5 +1,21 @@
 :root {
   color-scheme: dark;
+  /* War table launcher surfaces; existing HUD tokens stay independent. */
+  --glass: rgba(14,16,19,.8); --glass-strong: rgba(14,16,19,.78);
+  --glass-solid: rgba(14,16,19,.94); --glass-edge: rgba(255,255,255,.08);
+  --glass-blur: 16px; --glass-blur-side: 14px;
+  --lift: inset 0 1px 0 rgba(255,255,255,.07);
+  --float: 0 20px 50px rgba(0,0,0,.5); --hud-shadow: 0 6px 18px rgba(0,0,0,.5);
+  --radius-control: 8px; --radius-button: 10px; --radius-hud: 12px; --radius-panel: 14px;
+  --primary-top: #F02236; --primary-bottom: #C61224;
+  --primary-glow: 0 10px 24px rgba(232,25,44,.3);
+  --primary-glow-hero: 0 14px 34px rgba(232,25,44,.42);
+  --map-filter: saturate(.9) brightness(.55) contrast(1.05);
+  --map-filter-dim: saturate(.6) brightness(.32);
+  --topo-ring: rgba(242,243,245,.045); --grid-line: rgba(242,243,245,.03);
+  --title-shadow: 0 4px 24px rgba(0,0,0,.7);
+  --scrim-art: linear-gradient(0deg, rgba(12,14,17,.97) 40%, rgba(12,14,17,.35));
+
   --ff-bg: #0A0A0B; --ff-surface: #121316; --ff-surface-2: #1B1D22;
   --ff-edge: #2A2D34; --ff-fg: #F2F3F5; --ff-muted: #9AA0AB; --ff-faint: #6B7280;
   --ff-red: #E8192C; --ff-red-dim: #8C0F1B; --ff-good: #34D399;
@@ -252,9 +268,9 @@ button svg, a svg { vertical-align: middle; flex-shrink: 0; }
 h1, h2, h3 { text-transform: uppercase; letter-spacing: .08em; }
 .ff-mark { flex-shrink: 0; }
 .module { width: var(--hud-width); padding: 0; background: var(--panel-bg); }
-.module-header { height: 28px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-bottom: 1px solid var(--ff-edge); }
+.module-header { min-height: 42px; display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-bottom: 1px solid var(--glass-edge); }
 .module-header > svg { color: var(--ff-muted); flex-shrink: 0; }
-.module-header .panel-title { margin: 0; color: var(--ff-fg); font: 600 calc(14px * var(--font-scale))/1 var(--font-number); letter-spacing: .08em; text-transform: uppercase; }
+.module-header .panel-title { margin: 0; color: var(--ff-muted); font: 600 calc(26px * var(--font-scale))/1 var(--font-number); letter-spacing: 0; text-transform: uppercase; }
 .module-chip { margin-left: auto; font: calc(11px * var(--font-scale))/1.4 var(--font-body); color: var(--ff-muted); border: 1px solid var(--ff-edge); border-radius: 4px; padding: 0 4px; }
 .module-body, .hud-panel-content { padding: 8px 12px 10px; font-size: var(--text-sm); }
 .hud-panel[hidden] { display: none; }
@@ -272,7 +288,7 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: .08em; }
 .stream-root .panel { background: var(--ff-surface); }
 .stream-root .stream-widget { padding: 0; min-width: 0; }
 .stream-widget-body { padding: var(--space-3) var(--space-4) var(--space-4); }
-.stream-root .module-header .panel-title { font-size: 14px; }
+.stream-root .module-header .panel-title { font-size: 26px; }
 .stream-oneline { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-2); font: 400 14px/1.5 var(--font-body); }
 .stream-oneline .label { display: inline; margin: 0 var(--space-2) 0 0; }
 .stream-root .stream-placeholder p { font-size: 14px; }
@@ -400,3 +416,96 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .trade-breakdown { display: grid; gap: 4px; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--ff-edge); font-size: var(--text-sm); }
 .trade-breakdown .spread > span:last-child { font-variant-numeric: tabular-nums; }
 .event-time { color: var(--ff-muted); }
+
+/* War table utilities. Shared Button variants opt in outside the static overlay. */
+.ff-glass {
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--float), var(--lift);
+}
+.ff-btn-primary, html:not(.ff-static) .ff-button-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+  min-height: 44px; padding: var(--space-2) var(--space-5);
+  background: linear-gradient(180deg, var(--primary-top), var(--primary-bottom));
+  color: #fff; border: 1px solid transparent;
+  font: 600 15px/1 var(--font-number); text-transform: uppercase; letter-spacing: .1em;
+  border-radius: var(--radius-button);
+  box-shadow: var(--primary-glow), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.ff-btn-primary.hero, html:not(.ff-static) .ff-button-primary.hero {
+  min-height: 56px; padding-inline: 34px; font-size: 20px;
+  box-shadow: var(--primary-glow-hero), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.ff-btn-secondary, html:not(.ff-static) .ff-button-default {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-control);
+}
+.ff-btn-primary:hover, html:not(.ff-static) .ff-button-primary:hover { background: linear-gradient(180deg, var(--primary-top), var(--primary-bottom)); border-color: var(--ff-fg); }
+.ff-btn-secondary:hover, html:not(.ff-static) .ff-button-default:hover { background: rgba(255,255,255,.08); border-color: var(--glass-edge); }
+.ff-btn-primary:active, html:not(.ff-static) .ff-button-primary:active { border-color: var(--ff-red-dim); }
+.ff-btn-primary:disabled, html:not(.ff-static) .ff-button-primary:disabled {
+  background: var(--ff-surface-2); border-color: var(--ff-edge); color: var(--ff-muted); box-shadow: none; opacity: 1;
+}
+.ff-page-title {
+  font: 600 34px/1 var(--font-number); text-transform: uppercase; letter-spacing: .03em;
+  text-shadow: var(--title-shadow);
+}
+
+:root[data-fx="lite"] {
+  --glass: var(--glass-solid); --glass-strong: var(--glass-solid);
+  --primary-glow: 0 0 0 transparent; --primary-glow-hero: 0 0 0 transparent;
+  --float: 0 0 0 transparent; --topo-ring: transparent;
+}
+/* Cover future glass-token consumers, including sidebar and pseudo-elements. */
+:root[data-fx="lite"], :root[data-fx="lite"] *,
+:root[data-fx="lite"] *::before, :root[data-fx="lite"] *::after {
+  backdrop-filter: none !important;
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass: var(--glass-solid); --glass-strong: var(--glass-solid);
+    --primary-glow: 0 0 0 transparent; --primary-glow-hero: 0 0 0 transparent;
+    --float: 0 0 0 transparent; --topo-ring: transparent;
+  }
+  :root, :root *, :root *::before, :root *::after { backdrop-filter: none !important; }
+}
+/* War table in-game surfaces: static paint only, never backdrop blur. */
+.hud-layer .hud-panel, html.ff-static .hud-panel {
+  background: rgba(14,16,19,.94); border: 1px solid var(--glass-edge); border-radius: var(--radius-hud);
+  box-shadow: var(--hud-shadow), var(--lift) !important; backdrop-filter: none;
+}
+.hud-layer .module-chip { border: 0; padding: 0; color: var(--ff-muted); text-align: right; }
+.hud-layer .module-header > svg { display: none; }
+.growth-headline strong, .trade-headline strong { font-size: calc(40px * var(--font-scale)); }
+.attack-headline { font-size: calc(34px * var(--font-scale)); }
+.attack-headline small { display: block; font: 12px/1.5 var(--font-body); color: var(--ff-muted); margin-top: 3px; }
+.growth-zone-labels { display: flex; justify-content: space-between; gap: 6px; color: var(--ff-muted); font: 10px/1.3 var(--font-body); }
+.position-headline { display: flex; align-items: baseline; gap: 10px; }
+.position-headline strong { font: 600 40px/1 var(--font-number); }
+.position-headline span, .position-gaps { color: var(--ff-muted); font-size: 12px; }
+.position-gaps { display: grid; gap: 3px; }
+.stream-root .stream-widget { background: rgba(14,16,19,.94); border: 1px solid var(--glass-edge); border-radius: var(--radius-panel); box-shadow: var(--float), var(--lift); }
+.stream-root .avatar { background: linear-gradient(180deg, var(--primary-top), var(--primary-bottom)); border: 1px solid var(--ff-red); border-radius: 10px; color: #fff; }
+.stream-map-context { color: var(--ff-muted); font-size: 14px; margin-top: 10px; }
+.stream-root .leaderboard .is-self { background: rgba(232,25,44,.12); }
+.stream-root [data-widget="stats"] { grid-column: 1 / -1; }
+.stream-root .live-stats { display: flex; align-items: center; gap: 20px; height: 56px; padding: 5px 16px; }
+.stream-root .live-stats .stream-stat-grid { flex: 1; min-width: 0; }
+.stream-root .live-stats strong { font: 600 24px/1 var(--font-number) !important; }
+.stream-root .live-stats .label { font-size: 10px; margin: 0 0 3px; }
+.stream-root .live-stats .wordmark { font-size: 18px; }
+.stream-root .stream-result-heading { display: grid; gap: 8px; margin-top: 8px; }
+.stream-root .stream-result-heading .placement { font: 600 64px/1 var(--font-number) !important; }
+.stream-root .result-grid strong { font-size: 24px !important; }
+.stream-result-detail { display: flex; justify-content: space-between; color: var(--ff-muted); font-size: 13px; margin-top: 18px; }
+@media (max-width: 540px) { .stream-root .live-stats { gap: 10px; } .stream-root .live-stats .wordmark { display: none; } }
+html.launcher[data-fx="lite"] *, html.launcher[data-fx="lite"] *::before, html.launcher[data-fx="lite"] *::after {
+  transition: none !important; animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.launcher *, html.launcher *::before, html.launcher *::after {
+    transition: none !important; animation: none !important;
+  }
+}

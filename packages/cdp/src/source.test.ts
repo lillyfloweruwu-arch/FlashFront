@@ -1,20 +1,63 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { CdpClient } from "./client";
-import { CAMERA_MIN_MS, CdpDataSource, type CdpStatus } from "./source";
+import { CAMERA_MIN_MS, CAMERA_LITE_MIN_MS, CdpDataSource, type CdpStatus } from "./source";
 import { EXTRACT_EXPRESSION, CAMERA_EXPRESSION } from "./extract";
 import type { GameSnapshot, RawExtract } from "@flashfront/core";
 let source: CdpDataSource | undefined;
 afterEach(() => { source?.stop(); vi.restoreAllMocks(); vi.useRealTimers(); });
-function setup() {
+function setup(lite = false) {
   vi.useFakeTimers();
   const client = new CdpClient();
   vi.spyOn(client, "connected", "get").mockReturnValue(true);
   vi.spyOn(client, "setTarget").mockImplementation(() => {});
   const call = vi.spyOn(client, "call");
   const log = vi.fn();
-  source = new CdpDataSource(9222, { client, log, discover: async () => ({ id: "fake", type: "page", url: "app://openfront/", webSocketDebuggerUrl: "ws://127.0.0.1:9222/fake" }) });
+  source = new CdpDataSource(9222, { client, log, lite, discover: async () => ({ id: "fake", type: "page", url: "app://openfront/", webSocketDebuggerUrl: "ws://127.0.0.1:9222/fake" }) });
   return { source, call, log };
 }
+it("lite halves the observation rate", async () => {
+  const { source, call } = setup(true);
+  const observe = vi.fn(); source.subscribeObservation(observe); observe.mockClear();
+  call.mockResolvedValue({ result: { value: { inGame: true, visible: true, inSpawnPhase: false, tick: 10 } } });
+  source.start(); await vi.advanceTimersByTimeAsync(1000);
+  expect(observe).toHaveBeenCalledTimes(2);
+  call.mockResolvedValue({ result: { value: { inGame: true, visible: true, inSpawnPhase: true, tick: 11 } } });
+  // The next ordinary read discovers spawn; then count a full second in that phase.
+  await vi.advanceTimersByTimeAsync(500); observe.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(observe).toHaveBeenCalledTimes(4);
+});
+it("lite caps the camera fast lane near 30 Hz", async () => {
+  const { source, call } = setup(true);
+  const camera = { scale: 1, offsetX: 0, offsetY: 0, mapWidth: 2000, mapHeight: 1000, left: 0, top: 0, width: 1920, height: 1080, viewportWidth: 1920, viewportHeight: 1080 };
+  call.mockImplementation(async (_method, params) => ({ result: { value: params.expression === CAMERA_EXPRESSION ? camera : { inGame: true, visible: true, inSpawnPhase: true, tick: 1 } } }));
+  const updates = vi.fn(); source.subscribeCamera(updates); source.setCameraHeld(true); source.start();
+  await vi.advanceTimersByTimeAsync(500); updates.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(updates.mock.calls.length).toBeGreaterThanOrEqual(20);
+  expect(updates.mock.calls.length).toBeLessThanOrEqual(Math.ceil(1000 / CAMERA_LITE_MIN_MS) + 1);
+  source.setLite(false); updates.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(updates.mock.calls.length).toBeGreaterThanOrEqual(100);
+  source.setLite(true); updates.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(updates.mock.calls.length).toBeLessThanOrEqual(32);
+});
+it("setLite applies mid-session without reconnecting", async () => {
+  const { source, call } = setup();
+  const disconnect = vi.spyOn(source.client, "disconnect");
+  const observe = vi.fn(); source.subscribeObservation(observe); observe.mockClear();
+  call.mockResolvedValue({ result: { value: { inGame: true, visible: true, inSpawnPhase: false, tick: 10 } } });
+  source.start(); await vi.advanceTimersByTimeAsync(1000);
+  expect(observe).toHaveBeenCalledTimes(4);
+  source.setLite(true); observe.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(observe).toHaveBeenCalledTimes(2);
+  source.setLite(false); observe.mockClear();
+  await vi.advanceTimersByTimeAsync(1000);
+  expect(observe).toHaveBeenCalledTimes(4);
+  expect(disconnect).not.toHaveBeenCalled();
+});
 it("emits exactly one coherent observation per read", async () => {
   const { source, call } = setup();
   const observe = vi.fn(); source.subscribeObservation(observe); observe.mockClear();

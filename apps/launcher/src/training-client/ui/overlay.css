@@ -1,0 +1,27 @@
+#ff-overlay { position: fixed; inset: 0; z-index: 1000; pointer-events: none; }
+.ff-drill-overlay { position: absolute; inset: 0; color: var(--ff-fg); font: var(--text-base)/1.5 var(--font-body); }
+.ff-drill-bar { position: absolute; top: 20px; left: 20px; right: 20px; display: flex; align-items: flex-start; gap: 8px; }
+.ff-drill-tag { background: var(--ff-red); border-radius: var(--radius-pill); padding: 7px 13px; font-weight: 700; }
+.ff-drill-description { padding: 10px 16px; border-radius: var(--radius-panel); }
+.ff-drill-description h1 { font: 600 24px/1.15 var(--font-number); text-transform: uppercase; }
+.ff-drill-description p { color: var(--ff-muted); margin-top: 4px; }
+.ff-drill-clock { padding: 10px 14px; border-radius: var(--radius-panel); font: 600 24px/1.15 var(--font-number); font-variant-numeric: tabular-nums; }
+.ff-you-marker { position: absolute; transform: translate(-50%, calc(-100% - 14px)); background: var(--ff-fg); color: var(--ff-bg); padding: 2px 7px; border-radius: var(--radius-sm); font-weight: 800; font-size: 11px; transition: opacity 180ms; }
+.ff-you-marker::after { content: ""; position: absolute; width: 1px; height: 14px; background: var(--ff-fg); left: 50%; top: 100%; }
+.ff-you-marker[data-hidden] { opacity: 0; }
+.ff-training-scrim { position: absolute; inset: 0; pointer-events: auto; background: radial-gradient(ellipse at center, rgba(0,0,0,.25), rgba(0,0,0,.75)); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.ff-training-card { width: min(640px, 100%); max-height: calc(100vh - 40px); overflow-y: auto; border: 1px solid var(--glass-edge); border-radius: var(--radius-panel); box-shadow: var(--float); padding: 28px; display: grid; gap: 18px; background: var(--glass); }
+.ff-training-card h2 { font: 600 36px/1.1 var(--font-number); text-transform: uppercase; }
+.ff-training-card p { max-width: 65ch; }
+.ff-coach-heading { display: flex; align-items: center; gap: 12px; color: var(--ff-muted); }
+.ff-coach-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0; padding: 16px 0; border-top: 1px solid var(--glass-edge); border-bottom: 1px solid var(--glass-edge); }
+.ff-coach-numbers dt { color: var(--ff-muted); font-size: 12px; }
+.ff-coach-numbers dd { margin: 4px 0 0; font: 500 26px/1.2 var(--font-number); }
+.ff-training-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.ff-training-card button:focus-visible, .ff-training-card:focus-visible { outline: 2px solid var(--ff-red); outline-offset: 3px; }
+.ff-btn-ghost { background: transparent; border-color: transparent; }
+.ff-training-card[data-motion="slide"] { animation: ff-coach-enter 240ms ease-out both; }
+@keyframes ff-coach-enter { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.ff-drill-overlay[data-lite] * { animation: none; transition: none; backdrop-filter: none; }
+@media (prefers-reduced-motion: reduce) { .ff-drill-overlay * { animation: none !important; transition: none !important; } }
+@media (max-width: 600px) { .ff-drill-bar { top: 8px; left: 8px; right: 8px; flex-wrap: wrap; } .ff-drill-description { flex: 1; } .ff-training-card { padding: 20px; } .ff-training-card h2 { font-size: 28px; } .ff-training-actions button { width: 100%; } }

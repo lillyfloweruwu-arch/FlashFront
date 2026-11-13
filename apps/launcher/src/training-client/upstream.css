@@ -1,0 +1,4 @@
+@import "../../../../vendor/openfront/client/src/client/styles.css";
+/* Vendored sources are gitignored; Tailwind must scan them explicitly. */
+@source "../../../../vendor/openfront/client/src";
+@source "../renderer/training.html";

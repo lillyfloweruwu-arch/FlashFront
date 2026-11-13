@@ -11,7 +11,8 @@ import { HEAT_COLORS, heatCameraMatches, heatDimensions, MAP_ATTRIBUTION, spawnH
  * restyle the canvas; colors are recomputed when spawn positions change, at most every 500 ms.
  */
 const REDRAW_MS = 500;
-export function SpawnHeatmap({ snapshot, held = true, subscribeCamera }: { snapshot: GameSnapshot; held?: boolean; subscribeCamera?: CameraSubscription }) {
+export const LITE_REDRAW_MS = 1000;
+export function SpawnHeatmap({ snapshot, held = true, subscribeCamera, lite = false }: { snapshot: GameSnapshot; held?: boolean; subscribeCamera?: CameraSubscription; lite?: boolean }) {
   const dimensions = useMemo(() => heatDimensions(snapshot.map), [snapshot.map]);
   const [loaded, setLoaded] = useState<{ map: string; grid: HeatGrid; cells: Uint8Array } | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
@@ -73,15 +74,16 @@ export function SpawnHeatmap({ snapshot, held = true, subscribeCamera }: { snaps
       if (!current.spawnHeat || !jobs.current) return;
       drawnAt.current = Date.now(); jobs.current.update(current.spawnHeat, true);
     };
-    const wait = REDRAW_MS - (Date.now() - drawnAt.current);
+    const wait = (lite ? LITE_REDRAW_MS : REDRAW_MS) - (Date.now() - drawnAt.current);
     if (wait <= 0) draw(); else timer.current ??= setTimeout(draw, wait);
-  }, [grid, loaded, positions, snapshot.mapSize, visibleCanvas]);
+    return () => { clearTimeout(timer.current); timer.current = undefined; };
+  }, [grid, loaded, positions, snapshot.mapSize, visibleCanvas, lite]);
   useLayoutEffect(() => {
     if (!visibleCanvas || !grid || !canvas.current || !clip.current || !camera) return;
-    const view = attachHeatCamera(canvas.current, clip.current, grid, camera, snapshot.mapSize === "Compact", subscribeCamera);
+    const view = attachHeatCamera(canvas.current, clip.current, grid, camera, snapshot.mapSize === "Compact", subscribeCamera, lite);
     cameraView.current = view;
     return () => { view.close(); cameraView.current = null; };
-  }, [visibleCanvas, grid, snapshot.mapSize, subscribeCamera]);
+  }, [visibleCanvas, grid, snapshot.mapSize, subscribeCamera, lite]);
   useLayoutEffect(() => { if (camera) cameraView.current?.update(camera); }, [camera]);
   if (!opacity) return null;
   if (!held) return <SpawnHeatHint />;

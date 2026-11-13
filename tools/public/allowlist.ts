@@ -3,6 +3,8 @@ import { posix } from "node:path";
 
 export const PUBLIC_ALLOWLIST: readonly string[] = [
   ".gitignore",
+  ".github/workflows/linux.yml",
+  "screenshots/*.png",
   "README.md",
   "LICENSE",
   "DESIGN.md",
@@ -19,9 +21,12 @@ export const PUBLIC_ALLOWLIST: readonly string[] = [
   "packages/cdp/**",
   "packages/core/**",
   "packages/ui/**",
+  "packages/training-engine/**",
+  "vendor/openfront/**",
   "scripts/*.mjs",
   "tools/spawn/**",
   "tools/public/**",
+  "tools/training/**",
 ];
 
 export function selectPublicFiles(

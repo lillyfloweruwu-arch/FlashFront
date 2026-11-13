@@ -28,10 +28,22 @@ export function profileFromApi(id: string, body: unknown, boards: unknown[] = []
   return { publicId: id, name: str(p.username) ?? "Unknown player", clanTag: str(obj(clans[0]).tag), rankedElo, rankedTier,
     gamesPlayed: rows.reduce((n, r) => n + r.games, 0), wins: rows.reduce((n, r) => n + r.wins, 0), eloHistory: [] };
 }
-export function recentGames(body: unknown) {
+export interface ProfileGame {
+  id: string;
+  map: string;
+  mode: string;
+  type: string;
+  start: string;
+  duration?: number;
+  result: string;
+  rank?: number;
+  sourceKey?: string;
+}
+export function recentGames(body: unknown): { cursor?: string; games: ProfileGame[] } {
   const b = obj(body);
   return { cursor: str(b.nextCursor), games: (Array.isArray(b.results) ? b.results : []).map(obj).map(g => ({
-    id: str(g.gameId) ?? "", map: str(g.map) ?? "Unknown", mode: str(g.mode) ?? "Unknown", type: str(g.type) ?? "",
-    start: str(g.start) ?? "", duration: Number.isFinite(num(g.durationSeconds)) ? num(g.durationSeconds) : 0, result: str(g.result) ?? "incomplete",
+    id: str(g.gameId) ?? "", map: str(g.map) ?? "", mode: str(g.mode) ?? "", type: str(g.type) ?? "",
+    start: str(g.start) ?? "", duration: typeof g.durationSeconds === "number" && Number.isFinite(g.durationSeconds) && g.durationSeconds >= 0 ? g.durationSeconds : undefined, result: str(g.result) ?? "incomplete",
+    rank: typeof g.rank === "number" && Number.isSafeInteger(g.rank) && g.rank > 0 ? g.rank : undefined,
   })) };
 }

@@ -1,5 +1,23 @@
-import { DEFAULT_HOTKEYS, DEFAULT_RESERVE_FLOOR, SNOOZE_HOTKEY, isPracticeGoal, normalizeHotkey, validHotkey, type PracticeGoal, type GameSnapshot, type RawExtract, type RecordedMatch } from "@flashfront/core";
+import { DEFAULT_HOTKEYS, DEFAULT_RESERVE_FLOOR, SNOOZE_HOTKEY, isPracticeGoal, normalizeHotkey, validHotkey, type PracticeGoal, type GameSnapshot, type RawExtract, type RecordedMatch, type GameReview } from "@flashfront/core";
 import type { MatchListItem } from "./main/recorder";
+import type { DrillClientData } from "../../../packages/training-engine/src/drill-client-data";
+import type { EngineFailure } from "@flashfront/training-engine/contracts";
+/** Structured-clone payload supplied by the dedicated Training preload. */
+export type TrainingLoad =
+  | { status: "ready"; data: DrillClientData; snapshot: Uint8Array; lite: boolean; reducedMotion: boolean; names: "generated" | "record" }
+  | { status: "unavailable"; reason: EngineFailure | "bootFailed" };
+export type TrainingOutcome = { kind: "passed"; verdict: "Great" | "Good" } | { kind: "failed" } | { kind: "left" }
+  | { kind: "error"; reason: EngineFailure | "bootFailed" };
+export interface TrainingBridgeApi {
+  load(): Promise<TrainingLoad>;
+  ready(): void;
+  report(outcome: TrainingOutcome): void;
+  close(): void;
+}
+import type { MistakeType } from "@flashfront/core";
+export type TrainingRequest = { kind: "retry"; file: string; tick: number; mistake: MistakeType } | { kind: "prepared"; drillId: string };
+export interface TodaysDrillInfo { drillId: string; title: string; durationSec: 120; mistake: MistakeType; reason?: string; week?: boolean[]; weakest?: MistakeType }
+export type LauncherDestination = { screen: "review"; file: string } | { screen: "training"; request: TrainingRequest };
 import type { ApiResult } from "./main/api";
 import type { CdpStatus } from "@flashfront/cdp";
 import { isThemeId, type ThemeId, type PresetId } from "@flashfront/core";
@@ -9,23 +27,58 @@ export const TEXT_SIZES = ["compact", "comfortable"] as const;
 export type TextSize = typeof TEXT_SIZES[number];
 export const OBS_DELAYS = [0, 30, 60, 120] as const;
 export type ObsDelay = typeof OBS_DELAYS[number];
+export const LITE_MODES = ["auto", "on", "off"] as const;
+export type LiteMode = typeof LITE_MODES[number];
+export const VISUAL_EFFECTS = ["full", "lite"] as const;
+export type VisualEffects = typeof VISUAL_EFFECTS[number];
+export interface Hardware { cpus: number; totalMemBytes: number }
+// Reported memory on an 8 GB PC can be below 8 GiB; leave room for that overhead.
+export const WEAK_PC = { maxCpus: 4, minMemBytes: 7 * 2 ** 30 };
+export function weakPc(hw: Hardware): boolean {
+  return (hw.cpus > 0 && hw.cpus <= WEAK_PC.maxCpus) || (hw.totalMemBytes > 0 && hw.totalMemBytes < WEAK_PC.minMemBytes);
+}
+export function resolveLite(mode: LiteMode, hw: Hardware): boolean {
+  return mode === "auto" ? weakPc(hw) : mode === "on";
+}
 /**
  * setupDone: the first-run setup wizard was finished or skipped (missing in older settings files).
  * 0.2.0 fields default when missing: snoozeHotkey, bookmarkHotkey, spawnChime, ownSpawnHistory, hudPreset,
  * textSize, obsDelaySec, obsHideOwnNumbers, shareShowName.
  * 0.2.1: lastSeenVersion is the launcher version whose What's new was last dismissed (missing before 0.2.1).
+ * 0.3.0: liteMode defaults to auto when missing.
  */
 export interface Settings {
   theme: ThemeId; port: number; toggleHotkey: string; editHotkey: string; startHidden: boolean; ranked: boolean; publicId?: string;
   reserveFloor: number; practiceGoal?: PracticeGoal; setupDone: boolean;
   snoozeHotkey: string; bookmarkHotkey: string; spawnChime: boolean; ownSpawnHistory: boolean; hudPreset: HudPreset; textSize: TextSize;
   obsDelaySec: ObsDelay; obsHideOwnNumbers: boolean; shareShowName: boolean; lastSeenVersion?: string;
+  liteMode: LiteMode;
+  visualEffects: VisualEffects;
+  /** 0.3.0: coach nudges next to the cursor. */
+  nudges: boolean;
+  /** 0.3.0: the Stream studio's saved widget layout (missing until first saved; see DEFAULT_STREAM_LAYOUT). */
+  streamLayout?: StreamLayout;
+}
+export const STREAM_WIDGETS = ["card", "stats", "top", "result"] as const;
+export const STREAM_ANCHORS = ["tl", "tr", "bl", "br"] as const;
+export interface StreamLayout { widgets: (typeof STREAM_WIDGETS)[number][]; scale: number; anchor: (typeof STREAM_ANCHORS)[number] }
+export const DEFAULT_STREAM_LAYOUT: StreamLayout = { widgets: [...STREAM_WIDGETS], scale: 1, anchor: "tl" };
+/** Saved layouts from before 0.3.0 may name the removed Lobby widget; it is dropped, anything else unknown is invalid. */
+export function parseStreamLayout(value: unknown): StreamLayout | undefined {
+  if (value === undefined) return undefined;
+  const v = value as Partial<Record<keyof StreamLayout, unknown>>;
+  if (!v || typeof v !== "object" || !Array.isArray(v.widgets) || typeof v.scale !== "number" || !Number.isFinite(v.scale) || v.scale < 0.25 || v.scale > 3
+    || !STREAM_ANCHORS.includes(v.anchor as StreamLayout["anchor"])) throw new Error("Choose stream widgets, a scale from 25% to 300% and a corner.");
+  const widgets = v.widgets.filter(w => w !== "lobby");
+  if (!widgets.every(w => STREAM_WIDGETS.includes(w as StreamLayout["widgets"][number]))) throw new Error("Choose listed stream widgets.");
+  return { widgets: STREAM_WIDGETS.filter(w => widgets.includes(w)), scale: v.scale, anchor: v.anchor as StreamLayout["anchor"] };
 }
 export const DEFAULT_SETTINGS: Settings = {
   theme: "abyss", port: 9222, toggleHotkey: DEFAULT_HOTKEYS.toggle, editHotkey: DEFAULT_HOTKEYS.edit, startHidden: false, ranked: true,
   reserveFloor: DEFAULT_RESERVE_FLOOR, setupDone: false,
   snoozeHotkey: SNOOZE_HOTKEY, bookmarkHotkey: "Ctrl+Alt+M", spawnChime: true, ownSpawnHistory: false, hudPreset: "custom", textSize: "compact",
-  obsDelaySec: 0, obsHideOwnNumbers: false, shareShowName: true,
+  liteMode: "auto", visualEffects: "full",
+  obsDelaySec: 0, obsHideOwnNumbers: false, shareShowName: true, nudges: true,
 };
 const optionalBoolean = (value: unknown, fallback: boolean, name: string) => {
   if (value === undefined) return fallback;
@@ -70,10 +123,17 @@ export function parseSettings(value: unknown): Settings {
     hudPreset: oneOf(HUD_PRESETS, s.hudPreset, "custom", "Choose a listed HUD preset."), textSize: oneOf(TEXT_SIZES, s.textSize, "compact", "Choose a listed text size."),
     obsDelaySec: oneOf(OBS_DELAYS, s.obsDelaySec, 0, "Choose a stream delay of 0, 30, 60 or 120 seconds."),
     obsHideOwnNumbers: optionalBoolean(s.obsHideOwnNumbers, false, "stream privacy"), shareShowName: optionalBoolean(s.shareShowName, true, "share card name"),
+    liteMode: oneOf(LITE_MODES, s.liteMode, "auto", "Choose Auto, On or Off for Lite mode."),
+    visualEffects: oneOf(VISUAL_EFFECTS, s.visualEffects, "full", "Choose Full or Lite for visual effects."),
+    nudges: optionalBoolean(s.nudges, true, "nudges"),
+    ...(s.streamLayout !== undefined ? { streamLayout: parseStreamLayout(s.streamLayout) } : {}),
     ...(s.practiceGoal ? { practiceGoal: s.practiceGoal } : {}), ...(s.publicId ? { publicId: s.publicId } : {}),
     ...(s.lastSeenVersion ? { lastSeenVersion: s.lastSeenVersion } : {}) };
 }
 export interface LauncherState {
+  /** Effective Lite mode and the hardware hint used by Auto. */
+  lite?: boolean;
+  weakPc?: boolean;
   health?: import("./main/health").FeatureHealth;
   feedbackAvailable: boolean;
   snoozeSignal?: number;
@@ -87,10 +147,29 @@ export interface LauncherState {
   /** 0.2.1: the running FlashFront launcher version (app.getVersion()), for What's new. */
   appVersion?: string;
 }
+export type ReviewResult = { status: "ready"; review: GameReview } | { status: "waiting" }
+  | { status: "unavailable"; reason: "noGameId" | "notArchived" | "invalid" | "tooLarge" | "notInRecord" };
+/** The end card's whole view: the saved recording (buttons stay disabled until it exists) and its review state. */
+export interface EndReviewModel { file?: string; result: ReviewResult }
+export type EndReviewView = EndReviewModel & { theme: import("@flashfront/core").ThemeId; lite: boolean };
 export interface LauncherApi {
+  openReviewBoard(file: string, bounds: import("./review-types").ReviewBounds): Promise<void>;
+  seekReviewBoard(tick: number): Promise<void>;
+  resizeReviewBoard(bounds: import("./review-types").ReviewBounds): Promise<void>;
+  closeReviewBoard(): Promise<void>;
+  onReviewBoardStatus(cb: (status: import("./review-types").ReviewBoardStatus) => void): () => void;
+  onReviewBoardStep(cb: (direction: -1 | 1) => void): () => void;
+  startTraining(request: TrainingRequest): Promise<void>;
+  onTrainingEnded(cb: (request: TrainingRequest, outcome: TrainingOutcome) => void): () => void;
   subscribeCamera?(cb: (camera: import("@flashfront/core").SpawnCamera) => void): () => void;
   onSurfaceActive?(cb: (active: boolean) => void): () => void;
   onViewport?(cb: (viewport: OverlayViewport | undefined) => void): () => void;
+  /** 0.3.0: the cursor-tag window's page only. `null` fades the tag out. */
+  onNudge?(cb: (view: NudgeView | null) => void): () => void;
+  /** 0.3.0: the end-card window's page only. `null` clears the card. */
+  onEndReview?(cb: (view: EndReviewView | null) => void): () => void;
+  endReviewAction?(kind: "full" | "retry"): Promise<void>;
+  reportEndReviewHeight?(height: number): void;
   getState(): Promise<LauncherState>;
   subscribe(cb: (state: LauncherState) => void): () => void;
   launch(): Promise<void>;
@@ -108,8 +187,24 @@ export interface LauncherApi {
   toggleEdit(): Promise<void>;
   listMatches(): Promise<MatchListItem[]>;
   getMatch(file: string): Promise<RecordedMatch>;
+  /** 0.3.0: the Game Review for a recording, from its cached public record. */
+  getReview(file: string): Promise<ReviewResult>;
   deleteMatch(file: string): Promise<void>;
   showMatch(file?: string): Promise<void>;
+  showTraining(request: TrainingRequest): Promise<void>;
+  /** 0.3.0 F: today's prepared drill from the saved pick, or nothing. Never recomputes reviews. */
+  getDrillProgress(): Promise<Readonly<Record<string, "passed" | "tryAgain">> | undefined>;
+  openTrainingLog(): Promise<void>;
+  getTodaysDrill(): Promise<TodaysDrillInfo | undefined>;
+  /** 0.3.0 F: marks a picked drill complete after a judged attempt. */
+  completeDrill(drillId: string): Promise<void>;
+  /** 0.3.0 F: the player opened a drill on purpose (a coach example). */
+  recordDrillVisit(drillId: string): Promise<void>;
+  /** 0.3.0 Training only: a local recording's public record, checked against the recording's owner. */
+  loadTrainingRecord(file: string, retry?: { tick: number; mistake: MistakeType }): Promise<import("@flashfront/training-engine/contracts").EngineResult<{ record: unknown; ownClientId: string }>>;
+  /** 0.3.0 Training only: one map's files for one game size, unpacked on first use. */
+  loadTrainingMap(mapId: string, mapSize: "Normal" | "Compact"): Promise<import("@flashfront/training-engine/contracts").EngineResult<import("@flashfront/training-engine/protocol").MapBytes>>;
+  onNavigate(cb: (destination: LauncherDestination) => void): () => void;
   onMatchesChanged(cb: () => void): () => void;
   annotateMatch(file: string, t: number, note: string): Promise<RecordedMatch>;
   saveShare(png: string): Promise<boolean>;
@@ -118,7 +213,7 @@ export interface LauncherApi {
 }
 export const launchOption = (port: number) => `%command% --remote-debugging-port=${port}`;
 /** The fields the Settings tab form edits; Save applies only these over the latest saved settings. */
-export const SETTINGS_FORM_FIELDS = ["toggleHotkey", "editHotkey", "snoozeHotkey", "bookmarkHotkey", "reserveFloor", "startHidden", "spawnChime", "practiceGoal", "port"] as const satisfies readonly (keyof Settings)[];
+export const SETTINGS_FORM_FIELDS = ["toggleHotkey", "editHotkey", "snoozeHotkey", "bookmarkHotkey", "reserveFloor", "startHidden", "spawnChime", "practiceGoal", "port", "liteMode", "visualEffects", "nudges"] as const satisfies readonly (keyof Settings)[];
 /** Only fields the player changed since editing began (`editStart`) are applied, so a value set elsewhere meanwhile is kept. */
 export function mergeSettingsForm(latest: Settings, draft: Settings, editStart: Settings = latest): Settings {
   const next: Settings = { ...latest };
@@ -140,6 +235,12 @@ export function editBlocked(state: Parameters<typeof restrictedMatch>[0]): boole
 export function restrictedMatch(state: { raw?: RawExtract | null; snapshot?: { mode?: string; observer?: string } | null }): boolean {
   const game = state.raw?.game;
   return !!game?.rankedType || game?.type === "Ranked" || !!state.raw?.replay || state.snapshot?.mode === "Ranked" || !!state.snapshot?.observer;
+}
+/** Nudges show only where the HUD shows, and only while every read they use is verified. */
+export function nudgesAllowed(state: Pick<LauncherState, "settings" | "raw" | "health" | "editing" | "hudEnabled"> & { snapshot?: { mode?: string; observer?: string } | null }, overlayShown: boolean): boolean {
+  const h = state.health;
+  return state.settings.nudges && state.hudEnabled && !state.editing && !restrictedMatch(state) && overlayShown
+    && !!h && h.growth === "verified" && h.attack === "verified" && h.build === "verified" && h.alliances === "verified";
 }
 /** True for the OpenFront executable (any of its windows: the game page or the Steam-overlay helper). */
 export function isGameProcess(exePath: string | undefined): boolean {
@@ -167,6 +268,33 @@ export function overlayShape(panels: ShapeRect[], size: { width: number; height:
     return right > x && bottom > y ? [{ x, y, width: right - x, height: bottom - y }] : [];
   });
 }
+/** Linux Wayland gives no reliable global cursor point, so the tag parks instead of following. */
+export function cursorTrackable(platform: string, env: Record<string, string | undefined>): boolean {
+  return !(platform === "linux" && env.XDG_SESSION_TYPE?.toLowerCase() === "wayland");
+}
+/** 0.3.0 cursor tag: which corner of the tag window sits nearest the cursor. */
+export type NudgeAnchor = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center";
+export interface NudgeView { id?: number; text: string; urgent: boolean; anchor: NudgeAnchor; theme: ThemeId; /** Sub-plan G's Lite mode: no fade or pulse. */ lite?: boolean }
+export const NUDGE_WINDOW = { width: 340, height: 88, offset: 24 } as const;
+/**
+ * Where the tag window goes (DIP). Inside the game it sits below-right of the cursor and flips left or
+ * up at the edges, so it never covers the click point. With the cursor off the game (another monitor,
+ * the launcher in front, an unreliable Wayland point) it parks bottom centre, above OpenFront's controls.
+ */
+export function nudgeBounds(cursor: { x: number; y: number } | null, game: ShapeRect): { bounds: ShapeRect; anchor: NudgeAnchor } {
+  const { width, height, offset } = NUDGE_WINDOW;
+  const right = game.x + game.width, bottom = game.y + game.height;
+  const inside = !!cursor && cursor.x >= game.x && cursor.x <= right && cursor.y >= game.y && cursor.y <= bottom;
+  if (!cursor || !inside) return { anchor: "center", bounds: { x: game.x + Math.round((game.width - width) / 2), y: game.y + Math.round(game.height * 0.86) - height, width, height } };
+  const flipX = cursor.x + offset + width > right, flipY = cursor.y + offset + height > bottom;
+  const x = flipX ? cursor.x - offset - width : cursor.x + offset;
+  const y = flipY ? cursor.y - offset - height : cursor.y + offset;
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(v, hi));
+  return {
+    anchor: `${flipY ? "bottom" : "top"}-${flipX ? "right" : "left"}`,
+    bounds: { x: clamp(x, game.x, right - width), y: clamp(y, game.y, bottom - height), width, height },
+  };
+}
 export interface OverlayViewport { offsetX: number; offsetY: number; width: number; height: number }
 /**
  * Where the overlay window goes: the bounding box of the visible panels (padded), clipped to the
@@ -193,3 +321,5 @@ export function overlayPlacement(panels: ShapeRect[], game: ShapeRect, editing: 
     viewport: { offsetX: box.x, offsetY: box.y, width: game.width, height: game.height },
   };
 }
+
+

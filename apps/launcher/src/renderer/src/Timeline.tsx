@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { formatDuration, formatGold, formatTroops, renderNumber, type CoachNote, type MatchEvent, type RecordedMatch } from "@flashfront/core";
+import { useState, type ReactNode } from "react";
+import { formatDuration, formatGold, formatTroops, renderNumber, type GameReview, type CoachNote, type MatchEvent, type RecordedMatch } from "@flashfront/core";
 import { Icon } from "@flashfront/ui";
 
 type TimedEvent = MatchEvent | { kind: "decision"; t: number; text: string };
@@ -13,8 +13,11 @@ function BookmarkNote({ t, note, onSave }: { t: number; note?: string; onSave: (
   </div>;
 }
 
-export function Timeline({ match: m, notes = [], onAnnotate }: { match: RecordedMatch; notes?: CoachNote[]; onAnnotate?: (t: number, note: string) => Promise<void> }) {
-  const [cursor, setCursor] = useState(0);
+/** Uncontrolled by default; a Game Review passes `cursorSec` so its key moments can move the same cursor. */
+export function Timeline({ match: m, notes = [], onAnnotate, cursorSec, onCursorChange, reviewPushes = [], framed = false, coachCard }: { coachCard?: ReactNode; reviewPushes?: GameReview["pushes"]; framed?: boolean; match: RecordedMatch; notes?: CoachNote[]; onAnnotate?: (t: number, note: string) => Promise<void>; cursorSec?: number; onCursorChange?: (t: number) => void }) {
+  const [ownCursor, setOwnCursor] = useState(0);
+  const cursor = cursorSec ?? ownCursor;
+  const setCursor = (t: number) => { if (cursorSec === undefined) setOwnCursor(t); onCursorChange?.(t); };
   const samples = m.samples.filter(s => Number.isFinite(s.t) && s.t >= 0).sort((a, b) => a.t - b.t);
   const events = (m.events as TimedEvent[]).filter(e => Number.isFinite(e.t) && e.t >= 0);
   const moments = [...events.filter(e => ["push", "bookmark", "decision"].includes(e.kind)).map(e => ({ t: e.t, kind: e.kind, label: e.kind === "push" ? "Push" : e.kind === "bookmark" ? "Bookmark" : "Decision" })),
@@ -29,10 +32,16 @@ export function Timeline({ match: m, notes = [], onAnnotate }: { match: Recorded
     { key: "gold", label: "Gold", aria: "Gold over time", value: (s: typeof samples[number]) => s.gold, format: formatGold, min: 1 },
     { key: "incoming", label: "Incoming", aria: "Incoming troops over time", value: (s: typeof samples[number]) => s.incoming, format: formatTroops, min: 1 },
   ];
-  return <section aria-label="Match timeline">
+  return <section className={framed ? "review-timeline" : undefined} aria-label="Match timeline">
     <h3>Match timeline</h3><p className="muted">One cursor across your observations. Gaps stay blank; incoming is shown in troops.</p>
-    <label style={{ display: "flex", gap: 16, alignItems: "center" }}>Review time <output>{formatDuration(cursor)}</output>
-      <input style={{ flex: 1, minWidth: 80 }} aria-label="Review time" type="range" min={0} max={end} step={0.1} value={cursor} onChange={e => setCursor(Number(e.target.value))} /></label>
+    <div className={framed ? "game-review-board" : undefined}>
+    {coachCard}
+    <div className={framed ? "review-scrubber ff-glass" : undefined}>
+      {framed && <div className="review-step-buttons"><button className="ff-btn-secondary" aria-label="Previous move" disabled={!reviewPushes.some(p => p.t < cursor)} onClick={() => setCursor(Math.max(0, ...reviewPushes.filter(p => p.t < cursor).map(p => p.t)))}>&#9664;</button><button className="ff-btn-secondary" aria-label="Next move" disabled={!reviewPushes.some(p => p.t > cursor)} onClick={() => setCursor(Math.min(...reviewPushes.filter(p => p.t > cursor).map(p => p.t)))}>&#9654;</button></div>}
+      <label className="review-time-control">Review time <output>{formatDuration(cursor)}</output>
+        <span className="review-time-track"><input aria-label="Review time" type="range" min={0} max={end} step={0.1} value={cursor} onChange={e => setCursor(Number(e.target.value))} />
+        {framed && <span className="review-quality-dots" aria-hidden="true">{reviewPushes.map(p => <i key={p.id} className={`quality-${p.label ?? "neutral"}`} style={{ left: `${p.t / end * 100}%` }} />)}</span>}</span></label>
+    </div>
     <svg viewBox="0 0 800 440" style={{ width: "100%", display: "block", background: "var(--ff-surface)", border: "1px solid var(--ff-edge)", borderRadius: 6, fontFamily: "var(--font-body)", fontSize: 12 }}
       aria-label="Synchronized match charts" onClick={e => { const bounds = e.currentTarget.getBoundingClientRect(); if (bounds.width) setCursor(Math.max(0, Math.min(end, (e.clientX - bounds.left - bounds.width * 0.02) / (bounds.width * 0.96) * end))); }}>
       {tracks.map((track, index) => {
@@ -65,6 +74,7 @@ export function Timeline({ match: m, notes = [], onAnnotate }: { match: Recorded
       </g>)}
       {[0, 0.25, 0.5, 0.75, 1].map(f => <text key={f} x={x(end * f)} y={424} textAnchor={f === 0 ? "start" : f === 1 ? "end" : "middle"} fill="var(--ff-muted)">{formatDuration(end * f)}</text>)}
     </svg>
+    </div>
     <p className="muted">{selected ? `Nearest observation: ${formatDuration(selected.t)}. Troop bands: under 25% exposed; over 70% growth slowing.` : "No samples in this recording."}</p>
     <h3>Moments</h3><div style={{ maxHeight: 320, overflowY: "auto", display: "grid", gap: 8 }}>
       {events.filter(e => ["push", "bookmark", "decision"].includes(e.kind)).map((event, i) => <div key={`${event.kind}-${event.t}-${i}`}>

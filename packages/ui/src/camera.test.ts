@@ -1,6 +1,32 @@
-import { expect, it } from "vitest";
-import { spawnWorldToScreen, type SpawnCamera } from "@flashfront/core";
-import { CameraPredictor, heatCanvasTransform, MOTION_FADE, motionFade } from "./hud/heat-camera";
+// @vitest-environment jsdom
+import { expect, it, vi } from "vitest";
+import { spawnWorldToScreen, type SpawnCamera, type HeatGrid } from "@flashfront/core";
+import { attachHeatCamera, CameraPredictor, heatCanvasTransform, MOTION_FADE, motionFade } from "./hud/heat-camera";
+
+it("Lite paints each camera sample directly with no animation frames or fade", () => {
+  const raf = vi.spyOn(window, "requestAnimationFrame").mockReturnValue(1);
+  const cancel = vi.spyOn(window, "cancelAnimationFrame").mockImplementation(() => {});
+  const host = document.createElement("div"), clip = document.createElement("div"), canvas = document.createElement("canvas");
+  host.append(clip); clip.append(canvas);
+  const grid = { width: 2000, height: 1000, columns: 500, rows: 250 } as HeatGrid;
+  let sample: (camera: SpawnCamera) => void = () => {};
+  const off = vi.fn();
+  const subscribe = (cb: typeof sample) => { sample = cb; return off; };
+  const view = attachHeatCamera(canvas, clip, grid, cam(0), false, subscribe, true);
+  try {
+    const before = canvas.style.transform;
+    sample(cam(2000));
+    expect(canvas.style.transform).not.toBe(before);
+    const expected = heatCanvasTransform(grid, cam(2000), { width: 1920, height: 1080 });
+    expect(canvas.style.transform).toBe(`matrix(${expected.scaleX}, 0, 0, ${expected.scaleY}, ${expected.x}, ${expected.y})`);
+    expect(raf).not.toHaveBeenCalled();
+    expect(canvas.style.opacity).toBe("");
+    view.close(); expect(off).toHaveBeenCalledTimes(1);
+    const normal = attachHeatCamera(canvas, clip, grid, cam(0), false, subscribe);
+    sample(cam(2000)); expect(raf).toHaveBeenCalledTimes(1);
+    normal.close(); expect(cancel).toHaveBeenCalledWith(1);
+  } finally { view.close(); vi.restoreAllMocks(); }
+});
 
 it("maps canvas pixels to the same viewport positions as spawnWorldToScreen", () => {
   for (const scale of [0.5, 1, 2.4]) for (const factor of [0.5, 1, 1.5]) {

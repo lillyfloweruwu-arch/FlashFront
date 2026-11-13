@@ -1,0 +1,32 @@
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+body { width: 340px; height: 88px; position: relative; }
+.nudge {
+  position: absolute; box-sizing: border-box; max-width: 316px; width: max-content;
+  background: rgba(14,16,19,.94); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; color: var(--ff-fg);
+  box-shadow: 0 6px 18px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.07);
+  font: 500 14px/1.3 Inter, system-ui, sans-serif; padding: 7px 12px 10px;
+  overflow: hidden;
+}
+.nudge.urgent { background: rgba(40,14,22,.95); border-color: var(--ff-rose); color: var(--ff-fg); font-size: 15px; }
+.nudge-role { display: block; width: fit-content; font: 600 10px/1.3 Inter, system-ui, sans-serif; border-radius: 999px; padding: 1px 6px; margin-bottom: 3px; background: rgba(255,255,255,.1); }
+.nudge.urgent .nudge-role { color: var(--ff-rose); background: rgba(255,107,142,.16); }
+.nudge-message { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nudge-countdown { position: absolute; bottom: 0; left: 12px; right: 12px; height: 2px; background: rgba(255,255,255,.12); }
+.nudge-countdown::after { content: ""; display: block; height: 100%; background: var(--ff-muted); transform-origin: left; }
+.nudge.urgent .nudge-countdown::after { background: var(--ff-rose); }
+.nudge.anchor-top-left { left: 0; top: 0; }
+.nudge.anchor-top-right { right: 0; top: 0; }
+.nudge.anchor-bottom-left { left: 0; bottom: 0; }
+.nudge.anchor-bottom-right { right: 0; bottom: 0; }
+.nudge.anchor-center { left: 50%; bottom: 0; transform: translateX(-50%); }
+.nudge.leaving { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.ff-lite) .nudge { animation: nudge-in 150ms ease-out; }
+  :root:not(.ff-lite) .nudge.urgent { animation: nudge-in 150ms ease-out, nudge-pulse 600ms ease-in-out 1; }
+  :root:not(.ff-lite) .nudge.leaving { transition: opacity 200ms ease-in; }
+  :root:not(.ff-lite) .nudge-countdown::after { animation: nudge-countdown 4s linear forwards; }
+  :root:not(.ff-lite) .urgent .nudge-countdown::after { animation-duration: 6s; }
+}
+@keyframes nudge-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nudge-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
+@keyframes nudge-countdown { to { transform: scaleX(0); } }

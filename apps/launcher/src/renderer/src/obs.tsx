@@ -22,6 +22,6 @@ function Obs() {
     };
     connect(); return () => { stopped = true; clearTimeout(retry); socket.close(); };
   }, []);
-  return <StreamRoot snapshot={frame.snapshot ?? empty} profile={frame.profile ?? { publicId: "self", name: frame.me?.displayName ?? frame.me?.name ?? "Waiting for OpenFront", clanTag: frame.me?.clanTag, gamesPlayed: 0, wins: 0, eloHistory: [] }} result={frame.result} session={frame.session} search={location.search} lobbyPlaceholder />;
+  return <StreamRoot snapshot={frame.snapshot ?? empty} profile={frame.profile ?? undefined} result={frame.result} session={frame.session} search={location.search} />;
 }
 createRoot(document.getElementById("root")!).render(<Obs />);

@@ -24,7 +24,7 @@ export function decisionSample(s: GameSnapshot): DecisionSample | undefined {
   return s.self && s.phase === "playing" ? { t: s.elapsedSec, troops: s.self.troops, max: s.self.maxTroops,
     tiles: s.self.tilesOwned, gold: s.self.gold, outgoing: s.self.outgoingAttacks, cityCost: s.self.buildings.find(b => b.type === "City")?.nextCost } : undefined;
 }
-const floorPercent = (floor: number) => Number.isFinite(floor) ? Math.min(60, Math.max(20, floor)) : DEFAULT_RESERVE_FLOOR;
+export const floorPercent = (floor: number) => Number.isFinite(floor) ? Math.min(60, Math.max(20, floor)) : DEFAULT_RESERVE_FLOOR;
 function recovering(samples: DecisionSample[], floor: number, active = false): boolean {
   for (let i = 0; i < samples.length; i++) {
     const s = samples[i]!; const prev = samples[i - 1];
@@ -35,11 +35,10 @@ function recovering(samples: DecisionSample[], floor: number, active = false): b
   }
   return active;
 }
-/** Pure selection. History records only own numbers; now and snooze deadlines are seconds. */
-/** `suppress` lists kinds another visible module already owns (e.g. "growth" while the gauge shows). */
-export function nextDecision(snapshot: GameSnapshot, history: DecisionHistory, now: number, snoozed: SnoozedDecisions, reserveFloor = DEFAULT_RESERVE_FLOOR, suppress: readonly DecisionKind[] = []): Decision | undefined {
+/** Every active condition in priority order, before display filtering. History is own numbers only. */
+export function decisionCandidates(snapshot: GameSnapshot, history: DecisionHistory, reserveFloor = DEFAULT_RESERVE_FLOOR): Decision[] {
   const me = snapshot.self;
-  if (snapshot.phase !== "playing" || snapshot.mode === "Ranked" || snapshot.observer || !me || !Number.isFinite(me.maxTroops) || me.maxTroops <= 0) return;
+  if (snapshot.phase !== "playing" || snapshot.mode === "Ranked" || snapshot.observer || !me || !Number.isFinite(me.maxTroops) || me.maxTroops <= 0) return [];
   const current = decisionSample(snapshot)!;
   const samples = [...history.samples.filter(s => s.t < current.t), current];
   const fraction = me.troops / me.maxTroops;
@@ -77,12 +76,17 @@ export function nextDecision(snapshot: GameSnapshot, history: DecisionHistory, n
     !!renew && { kind: "renew", tone: "warning", text: renew.seconds > 0 && renew.seconds < 30 ? `Alliance ends in ${formatDuration(Math.ceil(renew.seconds))} · renewal open.` : "Alliance renewal requested." },
     snapshot.elapsedSec >= 90 && me.alliances.length === 0 && incoming < me.troops * 0.8 && { kind: "noAlly", tone: "muted", text: "No ally yet." },
   ];
-  return choices.find((d): d is Decision => !!d && !suppress.includes(d.kind) && (snoozed[d.kind] ?? -Infinity) <= now
+  return choices.filter((d): d is Decision => !!d);
+}
+/** The decision card retains its existing suppression, snooze and cooldown rules. */
+export function nextDecision(snapshot: GameSnapshot, history: DecisionHistory, now: number, snoozed: SnoozedDecisions, reserveFloor = DEFAULT_RESERVE_FLOOR, suppress: readonly DecisionKind[] = []): Decision | undefined {
+  return decisionCandidates(snapshot, history, reserveFloor).find(d => !suppress.includes(d.kind) && (snoozed[d.kind] ?? -Infinity) <= now
     && (["danger", "recovery", "losingGround", "exposed"].includes(d.kind) || history.active === d.kind || now - (history.shown[d.kind] ?? -Infinity) >= 90));
 }
 
 /** Bounded UI session state. Selection remains independently testable and side-effect free. */
 export class DecisionTracker {
+  candidates: Decision[] = [];
   history: DecisionHistory = { samples: [], shown: {} };
   snoozed: SnoozedDecisions = {};
   private game?: string;
@@ -97,6 +101,7 @@ export class DecisionTracker {
     if (sample) this.history.recovering = recovering(prev ? [prev, sample] : [sample], floorPercent(reserveFloor), this.history.recovering);
     else this.history.recovering = false;
     this.history.saving = buildPin.get(snapshot.gameId, snapshot.elapsedSec) !== undefined;
+    this.candidates = decisionCandidates(snapshot, this.history, reserveFloor);
     const decision = nextDecision(snapshot, this.history, now, this.snoozed, reserveFloor, suppress);
     if (decision && decision.kind !== this.history.active) this.history.shown[decision.kind] = now;
     this.history.active = decision?.kind;

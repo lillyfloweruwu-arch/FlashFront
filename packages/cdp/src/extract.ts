@@ -32,7 +32,8 @@ export const EXTRACT_EXPRESSION = String.raw`(() => {
   const gameConfig = call(config, "gameConfig");
   const inSpawnPhase = call(g, "inSpawnPhase") === true;
   const replay = safe(() => call(config, "isReplay") === true || /replay-viewer=/.test(location.hash)) === true;
-  const displayName = p => string(call(p, "displayName")) ?? string(call(p, "name"));
+  const restricted = replay || !!gameConfig?.rankedType || gameConfig?.gameType === "Ranked";
+  const displayName = p => string(call(p, "displayName")) ?? (p === me ? string(call(p, "name")) : undefined);
   const ownNameMatches = ${ownNameMatches.toString()};
   const array = v => Array.isArray(v) ? v : [];
   const spawnHeat = inSpawnPhase && !replay && !gameConfig?.rankedType && gameConfig?.gameType !== "Ranked" ? safe(() => {
@@ -50,6 +51,16 @@ ${CAMERA_READ}
       own: position(me), camera,
       remainingSec: gameConfig?.gameType !== "Singleplayer" && turns !== undefined && tick !== undefined ? Math.max(0, (turns - tick) / 10) : undefined };
   }) : undefined;
+  // v0.35.2 adapter: only on-screen identities and attacks involving the local player.
+  const allianceRequests = !restricted && me ? array(call(g, "playerViews"))
+    .filter(p => p !== me && call(p, "isRequestingAllianceWith", me) === true).slice(0, 8)
+    .flatMap(p => {
+      const id = call(p, "id"); const name = displayName(p); const smallID = numeric(call(p, "smallID"));
+      if (typeof id !== "string" || name === undefined) return [];
+      const atWar = smallID !== undefined && (array(call(me, "incomingAttacks")).some(a => a.attackerID === smallID)
+        || array(call(me, "outgoingAttacks")).some(a => a.targetID === smallID));
+      return [{ from: "ally:" + id, name, atWar }];
+    }) : [];
   // These caches live for one evaluation only; nothing is installed in the game page.
   const styles = new WeakMap(); const rectangles = new WeakMap(); const ancestors = new WeakMap();
   const styleOf = node => { if (!styles.has(node)) styles.set(node, getComputedStyle(node)); return styles.get(node); };
@@ -103,8 +114,19 @@ ${CAMERA_READ}
     if (!rank || !name || (fixed && !Number.isFinite(landPct))) return [];
     return [{ rank, name, landPct: Number.isFinite(landPct) ? landPct : 0, gold: fixed ? texts[3] : "", troops: fixed ? texts[4] : "", isMe: (fixed ? ownNameMatches(name, own) : mine !== undefined) || row.classList.contains("stats-table-pinned-row") }];
   }) ?? []);
+  // Upstream WinModal (win or elimination): <win-modal isVisible> with its box as the first light-DOM div.
+  // Only its rendered bounds are read; nothing else in the dialog. No modal element: no end signal.
+  const endScreen = g ? safe(() => {
+    const modal = document.querySelector("win-modal");
+    if (!modal) return undefined;
+    const viewport = { width: innerWidth, height: innerHeight };
+    const box = modal.isVisible === true ? modal.firstElementChild : null;
+    if (!box || box.tagName !== "DIV" || !isRendered(box)) return { visible: false, viewport };
+    const r = rectOf(box);
+    return { visible: true, rect: { x: r.left, y: r.top, width: r.width, height: r.height }, viewport };
+  }) : undefined;
   return {
-    inGame: !!g, gameId: string(call(g, "gameID")), tick, landTiles: numeric(call(g, "numLandTiles")), inSpawnPhase, spawnHeat, gameOver: safe(() => { const value = call(g, "gameOver"); return value === undefined ? undefined : !!value; }),
+    inGame: !!g, gameId: string(call(g, "gameID")), endScreen, tick, landTiles: numeric(call(g, "numLandTiles")), inSpawnPhase, spawnHeat, gameOver: safe(() => { const value = call(g, "gameOver"); return value === undefined ? undefined : !!value; }),
     visible: safe(() => document.visibilityState === "visible" && document.hasFocus()) === true,
     window: safe(() => ({ x: screenX, y: screenY, width: outerWidth, height: outerHeight, hidden: document.visibilityState === "hidden" })),
     // Menu only: the footer line "v0.34.25 (Steam v0.2.1)" or a bare "v0.34.25" line. News items can mention
@@ -126,7 +148,8 @@ ${CAMERA_READ}
       troopRatePerTick: numeric(call(config, "troopIncreaseRate", me)), attackRatio: numeric(safe(() => host.attackRatio)),
       incoming: array(call(me, "incomingAttacks")).map(a => ({ from: "Incoming attack", troops: numeric(call(a, "troops")) ?? numeric(safe(() => a.troops)) ?? 0 })),
       outgoingCount: safe(() => call(me, "outgoingAttacks")?.length),
-      alliances: array(call(me, "alliances")).map((a, i) => ({ with: "Alliance " + (i + 1), renewRequested: safe(() => a.hasExtensionRequest === true) || undefined, expiresInTicks: safe(() => { const end = numeric(call(a, "expiresAt")) ?? numeric(a?.expiresAt); return end !== undefined && tick !== undefined ? Math.max(0, end - tick) : undefined; }) })),
+      alliances: array(call(me, "alliances")).map((a, i) => ({ with: !restricted && typeof a?.other === "string" ? "ally:" + a.other : "Alliance " + (i + 1), name: !restricted && typeof a?.other === "string" ? displayName(call(g, "player", a.other)) : undefined, renewRequested: safe(() => a.hasExtensionRequest === true) || undefined, expiresInTicks: safe(() => { const end = numeric(call(a, "expiresAt")) ?? numeric(a?.expiresAt); return end !== undefined && tick !== undefined ? Math.max(0, end - tick) : undefined; }) })),
+      allianceRequests: allianceRequests.length ? allianceRequests : undefined,
       cityLevels: numeric(call(me, "totalUnitLevels", "City")), portLevels: numeric(call(me, "totalUnitLevels", "Port")),
       factoryLevels: numeric(call(me, "totalUnitLevels", "Factory")), defensePosts: numeric(call(me, "totalUnitLevels", "Defense Post")),
       samLaunchers: numeric(call(me, "totalUnitLevels", "SAM Launcher")), silos: numeric(call(me, "totalUnitLevels", "Missile Silo"))

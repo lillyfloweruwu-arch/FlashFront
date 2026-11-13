@@ -1,0 +1,156 @@
+{
+ "drillId": "posts-03",
+ "engineCommit": "14ba82badb1e945ef2e758999238339404fdb788",
+ "snapshotFormat": "1",
+ "startTick": 850,
+ "ownClientId": "YouDrill",
+ "gameStartInfo": {
+  "gameID": "drPost03",
+  "lobbyCreatedAt": 1792800000000,
+  "config": {
+   "gameMap": "Black Sea",
+   "difficulty": "Medium",
+   "donateGold": false,
+   "donateTroops": false,
+   "gameType": "Public",
+   "gameMode": "Free For All",
+   "gameMapSize": "Compact",
+   "overtime": {
+    "enabled": true
+   },
+   "publicGameModifiers": {},
+   "nations": "disabled",
+   "bots": 0,
+   "infiniteGold": false,
+   "infiniteTroops": false,
+   "instantBuild": false,
+   "disableClanTags": true,
+   "randomSpawn": false,
+   "maxPlayers": 2,
+   "trusted": true,
+   "spawnImmunityDuration": 50,
+   "disabledUnits": []
+  },
+  "players": [
+   {
+    "clientID": "YouDrill",
+    "username": "You",
+    "clanTag": null
+   },
+   {
+    "clientID": "NbrADril",
+    "username": "Drenmark",
+    "clanTag": null
+   }
+  ]
+ },
+ "opponents": [
+  {
+   "turn": 200,
+   "intent": {
+    "type": "attack",
+    "targetID": "e0wipyww",
+    "troops": 97896,
+    "clientID": "NbrADril"
+   }
+  }
+ ],
+ "coach": [
+  {
+   "turn": 20,
+   "intent": {
+    "type": "build_unit",
+    "unit": "Defense Post",
+    "tile": 353663,
+    "clientID": "YouDrill"
+   }
+  }
+ ],
+ "check": {
+  "kind": "post",
+  "allowedTiles": [
+   349161,
+   349162,
+   349163,
+   349164,
+   349165,
+   349166,
+   349911,
+   349912,
+   349913,
+   349914,
+   349915,
+   349916,
+   350661,
+   350662,
+   350663,
+   350664,
+   350665,
+   350666,
+   351411,
+   351412,
+   351413,
+   351414,
+   351415,
+   351416,
+   352161,
+   352162,
+   352163,
+   352164,
+   352165,
+   352166,
+   352911,
+   352912,
+   352913,
+   352914,
+   352915,
+   352916,
+   353661,
+   353662,
+   353663,
+   353664,
+   353665,
+   353666,
+   353667,
+   354411,
+   354412,
+   354413,
+   354414,
+   354415,
+   354416,
+   355161,
+   355162,
+   355163,
+   355164,
+   355165,
+   355166,
+   355911,
+   355912,
+   355913,
+   355914,
+   355915,
+   355916,
+   356661,
+   356662,
+   356663,
+   356664,
+   356665,
+   357411,
+   357412,
+   357413,
+   357414,
+   357415,
+   358161,
+   358162,
+   358163,
+   358164,
+   358165,
+   358166
+  ],
+  "beforeTick": 1050
+ },
+ "window": {
+  "openTick": 850,
+  "deadlineTick": 1050
+ }
+}

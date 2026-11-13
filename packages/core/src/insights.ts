@@ -18,7 +18,7 @@ export const isZoneReport = (event: Pick<GameEvent, "id">) => event.id.includes(
  */
 export class InsightFeed {
   private game?: string;
-  private prev?: { troops: number; max: number; zone: TroopZone; incoming: number; alliances: number; built: Record<string, number> };
+  private prev?: { troops: number; max: number; zone: TroopZone; incoming: number; allies: Map<string, string | undefined>; built: Record<string, number> };
   private events: GameEvent[] = [];
   private serial = 0;
 
@@ -33,6 +33,7 @@ export class InsightFeed {
     const incoming = me.incomingAttacks.reduce((sum, a) => sum + Math.max(0, a.troops), 0);
     const built = Object.fromEntries(BUILDINGS.map(([key]) => [key, Number(me[key]) || 0]));
     const p = this.prev;
+    const allies = new Map(me.alliances.map(a => [a.with, a.name]));
     if (p) {
       const pct = Math.round(fraction * 100);
       if (zone !== p.zone && zone === "wasting") this.add(snapshot, "info", "Growth slowing · 70% of max or more.", true);
@@ -41,12 +42,14 @@ export class InsightFeed {
         this.add(snapshot, "info", pushed ? `Push left you exposed at ${pct}% of max.` : `Exposed: ${pct}% of max.`, true);
       }
       if (incoming > 0 && p.incoming === 0) this.add(snapshot, "incomingAttack", `Incoming attack: ${formatTroops(incoming)} vs your ${formatTroops(me.troops)}.`);
-      // Builds are not reported: the game announces them itself, and live they flooded the feed.
-      const allies = me.alliances.length;
-      if (allies > p.alliances) this.add(snapshot, "allianceRequest", `Alliance formed (${allies} active).`);
-      if (allies < p.alliances) this.add(snapshot, "allianceExpired", `Alliance ended (${allies} active).`);
+      for (const [id, name] of allies) {
+        if (!p.allies.has(id)) this.add(snapshot, "allianceRequest", name ? `Alliance formed with ${name}.` : "Alliance formed with an ally.");
+      }
+      for (const [id, name] of p.allies) {
+        if (!allies.has(id)) this.add(snapshot, "allianceExpired", name ? `Alliance with ${name} ended.` : "An alliance ended.");
+      }
     }
-    this.prev = { troops: me.troops, max: me.maxTroops, zone, incoming, alliances: me.alliances.length, built };
+    this.prev = { troops: me.troops, max: me.maxTroops, zone, incoming, allies, built };
     return [...this.events];
   }
 

@@ -96,28 +96,234 @@
 .studio-saved { margin: 0; color: var(--ff-muted); font: 13px/1.5 var(--font-body); }
 .launcher-content .studio-settings .settings-note { font-size: 12px; }
 
-/* Training: one sequence. Scenario, variant, run, instruments, question. */
-.training-sequence { display: grid; gap: 16px; max-width: 760px; }
-.training-sequence fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
-.training-sequence fieldset:disabled .ff-segmented > button { cursor: not-allowed; }
-.training-run { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.training-run .ff-button-primary { min-width: 160px; }
-.training-progress { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px; }
-.training-progress progress { width: 100%; height: 4px; accent-color: var(--ff-red); }
-.training-clock { font: 600 20px/1 var(--font-number); font-variant-numeric: tabular-nums; }
-.training-facts { display: flex; gap: 24px; color: var(--ff-muted); font-size: 13px; }
-.training-facts strong { color: var(--ff-fg); font-weight: 600; margin-left: 6px; }
-.training-instruments { display: flex; flex-wrap: wrap; align-items: start; gap: 16px; }
-.training-instruments > .panel { width: 272px; }
-.training-question { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--ff-edge); border-radius: 6px; background: var(--ff-surface); }
-.training-question h2 { font: 600 20px/1.2 var(--font-number); }
-.training-answers { display: flex; gap: 8px; flex-wrap: wrap; }
+/* Training: the real board, its actions and the rewind. */
+.training-host { display: grid; gap: 16px; max-width: 1100px; }
+.training-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.training-board { display: grid; grid-template-columns: minmax(0, 1fr) 272px; gap: 16px; align-items: start; }
+.training-canvas { width: 100%; height: auto; image-rendering: pixelated; border: 1px solid var(--ff-edge); border-radius: 6px; background: var(--ff-surface); cursor: crosshair; }
+.training-controls { display: grid; gap: 12px; margin: 0; padding: 16px; border: 1px solid var(--ff-edge); border-radius: 6px; background: var(--ff-surface); min-width: 0; }
+.training-controls label { display: grid; gap: 6px; font-size: 12px; color: var(--ff-muted); }
+.training-controls:disabled { opacity: 0.6; }
+.training-rewind .training-canvas { cursor: progress; }
+.training-credit { color: var(--ff-muted); font-size: 12px; }
+@media (max-width: 760px) { .training-board { grid-template-columns: minmax(0, 1fr); } }
+.coach-card { display: grid; gap: 8px; padding: 16px; border: 1px solid var(--ff-edge); border-radius: 6px; background: var(--ff-surface); }
+.coach-card h3 { font: 600 20px/1.2 var(--font-number); }
+.coach-demo-label { color: var(--ff-red); font-weight: 600; }
+.todays-drill { justify-content: flex-start; }
 
 @media (max-width: 960px) {
   .studio-layout, .layout-workspace { grid-template-columns: minmax(0, 1fr); }
 }
+/* 0.3.0 Game archive and full Game Review. */
+.outcome-badge { display: inline-block; padding: 2px 8px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .02em; }
+.outcome-badge.loss { color: var(--danger); }
+.recordings-table .summary-cell { max-width: 280px; color: var(--ff-muted); }
+.game-review { display: grid; gap: 16px; margin: 16px 0; }
+.game-review-head { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.game-review-accuracy { display: grid; }
+.game-review-accuracy strong { font-size: 32px; line-height: 1.1; }
+.game-review-headline { margin: 0; flex: 1; min-width: 200px; }
+.game-review-counts { display: flex; flex-wrap: wrap; gap: 16px; list-style: none; padding: 0; margin: 0; }
+.game-review-counts li { display: grid; }
+.game-review-counts .push-costly strong, .game-review-counts .push-blunder strong { color: var(--danger); }
+.key-moments, .review-pushes { display: grid; gap: 8px; padding-left: 0; list-style: none; }
+.key-moments li { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.hotkey-input { cursor: pointer; caret-color: transparent; }
+.hotkey-note { margin: 4px 0 0; font-size: 12px; }
+
 @media (max-width: 719px) {
   .page-head h1 { font-size: 28px; }
   .trend-hero { grid-template-columns: 1fr; }
   .obs-source-row { flex-direction: column; align-items: stretch; }
 }
+
+/* Play's War table cards share the map and glass tokens. */
+.play-view .play-status { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; font-size: 12px; box-shadow: none; }
+.play-status > span { width: 7px; height: 7px; border-radius: 50%; background: var(--ff-good); flex-shrink: 0; }
+.play-status[data-tone="caution"] { color: var(--ff-caution); }
+.play-status[data-tone="danger"] { color: var(--ff-danger, var(--ff-rose)); }
+.play-status[data-tone="caution"] > span, .play-status[data-tone="danger"] > span { background: currentColor; }
+.play-notice { padding: 16px 18px; }
+.play-notice .ff-status { background: transparent; border: 0; padding: 0; }
+.play-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.play-card { min-width: 0; padding: 16px 18px; display: flex; flex-direction: column; }
+.play-card-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; color: var(--ff-muted); font-size: 12px; }
+.play-card-heading h2 { font: 500 12px/1.5 var(--font-body); margin: 0; }
+.play-card h3 { font: 600 24px/1.05 var(--font-number); text-transform: uppercase; letter-spacing: .03em; margin: 0 0 4px; }
+.play-card p { font-size: 12.5px; color: var(--ff-muted); margin: 0 0 8px; }
+.play-card .drill-meta { margin-top: 4px; font-size: 12px; }
+.drill-reason { color: var(--ff-caution); background: color-mix(in srgb, var(--ff-caution) 14%, transparent); border-radius: 999px; padding: 2px 9px; font-size: 11px; }
+.play-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: auto; padding-top: 12px; }
+.drill-week { margin-left: auto; display: grid; gap: 5px; font-size: 10px; }
+.drill-week-dots { display: flex; gap: 5px; }
+.drill-week i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--glass-edge); }
+.last-match-summary { display: flex; align-items: center; gap: 14px; }
+.play-accuracy { width: 76px; height: 76px; border-radius: 50%; background: var(--glass-edge); display: grid; place-items: center; flex-shrink: 0; }
+.play-accuracy > span { width: 64px; height: 64px; border-radius: 50%; background: var(--ff-surface); display: flex; flex-direction: column; justify-content: center; align-items: center; font: 600 24px/1 var(--font-number); }
+.play-accuracy small { font: 9px/1.5 var(--font-body); color: var(--ff-muted); margin-top: 3px; }
+.play-move-counts { display: flex; flex-wrap: wrap; gap: 8px 12px; list-style: none; padding: 0; margin: 8px 0 0; font-size: 11px; }
+.play-move-counts li { display: flex; align-items: center; gap: 4px; }
+.move-great { --move-color: var(--ff-good); }
+.move-good { --move-color: var(--ff-ally); }
+.move-costly { --move-color: var(--ff-caution); }
+.move-blunder { --move-color: var(--ff-rose); }
+.move-glyph { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; font-weight: 800; color: var(--ff-bg); background: var(--move-color); }
+.play-footer { padding: 12px 16px; }
+.play-footer .update-row { margin: 0; padding: 0; background: transparent; border: 0; }
+.play-footer .data-health { margin: 0; }
+.play-footer .update-row + .data-health { margin-top: 12px; }
+.play-view .fair-play { margin: 0; padding: 0 16px 12px; }
+@media (max-width: 960px) { .play-cards { grid-template-columns: 1fr; } }
+.play-spawn-pin { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.play-spawn-pin .spawn-dot { fill: var(--ff-red); }
+.play-spawn-pin .spawn-halo { fill: none; stroke: var(--ff-red); stroke-width: 1; opacity: .5; }
+.play-spawn-pin .spawn-halo.outer { opacity: .25; }
+.play-spawn-pin text { fill: var(--ff-muted); font: 12px var(--font-body); }
+
+/* Matches and review use the shared War table glass; effects follow the theme's Lite overrides. */
+.matches-grid { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 16px; align-items: start; }
+.matches-archive { min-width: 0; overflow: hidden; }
+.matches-archive .matches-filters { padding: 16px; margin: 0; align-items: center; }
+.match-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.match-chips button { padding: 6px 12px; border: 1px solid transparent; border-radius: var(--radius-pill); background: transparent; color: var(--ff-muted); font-size: 12px; }
+.match-chips button[aria-checked="true"] { background: rgba(255,255,255,.1); color: var(--ff-fg); }
+.matches-archive .recordings-table { width: 100%; }
+.matches-archive .recordings-table td, .matches-archive .recordings-table th { padding: 12px 10px; }
+.matches-archive .recordings-table thead { font-size: 11px; color: var(--ff-muted); }
+.matches-archive .recordings-table .summary-cell { font-size: 12px; min-width: 160px; }
+.match-meta { color: var(--ff-muted); font-size: 11px; margin-top: 4px; }
+.match-thumbnail { width: 54px; height: 34px; border-radius: var(--radius-sm); background-color: var(--ff-surface-2); background-size: cover; background-position: center; }
+.matches-archive .recordings-table tr.is-selected, .game-review .review-pushes li.is-selected { background: rgba(232,25,44,.1); border-inline: 0; box-shadow: none; }
+.match-accuracy { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.accuracy-track { display: inline-block; width: 48px; height: 4px; margin-right: 8px; vertical-align: middle; background: var(--glass-edge); border-radius: var(--radius-pill); overflow: hidden; }
+.accuracy-track i { display: block; height: 100%; background: var(--ff-good); }
+.matches-trend { padding: 18px; }
+.archive-trend-headline { font: 600 20px/1.3 var(--font-number); }
+.archive-trend-spark { margin: 16px 0; color: var(--ff-good); }
+.archive-trend-spark svg { width: 100%; height: 54px; }
+.archive-trend-spark path, .archive-trend-spark polyline { stroke: var(--ff-good); }
+.archive-trend-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 8px; font-size: 12px; }
+.archive-trend-facts dt { color: var(--ff-muted); }
+.archive-trend-facts dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+.archive-more-trends { margin-top: 16px; }
+.matches-trend .trend-hero { grid-template-columns: 1fr; }
+.matches-archive > .page-status, .matches-archive > p { margin: 12px 16px; }
+.quality-great { --quality: var(--ff-good); }
+.quality-good { --quality: var(--ff-ally); }
+.quality-costly { --quality: var(--ff-caution); }
+.quality-blunder { --quality: var(--ff-rose); }
+.quality-neutral { --quality: var(--ff-muted); }
+.quality-badge { display: inline-flex; align-items: center; gap: 4px; width: fit-content; color: var(--quality); background: color-mix(in srgb, var(--quality) 12%, transparent); border-radius: var(--radius-sm); padding: 3px 7px; font: 600 11px/1.4 var(--font-body); white-space: nowrap; }
+.game-review-frame { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+.game-review-observations { min-width: 0; }
+.game-review-board { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 16px; min-width: 0; border: 1px solid var(--glass-edge); border-radius: var(--radius-panel); box-shadow: var(--float); overflow: hidden; background: var(--glass); }
+.review-coach-card { position: absolute; z-index: 1; top: 16px; left: 16px; width: min(340px, calc(100% - 32px)); padding: 14px; font-size: 12px; }
+.review-coach-card p { margin-top: 8px; }
+.game-review-sidebar { display: grid; gap: 14px; min-width: 0; }
+.game-review-summary { padding: 18px; }
+.game-review-head { display: grid; grid-template-columns: 72px 1fr; gap: 12px; }
+.game-review-head h2 { font: 600 20px/1.3 var(--font-number); text-transform: uppercase; }
+.game-review-accuracy, .game-review-headline { grid-column: 1 / -1; min-width: 0; font-size: 12px; }
+.game-review-accuracy strong { font-size: 16px; }
+.review-accuracy-ring { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: conic-gradient(var(--ff-good) var(--accuracy), var(--glass-edge) 0); }
+.review-accuracy-ring > span { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: var(--ff-surface); font: 600 28px/1 var(--font-number); }
+.game-review-counts { display: grid; gap: 10px; margin-top: 18px; }
+.game-review-counts li { display: flex; align-items: center; justify-content: space-between; }
+.game-review-counts .push-costly strong { color: var(--ff-caution); }
+.game-review-counts .push-blunder strong { color: var(--ff-rose); }
+.game-review-counts .push-good strong { color: var(--ff-ally); }
+.game-review-counts .push-great strong { color: var(--ff-good); }
+.game-review-summary > .muted { font-size: 11px; margin-top: 14px; }
+.game-review-moves { overflow: hidden; }
+.game-review-moves > h3, .game-review-moves > p { padding: 14px; }
+.game-review .review-pushes { gap: 0; margin: 0; max-height: 440px; overflow-y: auto; }
+.review-pushes li + li { border-top: 1px solid var(--glass-edge); }
+.review-pushes button { width: 100%; display: grid; grid-template-columns: 38px auto; gap: 6px 8px; align-items: center; text-align: left; border: 0; border-radius: 0; padding: 12px; background: transparent; font-size: 12px; }
+.review-pushes button > span:last-child { grid-column: 1 / -1; }
+.review-pushes time { color: var(--ff-muted); font-variant-numeric: tabular-nums; }
+.review-timeline { display: flex; flex-direction: column; gap: 12px; }
+.game-review-board:has(.review-coach-card) { padding-top: 180px; }
+.review-timeline > h3:first-child, .review-timeline > h3:first-child + p { display: none; }
+.game-review-board > svg { order: -2; }
+.game-review-board .review-scrubber { order: -1; }
+.review-scrubber { display: flex; gap: 12px; align-items: center; padding: 12px; }
+.review-step-buttons { display: flex; gap: 6px; }
+.review-step-buttons button { padding: 6px 8px; }
+.review-time-control { display: flex; gap: 8px; align-items: center; flex: 1; font-size: 11px; flex-wrap: wrap; }
+.review-time-track { display: block; position: relative; flex: 1; min-width: 80px; }
+.review-time-track input { width: 100%; margin: 0; accent-color: var(--ff-fg); position: relative; z-index: 1; }
+.review-quality-dots { position: absolute; left: 7px; right: 7px; bottom: -4px; height: 6px; pointer-events: none; }
+.review-quality-dots i { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--quality); transform: translateX(-50%); }
+@media (max-width: 1050px) {
+  .matches-grid, .game-review-frame { grid-template-columns: minmax(0, 1fr); }
+  .matches-trend { max-width: none; }
+  .game-review-sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .game-review-sidebar { grid-template-columns: minmax(0, 1fr); }
+  .review-scrubber { flex-wrap: wrap; }
+  .game-review-board:has(.review-coach-card) { padding-top: 220px; }
+}
+
+.profile-plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 24px 0 16px; }
+.profile-plate { padding: 20px; min-width: 0; }
+.profile-plate h2 { font: 600 13px/1.5 var(--font-body); color: var(--ff-muted); margin: 0 0 12px; }
+.profile-plate > strong { display: block; font: 600 48px/1.15 var(--font-number); overflow-wrap: anywhere; }
+.profile-plate > strong[data-unavailable] { font: 500 18px/1.5 var(--font-body); color: var(--ff-muted); }
+.profile-plate svg { width: 100%; margin-top: 16px; }
+.profile-details { padding: 20px; margin-top: 16px; }
+@media (max-width: 900px) { .profile-plates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Customize and Stream use the launcher's War table surfaces. */
+.layout-page .page-head h1, .studio-page .page-head h1 { font-size: 34px; line-height: 1; }
+.layout-page .page-head p { margin-top: 6px; }
+.layout-page .layout-toolbar { padding: 16px; margin-bottom: 16px; }
+.customize-combined .layout-workspace { grid-template-columns: minmax(0, 62fr) minmax(300px, 38fr); gap: 24px; }
+.layout-page .layout-canvas { border-color: var(--glass-edge); border-radius: var(--radius-panel); box-shadow: var(--float), var(--lift); }
+.layout-page .layout-map-art { object-fit: cover; filter: var(--map-filter); }
+.customize-options { min-width: 0; padding: 16px; display: grid; gap: 20px; }
+.customize-options .layout-inspector { padding: 16px 0 0; background: transparent; border: 0; border-top: 1px solid var(--glass-edge); border-radius: 0; }
+.customize-options fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.customize-options .panel-toggles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.panel-toggles legend { margin-bottom: 12px; }
+.panel-toggles .check { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.customize-coaching .settings-row { padding: 0; }
+.theme-swatches .theme-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.theme-swatches .theme-card { padding: 12px; background: var(--glass); border: 1px solid var(--glass-edge); border-radius: var(--radius-panel); box-shadow: var(--lift); }
+.theme-swatches .theme-card.theme-active { outline: 2px solid var(--ff-fg); outline-offset: 2px; }
+.theme-swatches .spread { flex-direction: column; align-items: stretch; gap: 8px; }
+.theme-swatches .theme-description { min-height: 0; padding-block: 8px; font-size: 12px; }
+.theme-swatches .theme-card [aria-pressed="true"] { border-color: var(--ff-fg); background: var(--glass); }
+.theme-swatches .theme-status { min-height: 0; padding-block: 8px; }
+.theme-swatches .theme-status:empty { display: none; }
+.theme-swatches .preset-note { margin: 8px 0 12px; font-size: 12px; color: var(--ff-muted); }
+.theme-palette { display: flex; height: 24px; overflow: hidden; border-radius: var(--radius-control); margin: 4px 0 12px; }
+.theme-palette i { flex: 1; }
+.theme-swatches .builtin-preset { padding: 12px; margin-top: 12px; }
+.theme-swatches summary { cursor: pointer; font-size: 12px; }
+.studio-page .studio-main { padding: 16px; }
+.studio-page .studio-settings, .studio-page .obs-source-row, .studio-page .studio-preview { background: var(--glass); border-color: var(--glass-edge); border-radius: var(--radius-panel); }
+.studio-page .raw-url { padding: 12px 16px; }
+.studio-page .studio-chip { border-color: var(--glass-edge); border-radius: var(--radius-control); padding: 4px 8px; }
+@media (max-width: 1000px) {
+  .customize-combined .layout-workspace { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* The WebContentsView covers only the measured map rectangle, leaving React controls accessible. */
+.game-review.has-replay .game-review-frame { grid-template-columns: minmax(0, 1fr) 380px; }
+.review-map-shell { overflow: hidden; padding: 12px; }
+.review-map-row { display: flex; gap: 10px; }
+.review-native-map { min-width: 0; flex: 1; height: 420px; position: relative; display: grid; place-items: center; background: #0a0a0b; }
+.review-native-map p { max-width: 36ch; padding: 20px; color: var(--ff-muted); }
+.review-strength-bar { width: 32px; flex-shrink: 0; position: relative; background: #17191c; border: 1px solid var(--glass-edge); border-radius: 5px; overflow: hidden; }
+.review-strength-bar i { position: absolute; left: 0; right: 0; bottom: 0; background: #f0f0ed; }
+.review-strength-bar span { position: absolute; top: 8px; left: 4px; writing-mode: vertical-rl; font-size: 11px; mix-blend-mode: difference; color: white; }
+.review-moment-card { margin: 12px 0 0; padding: 16px; }
+.review-moment-card .tiny-label { display: block; margin-top: 8px; }
+.game-review.has-replay .review-timeline [data-track]:not([data-track="land"]) { display: none; }
+.game-review.has-replay .review-timeline { min-width: 0; }
+@media (max-width: 1050px) { .game-review.has-replay .game-review-frame { grid-template-columns: minmax(0, 1fr); } }
+
+.drill-week-dots i.is-complete { background: var(--ff-good); border-color: var(--ff-good); }

@@ -1,9 +1,21 @@
 import { contextBridge, ipcRenderer } from "electron";
-import type { LauncherApi, LauncherState, Settings } from "../shared";
+import type { LauncherApi, LauncherState, NudgeView, Settings } from "../shared";
 const api: LauncherApi = {
+  openReviewBoard: (file, bounds) => ipcRenderer.invoke("review-board-open", file, bounds),
+  seekReviewBoard: tick => ipcRenderer.invoke("review-board-seek", tick),
+  resizeReviewBoard: bounds => ipcRenderer.invoke("review-board-resize", bounds),
+  closeReviewBoard: () => ipcRenderer.invoke("review-board-close"),
+  onReviewBoardStatus(cb) { const listener = (_event: unknown, status: import("../review-types").ReviewBoardStatus) => cb(status); ipcRenderer.on("review-board-status", listener); return () => { ipcRenderer.removeListener("review-board-status", listener); }; },
+  onReviewBoardStep(cb) { const listener = (_event: unknown, direction: -1 | 1) => cb(direction); ipcRenderer.on("review-board-step", listener); return () => { ipcRenderer.removeListener("review-board-step", listener); }; },
+  startTraining: request => ipcRenderer.invoke("training-start", request),
+  onTrainingEnded(cb) { const listener = (_event: unknown, request: import("../shared").TrainingRequest, outcome: import("../shared").TrainingOutcome) => cb(request, outcome); ipcRenderer.on("training-ended", listener); return () => { ipcRenderer.removeListener("training-ended", listener); }; },
   subscribeCamera(cb) { const listener = (_event: unknown, camera: import("@flashfront/core").SpawnCamera) => cb(camera); ipcRenderer.on("spawn-camera", listener); return () => { ipcRenderer.removeListener("spawn-camera", listener); }; },
   onSurfaceActive(cb) { const listener = (_event: unknown, active: boolean) => cb(active); ipcRenderer.on("surface-active", listener); return () => { ipcRenderer.removeListener("surface-active", listener); }; },
   onViewport(cb) { const listener = (_event: unknown, viewport: LauncherState["overlayViewport"]) => cb(viewport); ipcRenderer.on("overlay-viewport", listener); return () => { ipcRenderer.removeListener("overlay-viewport", listener); }; },
+  onNudge(cb) { const listener = (_event: unknown, view: NudgeView | null) => cb(view); ipcRenderer.on("nudge", listener); return () => { ipcRenderer.removeListener("nudge", listener); }; },
+  onEndReview(cb) { const listener = (_event: unknown, view: import("../shared").EndReviewView | null) => cb(view); ipcRenderer.on("end-review", listener); return () => { ipcRenderer.removeListener("end-review", listener); }; },
+  endReviewAction: kind => ipcRenderer.invoke("end-review-action", kind),
+  reportEndReviewHeight: height => ipcRenderer.send("end-review-height", height),
   getState: () => ipcRenderer.invoke("state"),
   subscribe(cb) { const listener = (_event: unknown, state: LauncherState) => cb(state); ipcRenderer.on("state", listener); return () => { ipcRenderer.removeListener("state", listener); }; },
   launch: () => ipcRenderer.invoke("launch"),
@@ -20,8 +32,18 @@ const api: LauncherApi = {
   toggleEdit: () => ipcRenderer.invoke("toggle-edit"),
   listMatches: () => ipcRenderer.invoke("matches-list"),
   getMatch: file => ipcRenderer.invoke("matches-get", file),
+  getReview: file => ipcRenderer.invoke("review-get", file),
   deleteMatch: file => ipcRenderer.invoke("matches-delete", file),
   showMatch: file => ipcRenderer.invoke("matches-show", file),
+  showTraining: request => ipcRenderer.invoke("training-show", request),
+  getDrillProgress: () => ipcRenderer.invoke("drill-progress"),
+  openTrainingLog: () => ipcRenderer.invoke("training-open-log"),
+  getTodaysDrill: () => ipcRenderer.invoke("drill-today"),
+  completeDrill: drillId => ipcRenderer.invoke("drill-complete", drillId),
+  recordDrillVisit: drillId => ipcRenderer.invoke("drill-visit", drillId),
+  loadTrainingRecord: (file, retry) => ipcRenderer.invoke("training-record", file, retry),
+  loadTrainingMap: (mapId, mapSize) => ipcRenderer.invoke("training-map", mapId, mapSize),
+  onNavigate(cb) { const listener = (_event: unknown, destination: import("../shared").LauncherDestination) => cb(destination); ipcRenderer.on("navigate", listener); ipcRenderer.send("navigation-ready"); return () => { ipcRenderer.removeListener("navigate", listener); }; },
   onMatchesChanged(cb) { const listener = () => cb(); ipcRenderer.on("matches-changed", listener); return () => { ipcRenderer.removeListener("matches-changed", listener); }; },
   annotateMatch: (file, t, note) => ipcRenderer.invoke("matches-annotate", file, t, note),
   saveShare: png => ipcRenderer.invoke("share-save", png),
@@ -29,3 +51,5 @@ const api: LauncherApi = {
   reportShape: rects => ipcRenderer.send("overlay-shape", rects),
 };
 contextBridge.exposeInMainWorld("flashfront", api);
+
+

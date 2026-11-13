@@ -11,7 +11,7 @@ export interface PersonalConfig {
   publicAuthor?: { name: string; email: string };
   releaseNoteCredits?: string[]; // permitted end-of-line credits on hold-Space release-notes lines
 }
-export interface Rule { id: "email" | "user-path" | "vault" | "player-id" | "name" | "token"; pattern: RegExp }
+export interface Rule { id: "email" | "user-path" | "vault" | "player-id" | "name" | "token"; pattern: RegExp; skip?: (file: string) => boolean }
 export interface Finding { file: string; line: number; rule: Rule["id"]; masked: string }
 export const CONFIG_PATH = "tools/public/personal.local.json";
 const SETUP = "personal-info config missing: copy tools/public/personal.example.json to tools/public/personal.local.json and fill it in";
@@ -48,10 +48,12 @@ export function loadPersonalConfig(repoRoot: string, opts: { file?: string; sett
 
 export function buildRules(config: PersonalConfig): Rule[] {
   const rules: Rule[] = [];
-  const add = (id: Rule["id"], pattern: string, flags = "gi") => rules.push({ id, pattern: new RegExp(pattern, flags) });
+  const add = (id: Rule["id"], pattern: string, flags = "gi", skip?: Rule["skip"]) => rules.push({ id, pattern: new RegExp(pattern, flags), skip });
   for (const email of config.emails) add("email", literal(email));
   add("user-path", "[a-z]:[\\\\/]+users[\\\\/]+|/[a-z]/users/");
-  add("vault", "one" + "drive|documents[\\\\/]+brain|ob" + "sidian");
+  add("vault", "one" + "drive|documents[\\\\/]+brain", "gi");
+  // Upstream OpenFront data names things after the stone; only first-party files must avoid the word.
+  add("vault", "ob" + "sidian", "gi", file => file.replace(/\\/g, "/").startsWith("vendor/openfront/"));
   for (const marker of config.vaultMarkers) add("vault", literal(marker));
   for (const id of config.playerIds) add("player-id", `\\b${literal(id)}\\b`);
   for (const name of config.names) add("name", `(?<![\\p{L}\\p{N}_])${literal(name)}(?![\\p{L}\\p{N}_])`, "giu");
@@ -68,7 +70,8 @@ export function scanText(file: string, text: string, rules: Rule[], opts: { rele
   let displayFile = win32.isAbsolute(file) ? win32.basename(file) : posix.isAbsolute(file) ? posix.basename(file) : file;
   for (const { pattern } of rules) displayFile = displayFile.replace(new RegExp(pattern.source, pattern.flags), match => `${match[0]}***`);
   const findings: Finding[] = [];
-  for (const { id, pattern } of rules) {
+  for (const { id, pattern, skip } of rules) {
+    if (skip?.(file)) continue;
     for (const match of text.matchAll(new RegExp(pattern.source, pattern.flags))) {
       findings.push({ file: displayFile, line: text.slice(0, match.index).split("\n").length, rule: id, masked: `${match[0][0]}***` });
     }
@@ -84,7 +87,10 @@ export function scanFiles(root: string, files: readonly string[], rules: Rule[])
     // Keep repeated occurrences, but do not report the same ASCII match twice.
     const counts = new Map<string, number>();
     for (const f of binary) { const key = JSON.stringify(f); counts.set(key, (counts.get(key) ?? 0) + 1); }
-    return [...scanText(file, file, rules), ...binary, ...utf8.filter(f => {
+    // A compressed payload is random bytes, where short names match by chance; other rules still apply.
+    const opaque = /\.(br|gz|zst)$/i.test(file);
+    return [...scanText(file, file, rules), ...binary.filter(f => !opaque || f.rule !== "name"), ...utf8.filter(f => {
+      if (opaque && f.rule === "name") return false;
       const key = JSON.stringify(f); const count = counts.get(key) ?? 0;
       if (count) { counts.set(key, count - 1); return false; }
       return true;

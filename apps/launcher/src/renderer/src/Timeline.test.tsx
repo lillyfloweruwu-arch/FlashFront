@@ -52,3 +52,14 @@ it("saves bookmark text explicitly and preserves the draft on failure", async ()
   expect(save).toHaveBeenCalledWith(25, "My note"); expect(host.textContent).toContain("Disk full"); expect(field.value).toBe("My note");
   await act(async () => button.click()); expect(host.textContent).toContain("Note saved");
 });
+it("follows a controlled cursor and reports slider changes to its owner", async () => {
+  const onCursorChange = vi.fn();
+  await act(async () => root.render(<Timeline match={fixture()} cursorSec={30} onCursorChange={onCursorChange} />));
+  const slider = host.querySelector('input[aria-label="Review time"]') as HTMLInputElement;
+  expect(slider.value).toBe("30");
+  await act(async () => { const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!; setter.call(slider, "45"); slider.dispatchEvent(new Event("input", { bubbles: true })); });
+  expect(onCursorChange).toHaveBeenCalledWith(45);
+  expect(slider.value).toBe("30");
+  await act(async () => root.render(<Timeline match={fixture()} cursorSec={45} onCursorChange={onCursorChange} />));
+  expect((host.querySelector('input[aria-label="Review time"]') as HTMLInputElement).value).toBe("45");
+});

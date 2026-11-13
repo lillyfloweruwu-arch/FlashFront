@@ -1,6 +1,12 @@
 import { expect, it } from "vitest";
 import { DEFAULT_SETTINGS, editBlocked, mergeSettingsForm, SETTINGS_FORM_FIELDS, type Settings } from "../shared";
 
+it("Save applies a changed Lite mode and keeps one changed elsewhere", () => {
+  const start: Settings = { ...DEFAULT_SETTINGS };
+  expect(mergeSettingsForm(start, { ...start, liteMode: "on" }, start).liteMode).toBe("on");
+  expect(mergeSettingsForm({ ...start, liteMode: "off" }, { ...start, reserveFloor: 40 }, start).liteMode).toBe("off");
+});
+
 // 0.2.1 sweep: Save in Settings wrote a stale draft over fields changed on other screens.
 it("save keeps fields changed on other screens and applies only the form's own fields", () => {
   const stale: Settings = { ...DEFAULT_SETTINGS, textSize: "compact", reserveFloor: 35, practiceGoal: "port180" };
@@ -38,4 +44,9 @@ it("blocks HUD editing outside a match and in every restricted match", () => {
   expect(editBlocked({ raw: { ...raw, game: { rankedType: "ffa" } } })).toBe(true);
   expect(editBlocked({ raw: { ...raw, replay: true } })).toBe(true);
   expect(editBlocked({ raw, snapshot: { observer: "spectating" } })).toBe(true);
+});
+
+it("the coach nudges checkbox is a form field that Save applies", () => {
+  expect(SETTINGS_FORM_FIELDS).toContain("nudges");
+  expect(mergeSettingsForm(DEFAULT_SETTINGS, { ...DEFAULT_SETTINGS, nudges: false }).nudges).toBe(false);
 });

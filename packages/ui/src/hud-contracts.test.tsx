@@ -20,8 +20,8 @@ it("keeps every default panel rectangle clear of every game UI zone at 1080p", (
       expect(overlaps, `${id} intersects ${zone.id}`).toBe(false);
     }
   }
-  expect(layout.self.hidden).toBe(true); expect(layout.clock.hidden).toBe(true);
-  expect(panelIds.filter(id => !layout[id].hidden)).toHaveLength(10);
+  expect(layout.self.hidden).toBe(false); expect(layout.clock.hidden).toBe(false);
+  expect(panelIds.filter(id => !layout[id].hidden)).toHaveLength(6);
   expect(layout.spawn).toMatchObject({ x: 16, y: 284 });
   expect(defaultLayout(960, 540).gauge.x).toBe(layout.gauge.x / 2);
   expect(defaultLayout(960, 540).build.y).toBe(layout.build.y / 2);

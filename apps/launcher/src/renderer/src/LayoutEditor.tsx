@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { MockDataSource } from "@flashfront/core";
 import { Button, GAME_UI_ZONES, HudRoot, LocalStorageLayoutStore, Segmented, presetLayout, type HudLayout, type PanelId } from "@flashfront/ui";
 import type { HudPreset, LauncherApi, Settings, TextSize } from "../../shared";
@@ -13,7 +13,8 @@ const presets: { value: HudPreset; label: string; detail: string }[] = [
 ];
 export const PANEL_TITLES: Record<PanelId, string> = { decision: "Your next decision", clock: "Match overview", self: "Your position", spawn: "Spawn spots", gauge: "Troop growth", attack: "Attack preview", build: "Build planner", alliances: "Alliances", events: "Field reports", opening: "Opening checklist", trade: "Trade monitor", goal: "Practice goal" };
 
-export function LayoutEditor({ api, settings }: { api: LauncherApi; settings: Settings }) {
+export function LayoutEditor({ api, settings, themes, coaching }: { api: LauncherApi; settings: Settings; themes?: ReactNode; coaching?: ReactNode }) {
+  const combined = !!themes;
   const [resolution, setResolution] = useState("1920x1080");
   const [width, height] = resolution.split("x").map(Number) as [number, number];
   const store = useMemo(() => new LocalStorageLayoutStore(width, height), [width, height]);
@@ -67,28 +68,33 @@ export function LayoutEditor({ api, settings }: { api: LauncherApi; settings: Se
     if (first) setSelected(first as PanelId);
   });
   const panel = selected && layout?.[selected];
-  return <section className="customize-page layout-page" aria-label="HUD layout editor">
-    <header className="page-head"><h1>HUD layout</h1></header>
-    <div className="layout-toolbar" role="toolbar" aria-label="Layout options">
+  return <section className={`customize-page layout-page ${combined ? "customize-combined" : ""}`} aria-label={combined ? "Customize" : "HUD layout editor"}>
+    <header className="page-head"><div><h1 className="ff-page-title">{combined ? "Customize" : "HUD layout"}</h1>{combined && <p className="muted">Pick a theme and arrange your HUD.</p>}</div>
+      <div className="page-head-actions"><Button variant="primary" disabled={busy} onClick={() => void save({ hudPreset: preset, textSize }, () => {})}>Save layout</Button><Button data-reset-layout disabled={busy} onClick={reset}>Reset</Button></div>
+    </header>
+    <div className="layout-toolbar ff-glass" role="toolbar" aria-label="Layout options">
       <div><span className="field-label">Preset</span><Segmented label="HUD preset" options={presets} value={preset} onChange={choose} /></div>
       <div><span className="field-label">Text size</span><Segmented<TextSize> label="HUD text size" options={[{ value: "compact", label: "Compact" }, { value: "comfortable", label: "Comfortable" }]} value={textSize} onChange={next => void save({ textSize: next }, () => setTextSize(next))} /></div>
       <div><span className="field-label">Game resolution</span><Segmented label="Game resolution" options={resolutions.map(([w, h]) => ({ value: `${w}x${h}`, label: `${w}×${h}` }))} value={resolution} onChange={next => { setResolution(next); setSelected(undefined); }} /></div>
-      <div className="toolbar-end"><div><span className="field-label">Preview</span><Segmented label="Preview zoom" options={[{ value: "fit", label: "Fit" }, { value: "actual", label: "100%" }]} value={zoom} onChange={setZoom} /></div>
-        <Button data-reset-layout disabled={busy} onClick={reset}>Reset {width}×{height}</Button></div>
+      <div className="toolbar-end"><div><span className="field-label">Preview</span><Segmented label="Preview zoom" options={[{ value: "fit", label: "Fit" }, { value: "actual", label: "100%" }]} value={zoom} onChange={setZoom} /></div></div>
     </div>
-    <p className="layout-preset-note">{presets.find(p => p.value === preset)?.detail} Outlined areas mark the game UI.</p>
+    <p className="layout-preset-note">Example HUD. {presets.find(p => p.value === preset)?.detail} Outlined areas mark the game UI.</p>
     <p role="status" className="page-status">{message}</p>
     <div className="layout-workspace">
       <div className={`layout-canvas ${zoom === "actual" ? "actual-size" : ""}`} ref={frame} style={zoom === "fit" ? { height: height * scale + 2 } : undefined}
         onPointerDownCapture={e => pick(e.target)} onFocusCapture={e => pick(e.target)}>
         {selected && <style>{`.layout-canvas .hud-layer.editing .hud-panel[data-panel="${selected}"] { border-color: var(--ff-red); }`}</style>}
         <div className="layout-editor-map" style={{ width, height, transform: `scale(${scale})` }}>
-          <svg className="layout-map-art" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-label="Illustrative practice map"><path d="M0 160L180 120 320 320 520 260 620 440 510 680 280 780 170 620 0 710ZM740 0L1010 0 1120 180 1070 380 1270 460 1190 740 960 660 860 410 700 300ZM1440 290L1700 220 1920 380 1920 950 1710 890 1580 710 1360 620Z" /></svg>
+          <img className="layout-map-art" src="minimaps/europe.png" alt="Europe map preview" />
           {GAME_UI_ZONES.map(zone => <div key={zone.id} className="layout-game-zone" style={{ left: zone.x / 1920 * width, top: zone.y / 1080 * height, width: zone.width / 1920 * width, height: zone.height / 1080 * height }}>{zone.label}</div>)}
           <HudRoot key={`${resolution}.${revision}`} snapshot={snapshot} layoutStore={store} hudPreset={preset} textSize={textSize} viewport={{ width, height }} keyboardEnabled={false} editMode onLayoutChange={setLayout} />
         </div>
       </div>
-      <aside className="layout-inspector" aria-label="Selected panel">
+      <aside className="customize-options ff-glass">
+        {themes}
+        {combined && <fieldset className="panel-toggles"><legend>Panels</legend>{(Object.keys(PANEL_TITLES) as PanelId[]).map(id => <label className="check" key={id}><input type="checkbox" checked={!layout?.[id]?.hidden} onChange={e => updatePanel(id, { hidden: !e.target.checked })} />{PANEL_TITLES[id]}</label>)}</fieldset>}
+        {coaching}
+        <section className="layout-inspector" aria-label="Selected panel">
         {selected && panel ? <>
           <h2>{PANEL_TITLES[selected]}</h2>
           <div><span className="field-label">Outside edit mode</span><Segmented label="Panel visibility" options={[{ value: "shown", label: "Shown" }, { value: "hidden", label: "Hidden" }]} value={panel.hidden ? "hidden" : "shown"} onChange={v => updatePanel(selected, { hidden: v === "hidden" })} /></div>
@@ -96,8 +102,8 @@ export function LayoutEditor({ api, settings }: { api: LauncherApi; settings: Se
           <dl><dt>Position</dt><dd>{Math.round(panel.x)}, {Math.round(panel.y)} px</dd><dt>Resolution</dt><dd>{width}×{height}</dd></dl>
           <p>Drag the header to move it. Arrow keys on its move control shift it 10px.</p>
         </> : <><h2>No panel selected</h2><p>Click a panel on the canvas to edit it here. Positions save as you move them, separately for each resolution.</p></>}
-      </aside>
+      </section></aside>
     </div>
-    <p className="page-foot">Illustrative map · preview only.</p>
+    <p className="page-foot">Example HUD · preview only.</p>
   </section>;
 }

@@ -1,8 +1,38 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { MatchRecorder } from "@flashfront/core";
-import { StatsApi, resolvePublicId, PublicIdResolver } from "./api";
+import { StatsApi, resolvePublicId, PublicIdResolver, upstreamPath, recordUpstreamPath, RECORD_MAX_BYTES } from "./api";
 const json = (body: unknown, age = 60, status = 200) => new Response(JSON.stringify(body), { status, headers: { "Cache-Control": `public, max-age=${age}` } });
 afterEach(() => vi.useRealTimers());
+it("keeps full records main-only and outside the memory cache", async () => {
+  const fetcher = vi.fn<typeof fetch>(async () => json({ turns: [] }));
+  let now = 0;
+  const api = new StatsApi(fetcher, () => now, async ms => { now += ms; });
+  expect(upstreamPath("/api/game/abc123?turns=true")).toBeUndefined();
+  expect(recordUpstreamPath("abc123")).toBe("/public/game/abc123");
+  expect(recordUpstreamPath("../x")).toBeUndefined();
+  expect((await api.gameRecord("../x")).status).toBe(400);
+  await api.gameRecord("abc123"); await api.gameRecord("abc123");
+  expect(fetcher).toHaveBeenCalledTimes(2);
+  expect(fetcher.mock.calls[0]![0]).toBe("https://api.openfront.io/public/game/abc123");
+  expect(now).toBe(1000);
+});
+it("refuses oversized declared and streamed record bodies", async () => {
+  let cancelled = false;
+  const stream = new ReadableStream<Uint8Array>({ start(c) { c.enqueue(new Uint8Array(RECORD_MAX_BYTES + 1)); }, cancel() { cancelled = true; } });
+  const fetcher = vi.fn<typeof fetch>().mockResolvedValueOnce(new Response("{}", { headers: { "content-length": "30000000" } }))
+    .mockResolvedValueOnce(new Response(stream));
+  const api = new StatsApi(fetcher, Date.now, async () => {});
+  expect((await api.gameRecord("abc123")).status).toBe(413);
+  expect((await api.gameRecord("abc123")).status).toBe(413);
+  expect(cancelled).toBe(true);
+});
+it("checks the match guard again after waiting in the shared request queue", async () => {
+  let playing = false;
+  const fetcher = vi.fn<typeof fetch>(async () => json({ turns: [] }));
+  const api = new StatsApi(fetcher, Date.now, async () => { playing = true; });
+  expect((await api.gameRecord("abc123", () => !playing)).status).toBe(425);
+  expect(fetcher).not.toHaveBeenCalled();
+});
 it("honors max-age with a 30-second floor, coalesces cache misses, and spaces global requests", async () => {
   let now = 0; const starts: number[] = [];
   const fetcher = vi.fn(async () => { starts.push(now); return json({ ok: true }, starts.length === 1 ? 120 : 1); });

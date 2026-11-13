@@ -27,6 +27,8 @@ it("passes saved HUD preferences, own team and raw feature health through the ov
   });
   try {
     await act(async () => { await import("./main"); });
+    await act(async () => publish({ ...current, lite: true, settings: { ...current.settings, visualEffects: "lite" } }));
+    expect(document.documentElement.hasAttribute("data-fx")).toBe(false);
     expect(host.querySelector<HTMLElement>(".hud-layer")?.style.getPropertyValue("--font-scale")).toBe("1.15");
     expect(host.querySelector<HTMLElement>('[data-panel="gauge"]')?.hidden).toBe(true);
     expect(host.querySelector<HTMLElement>('[data-panel="trade"]')?.hidden).toBe(false);

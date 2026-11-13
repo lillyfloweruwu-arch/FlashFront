@@ -16,7 +16,8 @@ export interface PlayerSummary {
 
 export type BuildingType = "City" | "Port" | "DefensePost" | "MissileSilo" | "SAMLauncher" | "Factory";
 export interface BuildingCount { type: BuildingType; count: number; nextCost: number; }
-export interface Alliance { with: PlayerId; expiresAtTick?: number; formedAtTick?: number; /** A renewal request is pending (AllianceView.hasExtensionRequest). */ renewRequested?: boolean; }
+export interface AllianceRequest { from: PlayerId; name: string; atWar: boolean; landPct?: number }
+export interface Alliance { with: PlayerId; name?: string; expiresAtTick?: number; formedAtTick?: number; /** A renewal request is pending (AllianceView.hasExtensionRequest). */ renewRequested?: boolean; }
 export type GameEventKind = "incomingAttack" | "incomingNuke" | "allianceRequest" | "allianceExpired" | "betrayal" | "playerEliminated" | "buildingDestroyed" | "info";
 export interface GameEvent { id: string; tick: number; kind: GameEventKind; text: string; playerId?: PlayerId; }
 
@@ -46,6 +47,7 @@ export interface SelfState {
   rank: number;
   buildings: BuildingCount[];
   alliances: Alliance[];
+  allianceRequests?: AllianceRequest[];
 }
 
 export interface GameSnapshot {

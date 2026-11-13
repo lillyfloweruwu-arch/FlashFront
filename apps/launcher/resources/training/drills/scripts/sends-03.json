@@ -1,0 +1,38 @@
+{
+ "drillId": "sends-03",
+ "cast": {
+  "labels": {
+   "You": "p1",
+   "Neighbour A": "p2",
+   "Neighbour B": "p3"
+  },
+  "clients": {
+   "You": "YouDrill",
+   "Neighbour A": "NbrADril",
+   "Neighbour B": "NbrBDril"
+  }
+ },
+ "coach": [
+  {
+   "tick": 900,
+   "actor": "p1",
+   "action": {
+    "kind": "attack",
+    "target": null,
+    "troops": 57588
+   }
+  }
+ ],
+ "wrong": [
+  {
+   "tick": 900,
+   "actor": "p1",
+   "action": {
+    "kind": "attack",
+    "target": null,
+    "troops": 153569
+   }
+  }
+ ],
+ "opponents": []
+}

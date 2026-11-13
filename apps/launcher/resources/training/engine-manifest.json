@@ -1,0 +1,4298 @@
+{
+ "upstream": {
+  "repo": "https://github.com/openfrontio/OpenFrontIO",
+  "tag": "v0.35.4",
+  "commit": "14ba82badb1e945ef2e758999238339404fdb788"
+ },
+ "recordCommits": [
+  "14ba82badb1e945ef2e758999238339404fdb788",
+  "a2d20f8e5f32573c7a6a7e0b8900dcfeac4357e7"
+ ],
+ "snapshotFormat": "1",
+ "sourceFiles": [
+  {
+   "path": "packages/engine-api/src/Schemas.ts",
+   "bytes": 24961,
+   "sha256": "4043cd153a259bb8ae4f389aa77f7b9a048c0414c68a2ad98faea3abe803ede3"
+  },
+  {
+   "path": "packages/engine-api/src/StatsSchemas.ts",
+   "bytes": 9159,
+   "sha256": "700a6a3aa11495625bd8bb455cd4381c4c899ecbe3164df833cba55ccc434ae5"
+  },
+  {
+   "path": "packages/engine-api/src/game/GameMap.ts",
+   "bytes": 3843,
+   "sha256": "941f946cf6347d8d894ee8a6e5c3e4e39a613219f7989386ebf05bb9b4f0c7dd"
+  },
+  {
+   "path": "packages/engine-api/src/game/GameTypes.ts",
+   "bytes": 13901,
+   "sha256": "99ebb76d597157501b8dc5803108914770a63f222e37f8859185acf31dabd0bd"
+  },
+  {
+   "path": "packages/engine-api/src/game/GameUpdates.ts",
+   "bytes": 10140,
+   "sha256": "4561db407a9079eb1eb8486227c87ba232f1bb1992c150bef410d64656586aab"
+  },
+  {
+   "path": "packages/engine-api/src/game/MapFiles.ts",
+   "bytes": 1800,
+   "sha256": "4ff8f9f21afcc7b1ea447a638d61f02789290e6d07a714a4a64d900f18bbbf11"
+  },
+  {
+   "path": "packages/engine-api/src/game/Maps.gen.ts",
+   "bytes": 81000,
+   "sha256": "84b01c85e6456b18c371e04d3627b824b65eee88cac92313a924c280bc3eb9cb"
+  },
+  {
+   "path": "packages/engine-api/src/game/ReadViews.ts",
+   "bytes": 2064,
+   "sha256": "f31f4ee9b72594ab63d7f4e75edc84f2cb9d1bfa5b61be3195c5bd5a4b16e19b"
+  },
+  {
+   "path": "packages/engine-lib/src/DetMath.ts",
+   "bytes": 3907,
+   "sha256": "dc40f2e576e9cc871b22d3369e1a0153db935055ba19bd4139230d8645fa1f69"
+  },
+  {
+   "path": "packages/engine-lib/src/Format.ts",
+   "bytes": 1145,
+   "sha256": "3e2156abc1f73aa25cb793da5a8b6c476fc9e2a92f76fb4b0c07f7f5dcae5ae8"
+  },
+  {
+   "path": "packages/engine-lib/src/PseudoRandom.ts",
+   "bytes": 3565,
+   "sha256": "70a87d651b7367173dbdd0deb7ca21432d6afdb011b1440b6f93a2575473ab6b"
+  },
+  {
+   "path": "packages/engine-lib/src/Util.ts",
+   "bytes": 6850,
+   "sha256": "d467fe0217bc0d9e428752ae87cbdb23d2c8fd970b1b1272897c94738c769160"
+  },
+  {
+   "path": "packages/engine-lib/src/configuration/Config.ts",
+   "bytes": 14044,
+   "sha256": "e5be43bf5840af1ff70e51567bbe487f8dd0588f322aa7342d47ae661ab01e2f"
+  },
+  {
+   "path": "packages/engine-lib/src/execution/NukeAlliance.ts",
+   "bytes": 3731,
+   "sha256": "b805ea88da8ac382b6cde49f7e0b4eb3a2c339f37d25a1ab0b835fb9ac84bef8"
+  },
+  {
+   "path": "packages/engine-lib/src/execution/utils/TribeNames.ts",
+   "bytes": 2801,
+   "sha256": "a8b808b09fa08827dade7d98b79d7e55e122bc6d500fc54d7ba9ccf81b544c7b"
+  },
+  {
+   "path": "packages/engine-lib/src/game/DoomsdayClock.ts",
+   "bytes": 14668,
+   "sha256": "f6cdb2bacb57ee9ef09ac9fdc2edd84ebddc4470f4d74e405eb5ca722e804b55"
+  },
+  {
+   "path": "packages/engine-lib/src/game/GameMapImpl.ts",
+   "bytes": 22081,
+   "sha256": "af4a029be706af0764f97c51972560135eca73b9bcddf8c1e02f88228a83a402"
+  },
+  {
+   "path": "packages/engine-lib/src/game/MotionPlans.ts",
+   "bytes": 5818,
+   "sha256": "20c923e1d9bdc5781eca344e8ee6fd73497cf88bfa6b1a08ca53a2c72013e59a"
+  },
+  {
+   "path": "packages/engine-lib/src/game/TeamAssignment.ts",
+   "bytes": 7500,
+   "sha256": "c390a112bf56779a5747d8e7394bdf73d6e192ff50e7fd2a38f8c7b8bfda79e7"
+  },
+  {
+   "path": "packages/engine-lib/src/game/TerraNulliusImpl.ts",
+   "bytes": 397,
+   "sha256": "ae57766232ef9fda51484ac0d38d7bdbe41c0924bfdc96714ab4152de038e900"
+  },
+  {
+   "path": "packages/engine-lib/src/game/TerrainMapLoader.ts",
+   "bytes": 3992,
+   "sha256": "c897241f7c26d23fc5d36a15118e2c044d5415fe294f2180eda30143505dea36"
+  },
+  {
+   "path": "packages/engine-lib/src/game/TileSet.ts",
+   "bytes": 7635,
+   "sha256": "91162da3173b40f5f533b8dc1821c807b8eea7fbd79d309aa5a84f57f464e357"
+  },
+  {
+   "path": "packages/engine-lib/src/game/UnitGrid.ts",
+   "bytes": 10191,
+   "sha256": "558246199e31308b69148eb0708f1541b7a39f5c504e99a098c38bc896115d23"
+  },
+  {
+   "path": "packages/engine-lib/src/game/Veterancy.ts",
+   "bytes": 769,
+   "sha256": "07e61605d2c51ee7a23e6f6d4960fb5a00210edf43c11da5442bfe0e30aa4d54"
+  },
+  {
+   "path": "packages/engine-lib/src/snapshot/SnapshotType.ts",
+   "bytes": 3644,
+   "sha256": "b41408b933d1d28d48ca095dcec92d98ea881c3b3a8bf72b58b74af5be3957dc"
+  },
+  {
+   "path": "packages/engine/src/GameRunner.ts",
+   "bytes": 13033,
+   "sha256": "9a07d4842b7d3b600b70b884ed3111264b3ddc15ef90ca4eb45e1719e27d342e"
+  },
+  {
+   "path": "packages/engine/src/configuration/EngineConfig.ts",
+   "bytes": 25859,
+   "sha256": "044fc797e47249a812ce04e913c27a6046870d24336810892d5eb7399521905a"
+  },
+  {
+   "path": "packages/engine/src/execution/AttackExecution.ts",
+   "bytes": 17973,
+   "sha256": "986354289b260e20a8e87be0a3ff3e9a55043530315321fc7d557fb1837a6bb6"
+  },
+  {
+   "path": "packages/engine/src/execution/BoatRetreatExecution.ts",
+   "bytes": 1893,
+   "sha256": "de1b096cf1c4c5a8470ee86a0fc89c96776ab1eaa2b463c17fce4b9edc9800a0"
+  },
+  {
+   "path": "packages/engine/src/execution/CityExecution.ts",
+   "bytes": 2088,
+   "sha256": "d4e418e30618d03e3eb65f1cff6d04f89400cd0a18822bb25895ba376369193a"
+  },
+  {
+   "path": "packages/engine/src/execution/ConstructionExecution.ts",
+   "bytes": 7332,
+   "sha256": "1ae5ba3cb0af2bc39fa499428e20df435ac24c6f4a46d78e061e2fe4565fe7f0"
+  },
+  {
+   "path": "packages/engine/src/execution/DefensePostExecution.ts",
+   "bytes": 4343,
+   "sha256": "631bb3daba6dceba820c32c493cb0a82e95a5435b43859eaa2adedf929b97b20"
+  },
+  {
+   "path": "packages/engine/src/execution/DeleteUnitExecution.ts",
+   "bytes": 3420,
+   "sha256": "6f1f8a01fc612d62841d6dd63b4a99edee64d20ec7864c9b0ab804ddee9cb1eb"
+  },
+  {
+   "path": "packages/engine/src/execution/DonateGoldExecution.ts",
+   "bytes": 5268,
+   "sha256": "4f12fc7678297c6e52290c7e799765434519c0b8ebaa87ff6e84a7cbafaf6f86"
+  },
+  {
+   "path": "packages/engine/src/execution/DonateTroopExecution.ts",
+   "bytes": 5241,
+   "sha256": "ec6d3ac9b5cbe3d4522cdfbf05775908c9f6404b90d1d21ccb1452654c33a06c"
+  },
+  {
+   "path": "packages/engine/src/execution/DoomsdayClockExecution.ts",
+   "bytes": 16952,
+   "sha256": "5f62fc65d4f187a4a8ccad4cf56c1e4137327b84756f7d192eb56f3c1e850cc2"
+  },
+  {
+   "path": "packages/engine/src/execution/EmbargoAllExecution.ts",
+   "bytes": 1873,
+   "sha256": "31def8d005f13a0b1bc3a877b255abf1b5b2a3ab74ab3ec9ff6907671596876d"
+  },
+  {
+   "path": "packages/engine/src/execution/EmbargoExecution.ts",
+   "bytes": 2110,
+   "sha256": "f0b5d643eaa8fdfcf0bc5221840ef1d7b82671ac7f940f1974b18a16a4e11c5b"
+  },
+  {
+   "path": "packages/engine/src/execution/EmojiExecution.ts",
+   "bytes": 3570,
+   "sha256": "d576d37be37661a3ef07bb65c3819d8a4835940de06e1688d0f1b1a50ef67654"
+  },
+  {
+   "path": "packages/engine/src/execution/ExecutionManager.ts",
+   "bytes": 6229,
+   "sha256": "49b32ea6d250d90aa718ac32521822d266be8e0e967795c78b4b9eaeaf5cd2f2"
+  },
+  {
+   "path": "packages/engine/src/execution/FactoryExecution.ts",
+   "bytes": 2317,
+   "sha256": "66a1a7ed3f7feff20fb6340b7b8ce3daae4c35a039b085e77e0c3bfe4d3090ab"
+  },
+  {
+   "path": "packages/engine/src/execution/MIRVExecution.ts",
+   "bytes": 15429,
+   "sha256": "5b5b019183076c47455c5e52c5859b515bbb4b730cea5f31cc1e5d4921f0cbce"
+  },
+  {
+   "path": "packages/engine/src/execution/MarkDisconnectedExecution.ts",
+   "bytes": 1795,
+   "sha256": "3d4f4c89be6bba7c37b66ac077aa8b166ebe2abfc053a33a2c7510f2185fd5b6"
+  },
+  {
+   "path": "packages/engine/src/execution/MissileSiloExecution.ts",
+   "bytes": 1909,
+   "sha256": "90c29263d4698a36920c64a5d564ae685e2d3b35394f33e7d8ccc8554a18ad59"
+  },
+  {
+   "path": "packages/engine/src/execution/MoveWarshipExecution.ts",
+   "bytes": 2824,
+   "sha256": "30983a5e7f59ce59ac02b2f4a13820bdfdf372517d3441c8d187c8fa48cf9958"
+  },
+  {
+   "path": "packages/engine/src/execution/NationExecution.ts",
+   "bytes": 17030,
+   "sha256": "7d55ff60b486fe987f59a2df8c40d7ea9357fa782b2763a855b97097b306a969"
+  },
+  {
+   "path": "packages/engine/src/execution/NoOpExecution.ts",
+   "bytes": 682,
+   "sha256": "4a8c497e6d518b32dcffe549d886fc6c76dbd5c923c20f6ce37d1616055be7ab"
+  },
+  {
+   "path": "packages/engine/src/execution/NukeExecution.ts",
+   "bytes": 19633,
+   "sha256": "2d522840ab6c415502e96ba3d3e66e6f423fe59b2b748bd644e809f828a686b7"
+  },
+  {
+   "path": "packages/engine/src/execution/PauseExecution.ts",
+   "bytes": 1455,
+   "sha256": "049a76014468d137ef30a47baf3215c998a76780886f1c36631417b481f5e0af"
+  },
+  {
+   "path": "packages/engine/src/execution/PlayerExecution.ts",
+   "bytes": 51796,
+   "sha256": "a44bffffa608f8bad8eeb4e6f9302cd4949a8a67917710e09e78b892bd66fb5f"
+  },
+  {
+   "path": "packages/engine/src/execution/PortExecution.ts",
+   "bytes": 5702,
+   "sha256": "645c00e4a7a609afb3f6944313b30cd129999532b64da065c0d9da7296d99cde"
+  },
+  {
+   "path": "packages/engine/src/execution/QuickChatExecution.ts",
+   "bytes": 3189,
+   "sha256": "e19d6f94d7adc1028112087d60a58ec793f6d89cca28d41d560e5c7eb3c458e3"
+  },
+  {
+   "path": "packages/engine/src/execution/RecomputeRailClusterExecution.ts",
+   "bytes": 1006,
+   "sha256": "0e83af53e73d7a1336e37597b5003b1fdffb6b6bd1f39656558149f9c2cb5e9c"
+  },
+  {
+   "path": "packages/engine/src/execution/RetreatExecution.ts",
+   "bytes": 2204,
+   "sha256": "729322fdcbef0d20e83a1adeb355a502c92f43cd03c0cc5cd6193c5220c48a8b"
+  },
+  {
+   "path": "packages/engine/src/execution/SAMLauncherExecution.ts",
+   "bytes": 14477,
+   "sha256": "67e592378002a7693904299e78ec73124996f5ac966b149c2d0a613a8b301925"
+  },
+  {
+   "path": "packages/engine/src/execution/SAMMissileExecution.ts",
+   "bytes": 5032,
+   "sha256": "af154be127b70ea1e8dada68bf11029debb765b8feaf7e7f22e6804423e2bd7d"
+  },
+  {
+   "path": "packages/engine/src/execution/ShellExecution.ts",
+   "bytes": 5494,
+   "sha256": "d62abd3f3dc41e89ec51c3fb1d0a6b6c847d603d67f7d93b8f9ad91992ad46fb"
+  },
+  {
+   "path": "packages/engine/src/execution/SpawnExecution.ts",
+   "bytes": 8004,
+   "sha256": "1e4a8c0a3056b8ebada9b7e44ae9dc5c8214eb055f09c051317009e06345cde4"
+  },
+  {
+   "path": "packages/engine/src/execution/SpawnTimerExecution.ts",
+   "bytes": 1138,
+   "sha256": "d29b1a2ad308686efe7686eb6d168a3c0851a7dabce2c47173d7581e588184a9"
+  },
+  {
+   "path": "packages/engine/src/execution/TargetPlayerExecution.ts",
+   "bytes": 2087,
+   "sha256": "e9059ebeada02de10ca0cc74b4da466026757d2a07c460e229df16716d406024"
+  },
+  {
+   "path": "packages/engine/src/execution/TradeShipExecution.ts",
+   "bytes": 9010,
+   "sha256": "760cde967d0ac617039db52e2d2e91b97157e373276baeb667cc03fd1cd05944"
+  },
+  {
+   "path": "packages/engine/src/execution/TrainExecution.ts",
+   "bytes": 14592,
+   "sha256": "af1efb6dcee9b5f6aa39c8775cdcf51406879abfa9598721a853cd0c6390d574"
+  },
+  {
+   "path": "packages/engine/src/execution/TrainStationExecution.ts",
+   "bytes": 4887,
+   "sha256": "746a47ebddc3d1905d40b5f65cf88396f7d175ba1bce3f2585d98dc5e1d62d13"
+  },
+  {
+   "path": "packages/engine/src/execution/TransportShipExecution.ts",
+   "bytes": 12761,
+   "sha256": "97d9ddf807a89a8fa694fbd3d9b7451a76ada9298212ab77aae99a1e337656bd"
+  },
+  {
+   "path": "packages/engine/src/execution/TribeAttackBehavior.ts",
+   "bytes": 2317,
+   "sha256": "e16ac707a25eb5cc02ac8234ae8c4fb371dcb43f0a23916f79bd846c026ce3ea"
+  },
+  {
+   "path": "packages/engine/src/execution/TribeExecution.ts",
+   "bytes": 6221,
+   "sha256": "78e7d64a7eca9ae91cd9c58755ac305c1c35c20512b71707a8ec6fbbbf5658b6"
+  },
+  {
+   "path": "packages/engine/src/execution/TribeSpawner.ts",
+   "bytes": 5582,
+   "sha256": "ecbf06e2a83d68651ab19e9bb900dcc1198d525ff91b6f5519f6b665a7ea6676"
+  },
+  {
+   "path": "packages/engine/src/execution/UpgradeStructureExecution.ts",
+   "bytes": 2462,
+   "sha256": "2b4d7f133b451f6e7e458ed93cdaa89309d6b96a98ae5584dd1b6544b5aefb49"
+  },
+  {
+   "path": "packages/engine/src/execution/Util.ts",
+   "bytes": 6400,
+   "sha256": "5cc4334328afe4da08b7f783b9d7df5481956e686f56c5b4fd5cdf07d405c8b2"
+  },
+  {
+   "path": "packages/engine/src/execution/WarshipExecution.ts",
+   "bytes": 28568,
+   "sha256": "a3011fba31bfa658a2197111c010cb2fa5032c6cf0783abdeec477e28eb4050e"
+  },
+  {
+   "path": "packages/engine/src/execution/WinCheckExecution.ts",
+   "bytes": 7713,
+   "sha256": "de9c2590d9e27451a554564ea66e760ff925bb17e1189d17367dffa03cfdc926"
+  },
+  {
+   "path": "packages/engine/src/execution/alliance/AllianceExtensionExecution.ts",
+   "bytes": 3253,
+   "sha256": "b2c35b83e43338974ba4eb30668a61039bab103110ec3ebe0e97606eddf6261d"
+  },
+  {
+   "path": "packages/engine/src/execution/alliance/AllianceRejectExecution.ts",
+   "bytes": 2430,
+   "sha256": "65a76e735446cab566b962f295a90ca827873085bbdb7f212a0eab44d4ae163c"
+  },
+  {
+   "path": "packages/engine/src/execution/alliance/AllianceRequestExecution.ts",
+   "bytes": 6555,
+   "sha256": "c0d38b83b26989cc14af71ae5454a0746565c0fc950e31fd534dbd5a96e9adcb"
+  },
+  {
+   "path": "packages/engine/src/execution/alliance/BreakAllianceExecution.ts",
+   "bytes": 2850,
+   "sha256": "dc5f5ce1d1f5fe52f18624924dfc6fd2754475d15d6ce9c4d7bc8c27d20bba11"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/BotAnnexation.ts",
+   "bytes": 5858,
+   "sha256": "308811b0d6780e149d4fc490db1055ab578fc6e4d7909752df5cfad7d47ad471"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationAllianceBehavior.ts",
+   "bytes": 18098,
+   "sha256": "1b84efabb1e37726bf8844b58208541a8c172749775733840fbf374cde4bf840"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationAttackBehavior.ts",
+   "bytes": 53693,
+   "sha256": "520c1815b51e8f4733086e2d13e8d422f1d1dd50fbc71ceb652549eb203d9d36"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationEmojiBehavior.ts",
+   "bytes": 12352,
+   "sha256": "21a6d2ce9b3c772e78117f85d92ad64798dc1607ff025d3634e672336fd8d5a2"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationMIRVBehavior.ts",
+   "bytes": 15021,
+   "sha256": "bb258143f5897ed3fe837ee8188b4407ef7dedeceaf0c0b56c105ec0777c7b4a"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationNukeBehavior.ts",
+   "bytes": 39325,
+   "sha256": "60b6f7284d0fc6ee673e98fe7601ade49bc7cbd914c3329dd0fd3b175506e010"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationNukePlanning.ts",
+   "bytes": 16191,
+   "sha256": "4a7f4d60325d3df796809c96029b8f08c3f2136cc6bb5eb26ecbf1e77d6c9057"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationStructureBehavior.ts",
+   "bytes": 38789,
+   "sha256": "8e5d0266f8ccf8dbc947c52498cc00541e3a73e49f3f724c166131292ce9651e"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationStructurePlacement.ts",
+   "bytes": 19035,
+   "sha256": "13fdda26961b84ab7a3c8fd5a47ec9a33c1a635f6ea408db77e42215ea0a16a4"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationUtils.ts",
+   "bytes": 5983,
+   "sha256": "b83be68fc035dc78edef722760befa50df4292b80094d032e1b20e35c01959e1"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/NationWarshipBehavior.ts",
+   "bytes": 19551,
+   "sha256": "1713d1326e2c2f9e8a263d2887bed4fa7e2f35b611589a5ae7468422c2282a72"
+  },
+  {
+   "path": "packages/engine/src/execution/nation/SharedWaterCache.ts",
+   "bytes": 5750,
+   "sha256": "727f9ef0e5567363014a314043e83bce6901a44766bebec41bb3783289a9b09a"
+  },
+  {
+   "path": "packages/engine/src/execution/utils/AiAttackBehavior.ts",
+   "bytes": 15174,
+   "sha256": "f26e5d19775fa0c44a91d1c6d0865363de7160b6a669be85461d430c029d9bad"
+  },
+  {
+   "path": "packages/engine/src/execution/utils/FlatBinaryHeap.ts",
+   "bytes": 2855,
+   "sha256": "9771cb84ea87468081dabb551aa0f7db4cd89a69842bcdf9a01eb9f15b529944"
+  },
+  {
+   "path": "packages/engine/src/execution/utils/PlayerSpawner.ts",
+   "bytes": 633,
+   "sha256": "ba1aac6bd298e9d1b92ab44c2c9466a02d96eefc428c56f3ea9c586315e8e726"
+  },
+  {
+   "path": "packages/engine/src/game/AllianceImpl.ts",
+   "bytes": 3957,
+   "sha256": "48d8f5d1ba63f8c0b187c30dcec41fab010a3359774ef3c102a4e62c5172be1d"
+  },
+  {
+   "path": "packages/engine/src/game/AllianceRequestImpl.ts",
+   "bytes": 2341,
+   "sha256": "a87917743c2d0609f73e370e413782ca73d4beae48837b65e99f62d5e4b18dc5"
+  },
+  {
+   "path": "packages/engine/src/game/AttackImpl.ts",
+   "bytes": 6651,
+   "sha256": "8fdbc87b952843d6aa3f6a08a3a3631d3d8826f73685e1cf9b56aa69ce56b6ce"
+  },
+  {
+   "path": "packages/engine/src/game/Game.ts",
+   "bytes": 20393,
+   "sha256": "9e80a3a7e07bbab1719b8b4cc1b414edcfd6918804584434f9ad5e05450e1b89"
+  },
+  {
+   "path": "packages/engine/src/game/GameImpl.ts",
+   "bytes": 49050,
+   "sha256": "0f8a8f8bde3528578ed0c0191579ac85c0f40ecc053ec108e36e83c6a4020a0b"
+  },
+  {
+   "path": "packages/engine/src/game/GameUpdateUtils.ts",
+   "bytes": 10223,
+   "sha256": "ffd1b3a11dd61df6a64933bde2cd4d0019b36febe491cdbf4d84945d6e893814"
+  },
+  {
+   "path": "packages/engine/src/game/HumanStats.ts",
+   "bytes": 1732,
+   "sha256": "bce560698648dd4c7900989a0f45336b1fcacbe33f74339d854c8881eadae767"
+  },
+  {
+   "path": "packages/engine/src/game/NameBoxCalculator.ts",
+   "bytes": 6025,
+   "sha256": "16dd5f0b7fb02b3e709333854dea085c367e5340bb1b75cf16a99b57224698ff"
+  },
+  {
+   "path": "packages/engine/src/game/NationCreation.ts",
+   "bytes": 15626,
+   "sha256": "dbfc139871c8330563e0deaf7ec42e69cd8656bd93c98d02ea360a05741f5f58"
+  },
+  {
+   "path": "packages/engine/src/game/PlayerImpl.ts",
+   "bytes": 64515,
+   "sha256": "b50d39e784257c03cab439e29b1f381cd68003d046c75b2127763bfd525d4a48"
+  },
+  {
+   "path": "packages/engine/src/game/RailNetwork.ts",
+   "bytes": 655,
+   "sha256": "d1eef342c2cfbee2644d314b35a0c53d1c79027fb52b9ee4d01d789337a4bcf4"
+  },
+  {
+   "path": "packages/engine/src/game/RailNetworkImpl.ts",
+   "bytes": 16701,
+   "sha256": "da2399404fb88f460a29c1b24d6cd32ef5c1b1fc513d7bc295faad1c4875d784"
+  },
+  {
+   "path": "packages/engine/src/game/Railroad.ts",
+   "bytes": 3197,
+   "sha256": "4fc9e4d27367a9687fa4e96c96dfd9038c72242eed9003cc8da7505feac09193"
+  },
+  {
+   "path": "packages/engine/src/game/RailroadSpatialGrid.ts",
+   "bytes": 3077,
+   "sha256": "a93456ed3983d94a7957a49592719071ddcfb2c74ba4f9d78ecd4af79c542703"
+  },
+  {
+   "path": "packages/engine/src/game/Stats.ts",
+   "bytes": 6670,
+   "sha256": "80869914c8c0aac502b3c455ca6b62a6914e9fb0822927b030371a1b1c006839"
+  },
+  {
+   "path": "packages/engine/src/game/StatsImpl.ts",
+   "bytes": 15627,
+   "sha256": "927a508c13508eb5ec0300ed03bbfb5d654bce1743fd02fba09e63d27a51fe4d"
+  },
+  {
+   "path": "packages/engine/src/game/TileTraversalScratch.ts",
+   "bytes": 1813,
+   "sha256": "e636b5c712d7d1efbb16aa7e63e8825773c8576ece4ce2a16407851912637dd8"
+  },
+  {
+   "path": "packages/engine/src/game/TrainStation.ts",
+   "bytes": 9028,
+   "sha256": "60a91c6042a0911bbeb23de647fbb31d47c8440426f638d794d1899055c8993b"
+  },
+  {
+   "path": "packages/engine/src/game/TransportShipUtils.ts",
+   "bytes": 1408,
+   "sha256": "62dd130ccd14d7072af2b4fc8e91ffac159678992ba7284ec9caf3ac037037d2"
+  },
+  {
+   "path": "packages/engine/src/game/UnitImpl.ts",
+   "bytes": 29399,
+   "sha256": "52d250f70e521caa1e3c54bd510e0c5c54311f9f392c4ea472feb2fa15639a6b"
+  },
+  {
+   "path": "packages/engine/src/game/WaterManager.ts",
+   "bytes": 32203,
+   "sha256": "0f12b9c70a79c78df01d94a97d0d6714d3d730ba6df35cbb809246bbdad80601"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinder.Air.ts",
+   "bytes": 1873,
+   "sha256": "59b417c259d74d3442ce2ea4b524e583e2cb90815d18bb970e7f3184f24e69f1"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinder.Parabola.ts",
+   "bytes": 4126,
+   "sha256": "1239ed4b0c0d6bc5cbf4968bc4c6d33c6a528f7ca3104130a8604d706b7dd2b8"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinder.Station.ts",
+   "bytes": 2095,
+   "sha256": "4f15186a1162ca5610d0fa0fffa0231a8b74f20e6d1100eafb18df45c1f73912"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinder.ts",
+   "bytes": 12862,
+   "sha256": "0eb9063ebc473152f88562d5b9a00ddfe7a5e0cefc4ac07c14bf1c5831ea963e"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinderBuilder.ts",
+   "bytes": 1461,
+   "sha256": "3acea3fcd06580187ff14b7af437a53445186757555e7a95e347e052349a584c"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/PathFinderStepper.ts",
+   "bytes": 4609,
+   "sha256": "cb0c941a499d99900dcc1fc6be8ae16dd9cdc7a240055241d845142e85200b2e"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.AbstractGraph.ts",
+   "bytes": 7326,
+   "sha256": "6af0d95f270c4e59538f3907f9f723652c42bab7f7e58144b56a1a0282782146"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.Rail.ts",
+   "bytes": 3215,
+   "sha256": "e024f374068ebe46b9cf007c67ef4133a635310e48a5afb6abb6e2463ff2b775"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.Water.ts",
+   "bytes": 8236,
+   "sha256": "3d7503c57c369e349c39758fc92f57f8fbfa3ea5cf2d93608e251934525c2a56"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.WaterBounded.ts",
+   "bytes": 10782,
+   "sha256": "e1dd1d8a267baa50b67913b58ce02d8ae5f2f40fc2411455cbaf866b9413f746"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.WaterHierarchical.ts",
+   "bytes": 14549,
+   "sha256": "048269f5f5e0e408c7bc701f96f5ea7dd5d3b1064d5c51cd953932dbf4dad82f"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AStar.ts",
+   "bytes": 3758,
+   "sha256": "faaa4bd0732b68df661b34fec3881f74f7523633a15478bf7b7d071f02fb8caf"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/AbstractGraph.ts",
+   "bytes": 22254,
+   "sha256": "3045f5baa401429a1b3d388096fb4f22c6863e090aa81c227729e8bd7136b1d0"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/BFS.Grid.ts",
+   "bytes": 3059,
+   "sha256": "4320f976495f79a6d18ea0987c373d9370cfd29b0001e2df3a0dfd9e8aa7285f"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/ConnectedComponents.ts",
+   "bytes": 11946,
+   "sha256": "e66fcf69ef8cb4519f5675b69b22c8cbfd26a1cbd9d200c6add69298d0b10eca"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/algorithms/PriorityQueue.ts",
+   "bytes": 4611,
+   "sha256": "620434a71ecdb2a1da286cd8e4cf7c410765c1d2427d0d497a11e9d250b872e7"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/spatial/SpatialQuery.ts",
+   "bytes": 9956,
+   "sha256": "54bee0f8ba3623aae3f807b247ce47e5791968511150f373f3a4ead394552a9c"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/transformers/ComponentCheckTransformer.ts",
+   "bytes": 1115,
+   "sha256": "1c5d288d6b7df24a7d0e0e95388718d20585434bfdec81b57ce2e674ec30935c"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/transformers/MiniMapTransformer.ts",
+   "bytes": 3642,
+   "sha256": "f90c7f460a5279f72ac8949727b16114766357154be818c1e3c97e7766a24898"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/transformers/ShoreCoercingTransformer.ts",
+   "bytes": 3385,
+   "sha256": "ec424e35be8524d6c6ce7c622165eb2c715f3441fe05a647f704f0bb966d9247"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/transformers/SmoothingWaterTransformer.ts",
+   "bytes": 9605,
+   "sha256": "5433b53b26833cf9748fa841da3ef0040de65abd702b7f7fd30256785854c487"
+  },
+  {
+   "path": "packages/engine/src/pathfinding/types.ts",
+   "bytes": 781,
+   "sha256": "15049c0ff6af9019f59f0ed11722a1591f80717bea61245902b5d12f93395fb9"
+  },
+  {
+   "path": "packages/engine/src/snapshot/CommonSchemas.ts",
+   "bytes": 2101,
+   "sha256": "335af34487ccd30eb7984c77e6cb203a3771049c45ba13df688e1a1518e216f2"
+  },
+  {
+   "path": "packages/engine/src/snapshot/ExecutionRegistry.ts",
+   "bytes": 5390,
+   "sha256": "45bf4eb73531b2ec1a8db90831c2f361865624331edd3064a575d07f2dd42208"
+  },
+  {
+   "path": "packages/engine/src/snapshot/ExecutionSnapshot.ts",
+   "bytes": 1477,
+   "sha256": "b7cec15b29fc8fb5a13f60f3619afb88f8c295e0732b8bb52400c7ced5691bc5"
+  },
+  {
+   "path": "packages/engine/src/snapshot/GameSnapshot.ts",
+   "bytes": 12417,
+   "sha256": "94a951f5b4a8e3e8c568919a659412848baa85e45a1b659fbc6513fa34e952c4"
+  },
+  {
+   "path": "packages/engine/src/snapshot/PathfinderSnapshots.ts",
+   "bytes": 5447,
+   "sha256": "ba1fb90ed20e4eb5c62bb9eb06547f8b51983714269f7ca8641e23c5189761b2"
+  },
+  {
+   "path": "packages/engine/src/snapshot/SnapshotCodec.ts",
+   "bytes": 9975,
+   "sha256": "9dc8f992a643a9983233bd8f26e0059e653ce0841a4146cb1b237dcf855fc950"
+  },
+  {
+   "path": "packages/engine/src/snapshot/SnapshotContext.ts",
+   "bytes": 5886,
+   "sha256": "026af11ed9ed0ff3034330ce902d566c1b7e820741d97c0c64624695ce2bad32"
+  },
+  {
+   "path": "packages/engine/src/utilities/DebugSpan.ts",
+   "bytes": 4154,
+   "sha256": "5d94b93f3559d85b6172e851502054cb3e1f6fd1459df340dc166a72ef179eef"
+  },
+  {
+   "path": "packages/engine/src/utilities/Line.ts",
+   "bytes": 6725,
+   "sha256": "23f3ca4f179f3f004eaa40bc288f0cba34383498b37ba04c0f9a643325d2e4a4"
+  },
+  {
+   "path": "packages/zbin/src/bytes.ts",
+   "bytes": 10929,
+   "sha256": "ee39a290ab0a8eb23d7bc745aad6c6ddb541021556f0c0a593d3a363e91cfab9"
+  },
+  {
+   "path": "packages/zbin/src/context.ts",
+   "bytes": 4049,
+   "sha256": "48cc04db4c832c92b7aa0bebcfb92429c4fd09577f7512c988c647ef45480e92"
+  },
+  {
+   "path": "packages/zbin/src/index.ts",
+   "bytes": 331,
+   "sha256": "bf47041e3723431d1acb2ced6af44150e22e03a00725cf2335d548e2fa28cce4"
+  },
+  {
+   "path": "packages/zbin/src/zb.ts",
+   "bytes": 38193,
+   "sha256": "d0cae5ded991ba8c050c85a2d5f828af739f39d6a100e40b01fd182843b7d840"
+  },
+  {
+   "path": "resources/QuickChat.json",
+   "bytes": 5336,
+   "sha256": "afa1f37086b4c5b8ae8d9803cf59092c8295534a193e43de635c61fa78af368e"
+  },
+  {
+   "path": "resources/tribeNameThemes.json",
+   "bytes": 27697,
+   "sha256": "eb3fba67a267ec987d6d7ccf66c982c118537f18ee04aaa74cfe34ed3b89b415"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 35148,
+   "sha256": "1eaad12c953bb15580a6ae797f2a697b72fc1102f6b5bdc11f6a3a9335cfde2b"
+  },
+  {
+   "path": "LICENSE-ASSETS",
+   "bytes": 1853,
+   "sha256": "202de5173a0f57c833d1d4d4dda2c401231efc762f9363b84f7db5cd5da7adf5"
+  },
+  {
+   "path": "LICENSING.md",
+   "bytes": 5742,
+   "sha256": "5c4c6eec948075cde2395e22179d957fcd7c02963b2bf66008735c005ee4ba19"
+  },
+  {
+   "path": "CREDITS.md",
+   "bytes": 5229,
+   "sha256": "1c43544e7bf077fbfc0a9bb680847bb6dbbc74647e7999dad56df35dbcee7fe5"
+  },
+  {
+   "path": "resources/LICENSE",
+   "bytes": 283,
+   "sha256": "8315d38bd004d7203eb41ce9f910a60f6c8e5186955b435e5d6d265b44614164"
+  }
+ ],
+ "licenses": [
+  "vendor/openfront/LICENSE",
+  "vendor/openfront/LICENSE-ASSETS",
+  "vendor/openfront/LICENSING.md",
+  "vendor/openfront/CREDITS.md",
+  "vendor/openfront/resources/LICENSE"
+ ],
+ "maps": [
+  {
+   "key": "achiran",
+   "id": "Achiran",
+   "files": {
+    "manifest.json": {
+     "bytes": 825,
+     "sha256": "f023366661867047d10b0faf5138f3892da023a455b500446c64a1d953a709b3",
+     "packedBytes": 282
+    },
+    "map.bin": {
+     "bytes": 3400000,
+     "sha256": "30287ef720787c145f3561547f49ac51c21cd0ddcc447269105d52aab3ebaf0e",
+     "packedBytes": 443742
+    },
+    "map4x.bin": {
+     "bytes": 850000,
+     "sha256": "6bb208d8741ca5156c914f18bbbd65910a2ee97bbeec784e85b3f52e7ea4b650",
+     "packedBytes": 167552
+    },
+    "map16x.bin": {
+     "bytes": 212500,
+     "sha256": "821ffbad880d5d1aafbd164a833efd315473b648a21971b5ba40ea4fc9e7451f",
+     "packedBytes": 50631
+    }
+   }
+  },
+  {
+   "key": "aegean",
+   "id": "Aegean",
+   "files": {
+    "manifest.json": {
+     "bytes": 2854,
+     "sha256": "6d35b692c16a4ff8f973c7514e77cf1e643acb45923b25ef19b596f39a42ad31",
+     "packedBytes": 618
+    },
+    "map.bin": {
+     "bytes": 3400000,
+     "sha256": "0af9bb369fc0dcc279b2d95b8810331f99a5b801d8d6821c23ca0c4f63d994fc",
+     "packedBytes": 474297
+    },
+    "map4x.bin": {
+     "bytes": 850000,
+     "sha256": "b467347231f99aef2017fb55fdbde8079508cdf173e46903398b0f5d4e5fddbe",
+     "packedBytes": 158035
+    },
+    "map16x.bin": {
+     "bytes": 212500,
+     "sha256": "a9bbcc7777cf26f37cb673e5d9e94159487df8ac899fa467a2eeeaa5d73f6041",
+     "packedBytes": 49008
+    }
+   }
+  },
+  {
+   "key": "africa",
+   "id": "Africa",
+   "files": {
+    "manifest.json": {
+     "bytes": 4540,
+     "sha256": "93c1d18759d056a2d3b694483458e712ffbdd0c96cea5218567de08837e47217",
+     "packedBytes": 848
+    },
+    "map.bin": {
+     "bytes": 3958336,
+     "sha256": "f465381a44f0351d968ea7d52d76bd320024d3f6ca8c43b1948a3d3130d7945b",
+     "packedBytes": 1106085
+    },
+    "map4x.bin": {
+     "bytes": 989584,
+     "sha256": "775c3488af8410aecd07096e810b49218e166354fffa6c4da31647fbce0b7a3d",
+     "packedBytes": 301461
+    },
+    "map16x.bin": {
+     "bytes": 247396,
+     "sha256": "d70f0559285b85266d4fd66437658c44afeb8268d640ec8028f9f59cee60524a",
+     "packedBytes": 83714
+    }
+   }
+  },
+  {
+   "key": "alps",
+   "id": "Alps",
+   "files": {
+    "manifest.json": {
+     "bytes": 3216,
+     "sha256": "c47e308199915ad2e168b4c713854edd35c17391699086387bd42ca24c144a77",
+     "packedBytes": 653
+    },
+    "map.bin": {
+     "bytes": 3672000,
+     "sha256": "2e5da1bdd724e0f58aa27812a31769dec390379a313977f7b9bb6ec4ab523ec2",
+     "packedBytes": 381494
+    },
+    "map4x.bin": {
+     "bytes": 918000,
+     "sha256": "8502323bc0016296952bdbed250ef9ce1597e46b6c83727836a021491bd37d80",
+     "packedBytes": 160408
+    },
+    "map16x.bin": {
+     "bytes": 229500,
+     "sha256": "e3962dfe8443e9213909e058ccf38daa8b488a6b1f6847dde91c71d6e427f9d1",
+     "packedBytes": 59609
+    }
+   }
+  },
+  {
+   "key": "amazonriver",
+   "id": "Amazon River",
+   "files": {
+    "manifest.json": {
+     "bytes": 2413,
+     "sha256": "295733f24c8e7b8f86c330fbf539137039c1bd21c21a378bc8d1a90d49c625be",
+     "packedBytes": 517
+    },
+    "map.bin": {
+     "bytes": 1527936,
+     "sha256": "95c783b8230efd717ccb22f1b0e13eaeb5a842763c6fd4f5cdf2c9cbee4379f9",
+     "packedBytes": 272361
+    },
+    "map4x.bin": {
+     "bytes": 381984,
+     "sha256": "d4897f1ec65ef7e646aba42e21fdf75eb77c03fb8f74149024f17462a2b25eac",
+     "packedBytes": 95552
+    },
+    "map16x.bin": {
+     "bytes": 95496,
+     "sha256": "0a382479fe676f09e655d93690097e40e56c4783b212452701b922f642f0b118",
+     "packedBytes": 28509
+    }
+   }
+  },
+  {
+   "key": "antarctica",
+   "id": "Antarctica",
+   "files": {
+    "manifest.json": {
+     "bytes": 3622,
+     "sha256": "f64843748421f64b7d28195380dcc84b10a316f1ec7fad98dbbff78dfbb06997",
+     "packedBytes": 777
+    },
+    "map.bin": {
+     "bytes": 4892944,
+     "sha256": "4a082bfc3e7011f77a9fd77460a0d74f630a103d3a8fa12ba4bb3d376bb65d69",
+     "packedBytes": 240142
+    },
+    "map4x.bin": {
+     "bytes": 1223236,
+     "sha256": "3577b16aee78cbb8d1950826f174dc55579c22ee7679b4c5f8951b8e0e76141d",
+     "packedBytes": 78616
+    },
+    "map16x.bin": {
+     "bytes": 305809,
+     "sha256": "d8705306f1dbdf1cdc1baa3f40ff39302a3c7cbe2dda630dae5c801dcd441d67",
+     "packedBytes": 26793
+    }
+   }
+  },
+  {
+   "key": "archipelagosea",
+   "id": "ArchipelagoSea",
+   "files": {
+    "manifest.json": {
+     "bytes": 2401,
+     "sha256": "ef230dae618c548fed9cc4fd07d4043d8071a39cc5922f4126f87e60949de666",
+     "packedBytes": 526
+    },
+    "map.bin": {
+     "bytes": 4674800,
+     "sha256": "892ebf1366db0ef2ea67a79f08abc0b90a333bc73415424b3e2cb357ad7ee3d1",
+     "packedBytes": 378437
+    },
+    "map4x.bin": {
+     "bytes": 1168700,
+     "sha256": "33fa5db74a58eabe513a26658a96238fec611911628b9517227358399b02e478",
+     "packedBytes": 107625
+    },
+    "map16x.bin": {
+     "bytes": 292175,
+     "sha256": "1d4e5460898f121a31852e81117ab67dab3df403c0fc0b99e09071fa4362297c",
+     "packedBytes": 34260
+    }
+   }
+  },
+  {
+   "key": "arctic",
+   "id": "Arctic",
+   "files": {
+    "manifest.json": {
+     "bytes": 4925,
+     "sha256": "d18bd2fa0920a360415cfc6e3b2ad2106c5ac4835e9e812cd836b37c18e01cf7",
+     "packedBytes": 928
+    },
+    "map.bin": {
+     "bytes": 3341584,
+     "sha256": "f0d50436c4e21e0bf4e40b3bf175d92889c77ee99000e40edaa6152d2ec4cce9",
+     "packedBytes": 603695
+    },
+    "map4x.bin": {
+     "bytes": 835396,
+     "sha256": "39000f5bccdfdaec2452c46ea00e164354c1c5a546dd520c82f9c74477b852aa",
+     "packedBytes": 186592
+    },
+    "map16x.bin": {
+     "bytes": 208849,
+     "sha256": "d492d87fac1a444fd4d56591fb117faf9d38093e289b61fdfff6f4ab233cd357",
+     "packedBytes": 56264
+    }
+   }
+  },
+  {
+   "key": "asia",
+   "id": "Asia",
+   "files": {
+    "manifest.json": {
+     "bytes": 2737,
+     "sha256": "2f57c1b54431b803c1c02b7ed307e14d24a39a37e245be17c12b31dd23f7a62d",
+     "packedBytes": 570
+    },
+    "map.bin": {
+     "bytes": 2400000,
+     "sha256": "c49fb256a4cde4f169c3436180febcc4ecf8844966b9a803ff18fda1ef1532d2",
+     "packedBytes": 562476
+    },
+    "map4x.bin": {
+     "bytes": 600000,
+     "sha256": "619307d4208256e87e0f45769f7ace1514d0d30ff773bcdb97df0660716500fe",
+     "packedBytes": 161198
+    },
+    "map16x.bin": {
+     "bytes": 150000,
+     "sha256": "484f4b08fc9f0e2af143203db681e066707622e447b0165533ff5be53c7bfa4b",
+     "packedBytes": 46460
+    }
+   }
+  },
+  {
+   "key": "australia",
+   "id": "Australia",
+   "files": {
+    "manifest.json": {
+     "bytes": 1168,
+     "sha256": "60521f2694a9f88911483aec1cda9dbf4e8221d491e2507e3d83e28382af0a83",
+     "packedBytes": 335
+    },
+    "map.bin": {
+     "bytes": 3000000,
+     "sha256": "997ce7afec065820a5379ca8bfdbab611f2ce644a4fafecb784322e0a5312620",
+     "packedBytes": 536270
+    },
+    "map4x.bin": {
+     "bytes": 750000,
+     "sha256": "5a233c3ddc966c2620508a6630d7cb78d6e431111a87ac63f89b8223519150ab",
+     "packedBytes": 161582
+    },
+    "map16x.bin": {
+     "bytes": 187500,
+     "sha256": "c5678f3a9573b05398167c837155ab9564d0e840d15ef9b412aa4dd02963d667",
+     "packedBytes": 46789
+    }
+   }
+  },
+  {
+   "key": "babelmandebstrait",
+   "id": "Bab el-Mandeb Strait",
+   "files": {
+    "manifest.json": {
+     "bytes": 4906,
+     "sha256": "f42984833397b2125f556274f24ead9aee328f98f0b3e8947e79ec555ba737ff",
+     "packedBytes": 902
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "0e75356dea3481e559cb9607be2b86c23b7da16f19e32af594cc6fb1b87397c0",
+     "packedBytes": 151596
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "ca9edb02028404b53611f16d2932857be3dad827a65ecaf031ef929cf62e7298",
+     "packedBytes": 57249
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "e354884ab3d2d01e6ccb1680d092342b231eca1c09851e6052f7c36f6614b0d8",
+     "packedBytes": 20631
+    }
+   }
+  },
+  {
+   "key": "baikal",
+   "id": "Baikal",
+   "files": {
+    "manifest.json": {
+     "bytes": 1833,
+     "sha256": "a56e308961a0fff1044cbd76dec4e0c7190cf990f36c6e4c8d7ef9771458246e",
+     "packedBytes": 508
+    },
+    "map.bin": {
+     "bytes": 3910000,
+     "sha256": "667bb3a9e9a7cd681da00ae1ecdb555de3be629df86d1e6420075d332ba7abac",
+     "packedBytes": 824075
+    },
+    "map4x.bin": {
+     "bytes": 977500,
+     "sha256": "c993bdcb79e6821856c0e877475c22a40038c195a627256139083976f8e934c3",
+     "packedBytes": 245710
+    },
+    "map16x.bin": {
+     "bytes": 244375,
+     "sha256": "3b79c183b33d3fd14cbdfd217c1e408b5ecfc6386b16cdfc411e33838bb2338c",
+     "packedBytes": 68644
+    }
+   }
+  },
+  {
+   "key": "baikalnukewars",
+   "id": "Baikal Nuke Wars",
+   "files": {
+    "manifest.json": {
+     "bytes": 809,
+     "sha256": "bd49c990c2fc397f49bf9c669883c52a69b51e75aab510bc45be96876cb2b134",
+     "packedBytes": 301
+    },
+    "map.bin": {
+     "bytes": 3910000,
+     "sha256": "48adf76868e4da14603b49ad516e45eba513a985829a4cd12dffb0adb8aa6a43",
+     "packedBytes": 749639
+    },
+    "map4x.bin": {
+     "bytes": 977500,
+     "sha256": "6db388d45d341cdac7eb6b099a02cd9b361394a2f8f08f77cbfe2a80b1546843",
+     "packedBytes": 221653
+    },
+    "map16x.bin": {
+     "bytes": 244375,
+     "sha256": "4c3565abd778cc935196b8feddf4238285e6667a7f4796a1f29b5685aa5305f9",
+     "packedBytes": 61570
+    }
+   }
+  },
+  {
+   "key": "bajacalifornia",
+   "id": "Baja California",
+   "files": {
+    "manifest.json": {
+     "bytes": 1242,
+     "sha256": "e6896bcb4d3496782a9327df583e1935dc1c3c11e8f6eb469b17d6666deb28b4",
+     "packedBytes": 339
+    },
+    "map.bin": {
+     "bytes": 3816000,
+     "sha256": "4122339bb2e407d03fc74fe5a57b08bdfa7ba832b9a27cb889ad6f393db18439",
+     "packedBytes": 227115
+    },
+    "map4x.bin": {
+     "bytes": 954000,
+     "sha256": "2c051d6ed70b9e9af0e79aa7d91fea03b92b33af406f3750c14909c4208f5ed2",
+     "packedBytes": 80790
+    },
+    "map16x.bin": {
+     "bytes": 238500,
+     "sha256": "c9e53e692c5cf706a9e1ee0ce6cae0c0030090652230c12a056a15924bfb5dda",
+     "packedBytes": 28497
+    }
+   }
+  },
+  {
+   "key": "balkans",
+   "id": "Balkans",
+   "files": {
+    "manifest.json": {
+     "bytes": 6284,
+     "sha256": "df7afc1c0574fa7d7ade1f23ac1ecec27adca835bea4bffc4d3e141247b6fd33",
+     "packedBytes": 1064
+    },
+    "map.bin": {
+     "bytes": 4194304,
+     "sha256": "073920a8f6271063b26b3e9c0398ed7516222ae4e0a1904aa1c8931daaace8ae",
+     "packedBytes": 676484
+    },
+    "map4x.bin": {
+     "bytes": 1048576,
+     "sha256": "019321ce2cd6333c9c072772827e09bd36c0bb456c9a3e012eb1eb419dc38e88",
+     "packedBytes": 270242
+    },
+    "map16x.bin": {
+     "bytes": 262144,
+     "sha256": "351e0355fed4c67f709ca6fe0292eb858e42c0defb4cb46dbc90616cd3abba08",
+     "packedBytes": 82579
+    }
+   }
+  },
+  {
+   "key": "balkhash",
+   "id": "Balkhash",
+   "files": {
+    "manifest.json": {
+     "bytes": 3491,
+     "sha256": "8756d6bbf6c196e8bc52fba9b8ba8e0cd0ad2b3120e97f1350eae985f1ea07b7",
+     "packedBytes": 664
+    },
+    "map.bin": {
+     "bytes": 4950000,
+     "sha256": "eea2951e4ff92fefdbdbda20a0216cfd63d50520ceb5361a0c2664a8b223f021",
+     "packedBytes": 428893
+    },
+    "map4x.bin": {
+     "bytes": 1237500,
+     "sha256": "bb540b0274a5f130ab248942631a0fee0f91fcf2502e57a96879f2469e60bec0",
+     "packedBytes": 148784
+    },
+    "map16x.bin": {
+     "bytes": 309375,
+     "sha256": "a645d8f5dafd5240ad6536f0279746c9fc909dc46f0b51a3b2910d71ac73b197",
+     "packedBytes": 48724
+    }
+   }
+  },
+  {
+   "key": "baltics",
+   "id": "Baltics",
+   "files": {
+    "manifest.json": {
+     "bytes": 6083,
+     "sha256": "9241f985bc1651cea40870cacbad9ea8aa0201b3f435462c4cc85f0b1de58047",
+     "packedBytes": 1010
+    },
+    "map.bin": {
+     "bytes": 1805936,
+     "sha256": "57f72ec16a63a397e1c866f3c3a1750d195ff60d0932fe2483aba1b1a4221248",
+     "packedBytes": 153049
+    },
+    "map4x.bin": {
+     "bytes": 451484,
+     "sha256": "7a49a5bd8e6ecc4f544dd3950cbcf42c47b082a485a22fef5413241062b331b0",
+     "packedBytes": 68152
+    },
+    "map16x.bin": {
+     "bytes": 112871,
+     "sha256": "114e34d10dcb638d7598dfb0fcb938b72e46d3740146528239a93d48d9744acb",
+     "packedBytes": 25246
+    }
+   }
+  },
+  {
+   "key": "benelux",
+   "id": "Benelux",
+   "files": {
+    "manifest.json": {
+     "bytes": 1241,
+     "sha256": "5a35e03710a8d26c2785c891ab0ba833ad9729cf4861de417b12848fe485ed17",
+     "packedBytes": 362
+    },
+    "map.bin": {
+     "bytes": 2316176,
+     "sha256": "88b9b181aa1ab368c4b1796b1fc7affaa6c1e3d42b1b417fec6e1d69bc74d0e6",
+     "packedBytes": 51569
+    },
+    "map4x.bin": {
+     "bytes": 579044,
+     "sha256": "6f777709b88d35609cb7335abff35d973e412a2908ae20ce5e5357b300e5beb7",
+     "packedBytes": 25398
+    },
+    "map16x.bin": {
+     "bytes": 144761,
+     "sha256": "ab2d1983c1ab58289b8f15e6e7352a4b7b30b851a77a7876512fbd10b8619577",
+     "packedBytes": 11534
+    }
+   }
+  },
+  {
+   "key": "beringsea",
+   "id": "Bering Sea",
+   "files": {
+    "manifest.json": {
+     "bytes": 3050,
+     "sha256": "72ecb5accb60c81aa248b872643879eb7c2525fbdcbd1721190367c01ba5d0b2",
+     "packedBytes": 658
+    },
+    "map.bin": {
+     "bytes": 4000000,
+     "sha256": "35c7b41358f19eb5f2e94d0a7efae0be176c92ae936e394e9646d25278d1c974",
+     "packedBytes": 597365
+    },
+    "map4x.bin": {
+     "bytes": 1000000,
+     "sha256": "f1e153b9610407f0c6fba8eb088f552b6f965a7e1dcff9f1a9e04e6841c2867b",
+     "packedBytes": 195932
+    },
+    "map16x.bin": {
+     "bytes": 250000,
+     "sha256": "df6746df3d2e79a76f46e9b222047e70c6fcabff508793ba6cddf11dead9261a",
+     "packedBytes": 61475
+    }
+   }
+  },
+  {
+   "key": "beringstrait",
+   "id": "Bering Strait",
+   "files": {
+    "manifest.json": {
+     "bytes": 941,
+     "sha256": "a535837d262252e432e453eddfca6cf8de1bb1ec25528f8f1aa4782bdad452b4",
+     "packedBytes": 328
+    },
+    "map.bin": {
+     "bytes": 1374000,
+     "sha256": "fe584999c4d938782bae58c3bc3f3245b63aa5c1ba4881746b11b67fdbb66684",
+     "packedBytes": 214093
+    },
+    "map4x.bin": {
+     "bytes": 343500,
+     "sha256": "316b76c7d8c99d94686714d8e18d8e4c1f253f0592b965efed828406a7f2b95d",
+     "packedBytes": 79716
+    },
+    "map16x.bin": {
+     "bytes": 85875,
+     "sha256": "443780b1ccf7f60cf69d073124550c2aec1b0d323f559ab5601cd0a9f2620d68",
+     "packedBytes": 25223
+    }
+   }
+  },
+  {
+   "key": "betweentwoseas",
+   "id": "Between Two Seas",
+   "files": {
+    "manifest.json": {
+     "bytes": 1924,
+     "sha256": "107404b87ac9785cdac2d30764fbf218e7b5a0a5187bc9c9bd47903368341f92",
+     "packedBytes": 468
+    },
+    "map.bin": {
+     "bytes": 1882560,
+     "sha256": "7f57e22ec6bd23bca713ac3dbd13d36e0ebb79baf7ad34eda401d97d77ca5569",
+     "packedBytes": 455975
+    },
+    "map4x.bin": {
+     "bytes": 470640,
+     "sha256": "1613c53f4512631e4d17867fb71be8dc3061373efe101f33091379580047b6f3",
+     "packedBytes": 147999
+    },
+    "map16x.bin": {
+     "bytes": 117660,
+     "sha256": "6146f34c682c2bf0198a2b39dadd8fdef37bc85d9af727d38cbf3889a74f38e7",
+     "packedBytes": 43430
+    }
+   }
+  },
+  {
+   "key": "blacksea",
+   "id": "Black Sea",
+   "files": {
+    "manifest.json": {
+     "bytes": 1276,
+     "sha256": "b5cd5c6f8510d48041e7752c8660d8bd1f472658c67c5c7869a97e939cf9e4e3",
+     "packedBytes": 354
+    },
+    "map.bin": {
+     "bytes": 1650000,
+     "sha256": "393026a29dfb93293acdf6995e0a4a3f92e8b45e5d336867a66857ba7fbdf424",
+     "packedBytes": 364023
+    },
+    "map4x.bin": {
+     "bytes": 412500,
+     "sha256": "4aa6ca6bba9f70e554e7f96ba0588521efc7b21faa5d8e742159e41b984f708e",
+     "packedBytes": 122019
+    },
+    "map16x.bin": {
+     "bytes": 103125,
+     "sha256": "f54c0435caae22ad8aeaea8cefcdd2efc75f941b17f9f3562069ca1349deb243",
+     "packedBytes": 36857
+    }
+   }
+  },
+  {
+   "key": "bosphorusstraits",
+   "id": "Bosphorus Straits",
+   "files": {
+    "manifest.json": {
+     "bytes": 2763,
+     "sha256": "a9a8ed8437a8acba21486a5d5f0384a41723bbe85b5b2bb0a5c3da4040f2b872",
+     "packedBytes": 578
+    },
+    "map.bin": {
+     "bytes": 612000,
+     "sha256": "03c1bc58b4ad2791cf615cd841650c1e9f83bd0ba35be81e0e406813a7f45c25",
+     "packedBytes": 126985
+    },
+    "map4x.bin": {
+     "bytes": 153000,
+     "sha256": "8da389126a27e09a3237e40baec983818e6d6be542dff9218528cffdf6cd1933",
+     "packedBytes": 47154
+    },
+    "map16x.bin": {
+     "bytes": 38250,
+     "sha256": "984bd978938db74cb5893292bb49b4add47ce0333ae6e2728c128904eb4d9d9a",
+     "packedBytes": 14358
+    }
+   }
+  },
+  {
+   "key": "brainrot",
+   "id": "Brain Rot",
+   "files": {
+    "manifest.json": {
+     "bytes": 4011,
+     "sha256": "1794d8b92d847f0099ec73813dfec18ee4c9007642a55efc74e358081cca2489",
+     "packedBytes": 766
+    },
+    "map.bin": {
+     "bytes": 7046592,
+     "sha256": "08e029f1f1e68e0a2e48a4063e273a39a51fff917eddb86e789a10dd42fb833e",
+     "packedBytes": 624907
+    },
+    "map4x.bin": {
+     "bytes": 1761648,
+     "sha256": "7c803c778eadea0a5f52bc60ce4561334ea725eb12e23f01b787de3ae452b52c",
+     "packedBytes": 170240
+    },
+    "map16x.bin": {
+     "bytes": 440412,
+     "sha256": "8e896257308a17f0285ccd3461d6e756c812fa1a72c9a7b21e7669d38db6c766",
+     "packedBytes": 47221
+    }
+   }
+  },
+  {
+   "key": "branchingpaths",
+   "id": "Branching Paths",
+   "files": {
+    "manifest.json": {
+     "bytes": 2341,
+     "sha256": "856bfb701a50982d70b173d079feede3faede898c515f6934032260b373ac351",
+     "packedBytes": 476
+    },
+    "map.bin": {
+     "bytes": 5327040,
+     "sha256": "1c75532209cc9e0ebce541d3630ba7974dd2e457b0f95ab58c84c8879cddffd9",
+     "packedBytes": 154319
+    },
+    "map4x.bin": {
+     "bytes": 1331760,
+     "sha256": "9342467a268a66d6ca4dd0b28f627f8f76311aa878275568ddceaba8eb16019b",
+     "packedBytes": 64356
+    },
+    "map16x.bin": {
+     "bytes": 332940,
+     "sha256": "f65a18cc312dffda866b8d0173c72eb0309c6668ec0f0387ca6aa9d1989ad1aa",
+     "packedBytes": 27267
+    }
+   }
+  },
+  {
+   "key": "britannia",
+   "id": "Britannia",
+   "files": {
+    "manifest.json": {
+     "bytes": 2359,
+     "sha256": "697eccc5636a00c4b5c286b085f740337460dbd2081f8f1b580aa4bfb137900b",
+     "packedBytes": 521
+    },
+    "map.bin": {
+     "bytes": 3340800,
+     "sha256": "abff18fa1c7f5fc7684060230f1febf1e297d6f41ce7fa0394a42bc41f808e94",
+     "packedBytes": 445960
+    },
+    "map4x.bin": {
+     "bytes": 835200,
+     "sha256": "fd5195ab5cf9a6f7b71272e996dcb8d7146c4adb56f663769dd49b464a6f300a",
+     "packedBytes": 160276
+    },
+    "map16x.bin": {
+     "bytes": 208800,
+     "sha256": "7e7e9653b6b4f6ab861cee404923389ed6cddb2bbe99432eb57336a3b29ae582",
+     "packedBytes": 50105
+    }
+   }
+  },
+  {
+   "key": "britanniaclassic",
+   "id": "Britannia Classic",
+   "files": {
+    "manifest.json": {
+     "bytes": 2797,
+     "sha256": "18791e132820c5e6e44b7a07c0559646cbf5ac5d29cdba69f12c2cd4ae510299",
+     "packedBytes": 603
+    },
+    "map.bin": {
+     "bytes": 2792000,
+     "sha256": "51461d14913ad2bb1a1039f43493e67979e19b5c5d35ceba16996519b09e760c",
+     "packedBytes": 355943
+    },
+    "map4x.bin": {
+     "bytes": 698000,
+     "sha256": "e4057294fbbaee1f5f34c686498658b5faef3ded6b7dcd16b960f6f8ff0d6d4d",
+     "packedBytes": 137722
+    },
+    "map16x.bin": {
+     "bytes": 174500,
+     "sha256": "7c61c098a6c4b7c491d7a65220af334ed0078af98762af51d3ed66e33b8b2708",
+     "packedBytes": 43059
+    }
+   }
+  },
+  {
+   "key": "canaryislands",
+   "id": "Canary Islands",
+   "files": {
+    "manifest.json": {
+     "bytes": 8219,
+     "sha256": "fe9ff865cfa3c160e541b62ce9b0a0035ca933921d1750aaff81e1f4c8830e7f",
+     "packedBytes": 1223
+    },
+    "map.bin": {
+     "bytes": 5600000,
+     "sha256": "3ef17312c85ea31f1398eaab0db642b56a5f6e0dd71ffa38f48d879152968147",
+     "packedBytes": 295124
+    },
+    "map4x.bin": {
+     "bytes": 1400000,
+     "sha256": "1f0008b305d0e707669fdbbdce3aadae43ed34d289955750db08531c052dc1a3",
+     "packedBytes": 96679
+    },
+    "map16x.bin": {
+     "bytes": 350000,
+     "sha256": "d18120037fb54b4ece5b626640346307ae783702deb4bb277633b5d764ef7986",
+     "packedBytes": 31063
+    }
+   }
+  },
+  {
+   "key": "capecod",
+   "id": "Cape Cod",
+   "files": {
+    "manifest.json": {
+     "bytes": 3654,
+     "sha256": "c13320e77e35de51263e3fc41d984f5430702ccbd2b4a074c1cf6a63e13eebe7",
+     "packedBytes": 646
+    },
+    "map.bin": {
+     "bytes": 1860000,
+     "sha256": "e778ff36dfde5e128df6b585767a8577f65159028411e56703af18ff721e30e6",
+     "packedBytes": 330763
+    },
+    "map4x.bin": {
+     "bytes": 465000,
+     "sha256": "c02115951f62b16285f8ea8a8f7a523563b01eb0934362a5d6abfb6804e13a78",
+     "packedBytes": 105285
+    },
+    "map16x.bin": {
+     "bytes": 116250,
+     "sha256": "03fee8782742b953478902a98716f170f01a1e34a34ae59bf78b89861f3270f9",
+     "packedBytes": 31385
+    }
+   }
+  },
+  {
+   "key": "capeofgoodhope",
+   "id": "Cape Of Good Hope",
+   "files": {
+    "manifest.json": {
+     "bytes": 6295,
+     "sha256": "2f44797b5e84721af6a2e02dc81df1bfe3edf3a4ce9cabee0c2fb0530dba185f",
+     "packedBytes": 1035
+    },
+    "map.bin": {
+     "bytes": 3717184,
+     "sha256": "15a79692482a02f1395158ec73b045b56bd907c9189e5d8ec8ce2da7c0fc62a3",
+     "packedBytes": 183999
+    },
+    "map4x.bin": {
+     "bytes": 929296,
+     "sha256": "9dbc9995b1cd6aa87b74a748caf0d9c3b2ee8dfed84c415a42c31735db7fc5fa",
+     "packedBytes": 77497
+    },
+    "map16x.bin": {
+     "bytes": 232324,
+     "sha256": "6469fa8fc5dc2683c010924fd3ed0032cb9555e9e6e8d0e9265da986d0dcdfc9",
+     "packedBytes": 29489
+    }
+   }
+  },
+  {
+   "key": "caribbean",
+   "id": "Caribbean",
+   "files": {
+    "manifest.json": {
+     "bytes": 6432,
+     "sha256": "25f730d9fe0b68941e20a4faa8121eeafb644c5c207a80daa46941b99fcea439",
+     "packedBytes": 1120
+    },
+    "map.bin": {
+     "bytes": 5785600,
+     "sha256": "5b8edfe2ddc290176b5dff115ce4f72ed6f0c823c9383e3a7f6bed18d64984f8",
+     "packedBytes": 228239
+    },
+    "map4x.bin": {
+     "bytes": 1446400,
+     "sha256": "013093f40272cd844a75f0b21b94ba7d1cb9640017181187019635cb7bd41faf",
+     "packedBytes": 81129
+    },
+    "map16x.bin": {
+     "bytes": 361600,
+     "sha256": "85707a51af0b7ccbd757c813f5ae5473e9e031eda0aa625bc10a3311f6d399dc",
+     "packedBytes": 31438
+    }
+   }
+  },
+  {
+   "key": "caspiansea",
+   "id": "Caspian Sea",
+   "files": {
+    "manifest.json": {
+     "bytes": 1814,
+     "sha256": "96d1e13458a4cc70cfc58bc9abf4859824738387a0ea862af21f627f5585b1d6",
+     "packedBytes": 455
+    },
+    "map.bin": {
+     "bytes": 1741824,
+     "sha256": "9d89cd69287179d091c0f664fd040d70e9ab05a4278a9298007754e6c301efae",
+     "packedBytes": 100993
+    },
+    "map4x.bin": {
+     "bytes": 435456,
+     "sha256": "5acd2bb44ea64a0e8387b484b37696864e28f12b492028db35d6df3bf3e58f94",
+     "packedBytes": 43111
+    },
+    "map16x.bin": {
+     "bytes": 108864,
+     "sha256": "d5dc511c5d6c4ac780a1ad97ae020e644022fbe2e43682ae1dc8ef72659611d9",
+     "packedBytes": 15772
+    }
+   }
+  },
+  {
+   "key": "caucasus",
+   "id": "Caucasus",
+   "files": {
+    "manifest.json": {
+     "bytes": 2427,
+     "sha256": "3a2ca454c773265de3e6315d5b2bd9da035b47f675c4f184c1d9daea913f09a0",
+     "packedBytes": 534
+    },
+    "map.bin": {
+     "bytes": 1248000,
+     "sha256": "c9ae8885e3bcfe298c2f9d512feca4d8978fe8007e0066678a5afced3eb44d5a",
+     "packedBytes": 157550
+    },
+    "map4x.bin": {
+     "bytes": 312000,
+     "sha256": "67d244184d6628d14d57d202f0162a860a8c50b0f6f80cc55704f961425ba934",
+     "packedBytes": 61603
+    },
+    "map16x.bin": {
+     "bytes": 78000,
+     "sha256": "003883b158847060cb9d1a92abc35d3b2da63b4216b9536bf6abb10664743d52",
+     "packedBytes": 20682
+    }
+   }
+  },
+  {
+   "key": "centralamerica",
+   "id": "Central America",
+   "files": {
+    "manifest.json": {
+     "bytes": 6438,
+     "sha256": "8d1a9867fe274979d2c02e5ff2e1a9ca3775e33ef5f47a47878a0d2c99a5c296",
+     "packedBytes": 1060
+    },
+    "map.bin": {
+     "bytes": 4890000,
+     "sha256": "69e07a3df6df010d27b314c0582ef7ddecf0fd3d79bdd17e497a7679324fff29",
+     "packedBytes": 401566
+    },
+    "map4x.bin": {
+     "bytes": 1222500,
+     "sha256": "10aa195e1d376aaa77d561a8a8e365e2a567619c00da0fb81723aa6547a719b8",
+     "packedBytes": 138340
+    },
+    "map16x.bin": {
+     "bytes": 305625,
+     "sha256": "178d1ea2b3189a8af9518022aeff94b6e28a76e0e420d078de53f0899aecaf1d",
+     "packedBytes": 45720
+    }
+   }
+  },
+  {
+   "key": "channelislands",
+   "id": "Channel Islands",
+   "files": {
+    "manifest.json": {
+     "bytes": 7144,
+     "sha256": "ca8644fb090bf3378da02f1dde8b1436550f4e27895d1f517063261df140856a",
+     "packedBytes": 1335
+    },
+    "map.bin": {
+     "bytes": 12467232,
+     "sha256": "3c96e699a2c702c175cefa01d90419a29d473070b126508957081ad152516def",
+     "packedBytes": 385751
+    },
+    "map4x.bin": {
+     "bytes": 3116808,
+     "sha256": "8ecbc928ea1e9e7cb1821304e345c30d14fa2ba5d66ebc1a2457435559b95a5e",
+     "packedBytes": 157158
+    },
+    "map16x.bin": {
+     "bytes": 779202,
+     "sha256": "9bfd70e21ed69b08de3388910c348f32244ef6419eb55e34da7730e13212b0a5",
+     "packedBytes": 62322
+    }
+   }
+  },
+  {
+   "key": "china",
+   "id": "China",
+   "files": {
+    "manifest.json": {
+     "bytes": 3682,
+     "sha256": "fdd862d73a957e4bb3e9e6fd004ec43881cb5022a418ab266d546b074aa477c6",
+     "packedBytes": 643
+    },
+    "map.bin": {
+     "bytes": 4549952,
+     "sha256": "98efeaa9da01cc46660394427046d7f8fcbdf85677853c5bd803f16319ec88eb",
+     "packedBytes": 349752
+    },
+    "map4x.bin": {
+     "bytes": 1137488,
+     "sha256": "c31a6ea8ecf385a56d35fec5e100b6991332ddee9a74a4a6ea029f40fb07cd49",
+     "packedBytes": 127163
+    },
+    "map16x.bin": {
+     "bytes": 284372,
+     "sha256": "ebe303d35c2c2123b2709710f8bcbe2ab21ac14a736cde642eb92eca05c521d0",
+     "packedBytes": 41967
+    }
+   }
+  },
+  {
+   "key": "choppingblock",
+   "id": "Chopping Block",
+   "files": {
+    "manifest.json": {
+     "bytes": 5775,
+     "sha256": "f1bfde6d6e069b1e0cb73f5e99bc95b77d706adbd03d773c2aa36d40a259ed01",
+     "packedBytes": 938
+    },
+    "map.bin": {
+     "bytes": 2611456,
+     "sha256": "f885328233b7b0da4099ccdd80d7698b15118582b1530b86322fdf936e0ea252",
+     "packedBytes": 619388
+    },
+    "map4x.bin": {
+     "bytes": 652864,
+     "sha256": "a1fdb85c179573ccdd99d2ffceedd09157c417f9505ab12cfe4aed7674a6329e",
+     "packedBytes": 172854
+    },
+    "map16x.bin": {
+     "bytes": 163216,
+     "sha256": "b52c4e62bd461666143be5fb5763acce63efb21ae3e8378ecd368eac56f66df3",
+     "packedBytes": 48945
+    }
+   }
+  },
+  {
+   "key": "clearwaterlakes",
+   "id": "Clearwater Lakes",
+   "files": {
+    "manifest.json": {
+     "bytes": 1812,
+     "sha256": "93ac2813a40d65402196512f824f2f914744825688d0de65f0a87c8f8392f8ed",
+     "packedBytes": 435
+    },
+    "map.bin": {
+     "bytes": 3100032,
+     "sha256": "b8bee65d720c947048f1e80669d63285609c10caf536c8cc5231aada5746db4c",
+     "packedBytes": 359029
+    },
+    "map4x.bin": {
+     "bytes": 775008,
+     "sha256": "fa08773c7e53557f36eeaa1e4dd0e0307b49a2b1ca4cc7147a7570947ba84042",
+     "packedBytes": 127914
+    },
+    "map16x.bin": {
+     "bytes": 193752,
+     "sha256": "587a4fbce6dc758cd5c37458729958d0d23b44b871948ebbd6ccba694216c5d6",
+     "packedBytes": 40379
+    }
+   }
+  },
+  {
+   "key": "conakry",
+   "id": "Conakry",
+   "files": {
+    "manifest.json": {
+     "bytes": 2535,
+     "sha256": "e7e2af34bf51c58ed0f7d5af2e1a6b7c94d630cbb1ab3af5f394c2d5d23cce35",
+     "packedBytes": 527
+    },
+    "map.bin": {
+     "bytes": 2456000,
+     "sha256": "c3147889928417926a4ded26444f9b534d1a2b7a143b05e4c322176829f2a0b2",
+     "packedBytes": 292490
+    },
+    "map4x.bin": {
+     "bytes": 614000,
+     "sha256": "4462d90090d4ad4db4d9f7b7af291292a9c676223488e55632c716c3a33c3738",
+     "packedBytes": 105191
+    },
+    "map16x.bin": {
+     "bytes": 153500,
+     "sha256": "21eb3c12787cef225073faa2f0080025805fbbc9e40cb0a82ac7ccc3faf83b0e",
+     "packedBytes": 34294
+    }
+   }
+  },
+  {
+   "key": "crimea",
+   "id": "Crimea",
+   "files": {
+    "manifest.json": {
+     "bytes": 2947,
+     "sha256": "7a47c2189c4a4811a17677945f905fda7867062f7b41c146389aeb66ba50c7b4",
+     "packedBytes": 571
+    },
+    "map.bin": {
+     "bytes": 2684640,
+     "sha256": "eb44d7653aedb0a0795709860288563836dc04a5ce5f6455e4cdf680271eae22",
+     "packedBytes": 153785
+    },
+    "map4x.bin": {
+     "bytes": 671160,
+     "sha256": "20beb52e4bd8f0f935c449240e5a55e0231d52987c3c03def096e66583b0f947",
+     "packedBytes": 67162
+    },
+    "map16x.bin": {
+     "bytes": 167790,
+     "sha256": "e7365ef86e8b2f9939547ad695d7729fe9a76ab684b63847a72ff7a96bd62b49",
+     "packedBytes": 25673
+    }
+   }
+  },
+  {
+   "key": "danishstraits",
+   "id": "Danish Straits",
+   "files": {
+    "manifest.json": {
+     "bytes": 3084,
+     "sha256": "ec6be0884c1c317100e6e12204cdfce79fc2c83e1b2fa1e8f19a716ad744720a",
+     "packedBytes": 614
+    },
+    "map.bin": {
+     "bytes": 1067328,
+     "sha256": "d54123c09bd083cb45121858042dcb12342f86765d990bdb00db0e650939f712",
+     "packedBytes": 171240
+    },
+    "map4x.bin": {
+     "bytes": 266832,
+     "sha256": "b847ad79ae268fe137aa70a0b2bb309eefac595a671885b28fca8e9a77bd8cad",
+     "packedBytes": 55332
+    },
+    "map16x.bin": {
+     "bytes": 66708,
+     "sha256": "e279033300726c2088388a0463597ce20d46cfc4e21c03c7c087029b45aa447c",
+     "packedBytes": 17168
+    }
+   }
+  },
+  {
+   "key": "deglaciatedantarctica",
+   "id": "Deglaciated Antarctica",
+   "files": {
+    "manifest.json": {
+     "bytes": 1410,
+     "sha256": "f22ca9e7733e2bab113b9da7a65e8cdd32ea39b206cbbdb39ad13c56b897132b",
+     "packedBytes": 371
+    },
+    "map.bin": {
+     "bytes": 4232000,
+     "sha256": "0ebd2135557432efc9bc057104fdd7e48c6f9f2b215ef680be9be6962a3b22ff",
+     "packedBytes": 651906
+    },
+    "map4x.bin": {
+     "bytes": 1058000,
+     "sha256": "bfe69c4c790ab3e955976baff1d45ca4dd42579aa6ade16b041c22bcc190e41b",
+     "packedBytes": 200876
+    },
+    "map16x.bin": {
+     "bytes": 264500,
+     "sha256": "15b39663766536e2d07e58dc799358d3fa774f5848eac709813a2fd760f423a3",
+     "packedBytes": 58405
+    }
+   }
+  },
+  {
+   "key": "didier",
+   "id": "Didier",
+   "files": {
+    "manifest.json": {
+     "bytes": 1374,
+     "sha256": "7b8d3f40961ada8fef63ab46eaf845ee386d5d0f2135a4610117bb455e9da32e",
+     "packedBytes": 391
+    },
+    "map.bin": {
+     "bytes": 2022000,
+     "sha256": "e1bb5932f6d21b0131fa0ea65821de1b2cd0892292ad828772b27bbba8e02258",
+     "packedBytes": 29989
+    },
+    "map4x.bin": {
+     "bytes": 505500,
+     "sha256": "43b8b1eeab7266acd044a62cae1810eee61fa48d6d03298763bdf372f9e59f38",
+     "packedBytes": 10120
+    },
+    "map16x.bin": {
+     "bytes": 126375,
+     "sha256": "58df390e4696891d40f8e4117a6610311c1e790d6dc671b5702cade7920b50e0",
+     "packedBytes": 3697
+    }
+   }
+  },
+  {
+   "key": "didierfrance",
+   "id": "Didier France",
+   "files": {
+    "manifest.json": {
+     "bytes": 4241,
+     "sha256": "48abe62a1446c63660204bac6a75cb7c04afb06a8368ab3f6a3b75e0d3f70a7a",
+     "packedBytes": 726
+    },
+    "map.bin": {
+     "bytes": 4720800,
+     "sha256": "c8bf2e35689851f8b37d445e26bd604e355c404178f7c28f138ea334f0ed0c61",
+     "packedBytes": 458607
+    },
+    "map4x.bin": {
+     "bytes": 1180200,
+     "sha256": "48dea5d637a3ea09dae9aa383635941d957a4231099307508107d5d9b3306cf7",
+     "packedBytes": 171074
+    },
+    "map16x.bin": {
+     "bytes": 295050,
+     "sha256": "21961d8e05ab286f6a8ab81a81527969c1b02356f73c1e01080a7bb398cb7644",
+     "packedBytes": 58099
+    }
+   }
+  },
+  {
+   "key": "dyslexdria",
+   "id": "Dyslexdria",
+   "files": {
+    "manifest.json": {
+     "bytes": 18996,
+     "sha256": "162044a628ec3d1b9f634b95541b0002ba832d43cc5e98d2e2e38631d80c68bb",
+     "packedBytes": 2798
+    },
+    "map.bin": {
+     "bytes": 4763520,
+     "sha256": "c0e456c1045d54b990cbcc2715dbd187f9763bf37d139df100ea022c18d609ef",
+     "packedBytes": 1178741
+    },
+    "map4x.bin": {
+     "bytes": 1190880,
+     "sha256": "515f52255cc14c243052245af55199d044117e6a1ddd07c005db9a7bcf3aa7e8",
+     "packedBytes": 336508
+    },
+    "map16x.bin": {
+     "bytes": 297720,
+     "sha256": "3903d0653ba68b78eb98002f4a12b1ff27cb99bce67acc551a9f361e93984e74",
+     "packedBytes": 91906
+    }
+   }
+  },
+  {
+   "key": "eastasia",
+   "id": "East Asia",
+   "files": {
+    "manifest.json": {
+     "bytes": 2481,
+     "sha256": "de224ceed77f133717550971e8085399ba25dfcae900c75e1eb1b635e89de7cd",
+     "packedBytes": 536
+    },
+    "map.bin": {
+     "bytes": 2564640,
+     "sha256": "d5ae56c76f6386d0a7e167b755010efb664971712548734912824166e2e34313",
+     "packedBytes": 216090
+    },
+    "map4x.bin": {
+     "bytes": 641160,
+     "sha256": "a2664bcf7e65c200774391e8b5300649fcaae44648dd2fc03782783eecb63fb0",
+     "packedBytes": 75743
+    },
+    "map16x.bin": {
+     "bytes": 160290,
+     "sha256": "f724bbb60814b35f465decd8850c4fa43d836c9c6e4050fbcc05e65773f490fb",
+     "packedBytes": 25390
+    }
+   }
+  },
+  {
+   "key": "europe",
+   "id": "Europe",
+   "files": {
+    "manifest.json": {
+     "bytes": 5275,
+     "sha256": "4bc18123ce2aade9c3684a9fbca8cc63df071a4d6c666510478437bfb9fb9448",
+     "packedBytes": 918
+    },
+    "map.bin": {
+     "bytes": 4855488,
+     "sha256": "57f6bf0c6d1a7c574f4e6d775535d4ad6f204c765e8ebe9833e08d832cee8cb7",
+     "packedBytes": 1288531
+    },
+    "map4x.bin": {
+     "bytes": 1213872,
+     "sha256": "bb78c04e50c086b3e302e7e4e5089cab2dc08a39517c4d601907fc0efcb2f2a7",
+     "packedBytes": 362071
+    },
+    "map16x.bin": {
+     "bytes": 303468,
+     "sha256": "e1f86e312066b1290adbb8a0c0488efd7a5a65198bfd37b4da15ea43b4b015ba",
+     "packedBytes": 99629
+    }
+   }
+  },
+  {
+   "key": "europeclassic",
+   "id": "Europe Classic",
+   "files": {
+    "manifest.json": {
+     "bytes": 3866,
+     "sha256": "21d6403488e4b1891b660cb8ac5943500720d10cd5e9ec29823e1e1d2ca6f095",
+     "packedBytes": 679
+    },
+    "map.bin": {
+     "bytes": 2000000,
+     "sha256": "92b663dacb70482b13e555f48b18ba6da09817baa20cfd341b2e78c89538c490",
+     "packedBytes": 503122
+    },
+    "map4x.bin": {
+     "bytes": 500000,
+     "sha256": "13704fa32980cf0c6d72be16251db214e410d28786481b250c77cf99c787b63a",
+     "packedBytes": 147293
+    },
+    "map16x.bin": {
+     "bytes": 125000,
+     "sha256": "b8e6d79a95e1e02b484063d7918eb60a5b19f4a4c25d79337d88caecf8341e9c",
+     "packedBytes": 41063
+    }
+   }
+  },
+  {
+   "key": "falklandislands",
+   "id": "Falkland Islands",
+   "files": {
+    "manifest.json": {
+     "bytes": 1901,
+     "sha256": "3b22a6b3aa4b60b335ec236fb2e4a42d429912298372675d22c886ad0224654d",
+     "packedBytes": 473
+    },
+    "map.bin": {
+     "bytes": 2940000,
+     "sha256": "9563ae52db4eb57aadb183d6b4ced253c6d9df85918b6dfb1e89119ce072b960",
+     "packedBytes": 275778
+    },
+    "map4x.bin": {
+     "bytes": 735000,
+     "sha256": "0e9c888e7a67959dcb82950f937e776c4c50f60dffc84a80e690b253a2c498a5",
+     "packedBytes": 100712
+    },
+    "map16x.bin": {
+     "bytes": 183750,
+     "sha256": "a8fa3e30b552e10ee48990be494770765aed899bac373f3e7291f1c32868c2a3",
+     "packedBytes": 34631
+    }
+   }
+  },
+  {
+   "key": "faroeislands",
+   "id": "Faroe Islands",
+   "files": {
+    "manifest.json": {
+     "bytes": 1034,
+     "sha256": "46b1f50a2d754d15fdd59ae8be32a6e9763a83c283fbc04fba91cc416bd7ac9a",
+     "packedBytes": 303
+    },
+    "map.bin": {
+     "bytes": 3200000,
+     "sha256": "3fc9410476af0b33f830b8654fecff126407475e43b9ba7c62fce2dbbedf422d",
+     "packedBytes": 288022
+    },
+    "map4x.bin": {
+     "bytes": 800000,
+     "sha256": "17cb9b9711f70b2a6a9d19fc1cc12e2eb234666bdb587a2398d6a8a1eecb8f67",
+     "packedBytes": 84615
+    },
+    "map16x.bin": {
+     "bytes": 200000,
+     "sha256": "2330156e71dbf4232a64ca0367bdb3abab9382139ec6c572997745f876d8b9f5",
+     "packedBytes": 24607
+    }
+   }
+  },
+  {
+   "key": "fingerlakes",
+   "id": "Finger Lakes",
+   "files": {
+    "manifest.json": {
+     "bytes": 1445,
+     "sha256": "a8f97c8aba8636eedce54e1911ab6d3ae8a20ffd36a605845e183bab48d58220",
+     "packedBytes": 383
+    },
+    "map.bin": {
+     "bytes": 2019968,
+     "sha256": "e65acf9ce0bccbbcd474949e80409302ef171c3ad07aeb4d2d08b7c444008487",
+     "packedBytes": 189919
+    },
+    "map4x.bin": {
+     "bytes": 504992,
+     "sha256": "f8f3ba7fd0acd3fc7fdc2319e71746056c8e7ecc72c9e5e021c28caad1c19066",
+     "packedBytes": 91238
+    },
+    "map16x.bin": {
+     "bytes": 126248,
+     "sha256": "f6ce820da2763335c95d7188d7511f866bbfd1df04cc709cf15f82e6096e07bc",
+     "packedBytes": 33247
+    }
+   }
+  },
+  {
+   "key": "fourislands",
+   "id": "Four Islands",
+   "files": {
+    "manifest.json": {
+     "bytes": 1513,
+     "sha256": "a74958e04b1be461db98fdec64fd106bd248c94319ce43e7970f422ffcaa6d16",
+     "packedBytes": 386
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "09f49ebe1ef71949b2192e3867bb9480efe609e6e1a0e627d8e4f668aacf669b",
+     "packedBytes": 63978
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "0f627a53e9b7c2c9879b4b097e6edb5b0448a504a725a227235bd0d1d48bf4d2",
+     "packedBytes": 26343
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "24eaeb3f1cd8055d654790489fd7dde7947e7041511ea8eab69b137d6e877cd7",
+     "packedBytes": 10516
+    }
+   }
+  },
+  {
+   "key": "france",
+   "id": "France",
+   "files": {
+    "manifest.json": {
+     "bytes": 2941,
+     "sha256": "96553a8f0caf921226bf4009961ff2cea6fa3238ca4401f10a1c6460b97a4192",
+     "packedBytes": 678
+    },
+    "map.bin": {
+     "bytes": 5875776,
+     "sha256": "d7fc0517802dacc67d4b9e8d0252d8924938536ecc3d981c0b8e0133b9667a8c",
+     "packedBytes": 371301
+    },
+    "map4x.bin": {
+     "bytes": 1468944,
+     "sha256": "054b02543315635294ccb604f3b9c96285cfd613ee2acaf5d4d520d7d2422c5e",
+     "packedBytes": 178492
+    },
+    "map16x.bin": {
+     "bytes": 367236,
+     "sha256": "93d3db38d9a44c12c78df2d57b3ce0ee4b51e8ac0ff8727175b909315fd9a7d7",
+     "packedBytes": 61922
+    }
+   }
+  },
+  {
+   "key": "gatewaytotheatlantic",
+   "id": "Gateway to the Atlantic",
+   "files": {
+    "manifest.json": {
+     "bytes": 3372,
+     "sha256": "2e0146e7f492645c1efc5a872902a472d26e2cc60deeb4d64439776f2b903194",
+     "packedBytes": 726
+    },
+    "map.bin": {
+     "bytes": 4361088,
+     "sha256": "3d64665e48a4dfbcf660272839149d694cc3e3327bd87b0dfc268ea0531facc6",
+     "packedBytes": 698812
+    },
+    "map4x.bin": {
+     "bytes": 1090272,
+     "sha256": "c02a647782c42a1a1c41a8436c0ef87a1de6f159a86ab8950de29fe3b4c44af1",
+     "packedBytes": 233484
+    },
+    "map16x.bin": {
+     "bytes": 272568,
+     "sha256": "3768fd90cf21eb9885adf3949db86c68c443e731f73828dd0eabd650894a713c",
+     "packedBytes": 71779
+    }
+   }
+  },
+  {
+   "key": "germany",
+   "id": "Germany",
+   "files": {
+    "manifest.json": {
+     "bytes": 10353,
+     "sha256": "b8b6b458335df6bf851529f11c60978992975e1a6a8dd443d126070e9d84289d",
+     "packedBytes": 2982
+    },
+    "map.bin": {
+     "bytes": 2346768,
+     "sha256": "5f1250cba165e8007b7b813aee4469f9c81ec85c319bb295dfce2f2821326556",
+     "packedBytes": 157884
+    },
+    "map4x.bin": {
+     "bytes": 586692,
+     "sha256": "ee3a323bc4170f4489dcfe54af9e15bf22cebbaab9c2870a6c56a1e6eee40088",
+     "packedBytes": 64533
+    },
+    "map16x.bin": {
+     "bytes": 146673,
+     "sha256": "3f03bee9f09da00efcc94255f4451da7afa488bf58a518f1ff229c67cd5bd5b4",
+     "packedBytes": 21970
+    }
+   }
+  },
+  {
+   "key": "giantworldmap",
+   "id": "Giant World Map",
+   "files": {
+    "manifest.json": {
+     "bytes": 10492,
+     "sha256": "c2b7cda292712e00c62cefda9521d395c246a8081265f19f89300fdc7001b901",
+     "packedBytes": 1617
+    },
+    "map.bin": {
+     "bytes": 8002384,
+     "sha256": "2ff3936ab9feef98d1ff4080ffa3f5d030d8d2a3e3cc62366a2ba692d62a0ca1",
+     "packedBytes": 691846
+    },
+    "map4x.bin": {
+     "bytes": 2000596,
+     "sha256": "e784847e4664c476fbe3f846c09cb503524304983f8bd4c2cbf13a8db86ac769",
+     "packedBytes": 250951
+    },
+    "map16x.bin": {
+     "bytes": 500149,
+     "sha256": "8ed410b777720b4fa3c894a2e76a1aa62fb6dec321a8b1d0be5d57e582d826ae",
+     "packedBytes": 86536
+    }
+   }
+  },
+  {
+   "key": "greatlakes",
+   "id": "Great Lakes",
+   "files": {
+    "manifest.json": {
+     "bytes": 3697,
+     "sha256": "bdc0c05099a482bcb95c1d77a1ff35de86af41aa250bbcf01ac5036bedeb9200",
+     "packedBytes": 705
+    },
+    "map.bin": {
+     "bytes": 2600000,
+     "sha256": "1bc974ab359ce878b554cc2835635bf0b79a15d1828cc8e8b9825f3acd107772",
+     "packedBytes": 645720
+    },
+    "map4x.bin": {
+     "bytes": 650000,
+     "sha256": "fe3aa327ec3f1e5939bf553e5403a3b249e705055c0d7e969fa1402504b94946",
+     "packedBytes": 203559
+    },
+    "map16x.bin": {
+     "bytes": 162500,
+     "sha256": "f5b192d0973b51e20f5d7b1db46c1a720c3f149ee04e8553fe904f13975d2530",
+     "packedBytes": 61065
+    }
+   }
+  },
+  {
+   "key": "gulfofguinea",
+   "id": "Gulf Of Guinea",
+   "files": {
+    "manifest.json": {
+     "bytes": 6093,
+     "sha256": "c8f054588bf93fddcc359d93134b47282e8ebd613a68e099c8507efd485ac659",
+     "packedBytes": 947
+    },
+    "map.bin": {
+     "bytes": 5500000,
+     "sha256": "7be738d8f569807681a86f7646fa901b7e59a15589ee37ab905be29a2f1342e0",
+     "packedBytes": 183265
+    },
+    "map4x.bin": {
+     "bytes": 1375000,
+     "sha256": "fb35aa47e0a2bcfa93891881e12d1a8e8cffdbac767dddeb0895bfa84849d6c7",
+     "packedBytes": 105985
+    },
+    "map16x.bin": {
+     "bytes": 343750,
+     "sha256": "e5716cd1eb3645645d39c7a2141c244ab9157a49035f02d55878507cf6b56c4a",
+     "packedBytes": 39530
+    }
+   }
+  },
+  {
+   "key": "gulfofmexico",
+   "id": "Gulf Of Mexico",
+   "files": {
+    "manifest.json": {
+     "bytes": 8879,
+     "sha256": "ee411231205473a92e19e0de3d590a980359b62bb272d20b3ec7ab536ed3e2ea",
+     "packedBytes": 1463
+    },
+    "map.bin": {
+     "bytes": 5784000,
+     "sha256": "d912fa9857e3cfb22606de6746b47f68f26d621ff120f7b5ec25fd985cea01bb",
+     "packedBytes": 231831
+    },
+    "map4x.bin": {
+     "bytes": 1446000,
+     "sha256": "2ff7fec451620369c713ecce516d876189da858b28095096f2702a2ac2929e6d",
+     "packedBytes": 92963
+    },
+    "map16x.bin": {
+     "bytes": 361500,
+     "sha256": "c98919d559c849a0de27ad0e27b163fe8be6f0c3fbfc58f838c346015b04069f",
+     "packedBytes": 35396
+    }
+   }
+  },
+  {
+   "key": "gulfofstlawrence",
+   "id": "Gulf of St. Lawrence",
+   "files": {
+    "manifest.json": {
+     "bytes": 3448,
+     "sha256": "0ad7149b0a7f67fbb8a33a42991f126a3d120828aa8a96fa6e5069c8ec646382",
+     "packedBytes": 702
+    },
+    "map.bin": {
+     "bytes": 2183760,
+     "sha256": "0738eccaa656bc0e11f81ae4c94db26b30a744d9d3bf55ad91f164984ba37cd6",
+     "packedBytes": 472694
+    },
+    "map4x.bin": {
+     "bytes": 545940,
+     "sha256": "cb343bce3bcc47bb56a407b9bdcd5b5217a85a702feb63bd546a4058e9e96508",
+     "packedBytes": 139392
+    },
+    "map16x.bin": {
+     "bytes": 136485,
+     "sha256": "6735ecd6491ac9d16385187fb1636b70b5ef9b5b8cf7db4ee5a6f2e64c1f838f",
+     "packedBytes": 39973
+    }
+   }
+  },
+  {
+   "key": "halkidiki",
+   "id": "Halkidiki",
+   "files": {
+    "manifest.json": {
+     "bytes": 1180,
+     "sha256": "5fcb01e59bda2713a48d0d2b20d77b5c388d371a7d4b8754afff00bd57e75f7b",
+     "packedBytes": 338
+    },
+    "map.bin": {
+     "bytes": 3872000,
+     "sha256": "a28986b8fa7b252d2607139d5c8ac1fb5377b40928a8da435725dbb0355743ec",
+     "packedBytes": 551123
+    },
+    "map4x.bin": {
+     "bytes": 968000,
+     "sha256": "d57231baf88b71e5e27efd4cfe9b8179079c65a891d6cd4920b5bdcaa5a6bbaa",
+     "packedBytes": 195858
+    },
+    "map16x.bin": {
+     "bytes": 242000,
+     "sha256": "8fa9ed614a8eea349f8a65a587f9b9247f0f34508fa228a01bfcf27fd5a18fbf",
+     "packedBytes": 61087
+    }
+   }
+  },
+  {
+   "key": "hawaii",
+   "id": "Hawaii",
+   "files": {
+    "manifest.json": {
+     "bytes": 1238,
+     "sha256": "922454add54b6392d7a13d6c0ff72066c7932b8958dc4727bc0be475500df51e",
+     "packedBytes": 324
+    },
+    "map.bin": {
+     "bytes": 6643200,
+     "sha256": "fe8a5cf813c719d0d02503a6a63b89b1cd589b4715291a98d449e2ba48b0dfa1",
+     "packedBytes": 128755
+    },
+    "map4x.bin": {
+     "bytes": 1660800,
+     "sha256": "320c15da68b713348e11751578ef0b36978686d4d99c9ac5fa0e5a478aa09776",
+     "packedBytes": 52365
+    },
+    "map16x.bin": {
+     "bytes": 415200,
+     "sha256": "f673090308f3f572bea350ed9204c0283597925abffa9077d912e66c2f1085e1",
+     "packedBytes": 20614
+    }
+   }
+  },
+  {
+   "key": "hecatestrait",
+   "id": "Hecate Strait",
+   "files": {
+    "manifest.json": {
+     "bytes": 2827,
+     "sha256": "0c189aff05bc68bbc134e91f3905ecd1d5dcf650176ef58589c2cb52ce033dad",
+     "packedBytes": 635
+    },
+    "map.bin": {
+     "bytes": 4343136,
+     "sha256": "396b55ded1c765f37e0a5ca7d15853a82b804758ae3d947d3301bf28286254f5",
+     "packedBytes": 364351
+    },
+    "map4x.bin": {
+     "bytes": 1085784,
+     "sha256": "5844dd2c333898f6b4d1cefe11dd14841710d738fb650a8bae2fa1d46282a88d",
+     "packedBytes": 131858
+    },
+    "map16x.bin": {
+     "bytes": 271446,
+     "sha256": "5cfb488de6b288c7b4dfdea15dc98c4598dc0419ab532f33a7f1b06c02373d6e",
+     "packedBytes": 42378
+    }
+   }
+  },
+  {
+   "key": "hongkong",
+   "id": "Hong Kong",
+   "files": {
+    "manifest.json": {
+     "bytes": 7114,
+     "sha256": "3fead4891daf5d6a06fe4ab7fd46cbcf79cddd5e8d06dc89705a9e70720219dd",
+     "packedBytes": 1035
+    },
+    "map.bin": {
+     "bytes": 5548880,
+     "sha256": "97de5bf8e6a477537ec119ff7bc39e43dd1a03cdd60ada197a7cd848ba4464dc",
+     "packedBytes": 486317
+    },
+    "map4x.bin": {
+     "bytes": 1387220,
+     "sha256": "be120bf926ac0c7d7982aa53f43fd4c7dfd53316e2727ad838d0d87b57f8d24b",
+     "packedBytes": 202364
+    },
+    "map16x.bin": {
+     "bytes": 346805,
+     "sha256": "d270c894721b29c2217c462b4b99e95ef0649825c7aa94d88c1f6671a67541d8",
+     "packedBytes": 74534
+    }
+   }
+  },
+  {
+   "key": "hornofafrica",
+   "id": "Horn Of Africa",
+   "files": {
+    "manifest.json": {
+     "bytes": 6327,
+     "sha256": "434e27f44d4831cfa82381a87348d9111e21339ccbe24931c79eba9d2e649db9",
+     "packedBytes": 1079
+    },
+    "map.bin": {
+     "bytes": 3728000,
+     "sha256": "5d56a117d8a0141cb072f1e4771f3c0f3f9d77594931780569889f8fd40e12cf",
+     "packedBytes": 586836
+    },
+    "map4x.bin": {
+     "bytes": 932000,
+     "sha256": "d5af7cac4f25f1852a48aeaa478835e799e15e93b322aab9a315ea25ce05ec8a",
+     "packedBytes": 211030
+    },
+    "map16x.bin": {
+     "bytes": 233000,
+     "sha256": "2c45e6b9c2f936f220fe954c332a4416a937e2c93de19d419d40a33b3c939c29",
+     "packedBytes": 61861
+    }
+   }
+  },
+  {
+   "key": "iceland",
+   "id": "Iceland",
+   "files": {
+    "manifest.json": {
+     "bytes": 1227,
+     "sha256": "f5266b4a7a762fec65c8a8e5544ca7b1eeab013d14af00a48d673469603bc3b4",
+     "packedBytes": 315
+    },
+    "map.bin": {
+     "bytes": 3000000,
+     "sha256": "28491fb2fec516b477c4fbbb60d507717eeec589e54868a9129a410f7dfe00f0",
+     "packedBytes": 210879
+    },
+    "map4x.bin": {
+     "bytes": 750000,
+     "sha256": "dee55c1ff22f0198b0aabcd12452394846106897205889fd2b304a35f695d56d",
+     "packedBytes": 91603
+    },
+    "map16x.bin": {
+     "bytes": 187500,
+     "sha256": "e522e0b87fef92da537ec4df2bb6ee07e8b9f825ef84d172c2764b4974627293",
+     "packedBytes": 35892
+    }
+   }
+  },
+  {
+   "key": "indiansubcontinent",
+   "id": "Indian Subcontinent",
+   "files": {
+    "manifest.json": {
+     "bytes": 5351,
+     "sha256": "515dd515d98aa7e8d76f3d56a411e95bc935e3bc5c2c4ffd3c1c84dff9bbb1ab",
+     "packedBytes": 926
+    },
+    "map.bin": {
+     "bytes": 4440000,
+     "sha256": "71f4617b2bb503324aa623879f53e3d3caa3bf632443314c5b17eae945dbe989",
+     "packedBytes": 436020
+    },
+    "map4x.bin": {
+     "bytes": 1110000,
+     "sha256": "c1daec3eab95a8837c8ef27b59ade81723adad5cf1c16b04fbd250e1d6560a55",
+     "packedBytes": 148504
+    },
+    "map16x.bin": {
+     "bytes": 277500,
+     "sha256": "4183989dad688a361649b504093b4ca38a3850535fdaab9138350f12b896eb64",
+     "packedBytes": 48384
+    }
+   }
+  },
+  {
+   "key": "irishsea",
+   "id": "Irish Sea",
+   "files": {
+    "manifest.json": {
+     "bytes": 6521,
+     "sha256": "1b2eafdb9bdee00f6601587f74e1cdc7ce55f1364e547fe16b0789a413105989",
+     "packedBytes": 1057
+    },
+    "map.bin": {
+     "bytes": 2100000,
+     "sha256": "e2c3af839c55969e3cee47e6baed4020c18ca01f01c2eb14b663ca358332072e",
+     "packedBytes": 422277
+    },
+    "map4x.bin": {
+     "bytes": 525000,
+     "sha256": "5ada0447327a827cc32753691d6cc8f4ae01ebeff9fe8e866fbff43b37e03b2f",
+     "packedBytes": 137183
+    },
+    "map16x.bin": {
+     "bytes": 131250,
+     "sha256": "41908d1aec8eefde29802f8bee67c1d11f817e94581aab56508230588e46efb7",
+     "packedBytes": 40052
+    }
+   }
+  },
+  {
+   "key": "italia",
+   "id": "Italia",
+   "files": {
+    "manifest.json": {
+     "bytes": 2031,
+     "sha256": "ae79bad919a977a3a80676ed1b3261503190e7da7d1bda0fa3754d67f30a605b",
+     "packedBytes": 511
+    },
+    "map.bin": {
+     "bytes": 1729920,
+     "sha256": "8aae70a7e27ae67102dfeea1ec546813582f977e8ce35f9276d516fd76ed1985",
+     "packedBytes": 255524
+    },
+    "map4x.bin": {
+     "bytes": 432480,
+     "sha256": "efd12e8f223a3d92cd7566d92ee566ffc9cd73f82943cbbfd84a0d4241f0ab84",
+     "packedBytes": 89024
+    },
+    "map16x.bin": {
+     "bytes": 108120,
+     "sha256": "0c09fead2ca2c8bfdcb93b48b92165aea34f1765bc860d0f7bb5a012ceb273b8",
+     "packedBytes": 28133
+    }
+   }
+  },
+  {
+   "key": "japan",
+   "id": "Japan",
+   "files": {
+    "manifest.json": {
+     "bytes": 1528,
+     "sha256": "7da918f6fc34edecb5d4085ce0cac2206e2f3e29ebfad1cd7609a83b5136f291",
+     "packedBytes": 363
+    },
+    "map.bin": {
+     "bytes": 6250000,
+     "sha256": "4ea7e19ad51b6af7d40673e6557a495424e57ba6622c3a75886a25aab68af51a",
+     "packedBytes": 229026
+    },
+    "map4x.bin": {
+     "bytes": 1562500,
+     "sha256": "10efa7c5eabd6d538bcdc6ecdf89aa95af014195b628261875b5a8c373293aad",
+     "packedBytes": 83302
+    },
+    "map16x.bin": {
+     "bytes": 390625,
+     "sha256": "2d61724ba48c460758f500663559c3f51532e6a15ace8a15d914bfb68b7d688f",
+     "packedBytes": 27566
+    }
+   }
+  },
+  {
+   "key": "juandefucastrait",
+   "id": "Juan De Fuca Strait",
+   "files": {
+    "manifest.json": {
+     "bytes": 7038,
+     "sha256": "ff91bb91acf4e40da96c31405e07245e7bb4d2ce137d0104eb9a49cdd8e5b989",
+     "packedBytes": 1078
+    },
+    "map.bin": {
+     "bytes": 3300000,
+     "sha256": "67517f48b1587f429a87b4f3294e6a541cf41c6cbc8785c47d78240bbb7ce158",
+     "packedBytes": 336419
+    },
+    "map4x.bin": {
+     "bytes": 825000,
+     "sha256": "96198bc4cc6ba4607fb7ba56a2f0c744357158dc95c278494920f400e2ef4b8a",
+     "packedBytes": 130034
+    },
+    "map16x.bin": {
+     "bytes": 206250,
+     "sha256": "87262fc77e856317973b0fdd03ff0dad08b629aa1cac9c1852ff09487703de14",
+     "packedBytes": 45054
+    }
+   }
+  },
+  {
+   "key": "korea",
+   "id": "Korea",
+   "files": {
+    "manifest.json": {
+     "bytes": 3721,
+     "sha256": "26f23e6e7d058fce17ae40e5fbbb930d83ed205d8e88f2b5ff679bcd212314e7",
+     "packedBytes": 665
+    },
+    "map.bin": {
+     "bytes": 2380544,
+     "sha256": "570e7e03164fb6c1c77ef6dc5cb54dea90ff7eed0a971c7a45ac3d27e4f4a93a",
+     "packedBytes": 246670
+    },
+    "map4x.bin": {
+     "bytes": 595136,
+     "sha256": "a4fba088646b52cc0aae3382e083e68fe5e368baf28bdfabf75e88b290acda1a",
+     "packedBytes": 96320
+    },
+    "map16x.bin": {
+     "bytes": 148784,
+     "sha256": "29d968fc88ffca3cec0322425419936294b2fd141c7d7b09d218abb82b2f4261",
+     "packedBytes": 30098
+    }
+   }
+  },
+  {
+   "key": "labyrinth",
+   "id": "Labyrinth",
+   "files": {
+    "manifest.json": {
+     "bytes": 8145,
+     "sha256": "8ef2aabe634baf4e4c99de579f7e3d97d7545e166c650b321b23ed49d15d449f",
+     "packedBytes": 1086
+    },
+    "map.bin": {
+     "bytes": 1849600,
+     "sha256": "d7049e7ff4e6a0c28edd19cacaac5dfe8b0e490d2a2f53f880edd33a5b58d08c",
+     "packedBytes": 593352
+    },
+    "map4x.bin": {
+     "bytes": 462400,
+     "sha256": "622fb004828c49d9ade526b563ae6050c57089194ed850618ec00de0605502c2",
+     "packedBytes": 171607
+    },
+    "map16x.bin": {
+     "bytes": 115600,
+     "sha256": "bf69d0ecbaf551587a1c35fe9eaa2908c764ac08dccdecc977be1ee201a966cc",
+     "packedBytes": 47458
+    }
+   }
+  },
+  {
+   "key": "lasvegasstrip",
+   "id": "Las Vegas Strip",
+   "files": {
+    "manifest.json": {
+     "bytes": 6824,
+     "sha256": "3c8fca7eac3915af231154524c0c4582b8bb6d2810bfc419eba144cf67c88ee3",
+     "packedBytes": 1188
+    },
+    "map.bin": {
+     "bytes": 9015408,
+     "sha256": "9f04a2a8dc289a574dcf146da707324332eb3b84537006f0b480c96a2e423cb9",
+     "packedBytes": 229685
+    },
+    "map4x.bin": {
+     "bytes": 2253852,
+     "sha256": "d5bf903811d6d16128f19f14f80f67d12f2f5b22d1d17fb4fc7221879fff94c1",
+     "packedBytes": 94235
+    },
+    "map16x.bin": {
+     "bytes": 563463,
+     "sha256": "0768896fdf4c9b3e61e34135ca83c6f5300e9e5cb27894a7a55982e4fbe8d319",
+     "packedBytes": 39160
+    }
+   }
+  },
+  {
+   "key": "lemnos",
+   "id": "Lemnos",
+   "files": {
+    "manifest.json": {
+     "bytes": 1240,
+     "sha256": "98ddfbeb2000e8c3b562683101080738d49e726f966196250e8a3084e4af5d96",
+     "packedBytes": 337
+    },
+    "map.bin": {
+     "bytes": 2482160,
+     "sha256": "97c479303b3dfb83f47b1712d9693fa7f78fe26c670cb48e8b4ad46077da3646",
+     "packedBytes": 182716
+    },
+    "map4x.bin": {
+     "bytes": 620540,
+     "sha256": "b32c854b65dae9455f93b479288d723dab240140ed22012b2202214429d6ecf6",
+     "packedBytes": 77149
+    },
+    "map16x.bin": {
+     "bytes": 155135,
+     "sha256": "726c0b7f6fb671c30f8012de84b91e4666e4ffaec798100a31e2bca955cb89c6",
+     "packedBytes": 30004
+    }
+   }
+  },
+  {
+   "key": "levant",
+   "id": "Levant",
+   "files": {
+    "manifest.json": {
+     "bytes": 7214,
+     "sha256": "5b90cdcf0eb57b62593d1d52f3721a304e54e6aa45e8e21cf33fee624aa260e2",
+     "packedBytes": 1061
+    },
+    "map.bin": {
+     "bytes": 4000000,
+     "sha256": "f79886035d7ded5332752733455cd7ae78608c2c4a01d9c3589054f12be55089",
+     "packedBytes": 324549
+    },
+    "map4x.bin": {
+     "bytes": 1000000,
+     "sha256": "54bb10818b0c5fc4c50f90c8ef0be3e6e61113957bfd4c786a3ed8d269aff196",
+     "packedBytes": 132040
+    },
+    "map16x.bin": {
+     "bytes": 250000,
+     "sha256": "252977d93c1096a9ef73a298c56d4ab4c0487bc1f654ab198710768dbc6ead2a",
+     "packedBytes": 48188
+    }
+   }
+  },
+  {
+   "key": "lisbon",
+   "id": "Lisbon",
+   "files": {
+    "manifest.json": {
+     "bytes": 1812,
+     "sha256": "62c543d8137db2ebe469195e8162e9263e138d4d3d200e8575dd052d11dec627",
+     "packedBytes": 419
+    },
+    "map.bin": {
+     "bytes": 2560000,
+     "sha256": "c1c0e277a4ab4efe92f3b4b0927beeaab72f89711b4cac404f17d8503532ba02",
+     "packedBytes": 638472
+    },
+    "map4x.bin": {
+     "bytes": 640000,
+     "sha256": "15e85baac7c33e22d1cf1bc216965147c7581ca421507ac5b60dff6db157a9bc",
+     "packedBytes": 187414
+    },
+    "map16x.bin": {
+     "bytes": 160000,
+     "sha256": "8657f421c4dfbe0e025f98e965d56eb80a510bf78c299edb11878708f134b4c3",
+     "packedBytes": 52308
+    }
+   }
+  },
+  {
+   "key": "losangeles",
+   "id": "Los Angeles",
+   "files": {
+    "manifest.json": {
+     "bytes": 13366,
+     "sha256": "3901431e2f6324c077eae0725b51536e739eafa6456e97b3085cf1298550bb21",
+     "packedBytes": 2034
+    },
+    "map.bin": {
+     "bytes": 4096800,
+     "sha256": "86be51f0c1c0febf3b39c701b06b4dc1081914b6859c18072f48e7ca2e742d45",
+     "packedBytes": 231678
+    },
+    "map4x.bin": {
+     "bytes": 1024200,
+     "sha256": "24fd4c2cd00ace8be8798b17dd855e376902cfc5e89d695879b6f3a56eb61de2",
+     "packedBytes": 92064
+    },
+    "map16x.bin": {
+     "bytes": 256050,
+     "sha256": "d29eded04505a12766645367978382182d9b5d900baefa1fa2deb77215822b2d",
+     "packedBytes": 34109
+    }
+   }
+  },
+  {
+   "key": "luna",
+   "id": "Luna",
+   "files": {
+    "manifest.json": {
+     "bytes": 3127,
+     "sha256": "bd7e52f3ef1d31b62df29c5904c226dcb3d4ec0bf2952054ce5176e23de4353e",
+     "packedBytes": 623
+    },
+    "map.bin": {
+     "bytes": 4588464,
+     "sha256": "40c6661e7556f0671641339143c07a026c93ed31c62f1c77a664852096bcf67f",
+     "packedBytes": 690268
+    },
+    "map4x.bin": {
+     "bytes": 1147116,
+     "sha256": "0cc942f5544d1dfc5603c01e396bb0ec7cca7a6135495ec9a4d13d10be360229",
+     "packedBytes": 218629
+    },
+    "map16x.bin": {
+     "bytes": 286779,
+     "sha256": "4f86e3270b0ba9da54a94e307b28e05ee2e2c99d06ea0361876fe4ca0067bb1a",
+     "packedBytes": 64710
+    }
+   }
+  },
+  {
+   "key": "madagascar",
+   "id": "Madagascar",
+   "files": {
+    "manifest.json": {
+     "bytes": 6660,
+     "sha256": "71ea3b4885a98f094e1078b02c50611049f2e4c895ffb6113d5f16722dcd79d7",
+     "packedBytes": 1103
+    },
+    "map.bin": {
+     "bytes": 8162000,
+     "sha256": "d80a6977674110d7c2bafca561939cbf1f193a2a644cb3467bcd040b24b750f4",
+     "packedBytes": 301215
+    },
+    "map4x.bin": {
+     "bytes": 2040500,
+     "sha256": "beaf0a6e4e45325a441294ed8212d9ddd0758d34c60af9c175874e62f8094501",
+     "packedBytes": 124306
+    },
+    "map16x.bin": {
+     "bytes": 510125,
+     "sha256": "1e830a8a3898f4e71b862740971c08b2e72b66242bb50d5e1c1b45e857873259",
+     "packedBytes": 45839
+    }
+   }
+  },
+  {
+   "key": "manicouagan",
+   "id": "Manicouagan",
+   "files": {
+    "manifest.json": {
+     "bytes": 1584,
+     "sha256": "b9488bf4f701c226dd8054472f13c7a9eda216c61d04344a90739e7b25dacc07",
+     "packedBytes": 403
+    },
+    "map.bin": {
+     "bytes": 2560000,
+     "sha256": "8879ba246b695a7d97db8f447502c4fd3158d9af413d18c5629f583ebf7c7f6c",
+     "packedBytes": 1003711
+    },
+    "map4x.bin": {
+     "bytes": 640000,
+     "sha256": "cd8e0864f4bb951cd1e138590eb2b12b5853fadfce3fd22b8380557afa327550",
+     "packedBytes": 289514
+    },
+    "map16x.bin": {
+     "bytes": 160000,
+     "sha256": "73efc77ff2380b62fe0290912c3dc8a9b564e0805830f3e7bb244b824170800d",
+     "packedBytes": 77615
+    }
+   }
+  },
+  {
+   "key": "marenostrum",
+   "id": "Mare Nostrum",
+   "files": {
+    "manifest.json": {
+     "bytes": 4123,
+     "sha256": "e8520a137f2db7e6ed18d3b011b92cf22a52c3f66daa85eb7e77016be7801c65",
+     "packedBytes": 719
+    },
+    "map.bin": {
+     "bytes": 4123904,
+     "sha256": "609a54e6aa62c70df329138c159e527f06d91cf962b29d279abb24cc43800890",
+     "packedBytes": 826248
+    },
+    "map4x.bin": {
+     "bytes": 1030976,
+     "sha256": "41fc52beae4c42d4b78b4983c9bf0015dd8719ce744ecfd81af51231ec36d8b2",
+     "packedBytes": 254907
+    },
+    "map16x.bin": {
+     "bytes": 257744,
+     "sha256": "bb13b80ee85a473c310ed72c0fcb6be0072ac70ef083350f4c76ad85f709bff4",
+     "packedBytes": 75442
+    }
+   }
+  },
+  {
+   "key": "mars",
+   "id": "Mars",
+   "files": {
+    "manifest.json": {
+     "bytes": 965,
+     "sha256": "01cf3ea8731cf3eae29e23eb83360bf8ee5442d5e67515bf2acb0cf8780b6cef",
+     "packedBytes": 295
+    },
+    "map.bin": {
+     "bytes": 2000000,
+     "sha256": "4dc984c9bf1e70ce5b52b6efbed55fb2c31fc132c0c7b202c8e974bd14fac122",
+     "packedBytes": 367158
+    },
+    "map4x.bin": {
+     "bytes": 500000,
+     "sha256": "6007a2da8cb3ef7cd7a4dd89409f54d001fa14354bcc7f6e4ee281352de5ce45",
+     "packedBytes": 114776
+    },
+    "map16x.bin": {
+     "bytes": 125000,
+     "sha256": "10db16df20e1cd7b2cc6b35ceed4c0e66cc6b9635149156e95b240fb2393f41b",
+     "packedBytes": 33168
+    }
+   }
+  },
+  {
+   "key": "mena",
+   "id": "Mena",
+   "files": {
+    "manifest.json": {
+     "bytes": 3681,
+     "sha256": "e19d8b068509213503d4bbfaa23195c4b0747510bd6bff0d39c8410339c7899b",
+     "packedBytes": 698
+    },
+    "map.bin": {
+     "bytes": 2120800,
+     "sha256": "e0176c5330b8ad5665885d5def7c68106effc2ec81f24136eeee52c985e54f90",
+     "packedBytes": 768689
+    },
+    "map4x.bin": {
+     "bytes": 530200,
+     "sha256": "d3a9bb4b6d83239564c63d743f1124b8175829d7ec903e6bfd973641003648eb",
+     "packedBytes": 213119
+    },
+    "map16x.bin": {
+     "bytes": 132550,
+     "sha256": "c3cee09db5731fc896c5416e29bd8a1c7fa274f016bc6afccf6ecda43556598e",
+     "packedBytes": 58864
+    }
+   }
+  },
+  {
+   "key": "middleeast",
+   "id": "Middle East",
+   "files": {
+    "manifest.json": {
+     "bytes": 3317,
+     "sha256": "26bdd2b377609118510f46333e2b8a2a36415002e0add293ca363ecf2ab3bd9d",
+     "packedBytes": 698
+    },
+    "map.bin": {
+     "bytes": 4532000,
+     "sha256": "1fd5e31a50b2b2a22fd7ff6ed6c39b17ee00bf56c47cfc0588dc23e4d2bc5c0f",
+     "packedBytes": 322990
+    },
+    "map4x.bin": {
+     "bytes": 1133000,
+     "sha256": "7fd3533c0aad3557cbc385392a30d0d1f89c3c561d94a1c2efcaa32c95d83af1",
+     "packedBytes": 118283
+    },
+    "map16x.bin": {
+     "bytes": 283250,
+     "sha256": "a298b54a4191fde425401e339b7349bd7d747af4a83f7dbbc97a6387dc90b7e9",
+     "packedBytes": 41111
+    }
+   }
+  },
+  {
+   "key": "milkyway",
+   "id": "MilkyWay",
+   "files": {
+    "manifest.json": {
+     "bytes": 1692,
+     "sha256": "a87479d673f908e846f75a3848818d85a31babfedd42fe605af5609d233bf369",
+     "packedBytes": 462
+    },
+    "map.bin": {
+     "bytes": 3055504,
+     "sha256": "8cbb6c18271b0798306212966851a940e849f0cb1de9a818c2f10ba9537ff009",
+     "packedBytes": 235544
+    },
+    "map4x.bin": {
+     "bytes": 763876,
+     "sha256": "d7386813cd9dac34dc602b240a162eba951ec78285ccc99ff49bf03828536c77",
+     "packedBytes": 84361
+    },
+    "map16x.bin": {
+     "bytes": 190969,
+     "sha256": "0d79597c8820ab08b870868a43705d6581d118c1ee7b49e776b8a1d6bb983fb6",
+     "packedBytes": 27079
+    }
+   }
+  },
+  {
+   "key": "mississippiriver",
+   "id": "Mississippi River",
+   "files": {
+    "manifest.json": {
+     "bytes": 6627,
+     "sha256": "b3e5611494bad3d0fc5b869fc097778008ae17ee42fa894e4d589ef63b106e5e",
+     "packedBytes": 928
+    },
+    "map.bin": {
+     "bytes": 1680000,
+     "sha256": "3bfca6c54b2bf4eaef15a2521bb2f175219c0ec95b5e9e8f5e43cfb4f5bd24e8",
+     "packedBytes": 413816
+    },
+    "map4x.bin": {
+     "bytes": 420000,
+     "sha256": "14361eba3cddbe8f29c70ce32269205d20d90c29b99cb4aa9a5b0c3665556a9a",
+     "packedBytes": 123084
+    },
+    "map16x.bin": {
+     "bytes": 105000,
+     "sha256": "78e37152830a3ecff82688d9008118b66694dcaf294a45dd422732ff6b7ca356",
+     "packedBytes": 34414
+    }
+   }
+  },
+  {
+   "key": "montreal",
+   "id": "Montreal",
+   "files": {
+    "manifest.json": {
+     "bytes": 1652,
+     "sha256": "6e8fb5353ced3932b328f4aa9259b399a00ce2452cc21fa30912efdf5c3da0b8",
+     "packedBytes": 417
+    },
+    "map.bin": {
+     "bytes": 2292000,
+     "sha256": "44b54fb7e212fc6046bdec36cd5bd6d4f904b02af1174c1afdfc8cb546852748",
+     "packedBytes": 605424
+    },
+    "map4x.bin": {
+     "bytes": 573000,
+     "sha256": "59a88e7d8d02d36f6d9809086cb3c502097c490da2c246d9600fc8a13e0f8e0b",
+     "packedBytes": 197674
+    },
+    "map16x.bin": {
+     "bytes": 143250,
+     "sha256": "b3a810e95b5522f291632617099315f37736432b988b82d9df5fd61e5834da2b",
+     "packedBytes": 57502
+    }
+   }
+  },
+  {
+   "key": "morethanluck",
+   "id": "More Than Luck",
+   "files": {
+    "manifest.json": {
+     "bytes": 16511,
+     "sha256": "222036e65390a8e993f5092ecad2b48a6f059831c4c588bf9998daba9ca0461c",
+     "packedBytes": 1310
+    },
+    "map.bin": {
+     "bytes": 1811712,
+     "sha256": "612d30d93159e96f01e7b7a016943ecd22028ac70ddb24e35b3400705796487b",
+     "packedBytes": 171701
+    },
+    "map4x.bin": {
+     "bytes": 452928,
+     "sha256": "a3e44c1c65e25caaca48aff6431f677e0b97d37f858a1ab5167dcc7420547678",
+     "packedBytes": 54327
+    },
+    "map16x.bin": {
+     "bytes": 113232,
+     "sha256": "6a138f642450718f30a4f670f77f76ec374246c473c36116f8733e528f61602e",
+     "packedBytes": 16523
+    }
+   }
+  },
+  {
+   "key": "newyorkcity",
+   "id": "New York City",
+   "files": {
+    "manifest.json": {
+     "bytes": 2190,
+     "sha256": "f5e1633b54e3dd02d3f0cc346780f67fb1b2aa73efc406e1f2f25a3ae042cf98",
+     "packedBytes": 538
+    },
+    "map.bin": {
+     "bytes": 2850000,
+     "sha256": "5625eaffcfe28f6d90696e9a9850b1a80f16f9544a83c0575bf8ffd29c50de29",
+     "packedBytes": 240284
+    },
+    "map4x.bin": {
+     "bytes": 712500,
+     "sha256": "62a4e0be25e8b625d728d3383bf5576df5362f99f80dfda30dc093866fb4431d",
+     "packedBytes": 97954
+    },
+    "map16x.bin": {
+     "bytes": 178125,
+     "sha256": "50d9955f00d1b7b83d2b59bd1ab8e4715aeaaed1a19dd4e98866d0085503c6e6",
+     "packedBytes": 37919
+    }
+   }
+  },
+  {
+   "key": "newzealand",
+   "id": "New Zealand",
+   "files": {
+    "manifest.json": {
+     "bytes": 8498,
+     "sha256": "f4eeccdb32cf9138a20b93f1f2a80e165ff78f5e7f126426b83af3b8ea35b442",
+     "packedBytes": 1293
+    },
+    "map.bin": {
+     "bytes": 6509824,
+     "sha256": "31b66687f57f8bead6d9f3c2304067494a6dedb1c80d790e7e6e3634cc998fcc",
+     "packedBytes": 310427
+    },
+    "map4x.bin": {
+     "bytes": 1627456,
+     "sha256": "2f620e1997a9f2aabf04702692a80231df4dcd696b0f09b10d229255dd44dfa9",
+     "packedBytes": 113774
+    },
+    "map16x.bin": {
+     "bytes": 406864,
+     "sha256": "7fbac255c238793058dbf0caba13feca6e6ced54cde28d71dd4a04826d4ae86d",
+     "packedBytes": 36579
+    }
+   }
+  },
+  {
+   "key": "niledelta",
+   "id": "Nile Delta",
+   "files": {
+    "manifest.json": {
+     "bytes": 1453,
+     "sha256": "49807b4727b8c6bfea962e42a7abdb7cc5b573b33c0d57c3000acc3f3313decc",
+     "packedBytes": 381
+    },
+    "map.bin": {
+     "bytes": 1991680,
+     "sha256": "36048213731c2356d3fc58bbc2e01805399b54b0478e2fdea3ec245546f40487",
+     "packedBytes": 341899
+    },
+    "map4x.bin": {
+     "bytes": 497920,
+     "sha256": "e82190f0a67f860966b9159e84262557ec7fabeb31fb4b1ae433b9a934c2caa8",
+     "packedBytes": 122669
+    },
+    "map16x.bin": {
+     "bytes": 124480,
+     "sha256": "0134956ebb91cf1527277e3dc2eb4428dbd1e79895d8fefafd587159a3a040b2",
+     "packedBytes": 38679
+    }
+   }
+  },
+  {
+   "key": "northamerica",
+   "id": "North America",
+   "files": {
+    "manifest.json": {
+     "bytes": 7499,
+     "sha256": "702fa9d53cb4a65cc560368f8b798b7dd963691e6bafbc2b76aeb3c11af3e495",
+     "packedBytes": 1252
+    },
+    "map.bin": {
+     "bytes": 4054400,
+     "sha256": "a1956361c27c580feae54dfceae0a6a6001bc95b2fbfa4b2f90a8dc69ccea3da",
+     "packedBytes": 743454
+    },
+    "map4x.bin": {
+     "bytes": 1013600,
+     "sha256": "eae16c183003ebaba7dd6c31393e9f7935f303f5081add5e23e70bce6c5a3906",
+     "packedBytes": 206260
+    },
+    "map16x.bin": {
+     "bytes": 253400,
+     "sha256": "1f855829034d13bc45b817a0a41ab81a7c1ad407463d160cc34c00cbb8ce1345",
+     "packedBytes": 60197
+    }
+   }
+  },
+  {
+   "key": "northwestpassage",
+   "id": "Northwest Passage",
+   "files": {
+    "manifest.json": {
+     "bytes": 6391,
+     "sha256": "fa90145d5815fa9dd5b0d4dad5268d350dd0a470ce48cd3d86a1b4c74b471a64",
+     "packedBytes": 1047
+    },
+    "map.bin": {
+     "bytes": 4160000,
+     "sha256": "637bd62d8b120227db282def4a54f309ee83d702cdf06f92959856600e70dd62",
+     "packedBytes": 400333
+    },
+    "map4x.bin": {
+     "bytes": 1040000,
+     "sha256": "c7ff9f67af9a2f267776830718e399927d1d51132fecb8952ad5a1a61c3ad78f",
+     "packedBytes": 138444
+    },
+    "map16x.bin": {
+     "bytes": 260000,
+     "sha256": "e1d45d058f8d874ba44a0f41336ece66d9883622cbb5584eb3cb5233b5e7ccda",
+     "packedBytes": 44927
+    }
+   }
+  },
+  {
+   "key": "oceania",
+   "id": "Oceania",
+   "files": {
+    "manifest.json": {
+     "bytes": 2470,
+     "sha256": "436abca4f7c31f2628d27eb6cf7c770c1d872a62def1f08354beb79af0d567d4",
+     "packedBytes": 526
+    },
+    "map.bin": {
+     "bytes": 1664000,
+     "sha256": "cafca40c6f50ff46d79b868c59eb5c735ac2e221e0794b255c88294e3b5997b3",
+     "packedBytes": 132414
+    },
+    "map4x.bin": {
+     "bytes": 416000,
+     "sha256": "0f77eca8dd7246c6cd10ea2255971ea2b69cfca6a9778b75194f28f0fca66094",
+     "packedBytes": 41151
+    },
+    "map16x.bin": {
+     "bytes": 104000,
+     "sha256": "914a77d0ebe4b898ad9d366c16f89b4380c8f9cff105cf93072fef9b69c52c5a",
+     "packedBytes": 13509
+    }
+   }
+  },
+  {
+   "key": "ommatrypta",
+   "id": "Ommatrypta",
+   "files": {
+    "manifest.json": {
+     "bytes": 2091,
+     "sha256": "022e1484c4f0d328f059d656cec85959d8d1c9c53936170256167889d1de9544",
+     "packedBytes": 535
+    },
+    "map.bin": {
+     "bytes": 2814528,
+     "sha256": "d15c1a0b168d6d05f41bf0e4189de07551554975939c63ae27605d919ee30a3e",
+     "packedBytes": 411722
+    },
+    "map4x.bin": {
+     "bytes": 703632,
+     "sha256": "12b89595ced98610fab590d53eb179eecb98c0f79caad5d0ca17fd1c1c3bb628",
+     "packedBytes": 117267
+    },
+    "map16x.bin": {
+     "bytes": 175908,
+     "sha256": "c42368d18ecfc95daac7577275d5180130709d91b585d596035790e68409efcd",
+     "packedBytes": 34689
+    }
+   }
+  },
+  {
+   "key": "onion",
+   "id": "Onion",
+   "files": {
+    "manifest.json": {
+     "bytes": 685,
+     "sha256": "a7ed643af21a506f04419c10b9fec5a3b74afd978e60790d03b20494afa6196e",
+     "packedBytes": 258
+    },
+    "map.bin": {
+     "bytes": 262144,
+     "sha256": "262f9e6a0ed3719972e2710c41eb5bfb9e632ef43728692ef489cfb09387c1f1",
+     "packedBytes": 6799
+    },
+    "map4x.bin": {
+     "bytes": 65536,
+     "sha256": "d290b69a405b23899e25dd95244a0ee494f3711373ee4abf502a3ca6c734ea6e",
+     "packedBytes": 2477
+    },
+    "map16x.bin": {
+     "bytes": 16384,
+     "sha256": "407d902f436a6fac2a23d83c1607b3453e285a7ba34afe4d7dc9eee54f495137",
+     "packedBytes": 955
+    }
+   }
+  },
+  {
+   "key": "pangaea",
+   "id": "Pangaea",
+   "files": {
+    "manifest.json": {
+     "bytes": 3040,
+     "sha256": "54439cac04cbd41e646fc48a92cd7d03c89c9230206518178ea9abbf87f3c03b",
+     "packedBytes": 534
+    },
+    "map.bin": {
+     "bytes": 1000000,
+     "sha256": "560b59833c826ab73ca01fd3e6a94fdf4189b0a09f4b773906fda429a64b5326",
+     "packedBytes": 205335
+    },
+    "map4x.bin": {
+     "bytes": 250000,
+     "sha256": "55bdf9fc1ffc509af10912e82e503891349ac5b44b16443e659e52f05cf8d573",
+     "packedBytes": 62796
+    },
+    "map16x.bin": {
+     "bytes": 62500,
+     "sha256": "9ed81014f99798dd6ceac2fc24eec885d15c79e5bc8f4b560e39fdc90db5fe41",
+     "packedBytes": 18374
+    }
+   }
+  },
+  {
+   "key": "passage",
+   "id": "Passage",
+   "files": {
+    "manifest.json": {
+     "bytes": 1510,
+     "sha256": "4230a8c58ea8b6750afea59878ddb7eef6db9e484f2ced2fcabec3efce460ff7",
+     "packedBytes": 367
+    },
+    "map.bin": {
+     "bytes": 2400000,
+     "sha256": "5b05975bab267a4e552707cfbdead7c172dcba9b327d7f7ebc5c8139c482d595",
+     "packedBytes": 195058
+    },
+    "map4x.bin": {
+     "bytes": 600000,
+     "sha256": "9666560ed4ff5d712ad2147cfc1db25bfeaaec2aced1c2e713c6b41831ac1932",
+     "packedBytes": 71199
+    },
+    "map16x.bin": {
+     "bytes": 150000,
+     "sha256": "393f40aa9af683dcc1f866bdfdcda399923da039040c225e6e587fa2b95dcd2f",
+     "packedBytes": 23865
+    }
+   }
+  },
+  {
+   "key": "pluto",
+   "id": "Pluto",
+   "files": {
+    "manifest.json": {
+     "bytes": 2295,
+     "sha256": "ac3769892ad13559a57a869f208005dabe8a53a670f974d1dc490362a2c4e032",
+     "packedBytes": 496
+    },
+    "map.bin": {
+     "bytes": 2730000,
+     "sha256": "5d6ed9ebb46254b315c00bc630e52604f255dc3061c44721471681b448bb0d8b",
+     "packedBytes": 548734
+    },
+    "map4x.bin": {
+     "bytes": 682500,
+     "sha256": "1f6a08a50757377ed65b6b06d00c922ae0368429048de590cebe2215cf823a82",
+     "packedBytes": 197854
+    },
+    "map16x.bin": {
+     "bytes": 170625,
+     "sha256": "4fd443f7338da573d087b9c66b8d4553c7ec56181e5d1170ebf4fd68b1fa2093",
+     "packedBytes": 62123
+    }
+   }
+  },
+  {
+   "key": "pulicatlake",
+   "id": "Pulicat Lake",
+   "files": {
+    "manifest.json": {
+     "bytes": 1595,
+     "sha256": "7ec996c019bc32678bdc3228f358539e93270dbab36d44cb164118c0e865deb4",
+     "packedBytes": 418
+    },
+    "map.bin": {
+     "bytes": 2112096,
+     "sha256": "7547c911da2d5d5e868bdf3fc8d7a54f65cf090435e65c9486c4ba50c188e473",
+     "packedBytes": 264574
+    },
+    "map4x.bin": {
+     "bytes": 528024,
+     "sha256": "446549e5a4f13b83f30046a70eef16a5a28e27587b786a62a1e41d408ec8b4a6",
+     "packedBytes": 91097
+    },
+    "map16x.bin": {
+     "bytes": 132006,
+     "sha256": "19a731765b78ce5b152926748290cfe2afa7c0ac5c5c9be566381a0fd06a45f4",
+     "packedBytes": 27357
+    }
+   }
+  },
+  {
+   "key": "qingchina",
+   "id": "Qing China",
+   "files": {
+    "manifest.json": {
+     "bytes": 3854,
+     "sha256": "b2254705e21f7b5ae9faaba1b14e53025f5be53b03994b13dea8d36dc80f0917",
+     "packedBytes": 760
+    },
+    "map.bin": {
+     "bytes": 4549952,
+     "sha256": "1120e4eda956cb15598ed24d0a1a98ea5d6e4ce654ab7eb9039da63ce9177910",
+     "packedBytes": 401421
+    },
+    "map4x.bin": {
+     "bytes": 1137488,
+     "sha256": "cc36e6ccb58d5f5ea143e519be52272e357ba306e39f6e28703da30a52fc4d83",
+     "packedBytes": 146752
+    },
+    "map16x.bin": {
+     "bytes": 284372,
+     "sha256": "195538464b6cf9ce40726372f276e39a575eff69548ba21092efe24e4305cb8a",
+     "packedBytes": 48597
+    }
+   }
+  },
+  {
+   "key": "riodejaneiro",
+   "id": "Rio de Janeiro",
+   "files": {
+    "manifest.json": {
+     "bytes": 3272,
+     "sha256": "2f07749079b78829755b91f4dbc7d948e2f5747bb64fad8f9830b43bcd014735",
+     "packedBytes": 670
+    },
+    "map.bin": {
+     "bytes": 2499840,
+     "sha256": "be6884bd39edc5a7859963633cafe6daf18eb02f12bd29e88cb86632d4f64244",
+     "packedBytes": 230343
+    },
+    "map4x.bin": {
+     "bytes": 624960,
+     "sha256": "291c3b74560de6c1b9d4b015d2c09080a5db4a86b153350119556c946b76d763",
+     "packedBytes": 93725
+    },
+    "map16x.bin": {
+     "bytes": 156240,
+     "sha256": "90cfab7930e76795b988c3412784e61a9cb2ec486bc8eb6a912d55cf6c3660ec",
+     "packedBytes": 32661
+    }
+   }
+  },
+  {
+   "key": "russia",
+   "id": "Russia",
+   "files": {
+    "manifest.json": {
+     "bytes": 8366,
+     "sha256": "e9215980dc791fd4c1d7649b881bd3a07292517f0c25d3113bfdeb72f5b111ae",
+     "packedBytes": 1390
+    },
+    "map.bin": {
+     "bytes": 5401600,
+     "sha256": "32678ec5ba7e597d1c1258cd7c165839a0501040efafbd49bd9527432a9faab4",
+     "packedBytes": 1256340
+    },
+    "map4x.bin": {
+     "bytes": 1350400,
+     "sha256": "9cb95637e9b035a8313ac75750a665583881e5fef0ab7f619aeb294a2e197ab7",
+     "packedBytes": 361706
+    },
+    "map16x.bin": {
+     "bytes": 337600,
+     "sha256": "6f5b97de57b4f390e76dc107c722c11c11bb19d0b6bcb18b608ee1b872821e71",
+     "packedBytes": 102837
+    }
+   }
+  },
+  {
+   "key": "sanfrancisco",
+   "id": "San Francisco",
+   "files": {
+    "manifest.json": {
+     "bytes": 2564,
+     "sha256": "6c2f61c87189870976ac18bc89cc0b4ebc265fbd98246f371544ea2601bc2824",
+     "packedBytes": 489
+    },
+    "map.bin": {
+     "bytes": 3400000,
+     "sha256": "89b3d439bd8e1e459981ba57ca12b55a618b54a44ba4353f6335487190e33541",
+     "packedBytes": 438321
+    },
+    "map4x.bin": {
+     "bytes": 850000,
+     "sha256": "fb8017698d67fbb57f8ec17f9a2adcfb97802d0585c23e14028040b3cb156bd5",
+     "packedBytes": 155769
+    },
+    "map16x.bin": {
+     "bytes": 212500,
+     "sha256": "e4e302425f6324d323a85599ad9af72f34675c4e25163c604433cf6f8c88a5ac",
+     "packedBytes": 49308
+    }
+   }
+  },
+  {
+   "key": "scandinavia",
+   "id": "Scandinavia",
+   "files": {
+    "manifest.json": {
+     "bytes": 6278,
+     "sha256": "36df2196c826753761ea4f5ee798401f10af7289da8c8baa8d1df7d71b12c813",
+     "packedBytes": 1048
+    },
+    "map.bin": {
+     "bytes": 4488960,
+     "sha256": "e7eb656b46828d2c49b6ed670fb77dc3a710c88ae80fccac7a86e1b1af8d4bc5",
+     "packedBytes": 523270
+    },
+    "map4x.bin": {
+     "bytes": 1122240,
+     "sha256": "67c1f3c5492e296f843f7521b4cf834f769b623686c5fa88296b68f987f14514",
+     "packedBytes": 193196
+    },
+    "map16x.bin": {
+     "bytes": 280560,
+     "sha256": "96e0521f18adad8c9ed7cd0554495250deceb5f4e5b9c2b7e8dc24cc0c74d937",
+     "packedBytes": 62136
+    }
+   }
+  },
+  {
+   "key": "sierpinski",
+   "id": "Sierpinski",
+   "files": {
+    "manifest.json": {
+     "bytes": 1217,
+     "sha256": "fc8591960b14d0b617e89297071fbbde51995d5badd9c6a984c7321f607786cb",
+     "packedBytes": 300
+    },
+    "map.bin": {
+     "bytes": 1960000,
+     "sha256": "8cc8f8c01b7f526d9809aa372da96f21a645ac92ddb5cfa931f8cd91fa2784fb",
+     "packedBytes": 9648
+    },
+    "map4x.bin": {
+     "bytes": 490000,
+     "sha256": "a9035551d421da9115e81cb6c91c8cfe5dc8221d962c44e07c5a7ae9659db8da",
+     "packedBytes": 3431
+    },
+    "map16x.bin": {
+     "bytes": 122500,
+     "sha256": "5e6701669f5774e3e3a944497d3e211657e65cdd388d03fd1fa29b57eeff4227",
+     "packedBytes": 1350
+    }
+   }
+  },
+  {
+   "key": "sol",
+   "id": "Sol",
+   "files": {
+    "manifest.json": {
+     "bytes": 9077,
+     "sha256": "1f323b2baf8fde5fc82ef424e7781b48120dda3fd04c81ab5295dfa51cac38a1",
+     "packedBytes": 1546
+    },
+    "map.bin": {
+     "bytes": 11204096,
+     "sha256": "6d35f5924b57ce4298be3e456c511f1e0b15029c90336bb957f1d342961ef806",
+     "packedBytes": 330588
+    },
+    "map4x.bin": {
+     "bytes": 2801024,
+     "sha256": "84eb6a0403e7ce0117f37ff2d29205d966e1d662cc3fe94bfe3adcd28988001d",
+     "packedBytes": 124451
+    },
+    "map16x.bin": {
+     "bytes": 700256,
+     "sha256": "974d3373df4b77e4fbedb50070cac565f0f0ccab92da3062d53658a0aa718643",
+     "packedBytes": 50102
+    }
+   }
+  },
+  {
+   "key": "southamerica",
+   "id": "South America",
+   "files": {
+    "manifest.json": {
+     "bytes": 2811,
+     "sha256": "959c0bfe25c50aa47ff520701333f18eb0cbcb5a1ebc10998bb3eeb9ddf2f0f4",
+     "packedBytes": 592
+    },
+    "map.bin": {
+     "bytes": 4143744,
+     "sha256": "a11558c0cf7c7a6f54601557d9062f0d8ad9f027b2a3e274735d74846e070d5f",
+     "packedBytes": 768760
+    },
+    "map4x.bin": {
+     "bytes": 1035936,
+     "sha256": "5b3a7d14a0c6a17090cc1053112c68ef8714de3ca80f200fb86b24ade1319466",
+     "packedBytes": 216257
+    },
+    "map16x.bin": {
+     "bytes": 258984,
+     "sha256": "e1132a5e0a5a0a55c7048f6a8627f9b0f2f9656da0967b2bf6c2e53d93359f68",
+     "packedBytes": 61313
+    }
+   }
+  },
+  {
+   "key": "southeastasia",
+   "id": "SoutheastAsia",
+   "files": {
+    "manifest.json": {
+     "bytes": 6216,
+     "sha256": "27018d4418533c41910d42759ff5fcbc693211f3eda8a79da9292892c9709982",
+     "packedBytes": 1023
+    },
+    "map.bin": {
+     "bytes": 4701664,
+     "sha256": "471288202782016b22ad638efc231bd9881dae8cffa0842833c5e8744d7eece7",
+     "packedBytes": 339117
+    },
+    "map4x.bin": {
+     "bytes": 1175416,
+     "sha256": "069e8c542314913bbc01312f741306293ee021cacb415df3c90b380c5d728565",
+     "packedBytes": 109200
+    },
+    "map16x.bin": {
+     "bytes": 293854,
+     "sha256": "7dc0893d81f84f1a3391e758b6e529b4fae95d8d175f6ddc7967377e3d644483",
+     "packedBytes": 36390
+    }
+   }
+  },
+  {
+   "key": "straitofgibraltar",
+   "id": "Strait of Gibraltar",
+   "files": {
+    "manifest.json": {
+     "bytes": 2256,
+     "sha256": "66781c03bd98be9d901ef113778a69b90e794b362bb969457fb03b289e802afb",
+     "packedBytes": 542
+    },
+    "map.bin": {
+     "bytes": 4280400,
+     "sha256": "116c2e8042e2248820435a5c6e20b2269fa916b55f0fa5d1a96462feb72245fd",
+     "packedBytes": 341110
+    },
+    "map4x.bin": {
+     "bytes": 1070100,
+     "sha256": "5e2fc71785173436e4d40f96ca1501b6614dcde02d78b0cac52ad9b6e4d510f4",
+     "packedBytes": 130681
+    },
+    "map16x.bin": {
+     "bytes": 267525,
+     "sha256": "d4d4898e6c5eef71b658f749fcbcc3d5f9c3375129332eef184a27357b40d00c",
+     "packedBytes": 46255
+    }
+   }
+  },
+  {
+   "key": "straitofhormuz",
+   "id": "Strait of Hormuz",
+   "files": {
+    "manifest.json": {
+     "bytes": 2702,
+     "sha256": "ef0e612539426cfe4e6fb82e67249b5c0da01ea6949105bc46aba046c545612e",
+     "packedBytes": 604
+    },
+    "map.bin": {
+     "bytes": 2160000,
+     "sha256": "16f03442304eeec21bbe9152624a23305e442bc8f70ce0ec6cbab42645f82034",
+     "packedBytes": 201215
+    },
+    "map4x.bin": {
+     "bytes": 540000,
+     "sha256": "78541e482bd5f056b4cbc4e4b4eb703c8e39963d1c461786e9f2721f0470b4f4",
+     "packedBytes": 78757
+    },
+    "map16x.bin": {
+     "bytes": 135000,
+     "sha256": "f18114d083e61fe5cc9a46d2dcfa8a3215dffe8d60f29c4881029ae1c5ec1fa1",
+     "packedBytes": 28331
+    }
+   }
+  },
+  {
+   "key": "straitofmalacca",
+   "id": "Strait Of Malacca",
+   "files": {
+    "manifest.json": {
+     "bytes": 1666,
+     "sha256": "6678e3a767724ee7126ed56b1e7f591fc063b40302e1a72241f2e3ba5868f92a",
+     "packedBytes": 418
+    },
+    "map.bin": {
+     "bytes": 3011808,
+     "sha256": "af1901ad24fc25303498574a83cc63843ae8eacc637f3019ccb5a2d62e4adb44",
+     "packedBytes": 187060
+    },
+    "map4x.bin": {
+     "bytes": 752952,
+     "sha256": "a0274a052de3f98fa9cbdcefa22edc6d50429a51836cd2c20b1dc24e6f148fb9",
+     "packedBytes": 69675
+    },
+    "map16x.bin": {
+     "bytes": 188238,
+     "sha256": "178e227a64c82b557f1a3b32ebb23283b427e81fdbd6bc96d0c8c53beb362f04",
+     "packedBytes": 23280
+    }
+   }
+  },
+  {
+   "key": "surrounded",
+   "id": "Surrounded",
+   "files": {
+    "manifest.json": {
+     "bytes": 1897,
+     "sha256": "3599652a412f22a8eab6fb9fdcb33a01df04bd05820a40d2297d561b75388ed1",
+     "packedBytes": 418
+    },
+    "map.bin": {
+     "bytes": 3904576,
+     "sha256": "a9b7673b70a0afcf33fac8714060581b941de7532c9d3dfd131bb1ae2871885c",
+     "packedBytes": 131442
+    },
+    "map4x.bin": {
+     "bytes": 976144,
+     "sha256": "3c1f65676d4ae80006fb3649797b4e1bfdefa6272eaba8ab15d594e2cbb3f9a3",
+     "packedBytes": 60282
+    },
+    "map16x.bin": {
+     "bytes": 244036,
+     "sha256": "60221a3dd6deb5886a73d3c8ac3b56abe4ff03e84ee065478bb4db05e8caef92",
+     "packedBytes": 25440
+    }
+   }
+  },
+  {
+   "key": "svalmel",
+   "id": "Svalmel",
+   "files": {
+    "manifest.json": {
+     "bytes": 955,
+     "sha256": "1e8696cc47fca75092a85476abe0b4704c347008b8b78f7a1746c9891da8b896",
+     "packedBytes": 322
+    },
+    "map.bin": {
+     "bytes": 2686000,
+     "sha256": "55edf1d4ea62511bd2e8103458f671577c6e21a6285db707001f720ccf593a8f",
+     "packedBytes": 394684
+    },
+    "map4x.bin": {
+     "bytes": 671500,
+     "sha256": "c7766a6f05fecd449037047e599a81b9646417c2941265a3c3749a89feeb3692",
+     "packedBytes": 148164
+    },
+    "map16x.bin": {
+     "bytes": 167875,
+     "sha256": "89efce70e42b3ddf7c2e265864f3ff6ea40e1e1438481521650d1378023f17cf",
+     "packedBytes": 45121
+    }
+   }
+  },
+  {
+   "key": "taiwanstrait",
+   "id": "Taiwan Strait",
+   "files": {
+    "manifest.json": {
+     "bytes": 2995,
+     "sha256": "87e3f367dbaaa2f712d1afe0d56f268236bd16ee54ae3732b394a8fd3e2b5d5c",
+     "packedBytes": 584
+    },
+    "map.bin": {
+     "bytes": 2560000,
+     "sha256": "b84cad3adf7136fa0e018a3a1a94a67423af262f9a95f0f8b67a1ec25d7b720a",
+     "packedBytes": 246607
+    },
+    "map4x.bin": {
+     "bytes": 640000,
+     "sha256": "280fa839a44256aa91e8282ffd35c87d10f062d01811688d35501f735f527807",
+     "packedBytes": 94569
+    },
+    "map16x.bin": {
+     "bytes": 160000,
+     "sha256": "e252e7078ff773e298ca40ab1ac64c20202856b26999aff01afd669c2afa908b",
+     "packedBytes": 32396
+    }
+   }
+  },
+  {
+   "key": "thebox",
+   "id": "The Box",
+   "files": {
+    "manifest.json": {
+     "bytes": 1698,
+     "sha256": "14b933c31308f5c6b58c871108b3094ed7b981832bf741f59c12daae105794cf",
+     "packedBytes": 423
+    },
+    "map.bin": {
+     "bytes": 4194304,
+     "sha256": "1326760bb3065c4f0ea36c36b06e2bf52ed70b36d6045fa32c475ea6d26f82cc",
+     "packedBytes": 14
+    },
+    "map4x.bin": {
+     "bytes": 1048576,
+     "sha256": "9bd6d27fdc3cc8deaa9e8fed84c7034f078c2c588fd6d4cb3dab314a820304fd",
+     "packedBytes": 14
+    },
+    "map16x.bin": {
+     "bytes": 262144,
+     "sha256": "d179fded59037088cb043b3ffc41d714f9bd8105227d8aac28ecac9943ee1e67",
+     "packedBytes": 14
+    }
+   }
+  },
+  {
+   "key": "tierradelfuego",
+   "id": "Tierra Del Fuego",
+   "files": {
+    "manifest.json": {
+     "bytes": 2547,
+     "sha256": "9dfaac317879717647b1b4b001f31ed805c371e7e4523a7734ad04e18846743b",
+     "packedBytes": 548
+    },
+    "map.bin": {
+     "bytes": 4166656,
+     "sha256": "5166e1e877a7a08a8d8861faa84d874b47bd38f048ff9f010a53bd0c432f87db",
+     "packedBytes": 382045
+    },
+    "map4x.bin": {
+     "bytes": 1041664,
+     "sha256": "381d79bba34803edfeafb2e69d1a024504512bf5f1dc71aa83636ea518450830",
+     "packedBytes": 129003
+    },
+    "map16x.bin": {
+     "bytes": 260416,
+     "sha256": "3c6d49151f9e1d7bea4991d9a2e20f2f377010a1abf0bce03ff9ba27e153eeb4",
+     "packedBytes": 40938
+    }
+   }
+  },
+  {
+   "key": "titan",
+   "id": "Titan",
+   "files": {
+    "manifest.json": {
+     "bytes": 2007,
+     "sha256": "a98d4bd747a007dbf47f872c90b460fb88910eb58e2248b7ad375dcfdf0090d9",
+     "packedBytes": 426
+    },
+    "map.bin": {
+     "bytes": 2661120,
+     "sha256": "4793a530acfabde5903bf695013508801d7b22f8744ce1210ad78d224fdddbfb",
+     "packedBytes": 304995
+    },
+    "map4x.bin": {
+     "bytes": 665280,
+     "sha256": "e3c091a991c4058997d1393218e2218477b613028f14c07f304841aff2162a41",
+     "packedBytes": 123275
+    },
+    "map16x.bin": {
+     "bytes": 166320,
+     "sha256": "ac088bf2e0637c50cccc9c8ec6aa48b165cf68daba820ff0700f8762ba87aee3",
+     "packedBytes": 42915
+    }
+   }
+  },
+  {
+   "key": "tourney1",
+   "id": "Tourney 2 Teams",
+   "files": {
+    "manifest.json": {
+     "bytes": 557,
+     "sha256": "a3a92df4d7caf726a6873ca30b9f09502c1ccf21f97b2c21a68aebf5231a0093",
+     "packedBytes": 224
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "cab3f0290758fbbb12ec0ad6d2e940a7385900fbcfc80d9b40cf6216e364c57b",
+     "packedBytes": 34648
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "517da28654daa4ddfa105b742521d218d95825ad8a6134bebdbe594483328bbe",
+     "packedBytes": 13438
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "0c59ce3b46ebb69ca3da36bcf63dbfd0464eea801f783ea4f63a1fb2d551b2c9",
+     "packedBytes": 5013
+    }
+   }
+  },
+  {
+   "key": "tourney2",
+   "id": "Tourney 3 Teams",
+   "files": {
+    "manifest.json": {
+     "bytes": 638,
+     "sha256": "2f7312f625bf4c858c3eba356983075066417e6f7d3f1882a252db20aa6420a9",
+     "packedBytes": 260
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "52081d17691355582f8373c762b85d4eef857e55444763aaa40333af3a8a9d12",
+     "packedBytes": 38631
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "b7ff1b87d763e77b332de4831fdb296e14e4ee7e2f05cbc8383d36758d9e34b8",
+     "packedBytes": 14809
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "21750570bdfd8255ac8e879f75121d01482e2ed3c22d4fc6eddcf02aea65ec67",
+     "packedBytes": 5590
+    }
+   }
+  },
+  {
+   "key": "tourney3",
+   "id": "Tourney 4 Teams",
+   "files": {
+    "manifest.json": {
+     "bytes": 719,
+     "sha256": "0a7cfc82ed818748d331895801968add823bdb24e9397818127760e4bce42ffd",
+     "packedBytes": 253
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "f915c63dec3a0e19b575cc2056437ec2d5f2ade1293478eb5994e2cbf7ded6f0",
+     "packedBytes": 38574
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "daf1f515b77adc83921db4399937b151370c7333a1b84655334ebe803d275020",
+     "packedBytes": 14590
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "dd3691afb54d30949770244869a017c09e812c13e443b93c34b7ef1d9694b221",
+     "packedBytes": 5457
+    }
+   }
+  },
+  {
+   "key": "tourney4",
+   "id": "Tourney 8 Teams",
+   "files": {
+    "manifest.json": {
+     "bytes": 1054,
+     "sha256": "8de9930b4d3078b36ed31dca01cac97eaa38f6ec46abbe9f7c601fa34b3279f2",
+     "packedBytes": 305
+    },
+    "map.bin": {
+     "bytes": 2250000,
+     "sha256": "ace6c0d28f0611220aaca5ad0f8f008af20a8d9ca12587e9dcacbb4d966f6378",
+     "packedBytes": 43260
+    },
+    "map4x.bin": {
+     "bytes": 562500,
+     "sha256": "e86f2a279b8b4e374f22ebe4f1bad6bda4df137eabbeca3900bdf0914b33b454",
+     "packedBytes": 16588
+    },
+    "map16x.bin": {
+     "bytes": 140625,
+     "sha256": "2513c55b4a6717d7eac322859132abffa51740f0d1b85922c1725d729916dac0",
+     "packedBytes": 6208
+    }
+   }
+  },
+  {
+   "key": "tradersdream",
+   "id": "Traders Dream",
+   "files": {
+    "manifest.json": {
+     "bytes": 1938,
+     "sha256": "e1f2324ffbe2ab33150fc7d825a760fae74896af18988ef1510a044f724c4dc3",
+     "packedBytes": 473
+    },
+    "map.bin": {
+     "bytes": 4224000,
+     "sha256": "6b43f1f5d1244f299dbc5678eca7d747891a33bac11cffb9ced1fe58be6847a6",
+     "packedBytes": 132354
+    },
+    "map4x.bin": {
+     "bytes": 1056000,
+     "sha256": "42d1ff5d5dca2581ed60b3d3ec03a4ebb2d9b1bf93abdaa8d480080ae6392a33",
+     "packedBytes": 60427
+    },
+    "map16x.bin": {
+     "bytes": 264000,
+     "sha256": "d72243351b684cb71568f6e308580cc5e22d96c614174e898f5b829623e6cfca",
+     "packedBytes": 27063
+    }
+   }
+  },
+  {
+   "key": "twolakes",
+   "id": "Two Lakes",
+   "files": {
+    "manifest.json": {
+     "bytes": 898,
+     "sha256": "2e2a5ed3ffaf723cf08d8206b5f7d9c85a3bcd0c0ee76d311260578ef693a10c",
+     "packedBytes": 297
+    },
+    "map.bin": {
+     "bytes": 3864000,
+     "sha256": "5d5d9776b4713bad3ef82a55a3b3b0cd1aaeb70f45c8f01adc9cb650dea5ef03",
+     "packedBytes": 1576429
+    },
+    "map4x.bin": {
+     "bytes": 966000,
+     "sha256": "024403ca75060a8b17ca08c6e8720d250d2411606802d2bd442cfa0c1f5d5295",
+     "packedBytes": 461991
+    },
+    "map16x.bin": {
+     "bytes": 241500,
+     "sha256": "0f8de54c17df03a902461b879ace9e7ffa1b2d228da00dac86baa263d2373510",
+     "packedBytes": 123414
+    }
+   }
+  },
+  {
+   "key": "unitedstates",
+   "id": "United States",
+   "files": {
+    "manifest.json": {
+     "bytes": 6671,
+     "sha256": "40b3b8fabee22242c26a6ef64a06ddffc8afc98c5c22d7d908d365184aae34ee",
+     "packedBytes": 1098
+    },
+    "map.bin": {
+     "bytes": 4334400,
+     "sha256": "46da69d2bac2496b1aab8240dce2a5648a984921af38040dff0364ff6b1a2bad",
+     "packedBytes": 644657
+    },
+    "map4x.bin": {
+     "bytes": 1083600,
+     "sha256": "a13035dcde032d71a36a89e907fa2269150cdc9a90afb7252cfb9efd387b67ff",
+     "packedBytes": 200916
+    },
+    "map16x.bin": {
+     "bytes": 270900,
+     "sha256": "c2f192d3c56a513074c7f014ee583791077ccec247b77f6dfa1464985eb491a7",
+     "packedBytes": 61369
+    }
+   }
+  },
+  {
+   "key": "vancouverisland",
+   "id": "Vancouver Island",
+   "files": {
+    "manifest.json": {
+     "bytes": 7034,
+     "sha256": "3c85399a605cb37f7da7cfced04d8744936099e4038aea6d328f358ec3457b18",
+     "packedBytes": 1047
+    },
+    "map.bin": {
+     "bytes": 5148000,
+     "sha256": "c2fe645bc7cc42767744f5fc01ae43878ac3089df1de0b109a8f28eaec6bc1f1",
+     "packedBytes": 618650
+    },
+    "map4x.bin": {
+     "bytes": 1287000,
+     "sha256": "7fc3cae61fdb7e5cd73035654ceb4862e92d1495bdf0cc56eed91f42d2c41bb2",
+     "packedBytes": 233444
+    },
+    "map16x.bin": {
+     "bytes": 321750,
+     "sha256": "a17e66828d53dd7b60282fc67f2b5e13466537d7e06b1898a4b7859d9a5f44ce",
+     "packedBytes": 76250
+    }
+   }
+  },
+  {
+   "key": "venice",
+   "id": "Venice",
+   "files": {
+    "manifest.json": {
+     "bytes": 1894,
+     "sha256": "02cd49ac7aca7dfd0a401c821e6c3051712241e1e4a3e7b00928e2a030e32ee6",
+     "packedBytes": 432
+    },
+    "map.bin": {
+     "bytes": 3000000,
+     "sha256": "2c1bc7eec8b61b306fdd80938c1762dd2207799977673677b38c5de7a81705e3",
+     "packedBytes": 151289
+    },
+    "map4x.bin": {
+     "bytes": 750000,
+     "sha256": "aa0b8b7f80ddf13f74c720da7c9d0fdc52fa231ca2ea01b002520997a4d7e4f5",
+     "packedBytes": 60726
+    },
+    "map16x.bin": {
+     "bytes": 187500,
+     "sha256": "3f0a032519b2eaef74cc422a9e1daf49a7abd5f0a844adfc365af71c9b516601",
+     "packedBytes": 22377
+    }
+   }
+  },
+  {
+   "key": "vietnam",
+   "id": "Vietnam",
+   "files": {
+    "manifest.json": {
+     "bytes": 4174,
+     "sha256": "0d1a921d900ba2ba3973050d6d7d45bf0fcde61afe5d9372bc5f2cdc8191a5b9",
+     "packedBytes": 718
+    },
+    "map.bin": {
+     "bytes": 7034560,
+     "sha256": "b4ee3de4353ae451de2f54805aff2cd244fc30ccd6fc25bf5cc9fda89875b5b1",
+     "packedBytes": 255715
+    },
+    "map4x.bin": {
+     "bytes": 1758640,
+     "sha256": "e741323156560c979cf43468e34813fa737af4a331da80013f784a21b67e64a6",
+     "packedBytes": 120189
+    },
+    "map16x.bin": {
+     "bytes": 439660,
+     "sha256": "844b2a8f66c3c25dba020d97cd767e4af1439fe2e12f1d932f7a81ac70bedd8e",
+     "packedBytes": 43677
+    }
+   }
+  },
+  {
+   "key": "warshipwarship",
+   "id": "Warship Warship",
+   "files": {
+    "manifest.json": {
+     "bytes": 3570,
+     "sha256": "211d1718c0eedfa0b9c9c8752c7c874edec453768f7268d91c0faaeeed96b912",
+     "packedBytes": 696
+    },
+    "map.bin": {
+     "bytes": 4188000,
+     "sha256": "7a9fdacde9012b599ed9e61addb319abbe24e34a0cd67f6323b4b12f7a0b0632",
+     "packedBytes": 13951
+    },
+    "map4x.bin": {
+     "bytes": 1047000,
+     "sha256": "1e385e8131a4dcbf9817ed0f7350e7d4c2e3921701cb4d4f1a9e99e7525c9627",
+     "packedBytes": 7981
+    },
+    "map16x.bin": {
+     "bytes": 261750,
+     "sha256": "93f8f391d11355f973281a0a3da22a5ddf87868a816bc9590fdba4568969548f",
+     "packedBytes": 3948
+    }
+   }
+  },
+  {
+   "key": "world",
+   "id": "World",
+   "files": {
+    "manifest.json": {
+     "bytes": 7050,
+     "sha256": "10f3d92e9666bee5905286af81a7139cffd00302dbf24faa65a3e586406f93e5",
+     "packedBytes": 1112
+    },
+    "map.bin": {
+     "bytes": 2000000,
+     "sha256": "a0d7b174f90dfd654c6d660e498d25944caadae07fbb980600452115422398f9",
+     "packedBytes": 341244
+    },
+    "map4x.bin": {
+     "bytes": 500000,
+     "sha256": "d5db77572958fef4400b291c27da92aa44a882e4f5ed58478bca4c3f1b578fbf",
+     "packedBytes": 106996
+    },
+    "map16x.bin": {
+     "bytes": 125000,
+     "sha256": "fbee00a7dc706702744dc12385b1622c5ff8772980572d7cc6fcc2838bfbb1c4",
+     "packedBytes": 31755
+    }
+   }
+  },
+  {
+   "key": "worldinverted",
+   "id": "World Inverted",
+   "files": {
+    "manifest.json": {
+     "bytes": 25061,
+     "sha256": "99a7b279ed730d4f333e53a4d36d8d70c3d8709693d3645c3dbdcd6c9184fccc",
+     "packedBytes": 3697
+    },
+    "map.bin": {
+     "bytes": 3120000,
+     "sha256": "10ad285cb6b7b76cf43d6bf1047726d9b320810fe29f8cc39499404e80c7714d",
+     "packedBytes": 598869
+    },
+    "map4x.bin": {
+     "bytes": 780000,
+     "sha256": "ec4defd1537a7a56fc8f259a145d5278eafd57bfe99a5ee8986c0146dd8425e6",
+     "packedBytes": 188568
+    },
+    "map16x.bin": {
+     "bytes": 195000,
+     "sha256": "cc63b17c6e5a73baee106f1f87f91b4893cda8bcba150470611dafafc5867330",
+     "packedBytes": 55154
+    }
+   }
+  },
+  {
+   "key": "yangtzeriver",
+   "id": "Yangtze River",
+   "files": {
+    "manifest.json": {
+     "bytes": 1259,
+     "sha256": "e3c44fa750a53fa08b2e7f251698bb8aace088dcbfd3d59846374cdb2554c1e0",
+     "packedBytes": 353
+    },
+    "map.bin": {
+     "bytes": 9799680,
+     "sha256": "fb68ee6e07b3b6ecd2655cd334ae4a722d8f503bce0b5d38348d5c455bb27791",
+     "packedBytes": 353790
+    },
+    "map4x.bin": {
+     "bytes": 2449920,
+     "sha256": "bb6b3ed4c41aac9738ddc8a449356526205d2d353169412bcf39d944e2d4ac84",
+     "packedBytes": 116408
+    },
+    "map16x.bin": {
+     "bytes": 612480,
+     "sha256": "c91be1c7c390247f855ce4a5e54b8eac57bf0899c86455eee43121963621bb85",
+     "packedBytes": 35368
+    }
+   }
+  },
+  {
+   "key": "yellowsea",
+   "id": "Yellow Sea",
+   "files": {
+    "manifest.json": {
+     "bytes": 1164,
+     "sha256": "3e6021ee1d7154411cf2de538de1ef0747dc94ab095df94bc27a75173dae786d",
+     "packedBytes": 325
+    },
+    "map.bin": {
+     "bytes": 1728000,
+     "sha256": "4d8b85dc903c287fa29d3da60abc59ba88d00ccdb27b0eefc96fe334009555e4",
+     "packedBytes": 298171
+    },
+    "map4x.bin": {
+     "bytes": 432000,
+     "sha256": "1440dce8bae175d63c58deefd1e97333bb1dc1d60a06e245a6a5dc91712264cb",
+     "packedBytes": 100599
+    },
+    "map16x.bin": {
+     "bytes": 108000,
+     "sha256": "ee3b68fe1ab60e33018da94b5b3a07a1854981ebb1085a79e802c826aa00d28f",
+     "packedBytes": 30349
+    }
+   }
+  },
+  {
+   "key": "yenisei",
+   "id": "Yenisei",
+   "files": {
+    "manifest.json": {
+     "bytes": 997,
+     "sha256": "a612e22baf69eb72a64975e5ee12de4ed9443e35c64086e59ae68b7a13faf355",
+     "packedBytes": 307
+    },
+    "map.bin": {
+     "bytes": 1800000,
+     "sha256": "1b88b79873ce666ebc4b75f911d75cfecca160724cbf6361883e0b00dab35b6b",
+     "packedBytes": 396431
+    },
+    "map4x.bin": {
+     "bytes": 450000,
+     "sha256": "4d46148f74649ec93cbb4ff34b8c74e37111fb4c5a55e448d42008bab972e30d",
+     "packedBytes": 136728
+    },
+    "map16x.bin": {
+     "bytes": 112500,
+     "sha256": "057dd88191026e9fc012d828ade52cfb5d0f206e71a4768b180d5abfd74a6142",
+     "packedBytes": 39486
+    }
+   }
+  }
+ ]
+}

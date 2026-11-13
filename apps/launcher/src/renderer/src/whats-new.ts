@@ -7,7 +7,16 @@ export { releaseNotesUrl } from "../../shared";
  * bundled with the launcher so they show offline. Copy states what the player gets; no commands.
  */
 export interface WhatsNewEntry { headline: string; highlights: { title: string; text: string }[] }
+const REDESIGN_HIGHLIGHTS: WhatsNewEntry["highlights"] = [
+  { title: "Practice on the real board", text: "Offline drills use OpenFront's client, with a coach explanation and a quick retry after each decision." },
+  { title: "Review the moment", text: "Game Review brings the board, move-quality labels and coaching together so you can revisit a costly decision." },
+  { title: "A clearer view of your game", text: "The launcher, in-match panels and stream widgets share the War table look, with larger numbers and clearer actions." },
+];
 export const WHATS_NEW: Record<string, WhatsNewEntry> = {
+  "0.3.2": { headline: "A tidier launcher, plus a Review that replays your real games.", highlights: [{ title: "Review replays recent games", text: "Game Review replays your latest recorded games and shows the end-of-game card when the match ends." }, { title: "Unfinished features hidden", text: "The Training tab stays out of the way until it is ready." }, { title: "Setup wizard text fixed", text: "Setup no longer shows garbled characters." }] },
+  "0.3.1": { headline: "FlashFront opens again after the 0.3.0 startup crash.", highlights: [{ title: "Startup restored", text: "Fixes the JavaScript error that stopped the installed app from opening. Training and Game Review remain included." }] },
+  "0.3.0-rc.1": { headline: "Try the new practice board and War table design in this release candidate.", highlights: REDESIGN_HIGHLIGHTS },
+  "0.3.0": { headline: "Practice decisions on the real board and review your game more clearly.", highlights: REDESIGN_HIGHLIGHTS },
   "0.2.2": {
     headline: "Fixes for settings, setup and your desktop shortcut.",
     highlights: [

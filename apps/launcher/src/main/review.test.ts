@@ -1,16 +1,30 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
-import { MatchRecorder } from "@flashfront/core";
+import { MatchRecorder, type RecordedMatch } from "@flashfront/core";
+import { readFileSync } from "node:fs";
 import { MatchFiles } from "./recorder";
 vi.mock("electron", () => ({ app: { getPath: () => "fixture", setPath: vi.fn(), requestSingleInstanceLock: () => false, quit: vi.fn() },
   BrowserWindow: vi.fn(), clipboard: {}, globalShortcut: {}, ipcMain: {}, screen: {}, shell: {},
   dialog: { showSaveDialog: vi.fn() }, nativeImage: { createFromBuffer: () => ({ isEmpty: () => false, getSize: () => ({ width: 1200, height: 630 }), toPNG: () => Buffer.from("png fixture") }) } }));
 vi.mock("./foreground", () => ({ createForegroundProbe: () => () => null }));
-import { annotateMatch, saveSharePng } from "./index";
+import { annotateMatch, saveSharePng, deleteRecordedMatch, reviewRecordedMatch } from "./index";
 import { dialog, type BrowserWindow } from "electron";
 let directory: string | undefined;
+it("deletes a public record only with the last recording of its game, including old indexes", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-review-test-")); const files = new MatchFiles(directory);
+  const r = new MatchRecorder(); r.consume({ inGame: true, visible: true, gameId: "abc123" }, null);
+  const m = r.finish()!; const first = await files.save(m), second = await files.save(m);
+  const forget = vi.fn(async () => {});
+  const indexPath = join(files.directory, "index-v1.json");
+  const old = JSON.parse(await readFile(indexPath, "utf8")); old.version = 1;
+  for (const [, entry] of old.entries) delete entry.item.gameId;
+  await writeFile(indexPath, JSON.stringify(old));
+  expect((await new MatchFiles(directory).list())[0]?.gameId).toBe("abc123");
+  await deleteRecordedMatch(files, { forget }, first); expect(forget).not.toHaveBeenCalled();
+  await deleteRecordedMatch(files, { forget }, second); expect(forget).toHaveBeenCalledExactlyOnceWith("abc123");
+});
 afterEach(async () => { if (directory && resolve(directory).startsWith(resolve(tmpdir()) + sep + "flashfront-review-test-")) await rm(directory, { recursive: true, force: true }); vi.clearAllMocks(); });
 it("round-trips a bookmark note in the same local recording, preserving concurrent notes", async () => {
   directory = await mkdtemp(join(tmpdir(), "flashfront-review-test-")); const files = new MatchFiles(directory);
@@ -33,4 +47,63 @@ it("validates share input, handles cancellation, and saves only to the dialog de
   expect(await saveSharePng(win, data)).toBe(false);
   vi.mocked(dialog.showSaveDialog).mockResolvedValueOnce({ canceled: false, filePath: file });
   expect(await saveSharePng(win, data)).toBe(true); expect(await readFile(file, "utf8")).toBe("png fixture");
+});
+it("review-get waits, then reviews, without touching the recording", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-review-test-")); const files = new MatchFiles(directory);
+  const fixtures = new URL("../../../../packages/core/src/review/fixtures/", import.meta.url);
+  const recording = JSON.parse(readFileSync(new URL("team-recording.json", fixtures), "utf8")) as RecordedMatch;
+  const record = JSON.parse(readFileSync(new URL("team-record.json", fixtures), "utf8"));
+  const file = await files.save({ ...recording, gameId: record.info.gameID }); const bytes = await readFile(files.path(file));
+  let ready = false;
+  const records = { ensure: vi.fn(async () => ready ? { status: "ready" as const } : { status: "waiting" as const }), read: vi.fn(async () => record) };
+  expect(await reviewRecordedMatch(files, records, file, 35)).toEqual({ status: "waiting" });
+  expect(records.read).not.toHaveBeenCalled();
+  ready = true;
+  const first = await reviewRecordedMatch(files, records, file, 35);
+  expect(first.status).toBe("ready");
+  expect(await readFile(files.path(file))).toEqual(bytes);
+  expect(await reviewRecordedMatch(files, records, file, 35)).toBe(first);
+  expect(records.read).toHaveBeenCalledTimes(1);
+  expect(await reviewRecordedMatch(files, records, file, 40)).not.toBe(first);
+});
+it("review-get reports missing ids, invalid records and games without me", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-review-test-")); const files = new MatchFiles(directory);
+  const ready = { ensure: vi.fn(async () => ({ status: "ready" as const })), read: vi.fn(async (): Promise<unknown> => ({ nope: true })) };
+  const r = new MatchRecorder(); r.consume({ inGame: true, visible: true }, null); const noId = await files.save(r.finish()!);
+  expect(await reviewRecordedMatch(files, ready, noId, 35)).toEqual({ status: "unavailable", reason: "noGameId" });
+  const fixtures = new URL("../../../../packages/core/src/review/fixtures/", import.meta.url);
+  const recording = JSON.parse(readFileSync(new URL("team-recording.json", fixtures), "utf8")) as RecordedMatch;
+  const record = JSON.parse(readFileSync(new URL("team-record.json", fixtures), "utf8"));
+  const file = await files.save({ ...recording, gameId: record.info.gameID });
+  expect(await reviewRecordedMatch(files, ready, file, 35)).toEqual({ status: "unavailable", reason: "invalid" });
+  const stranger = await files.save({ ...recording, gameId: record.info.gameID, me: { clientId: "NOTHERE0" } });
+  ready.read.mockResolvedValue(record);
+  expect(await reviewRecordedMatch(files, ready, stranger, 35)).toEqual({ status: "unavailable", reason: "notInRecord" });
+  const tooLarge = { ensure: vi.fn(async () => ({ status: "unavailable" as const, reason: "tooLarge" as const })), read: vi.fn() };
+  expect(await reviewRecordedMatch(files, tooLarge, file, 36)).toEqual({ status: "unavailable", reason: "tooLarge" });
+});
+
+it("defers memoized reviews and match-start races without reading or computing records live", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-review-test-")); const files = new MatchFiles(directory);
+  const fixtures = new URL("../../../../packages/core/src/review/fixtures/", import.meta.url);
+  const recording = JSON.parse(readFileSync(new URL("team-recording.json", fixtures), "utf8")) as RecordedMatch;
+  const record = JSON.parse(readFileSync(new URL("team-record.json", fixtures), "utf8"));
+  const file = await files.save(recording);
+  let playing = false;
+  const records = { ensure: vi.fn(async () => ({ status: "ready" as const })), read: vi.fn(async () => record) };
+  const get = (floor = 35) => reviewRecordedMatch(files, records, file, floor, () => playing);
+  const ready = await get(); expect(ready.status).toBe("ready");
+  playing = true;
+  expect(await get()).toEqual({ status: "waiting" });
+  expect(records.read).toHaveBeenCalledTimes(1);
+  playing = false;
+  expect(await get()).toBe(ready);
+  records.ensure.mockImplementationOnce(async () => { playing = true; return { status: "ready" }; });
+  expect(await get(36)).toEqual({ status: "waiting" });
+  expect(records.read).toHaveBeenCalledTimes(1);
+  playing = false;
+  records.read.mockImplementationOnce(async () => { playing = true; return record; });
+  expect(await get(37)).toEqual({ status: "waiting" });
+  playing = false;
+  expect((await get(37)).status).toBe("ready");
 });

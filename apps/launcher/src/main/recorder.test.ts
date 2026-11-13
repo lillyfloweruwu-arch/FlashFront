@@ -11,6 +11,15 @@ function fixture() {
   recorder.consume({ inGame: true, visible: true, gameId: "abc12345", game: { map: "World" } }, null);
   return recorder.finish()!;
 }
+it("rehydrates version 2 indexes with the saved outcome", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-record-test-")); const files = new MatchFiles(directory);
+  const file = await files.save({ ...fixture(), outcome: "eliminated" });
+  const path = join(files.directory, "index-v1.json"); const index = JSON.parse(await readFile(path, "utf8"));
+  index.version = 2; for (const [, entry] of index.entries) delete entry.item.outcome;
+  await writeFile(path, JSON.stringify(index));
+  expect((await new MatchFiles(directory).list()).find(item => item.file === file)?.outcome).toBe("eliminated");
+  expect(JSON.parse(await readFile(path, "utf8")).version).toBe(3);
+});
 it("lists from a compact persistent index, loading full samples only for selection or changed files", async () => {
   directory = await mkdtemp(join(tmpdir(), "flashfront-record-test-")); const files = new MatchFiles(directory);
   const match: RecordedMatch = { ...fixture(), type: "Public", mode: "FFA", durationSec: 400, endedAtSec: 400,
@@ -58,3 +67,16 @@ it("loads old files with unknown outcome and preserves legacy results", async ()
   expect(await files.get(file)).toMatchObject({ outcome: "unknown", endedAtSec: 0 });
   expect((await files.get(await files.save({ ...m, outcome: "win" }))).outcome).toBe("won");
 });
+
+it("forgets public records evicted with their last recording, preserving games with another copy", async () => {
+  directory = await mkdtemp(join(tmpdir(), "flashfront-record-test-"));
+  const forget = vi.fn(async (_gameId: string) => {});
+  const files = new MatchFiles(directory, forget); await mkdir(files.directory);
+  const m = fixture();
+  await Promise.all(Array.from({ length: 202 }, (_, i) => writeFile(
+    join(files.directory, `2026-10-16_000000_World_game${i}.json`),
+    JSON.stringify({ ...m, gameId: i === 0 ? "orphan01" : "shared01", startedAt: new Date(Date.UTC(2026, 9, 16, 0, 0, i)).toISOString() }))));
+  await files.retain();
+  expect(forget).toHaveBeenCalledExactlyOnceWith("orphan01");
+  expect(await files.list()).toHaveLength(200);
+}, 20000);

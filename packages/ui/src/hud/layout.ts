@@ -44,6 +44,7 @@ export const GAME_UI_ZONES: (Rectangle & { id: string; label: string })[] = [
 ];
 // Conservative reference footprints for layout validation; never applied as fixed content heights.
 export const PANEL_HEIGHTS: Record<PanelId, number> = { decision: 128, clock: 140, self: 180, spawn: 554, gauge: 200, attack: 380, build: 380, alliances: 180, events: 244, opening: 180, trade: 170, goal: 140 };
+export const OFF_BY_DEFAULT: readonly PanelId[] = ["decision", "alliances", "build", "opening", "goal", "events"];
 export function defaultLayout(width: number, height = REFERENCE_HEIGHT): HudLayout {
   const mobile = width < 720;
   const positions: Record<PanelId, [number, number]> = mobile
@@ -52,7 +53,7 @@ export function defaultLayout(width: number, height = REFERENCE_HEIGHT): HudLayo
   return Object.fromEntries(panelIds.map(id => [id, {
     x: positions[id][0] * (mobile ? 1 : width / REFERENCE_WIDTH),
     y: positions[id][1] * (mobile ? 1 : height / REFERENCE_HEIGHT),
-    opacity: 1, collapsed: false, hidden: id === "self" || id === "clock",
+    opacity: 1, collapsed: false, hidden: OFF_BY_DEFAULT.includes(id),
   }])) as HudLayout;
 }
 export function presetLayout(preset: HudPreset, width: number, height = REFERENCE_HEIGHT): HudLayout {

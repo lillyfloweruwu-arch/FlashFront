@@ -13,13 +13,16 @@ export interface RawExtract {
     /** Set only in ranked matches ("1v1" | "2v2" | "ffa" | "clanwars"); gameType is then "Public". */
     rankedType?: string; teams?: string; cheats?: boolean };
   inSpawnPhase?: boolean; gameOver?: boolean; gameVersion?: string;
+  /** OpenFront's own end dialog (CSS px in the game page's viewport). Absent when no dialog element exists. */
+  endScreen?: { visible: boolean; rect?: { x: number; y: number; width: number; height: number }; viewport: { width: number; height: number } };
   me?: {
     clientId?: string; profilePublicId?: string;
     name?: string; displayName?: string; clanTag?: string; troops?: number; gold?: string;
     goldEarned?: string; tradeGold?: string; trainGold?: string; piracyGold?: string; readyMissiles?: number;
     tiles?: number; alive?: boolean; maxTroops?: number; troopRatePerTick?: number; attackRatio?: number;
     incoming?: { from: string; troops: number }[]; outgoingCount?: number;
-    alliances?: { with: string; expiresInTicks?: number; renewRequested?: boolean }[];
+    allianceRequests?: { from: string; name: string; atWar: boolean }[];
+    alliances?: { with: string; name?: string; expiresInTicks?: number; renewRequested?: boolean }[];
     cityLevels?: number; portLevels?: number; factoryLevels?: number;
     defensePosts?: number; samLaunchers?: number; silos?: number;
   };

@@ -38,11 +38,11 @@ it("reads the own team and its theme color without querying any other player's t
 it("reads the own cached territory color after v0.35 moved themes out of config", () => {
   const forbidden = vi.fn(() => { throw Error("Other player color"); });
   const me = { team: () => "Teal", territoryColor: () => ({ toHex: () => "#009e73" }) };
-  host.game = { myPlayer: () => me, config: () => ({}), playerViews: forbidden };
+  host.game = { myPlayer: () => me, config: () => ({}), playerViews: () => [] };
   expect(read().me).toMatchObject({ team: "Teal", teamColor: "#009e73" });
   expect(forbidden).not.toHaveBeenCalled();
 });
-it("extracts own getters, serializes BigInt and never enumerates other players outside spawn", () => {
+it("extracts own getters, serializes BigInt and keeps other numeric getters private outside spawn", () => {
   const forbidden = vi.fn(() => { throw new Error("Forbidden getter"); });
   const me = {
     clientID: () => "own-client", profile: () => ({ publicID: "AbCd1234" }),
@@ -55,7 +55,7 @@ it("extracts own getters, serializes BigInt and never enumerates other players o
   };
   const config = { maxTroops: vi.fn(() => 364227.77), troopIncreaseRate: vi.fn(() => 887.97),
     gameConfig: () => ({ gameMap: "World", gameMapSize: "Compact", gameMode: "Free For All", gameType: "Singleplayer", difficulty: "Easy", bots: 400 }) };
-  host.game = { gameID: () => "game123", ticks: () => 461, inSpawnPhase: () => false, gameOver: () => false, myPlayer: () => me, config: () => config, players: forbidden, playerViews: forbidden, ownerID: forbidden, hasOwner: forbidden, terrainByte: forbidden, nationPositions: forbidden };
+  host.game = { gameID: () => "game123", ticks: () => 461, inSpawnPhase: () => false, gameOver: () => false, myPlayer: () => me, config: () => config, players: forbidden, playerViews: () => [], ownerID: forbidden, hasOwner: forbidden, terrainByte: forbidden, nationPositions: forbidden };
   host.attackRatio = 0.2;
   const inGame = read();
   expect(inGame.gameId).toBe("game123");
@@ -73,7 +73,7 @@ it("extracts own getters, serializes BigInt and never enumerates other players o
   expect(me.totalUnitLevels.mock.calls.map(c => c[0])).toEqual(["City", "Port", "Factory", "Defense Post", "SAM Launcher", "Missile Silo"]);
   expect(forbidden).not.toHaveBeenCalled();
 });
-it("reads only landed spawn coordinates, excludes self, and stops enumeration after spawn", () => {
+it("reads only landed spawn coordinates, excludes self, and stops position reads after spawn", () => {
   const forbidden = vi.fn(() => { throw Error("Not a spawn position"); });
   const position = vi.fn(() => ({ x: 120, y: 80, name: "must not leave page" }));
   const other = { isAlive: () => true, nameLocation: position, troops: forbidden, gold: forbidden, name: forbidden, alliances: forbidden, clientID: forbidden };
@@ -96,7 +96,7 @@ it("reads only landed spawn coordinates, excludes self, and stops enumeration af
   spawning = false; expect(read().spawnHeat).toBeUndefined();
   spawning = true; rankedType = "ffa"; expect(read().spawnHeat).toBeUndefined();
   rankedType = undefined; replay = true; expect(read().spawnHeat).toBeUndefined();
-  expect(playerViews).toHaveBeenCalledTimes(calls); expect(forbidden).not.toHaveBeenCalled();
+  expect(playerViews).toHaveBeenCalledTimes(calls + 1); expect(position).toHaveBeenCalledTimes(3); expect(forbidden).not.toHaveBeenCalled();
 });
 it("reads v0.35 ranked, replay, land tiles and alliance fields", () => {
   const config = { gameConfig: () => ({ gameMap: "Europe", gameMode: "Free For All", gameType: "Public", rankedType: "ffa", playerTeams: undefined, infiniteGold: false }), isReplay: () => true };
@@ -161,4 +161,45 @@ it("parses only rendered leaderboard rows, excluding hidden/offscreen rows and c
   body.children[0]!.children[1]!.textContent = "QX\n Tidewalker";
   host.game = { myPlayer: () => ({ name: () => "Tidewalker", displayName: () => "[QX] Tidewalker", clanTag: () => "QX" }) };
   expect(read().leaderboard?.[0]).toMatchObject({ rank: 20, isMe: true });
+});
+
+it("outside spawn reads only ally display names and requests, never restricted matches", () => {
+  const forbidden = vi.fn(() => { throw Error("Forbidden getter"); });
+  const me = { alliances: () => [{ other: "p7", expiresAt: 600 }], incomingAttacks: () => [{ attackerID: 7, troops: 13000 }] };
+  const requester = { displayName: () => "Ember", id: () => "p7", smallID: () => 7, isRequestingAllianceWith: (x: unknown) => x === me, troops: forbidden, gold: forbidden, name: forbidden, numTilesOwned: forbidden, alliances: forbidden, clientID: forbidden };
+  const playerViews = vi.fn(() => [me, requester, { isRequestingAllianceWith: () => false, displayName: forbidden }]);
+  const config: { rankedType?: string; gameType?: string } = {};
+  let replay = false;
+  host.game = { ticks: () => 461, myPlayer: () => me, player: () => requester, playerViews, config: () => ({ gameConfig: () => config, isReplay: () => replay }) };
+  expect(read().me?.alliances).toEqual([{ with: "ally:p7", name: "Ember", expiresInTicks: 139 }]);
+  expect(read().me?.allianceRequests).toEqual([{ from: "ally:p7", name: "Ember", atWar: true }]);
+  for (const mode of ["ranked", "legacy", "replay"]) {
+    config.rankedType = mode === "ranked" ? "ffa" : undefined; config.gameType = mode === "legacy" ? "Ranked" : undefined; replay = mode === "replay";
+    playerViews.mockClear();
+    expect(read().me?.alliances).toEqual([{ with: "Alliance 1", expiresInTicks: 139 }]);
+    expect(read().me?.allianceRequests).toBeUndefined(); expect(playerViews).not.toHaveBeenCalled();
+  }
+  expect(forbidden).not.toHaveBeenCalled();
+});
+// Upstream src/client/hud/layers/WinModal.ts: <win-modal> renders in light DOM; its first child div is the box.
+const endModal = (kind: "win" | "eliminated" | "hidden" | "detached" | "lookalike") => {
+  const doc = dom.window.document;
+  host.game = { ticks: () => 9000, gameOver: () => kind === "win", myPlayer: () => ({}) };
+  Object.defineProperty(dom.window, "innerWidth", { value: 1600, configurable: true });
+  Object.defineProperty(dom.window, "innerHeight", { value: 900, configurable: true });
+  const box = doc.createElement("div"); box.textContent = kind === "eliminated" ? "You died" : "You won!";
+  const rect = { x: 600, y: 200, left: 600, top: 200, right: 1000, bottom: 500, width: 400, height: 300, toJSON() {} };
+  box.getBoundingClientRect = () => rect; box.getClientRects = () => [rect] as unknown as DOMRectList;
+  if (kind === "lookalike") { doc.body.append(box); return; }
+  const modal = Object.assign(doc.createElement("win-modal"), { isVisible: kind !== "hidden" });
+  modal.append(box);
+  if (kind !== "detached") doc.body.append(modal);
+};
+it.each(["win", "eliminated"] as const)("reads the visible %s end screen box and its viewport", kind => {
+  endModal(kind);
+  expect(read().endScreen).toEqual({ visible: true, rect: { x: 600, y: 200, width: 400, height: 300 }, viewport: { width: 1600, height: 900 } });
+});
+it.each(["hidden", "detached", "lookalike"] as const)("reports no visible end screen for a %s dialog", kind => {
+  endModal(kind);
+  expect(read().endScreen?.visible ?? false).toBe(false); expect(read().endScreen?.rect).toBeUndefined();
 });

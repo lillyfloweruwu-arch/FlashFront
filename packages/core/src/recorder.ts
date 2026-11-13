@@ -3,6 +3,8 @@ import { RULES_VERSION, sweetSpotFraction, TICKS_PER_SECOND } from "./mechanics"
 import type { RawExtract } from "./raw";
 import type { GameSnapshot } from "./types";
 import type { DecisionKind } from "./decisions";
+import { NUDGE_KINDS, type NudgeKind } from "./nudge-lines";
+import type { NudgeOutcome } from "./nudges";
 import { GoalTracker, tradeShare, tradeTotal, type GoalProgress, type PracticeGoal } from "./habits";
 
 export interface Sample {
@@ -18,7 +20,9 @@ export type MatchEvent =
   | { kind: "build"; t: number; unit: string; levels: number }
   /** 0.2.0: a moment the player marked with the bookmark hotkey, with an optional after-match note. */
   | { kind: "bookmark"; t: number; note?: string }
-  | { kind: "decision"; t: number; decisionKind: DecisionKind; text: string };
+  | { kind: "decision"; t: number; decisionKind: DecisionKind; text: string }
+  /** 0.3.0: how a coach nudge ended. Game Review shows ignored ones (sub-plan D). */
+  | { kind: "nudge"; t: number; nudgeKind: NudgeKind; outcome: NudgeOutcome };
 export interface RecordedMatch {
   version: 1; recordedBy: "FlashFront"; rulesVersion: string; gameVersion?: string;
   gameId?: string; map: string; mode: string; type?: string; difficulty?: string; rankedType?: string;
@@ -205,6 +209,16 @@ export class MatchRecorder {
     this.match!.samples.push(s); this.budget += JSON.stringify(s).length * 3;
   }
   /** Uses the same recording-relative clock as samples and push events. */
+  recordNudge(gameId: unknown, tick: unknown, kind: unknown, outcome: unknown): void {
+    const m = this.match;
+    if (!m || this.completed || !this.previous || gameId !== m.gameId || typeof tick !== "number" || !Number.isFinite(tick)
+      || tick < this.startTick || tick > this.previous.tick || this.previous.tick - tick > 20 || this.now() - this.lastData > 2000
+      || m.rankedType || m.type === "Ranked" || m.mode === "Ranked") return;
+    if (typeof kind !== "string" || !(NUDGE_KINDS as readonly string[]).includes(kind) || (outcome !== "cleared" && outcome !== "ignored")) return;
+    const event: MatchEvent = { kind: "nudge", t: (tick - this.startTick) / TICKS_PER_SECOND, nudgeKind: kind as NudgeKind, outcome };
+    m.events.push(event); this.budget += JSON.stringify(event).length * 3;
+    this.append(this.previous);
+  }
   recordDecision(gameId: unknown, tick: unknown, decision: unknown): void {
     const m = this.match;
     if (!m || this.completed || !this.previous || gameId !== m.gameId || typeof tick !== "number" || !Number.isFinite(tick)

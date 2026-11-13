@@ -1,5 +1,23 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_SETTINGS, isGameProcess, overlayPlacement, overlayShape, overlayVisible, parseSettings } from "./shared";
+import { cursorTrackable, DEFAULT_SETTINGS, isGameProcess, nudgeBounds, nudgesAllowed, overlayPlacement, overlayShape, overlayVisible, parseSettings, weakPc, resolveLite } from "./shared";
+it("flags few cores or low memory as weak, never an 8 GB PC or unknown numbers", () => {
+  const GiB = 2 ** 30;
+  expect(weakPc({ cpus: 4, totalMemBytes: 16 * GiB })).toBe(true);
+  expect(weakPc({ cpus: 8, totalMemBytes: 6 * GiB })).toBe(true);
+  expect(weakPc({ cpus: 8, totalMemBytes: 7.8 * GiB })).toBe(false);
+  expect(weakPc({ cpus: 8, totalMemBytes: 7 * GiB })).toBe(false);
+  expect(weakPc({ cpus: 0, totalMemBytes: 16 * GiB })).toBe(false);
+  expect(weakPc({ cpus: 8, totalMemBytes: 0 })).toBe(false);
+  expect(resolveLite("auto", { cpus: 2, totalMemBytes: 16 * GiB })).toBe(true);
+  expect(resolveLite("auto", { cpus: 8, totalMemBytes: 16 * GiB })).toBe(false);
+  expect(resolveLite("off", { cpus: 2, totalMemBytes: 4 * GiB })).toBe(false);
+  expect(resolveLite("on", { cpus: 16, totalMemBytes: 64 * GiB })).toBe(true);
+});
+it("old settings files load with Lite on Auto and junk is refused", () => {
+  const { liteMode, ...old } = DEFAULT_SETTINGS;
+  expect(parseSettings(old).liteMode).toBe("auto");
+  for (const liteMode of ["fast", null, 1]) expect(() => parseSettings({ ...DEFAULT_SETTINGS, liteMode })).toThrow("Choose Auto, On or Off for Lite mode.");
+});
 it("defaults legacy snooze settings and validates all four shortcuts without reserving the old snooze key", () => {
   const { snoozeHotkey: _s, ...legacy } = DEFAULT_SETTINGS;
   expect(DEFAULT_SETTINGS.snoozeHotkey).toBe("Ctrl+Alt+S");
@@ -140,4 +158,73 @@ it("keeps an optional last-seen launcher version for What's new and rejects malf
   for (const lastSeenVersion of ["", "v0.2.1", "0.2", "latest", 21, null, "0.2.1/../x"]) {
     expect(() => parseSettings({ ...DEFAULT_SETTINGS, lastSeenVersion })).toThrow();
   }
+});
+
+describe("coach nudges setting", () => {
+  it("defaults on, parses an older file as on, and rejects a non-boolean", () => {
+    expect(DEFAULT_SETTINGS.nudges).toBe(true);
+    expect(parseSettings({ ...DEFAULT_SETTINGS, nudges: undefined }).nudges).toBe(true);
+    expect(parseSettings({ ...DEFAULT_SETTINGS, nudges: false }).nudges).toBe(false);
+    expect(() => parseSettings({ ...DEFAULT_SETTINGS, nudges: "yes" })).toThrow("Invalid nudges setting.");
+  });
+  it("nudges hide in ranked, replays, edit mode, with the setting off, and when a read is unverified", () => {
+    const verified = { growth: "verified", attack: "verified", build: "verified", trade: "paused", alliances: "verified", spawnHeat: "unavailable" } as const;
+    const allowed = { settings: DEFAULT_SETTINGS, raw: { inGame: true, visible: true }, health: verified, editing: false, hudEnabled: true, snapshot: { mode: "FFA" } };
+    expect(nudgesAllowed(allowed, true)).toBe(true);
+    expect(nudgesAllowed({ ...allowed, raw: { ...allowed.raw, game: { rankedType: "ffa" } } }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, raw: { ...allowed.raw, replay: true } }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, snapshot: { mode: "FFA", observer: "spectating" } }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, editing: true }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, settings: { ...DEFAULT_SETTINGS, nudges: false } }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, hudEnabled: false }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, health: { ...verified, alliances: "paused" } }, true)).toBe(false);
+    expect(nudgesAllowed({ ...allowed, health: undefined }, true)).toBe(false);
+    expect(nudgesAllowed(allowed, false)).toBe(false);
+  });
+});
+
+describe("cursor tag placement", () => {
+  it("the tag never covers the cursor and always stays inside the game", () => {
+    const game = { x: 100, y: 50, width: 1920, height: 1080 };
+    for (let cx = game.x; cx <= game.x + game.width; cx += 60) for (let cy = game.y; cy <= game.y + game.height; cy += 60) {
+      const { bounds } = nudgeBounds({ x: cx, y: cy }, game);
+      const covers = cx >= bounds.x && cx < bounds.x + bounds.width && cy >= bounds.y && cy < bounds.y + bounds.height;
+      expect(covers, `${cx},${cy}`).toBe(false);
+      expect(bounds.x).toBeGreaterThanOrEqual(game.x); expect(bounds.y).toBeGreaterThanOrEqual(game.y);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(game.x + game.width);
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(game.y + game.height);
+    }
+  });
+  it("flips at the bottom-right corner and parks centrally when the cursor is off the game", () => {
+    const game = { x: 0, y: 0, width: 1920, height: 1080 };
+    expect(nudgeBounds({ x: 1900, y: 1070 }, game).anchor).toBe("bottom-right");
+    expect(nudgeBounds({ x: 10, y: 10 }, game)).toEqual({ anchor: "top-left", bounds: { x: 34, y: 34, width: 340, height: 88 } });
+    expect(nudgeBounds({ x: 3000, y: 10 }, game)).toEqual({ anchor: "center", bounds: { x: 790, y: 841, width: 340, height: 88 } });
+    expect(nudgeBounds({ x: -500, y: 500 }, { x: -1920, y: 0, width: 1920, height: 1080 }).anchor).toBe("top-left");
+    expect(nudgeBounds({ x: 500, y: 500 }, { x: -1920, y: 0, width: 1920, height: 1080 }).bounds).toEqual({ x: -1130, y: 841, width: 340, height: 88 });
+  });
+});
+
+it("parks the tag when the cursor point can't be trusted (Linux Wayland)", () => {
+  const game = { x: 0, y: 0, width: 1920, height: 1080 };
+  expect(nudgeBounds(null, game)).toEqual({ anchor: "center", bounds: { x: 790, y: 841, width: 340, height: 88 } });
+  expect(cursorTrackable("linux", { XDG_SESSION_TYPE: "wayland" })).toBe(false);
+  expect(cursorTrackable("linux", { XDG_SESSION_TYPE: "x11" })).toBe(true);
+  expect(cursorTrackable("linux", {})).toBe(true);
+  expect(cursorTrackable("win32", { XDG_SESSION_TYPE: "wayland" })).toBe(true);
+});
+it("parses a saved stream layout, drops the removed Lobby widget and rejects bad values", () => {
+  expect(parseSettings(DEFAULT_SETTINGS).streamLayout).toBeUndefined();
+  expect(parseSettings({ ...DEFAULT_SETTINGS, streamLayout: { widgets: ["result", "lobby", "stats"], scale: 2, anchor: "br" } }).streamLayout)
+    .toEqual({ widgets: ["stats", "result"], scale: 2, anchor: "br" });
+  for (const streamLayout of [{ widgets: [], scale: 5, anchor: "tl" }, { widgets: ["nope"], scale: 1, anchor: "tl" }, { widgets: [], scale: 1, anchor: "middle" }])
+    expect(() => parseSettings({ ...DEFAULT_SETTINGS, streamLayout })).toThrow();
+});
+
+it("defaults visual effects to Full, accepts both choices and rejects invalid values", () => {
+  const { visualEffects, ...old } = DEFAULT_SETTINGS;
+  expect(visualEffects).toBe("full");
+  expect(parseSettings(old).visualEffects).toBe("full");
+  for (const visualEffects of ["full", "lite"] as const) expect(parseSettings({ ...old, visualEffects }).visualEffects).toBe(visualEffects);
+  for (const visualEffects of ["auto", "FULL", "", null, 1, true]) expect(() => parseSettings({ ...old, visualEffects })).toThrow("Choose Full or Lite for visual effects.");
 });

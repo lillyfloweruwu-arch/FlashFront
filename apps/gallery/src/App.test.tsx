@@ -46,16 +46,13 @@ function button(text: string) { const found = [...host.querySelectorAll("button"
 const click = async (element: HTMLElement) => { await act(async () => element.click()); };
 
 // Mock start shown as playing: no port yet (Trade hidden) and the spawn event ended with spawn (Field Reports hidden).
-const showClock = async () => { await click(button("Edit HUD")); await click(host.querySelector<HTMLButtonElement>('[aria-label="Show Match overview"]')!); await click(button("Finish editing")); };
-const VISIBLE_AT_START = ["gauge", "attack", "build", "alliances", "opening", "goal"];
-it("renders every route, sortable history, match details and not-found states without console errors", async () => {
+const showClock = async () => { expect(host.querySelector<HTMLElement>('[data-panel="clock"]')!.hidden).toBe(false); };
+const VISIBLE_AT_START = ["clock", "self", "gauge", "attack"];
+it("renders every route and not-found states without console errors, with no gallery-only stats", async () => {
   await mount(); expect(host.textContent).toContain("Read the field.");
-  await route("/stats"); expect(host.querySelectorAll("tbody tr")).toHaveLength(20);
-  await click(button("Placement")); expect(host.querySelector("tbody tr")!.textContent).toContain("#1");
-  await click(button("Placement")); expect(host.querySelector("tbody tr")!.textContent).not.toContain("#1 ");
-  await route("/stats/match/mock-42-1"); expect(host.textContent).toContain("Buildings constructed");
-  expect(host.querySelectorAll(".chart > svg")).toHaveLength(3);
-  await route("/stats/match/missing"); expect(host.textContent).toContain("Match not found");
+  expect(host.querySelector('a[href^="#/stats"]')).toBeNull();
+  await route("/stats"); expect(host.textContent).toContain("Page not found");
+  await route("/stats/match/mock-42-1"); expect(host.textContent).toContain("Page not found");
   await route("/unknown"); expect(host.textContent).toContain("Page not found");
 });
 
@@ -94,13 +91,12 @@ it("responds to simulation seed and speed controls", async () => {
   });
   await click(button("Apply seed"));
   expect(host.querySelector('[data-panel="clock"] .clock')!.textContent).toBe("0:00");
-  await route("/stats"); expect(host.querySelector("tbody a")!.getAttribute("href")).toBe("#/stats/match/mock-73-1");
 });
 
-it("selects and anchors OBS widgets, toggles transparent classes, and updates sparklines", async () => {
-  await mount("/stream"); expect(host.querySelectorAll("[data-widget]")).toHaveLength(5);
+it("selects and anchors OBS widgets, toggles transparent classes, and shows live stats", async () => {
+  await mount("/stream"); expect(host.querySelectorAll("[data-widget]")).toHaveLength(4);
   await act(async () => vi.advanceTimersByTime(1500));
-  expect(host.querySelector('[data-widget="stats"] .chart-line')!.getAttribute("d")).toContain("L");
+  expect(host.querySelector('[data-widget="stats"] .stream-stat-grid')!.textContent).toMatch(/Land.*Troops.*Gold.*Place/);
   await route("/stream/obs?widgets=card,top&scale=0.75&anchor=br");
   expect(host.querySelectorAll("[data-widget]")).toHaveLength(2);
   expect(host.querySelector<HTMLElement>(".stream-obs")!.style.transform).toBe("scale(0.75)");
@@ -108,17 +104,11 @@ it("selects and anchors OBS widgets, toggles transparent classes, and updates sp
   expect(document.body.classList.contains("obs-transparent")).toBe(true);
   expect(document.documentElement.classList.contains("obs-transparent")).toBe(true);
   expect(host.querySelector(".site-header")).toBeNull();
-  await route("/stats"); expect(document.body.classList.contains("obs-transparent")).toBe(false);
+  await route("/hud"); expect(document.body.classList.contains("obs-transparent")).toBe(false);
 });
 
-it("exposes keyboard chart tooltips and respects reduced motion for numbers", async () => {
-  await mount("/stats");
-  const svg = host.querySelector(".chart > svg")!;
-  await act(async () => svg.dispatchEvent(new FocusEvent("focusin", { bubbles: true })));
-  const previous = host.querySelector('[role="tooltip"]')!.textContent;
-  await act(async () => svg.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft", bubbles: true })));
-  expect(host.querySelector('[role="tooltip"]')!.textContent).not.toBe(previous);
-  await route("/hud"); await showClock(); await act(async () => vi.advanceTimersByTime(3000));
+it("respects reduced motion for numbers", async () => {
+  await mount("/hud"); await showClock(); await act(async () => vi.advanceTimersByTime(3000));
   expect(host.querySelector('[data-panel="clock"] .clock')!.textContent).toBe("0:03");
 });
 
@@ -134,6 +124,7 @@ it("toggles zone boxes and panel visibility and ignores stale v0-v3 layouts", as
   await click(toggle); expect(host.querySelectorAll("[data-game-zone]")).toHaveLength(6);
   await click(toggle); expect(host.querySelectorAll("[data-game-zone]")).toHaveLength(0);
   await click(button("Edit HUD"));
+  await click(host.querySelector<HTMLButtonElement>('[aria-label="Hide Match overview"]')!);
   await click(host.querySelector<HTMLButtonElement>('[aria-label="Show Match overview"]')!);
   await click(host.querySelector<HTMLButtonElement>('[aria-label="Hide Troop growth"]')!);
   await click(button("Finish editing"));
@@ -163,7 +154,7 @@ it("skips font loading on fresh nofonts HUD and removes fonts on route changes",
   await route("/stream"); expect(loadFonts).toHaveBeenCalledTimes(1);
   expect(document.querySelector('[data-flashfront-fonts]')).not.toBeNull();
   await route("/hud?nofonts=1"); expect(document.querySelector('[data-flashfront-fonts]')).toBeNull();
-  await route("/stats"); expect(loadFonts).toHaveBeenCalledTimes(2);
+  await route("/"); expect(loadFonts).toHaveBeenCalledTimes(2);
   expect(document.querySelector('[data-flashfront-fonts]')).not.toBeNull();
 });
 it("previews players landing and moving, fades, hides at spawn end and repeats", async () => {

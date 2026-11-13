@@ -1,16 +1,54 @@
-import { app, BrowserWindow, clipboard, dialog, globalShortcut, ipcMain, nativeImage, screen, shell } from "electron";
-import { readFile, writeFile, mkdir, rename, unlink } from "node:fs/promises";
+import { app, BrowserWindow, WebContentsView, clipboard, dialog, globalShortcut, ipcMain, nativeImage, protocol, screen, session, shell, systemPreferences } from "electron";
+import { readFile, writeFile, appendFile, mkdir, rename, unlink, lstat } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CdpDataSource, discover } from "@flashfront/cdp";
-import { InsightFeed, MatchRecorder, MAX_MATCH_BYTES, presetJson, spawnHeatActive, type RecordedMatch, type PlayerProfile } from "@flashfront/core";
+import { InsightFeed, MatchRecorder, MAX_MATCH_BYTES, NudgeEngine, gameReview, parseGameRecord, presetJson, spawnHeatActive, type RecordedMatch, type PlayerProfile } from "@flashfront/core";
 import { THEMES, type ThemeId } from "@flashfront/ui/themes";
-import { DEFAULT_SETTINGS, isGameProcess, launchOption, overlayPlacement, overlayVisible, releaseNotesUrl, restrictedMatch, type ShapeRect, parseSettings } from "../shared";
+import { cursorTrackable, DEFAULT_SETTINGS, isGameProcess, type ReviewResult, launchOption, NUDGE_WINDOW, nudgesAllowed, overlayPlacement, overlayVisible, releaseNotesUrl, restrictedMatch, type NudgeView, type ShapeRect, parseSettings, resolveLite, weakPc } from "../shared";
+import { readHardware } from "./hardware";
+import { NudgeSurface } from "./nudge-window";
+import { EndReviewSurface } from "./end-review";
 import { surfaceState } from "./surfaces";
 import { startObs } from "./obs";
 import { MatchFiles } from "./recorder";
-import { StatsApi, PublicIdResolver } from "./api";
+import type { LauncherDestination } from "../shared";
+
+/** Main owns routing validation; delivery waits for the React listener, not just page load. */
+export function createReviewNavigation(files: Pick<MatchFiles, "path">, send: (destination: LauncherDestination) => void, focus: () => void) {
+  let ready = false; let pending: LauncherDestination | undefined;
+  return {
+    reset() { ready = false; },
+    ready() { ready = true; if (pending) { const next = pending; pending = undefined; send(next); } },
+    async navigate(authorized: boolean, input: unknown) {
+      if (!authorized) throw new Error("Unauthorized navigation");
+      const d = input as LauncherDestination;
+      if (!d || (d.screen !== "review" && d.screen !== "training")) throw new Error("Invalid destination");
+      if (d.screen === "review") files.path(d.file);
+      else {
+        const r = d.request;
+        if (!r) throw new Error("Invalid Training request");
+        if (r.kind === "retry") {
+          files.path(r.file);
+          if (!Number.isSafeInteger(r.tick) || r.tick < 0 || !["allyDecision", "postsBeforePush", "sendSize"].includes(r.mistake)) throw new Error("Invalid retry");
+        } else if (r.kind !== "prepared" || typeof r.drillId !== "string" || !/^[a-zA-Z0-9_-]{1,100}$/.test(r.drillId)) throw new Error("Invalid drill");
+      }
+      pending = d; focus(); if (ready) { pending = undefined; send(d); }
+    },
+  };
+}
+import { StatsApi, PublicIdResolver, validGameId } from "./api";
+import { GameRecordCache } from "./gameRecords";
+import { loadTrainingMap, loadTrainingRecord, type TrainingDeps } from "./training";
+import { TrainingWindow, trainingNetworkAllowed, wireTrainingIpc } from "./training-window";
+import { createRecordDrillBuilder } from "./record-drill";
+import { RecordDrillRunner } from "./record-drill-runner";
+import { ReviewBoardController, wireReviewBoardIpc } from "./review-board";
+import { ReviewRunner } from "./review-runner";
+import { sourceMap } from "@flashfront/training-engine/protocol";
+import { DrillRefresher, DrillStore, refreshDrillReviews } from "./drills";
+import type { MistakeType } from "@flashfront/core";
 import { profileFromApi } from "../stats";
 import { LiveStats } from "./liveStats";
 import { createForegroundProbe } from "./foreground";
@@ -21,9 +59,19 @@ import { featureHealth, type PlatformState } from "./health";
 import { FEEDBACK_URL, supportReport } from "./support";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const smoke = process.env.FLASHFRONT_SMOKE_TEST === "1";
+const trainingTest = !app.isPackaged && process.env.FLASHFRONT_TRAINING_TEST === "1";
+const smoke = process.env.FLASHFRONT_SMOKE_TEST === "1" || trainingTest;
 let launcher: BrowserWindow;
+let trainingWindow: TrainingWindow | undefined;
+let reviewBoard: ReviewBoardController | undefined;
 let overlay: BrowserWindow;
+/** 0.3.0: the coach cursor tag, its own tiny click-through window. */
+let nudgeWindow: BrowserWindow | undefined;
+let nudgeSurface: NudgeSurface | undefined;
+/** 0.3.0: the compact Game Review card under OpenFront's end dialog. */
+let endWindow: BrowserWindow | undefined;
+let endReview: EndReviewSurface | undefined;
+const nudgeEngine = new NudgeEngine();
 let source: CdpDataSource;
 let obs: Awaited<ReturnType<typeof startObs>> | undefined;
 let boundsTimer: ReturnType<typeof setInterval>;
@@ -32,6 +80,7 @@ let boundsTimer: ReturnType<typeof setInterval>;
 const foregroundProbe = createForegroundProbe();
 let gameForeground: boolean | null = null;
 let foregroundTimer: ReturnType<typeof setInterval>;
+let foregroundWindow: unknown;
 // Panel rectangles reported by the overlay page; the transparent overlay window is sized to their box,
 // with solid unblurred panels, so the rest of the screen is the game (no full-screen composition).
 let panelRects: ShapeRect[] = [];
@@ -56,6 +105,7 @@ let insights = new InsightFeed();
 const liveStats = new LiveStats();
 const statsApi = new StatsApi(smoke ? async () => new Response("{}", { status: 503 }) : fetch);
 let matchFiles: MatchFiles;
+let gameRecords: GameRecordCache;
 let resolver: PublicIdResolver;
 let recordTimer: ReturnType<typeof setInterval>;
 let profile: PlayerProfile | undefined;
@@ -69,6 +119,12 @@ let supportPreview: string | undefined;
 const spawnAlerts = new SpawnAlerts(() => { if (!smoke) spawnAlert(launcher, { chime: state.settings.spawnChime }); });
 const spawnKey = watchSpawnKey(createKeyProbe(), held => { state.spawnHeatHeld = held; publish(); });
 const settingsPath = () => join(app.getPath("userData"), "settings.json");
+const hardware = readHardware();
+function applyLite(): void {
+  state.weakPc = weakPc(hardware);
+  state.lite = resolveLite(state.settings.liteMode, hardware);
+  source?.setLite(state.lite);
+}
 const devUrl = process.env.ELECTRON_RENDERER_URL;
 
 /** Window-control colors matching the launcher top bar (48 px, theme surface). */
@@ -99,7 +155,44 @@ let reviewQueue: Promise<unknown> = Promise.resolve();
 function queueReview<T>(operation: () => Promise<T>): Promise<T> {
   const next = reviewQueue.then(operation); reviewQueue = next.catch(() => {}); return next;
 }
-function matchesChanged() { if (launcher && !launcher.isDestroyed()) launcher.webContents.send("matches-changed"); }
+let refreshDrills: () => Promise<void> = async () => {};
+let refreshDrillsLater: () => void = () => {};
+function matchesChanged() { if (launcher && !launcher.isDestroyed()) launcher.webContents.send("matches-changed"); void refreshDrills().catch(() => {}); refreshDrillsLater(); }
+export function deleteRecordedMatch(files: MatchFiles, records: Pick<GameRecordCache, "forget">, file: string): Promise<void> {
+  return queueReview(async () => {
+    const { gameId } = await files.get(file);
+    await files.delete(file);
+    if (validGameId(gameId) && !(await files.list()).some(m => m.gameId === gameId)) await records.forget(gameId);
+  });
+}
+const reviews = new Map<string, ReviewResult>();
+/** Reads the recording and the cached public record only; neither file is written. Fetching stays outside the save queue. */
+export async function reviewRecordedMatch(files: MatchFiles, records: Pick<GameRecordCache, "ensure" | "read">, file: string, reserveFloorPct: number,
+  inMatch: () => boolean = () => state.raw?.inGame === true): Promise<ReviewResult> {
+  if (inMatch()) return { status: "waiting" };
+  const match = await files.get(file);
+  const key = `${file}
+${(await lstat(files.path(file))).mtimeMs}
+${reserveFloorPct}`;
+  if (inMatch()) return { status: "waiting" };
+  const memo = reviews.get(key); if (memo) return memo;
+  if (!validGameId(match.gameId)) return { status: "unavailable", reason: "noGameId" };
+  const status = await records.ensure(match.gameId);
+  if (inMatch()) return { status: "waiting" };
+  if (status.status !== "ready") return status;
+  const result = await queueReview(async (): Promise<ReviewResult> => {
+    if (inMatch()) return { status: "waiting" };
+    const body = await records.read(match.gameId!);
+    if (inMatch()) return { status: "waiting" };
+    const record = parseGameRecord(body);
+    if (!record || record.gameId !== match.gameId) return { status: "unavailable", reason: "invalid" };
+    try { return { status: "ready", review: gameReview(record, match, { reserveFloorPct }) }; }
+    catch (e) { if (e instanceof Error && e.message === "notInRecord") return { status: "unavailable", reason: "notInRecord" }; throw e; }
+  });
+  if (inMatch()) return { status: "waiting" };
+  if (result.status === "ready") { reviews.set(key, result); if (reviews.size > 20) reviews.delete(reviews.keys().next().value!); }
+  return result;
+}
 /** Validate through MatchFiles, then replace atomically so a failed write keeps the recording. */
 export function annotateMatch(files: MatchFiles, file: string, t: unknown, note: unknown): Promise<RecordedMatch> {
   return queueReview(async () => {
@@ -129,8 +222,9 @@ export async function saveSharePng(window: BrowserWindow, input: unknown): Promi
 function finished(match: RecordedMatch | undefined) {
   if (!match) return;
   liveStats.finish(match); publishObs(); resolver?.ended(match);
+  if (validGameId(match.gameId)) gameRecords?.afterMatch(match.gameId);
   if (!stopping && state.settings.publicId) void refreshProfile();
-  void queueReview(() => matchFiles.save(match)).then(matchesChanged).catch(e => error(`Recording could not be saved: ${String(e)}`));
+  void queueReview(() => matchFiles.save(match)).then(file => { endReview?.recorded(match.gameId, file); matchesChanged(); }).catch(e => error(`Recording could not be saved: ${String(e)}`));
 }
 
 function error(message: string) { if (state.errors.includes(message)) return; state.errors = [...state.errors.slice(-31), message]; publish(); }
@@ -146,13 +240,16 @@ function publish(geometryOnly = false) {
       overlay.setIgnoreMouseEvents(!state.editing, { forward: true });
       overlay.setFocusable(state.editing); lastFocusable = state.editing;
     }
-    if (!restricted() && overlayVisible(state, minimized, hasBounds, gameForeground)) {
+    if (!restricted() && !endReview?.hidesOverlays && overlayVisible(state, minimized, hasBounds, gameForeground)) {
       if (p) applyPlacement(p);
       else if (gameRect) { overlay.setBounds({ x: gameRect.x, y: gameRect.y, width: 1, height: 1 }); lastBounds = ""; }
-      if (!overlay.isVisible()) overlay.showInactive();
+      // showInactive keeps the old z-order slot, under OpenFront's topmost window: raise it as it appears.
+      if (!overlay.isVisible()) { overlay.showInactive(); overlay.moveTop(); nudgeSurface?.raise(); }
     }
     else if (overlay.isVisible()) { overlay.webContents.send("surface-active", false); overlay.hide(); }
   }
+  if (!nudgesOn()) { nudgeEngine.suspend(); nudgeSurface?.hide(); }
+  else nudgeSurface?.refresh();
   source?.setCameraHeld(state.spawnHeatHeld === true && !!overlay && !overlay.isDestroyed() && overlay.isVisible() && !restricted());
   for (const [window, surface] of [[launcher, "launcher"], [overlay, "overlay"]] as const) {
     if (window && !window.isDestroyed() && window.isVisible() && !window.isMinimized?.()) {
@@ -163,6 +260,9 @@ function publish(geometryOnly = false) {
 }
 function toggleHud() { state.hudEnabled = !state.hudEnabled; if (!state.hudEnabled) state.editing = false; publish(); }
 function restricted() { return restrictedMatch(state); }
+/** Use the effective Lite setting resolved for this PC. */
+const liteMode = () => state.lite === true;
+function nudgesOn() { return !endReview?.hidesOverlays && nudgesAllowed(state, overlayVisible(state, minimized, hasBounds, gameForeground)); }
 function toggleEdit() {
   if (!state.raw?.inGame || restricted()) return;
   state.editing = !state.editing; state.hudEnabled = true; publish();
@@ -184,8 +284,9 @@ function registerHotkeys() {
 function connect() {
   source?.stop();
   state.snapshot = null; state.raw = null; state.version = undefined; hasBounds = false; minimized = false; state.editing = false;
+  endReview?.observe(null, false, null);
   state.health = featureHealth(null); spawnKey.setActive(false);
-  source = new CdpDataSource(state.settings.port, smoke ? { discover: async () => { throw new Error("Fake closed port"); } } : {});
+  source = new CdpDataSource(state.settings.port, { lite: state.lite, ...(smoke ? { discover: async () => { throw new Error("Fake closed port"); } } : {}) });
   source.subscribeCamera(camera => {
     if (state.spawnHeatHeld === true && state.snapshot?.phase === "spawn" && !restricted() && overlay && !overlay.isDestroyed() && overlay.isVisible()) overlay.webContents.send("spawn-camera", camera);
   });
@@ -196,6 +297,9 @@ function connect() {
       panelRects = [];
     }
     state.raw = raw;
+    if (raw?.inGame) { trainingWindow?.close({ kind: "left" }); reviewBoard?.matchChanged(); }
+    // Before nudges and the overlay are decided: the end dialog hides them all, even while the review is pending.
+    endReview?.observe(raw, restrictedMatch({ raw, snapshot }), gameRect);
     state.version = raw?.gameVersion;
     state.health = featureHealth(raw, state.version);
     spawnAlerts.observe(raw);
@@ -209,6 +313,10 @@ function connect() {
     }
     if (state.health?.attack !== "verified" || state.health?.build !== "verified") insights = new InsightFeed();
     state.snapshot = snapshot ? { ...snapshot, events: state.health?.attack === "verified" && state.health?.build === "verified" ? insights.observe(snapshot) : [], practiceGoal: recorder.goalProgress } : null;
+    const step = nudgeEngine.observe(state.snapshot, Date.now() / 1000, { enabled: nudgesOn(), reserveFloor: state.settings.reserveFloor });
+    if (step.ended && state.snapshot) recorder.recordNudge(state.snapshot.gameId, state.snapshot.tick, step.ended.nudge.kind, step.ended.outcome);
+    if (step.current) nudgeSurface?.show(step.current.id, step.current.text, step.current.urgent, state.settings.theme);
+    else nudgeSurface?.hide();
     observing = false;
     publishObs(); publish();
   });
@@ -235,14 +343,14 @@ async function followBounds() {
     if (before !== JSON.stringify([hasBounds, minimized, gameRect, state.errors])) publish();
   } finally { readingBounds = false; }
 }
-async function load(window: BrowserWindow, surface: string) {
+async function load(window: BrowserWindow, surface: string, page = "index.html") {
   window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   window.webContents.on("will-navigate", event => event.preventDefault());
   window.webContents.on("preload-error", (_event, _path, err) => error(`Preload: ${err.message}`));
   window.webContents.on("render-process-gone", (_event, details) => error(`Renderer: ${details.reason}`));
   window.webContents.on("console-message", details => { if (details.level === "error") console.error("Renderer:", details.message); });
-  if (devUrl) { const url = new URL(devUrl); url.searchParams.set("surface", surface); await window.loadURL(url.href); }
-  else await window.loadFile(join(here, "../renderer/index.html"), { query: { surface } });
+  if (devUrl) { const url = new URL(page === "index.html" ? devUrl : `${devUrl.replace(/\/$/, "")}/${page}`); url.searchParams.set("surface", surface); await window.loadURL(url.href); }
+  else await window.loadFile(join(here, "../renderer", page), { query: { surface } });
 }
 async function launch() {
   if (state.launching) return;
@@ -264,15 +372,18 @@ async function launch() {
 
 // One data folder for dev and the installed app, so settings and match recordings carry over.
 app.setPath("userData", join(app.getPath("appData"), "@flashfront", "launcher"));
-if (smoke) app.setPath("userData", join(app.getPath("temp"), "flashfront-v3-smoke"));
+if (smoke) app.setPath("userData", join(app.getPath("temp"), trainingTest && /^[a-z0-9-]{1,40}$/.test(process.env.FLASHFRONT_TEST_PROFILE ?? "") ? `flashfront-test-${process.env.FLASHFRONT_TEST_PROFILE}` : "flashfront-v3-smoke"));
 if (!app.requestSingleInstanceLock()) app.quit();
 else {
+  protocol.registerSchemesAsPrivileged([{ scheme: "fftraining", privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true } }]);
   app.on("second-instance", () => { launcher?.show(); launcher?.focus(); });
   app.whenReady().then(async () => {
     if (process.platform === "win32") app.setAppUserModelId("com.flashfront.launcher");
     try { state.settings = parseSettings(JSON.parse(await readFile(settingsPath(), "utf8"))); }
     catch { /* First run or invalid settings: safe defaults. */ }
-    matchFiles = new MatchFiles(app.getPath("userData"));
+    applyLite();
+    matchFiles = new MatchFiles(app.getPath("userData"), gameId => gameRecords.forget(gameId));
+    gameRecords = new GameRecordCache(matchFiles.directory, statsApi, () => state.raw?.inGame === true);
     await matchFiles.retain();
     resolver = new PublicIdResolver(statsApi, () => state.settings.publicId, async id => {
       state.settings = { ...state.settings, publicId: id };
@@ -282,15 +393,39 @@ else {
     state.hudEnabled = !state.settings.startHidden;
     state.appVersion = app.getVersion();
     // No OS title bar or menu: the window controls sit inside the app's own top bar, colored to the theme.
-    launcher = new BrowserWindow({ width: 1100, height: 720, minWidth: 900, minHeight: 600, icon: join(here, "../../build/icon.png"), title: "FlashFront", backgroundColor: "#0A0A0B", show: false,
+    launcher = new BrowserWindow({ ...(trainingTest ? { x: 2000, y: 100 } : {}), width: 1100, height: 720, minWidth: 900, minHeight: 600, icon: join(here, "../../build/icon.png"), title: "FlashFront", backgroundColor: "#0A0A0B", show: false,
       titleBarStyle: "hidden", ...(process.platform === "darwin" ? {} : { titleBarOverlay: titleBarColors(state.settings.theme) }),
       webPreferences: { preload: join(here, "../preload/index.cjs"), contextIsolation: true, sandbox: true, nodeIntegration: false } });
     launcher.removeMenu();
+    const navigation = createReviewNavigation(matchFiles, destination => launcher.webContents.send("navigate", destination), () => { if (launcher.isMinimized()) launcher.restore(); launcher.show(); launcher.focus(); });
+    launcher.webContents.on("did-start-loading", () => navigation.reset());
+    ipcMain.on("navigation-ready", event => { if (event.sender === launcher.webContents && event.senderFrame === launcher.webContents.mainFrame) navigation.ready(); });
     const bounds = screen.getPrimaryDisplay().bounds;
     overlay = new BrowserWindow({ ...bounds, show: false, transparent: true, frame: false, alwaysOnTop: true, skipTaskbar: true, focusable: false, hasShadow: false,
       webPreferences: { preload: join(here, "../preload/index.cjs"), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
     overlay.setAlwaysOnTop(true, process.platform === "win32" ? "screen-saver" : "floating");
     overlay.setIgnoreMouseEvents(true, { forward: true });
+    nudgeWindow = new BrowserWindow({ width: NUDGE_WINDOW.width, height: NUDGE_WINDOW.height, show: false, transparent: true, frame: false, alwaysOnTop: true, skipTaskbar: true, focusable: false, hasShadow: false, resizable: false,
+      webPreferences: { preload: join(here, "../preload/index.cjs"), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
+    nudgeWindow.setAlwaysOnTop(true, process.platform === "win32" ? "screen-saver" : "floating");
+    nudgeWindow.setIgnoreMouseEvents(true);
+    const tag = nudgeWindow;
+    // getCursorScreenPoint and the game rect are both DIP: no scaling.
+    nudgeSurface = new NudgeSurface({
+      setBounds: bounds => tag.setBounds(bounds), showInactive: () => tag.showInactive(), hide: () => tag.hide(),
+      isVisible: () => tag.isVisible(), moveTop: () => tag.moveTop(),
+      send: (view: NudgeView | null) => { if (!tag.isDestroyed()) tag.webContents.send("nudge", view); },
+    }, cursorTrackable(process.platform, process.env) ? () => screen.getCursorScreenPoint() : () => null, () => gameRect, liteMode);
+    // Exactly the card's size, never fullscreen: clicks outside it reach the game. Non-focusable, so the game keeps focus.
+    endWindow = new BrowserWindow({ width: 420, height: 180, show: false, transparent: true, frame: false, alwaysOnTop: true, skipTaskbar: true, focusable: false, hasShadow: false, resizable: false,
+      webPreferences: { preload: join(here, "../preload/index.cjs"), contextIsolation: true, sandbox: true, nodeIntegration: false, backgroundThrottling: false } });
+    endWindow.setAlwaysOnTop(true, process.platform === "win32" ? "screen-saver" : "floating");
+    const card = endWindow;
+    endReview = new EndReviewSurface({
+      setBounds: bounds => card.setBounds(bounds), showInactive: () => card.showInactive(), hide: () => card.hide(),
+      isVisible: () => card.isVisible(), moveTop: () => card.moveTop(),
+      send: model => { if (!card.isDestroyed()) card.webContents.send("end-review", model && { ...model, theme: state.settings.theme, lite: liteMode() }); },
+    }, file => reviewRecordedMatch(matchFiles, gameRecords, file, state.settings.reserveFloor));
     launcher.on("show", () => publish());
     launcher.on("restore", () => publish());
     launcher.on("closed", () => app.quit());
@@ -349,23 +484,143 @@ else {
     });
     ipcMain.handle("matches-list", event => { authorized(event); return matchFiles.list(); });
     ipcMain.handle("matches-get", (event, file: string) => { authorized(event); return matchFiles.get(file); });
-    ipcMain.handle("matches-delete", async (event, file: string) => { authorized(event); await queueReview(() => matchFiles.delete(file)); matchesChanged(); });
+    ipcMain.handle("review-get", (event, file: string) => { authorized(event); return reviewRecordedMatch(matchFiles, gameRecords, file, state.settings.reserveFloor); });
+    ipcMain.handle("matches-delete", async (event, file: string) => { authorized(event); await deleteRecordedMatch(matchFiles, gameRecords, file); matchesChanged(); });
     ipcMain.handle("matches-annotate", async (event, file: string, t: unknown, note: unknown) => {
       authorized(event); const match = await annotateMatch(matchFiles, file, t, note); matchesChanged(); return match;
     });
     ipcMain.handle("share-save", (event, png: unknown) => { authorized(event); return saveSharePng(launcher, png); });
     ipcMain.handle("matches-show", async (event, file?: string) => {
       authorized(event);
-      if (file !== undefined) { await matchFiles.get(file); shell.showItemInFolder(matchFiles.path(file)); }
+      if (file !== undefined) { await matchFiles.get(file); await navigation.navigate(true, { screen: "review", file }); }
       else { await mkdir(matchFiles.directory, { recursive: true }); const message = await shell.openPath(matchFiles.directory); if (message) throw new Error(message); }
     });
     ipcMain.handle("stats-api", (event, path: string) => { authorized(event); if (typeof path !== "string") throw new Error("Invalid API path"); return statsApi.get(path); });
+    ipcMain.handle("end-review-action", async (event, kind: unknown) => {
+      if (!endWindow || event.sender !== endWindow.webContents || event.senderFrame !== endWindow.webContents.mainFrame) throw new Error("Card-only action");
+      if (kind !== "full" && kind !== "retry") throw new Error("Invalid card action");
+      const destination = endReview?.action(kind);
+      if (destination) await navigation.navigate(true, destination);
+    });
+    ipcMain.on("end-review-height", (event, height: unknown) => {
+      if (endWindow && event.sender === endWindow.webContents && typeof height === "number") endReview?.measured(height);
+    });
+    ipcMain.handle("training-show", async (event, request: unknown) => { authorized(event); await navigation.navigate(true, { screen: "training", request }); });
+    // Training only: the launcher's main frame asks for one record or one map; nothing is preloaded.
+    let trainingDeps: TrainingDeps | undefined;
+    const training = (): TrainingDeps => trainingDeps ??= {
+      files: matchFiles, records: gameRecords, inMatch: () => state.raw?.inGame === true,
+      manifest: async () => JSON.parse(await readFile(join(app.getAppPath(), app.isPackaged ? "out/renderer/training/engine-manifest.json" : "resources/training/engine-manifest.json"), "utf8")),
+      mapsDir: app.isPackaged ? join(process.resourcesPath, "training/maps") : join(app.getAppPath(), "build/training-maps"),
+      cacheDir: join(app.getPath("userData"), "training-maps"),
+      moments: async file => { const r = await reviewRecordedMatch(matchFiles, gameRecords, file, state.settings.reserveFloor); return r.status === "ready" ? r.review.keyMoments : undefined; },
+    };
+    // Today's drill: a saved pick. Review costs refresh outside a match, one refresh at a time: at start, after a
+    // recording is saved or deleted (and again later, once OpenFront has published the new game's record), and
+    // when the reserve floor changes.
+    const drills = new DrillStore(join(app.getPath("userData"), "training-progress.json"));
+    const trainingDev = !!process.env.ELECTRON_RENDERER_URL;
+    const recordDrillRunner = new RecordDrillRunner();
+    trainingWindow = new TrainingWindow({
+      createWindow: options => new BrowserWindow(trainingTest ? { ...options, show: false, fullscreen: false, focusable: false } : options), bounds: () => screen.getDisplayMatching(launcher.getBounds()).bounds,
+      preload: join(here, "../preload/training.cjs"), rendererDir: join(here, "../renderer"),
+      drillsDir: join(app.getAppPath(), app.isPackaged ? "out/renderer/training/drills/client" : "resources/training/drills/client"),
+      dev: trainingDev, training: training(), drills,
+      retry: async (request, signal) => {
+        const source = await loadTrainingRecord(training(), request.file, request);
+        if (signal.aborted) return { status: "unavailable", reason: "cancelled" };
+        if (source.status !== "ready") return source;
+        return createRecordDrillBuilder({ signal, loadMap: (id, size) => loadTrainingMap(training(), id, size), reserveFloorPct: state.settings.reserveFloor, build: input => recordDrillRunner.run(input) })(source.value.record, source.value.ownClientId, request.tick, request.mistake);
+      },
+      cancelPending: () => recordDrillRunner.stop(),
+      preferences: () => ({ lite: state.lite === true, reducedMotion: state.settings.visualEffects === "lite" || systemPreferences.getAnimationSettings().prefersReducedMotion }),
+      ended: (request, outcome) => { if (!launcher.isDestroyed()) launcher.webContents.send("training-ended", request, outcome); },
+      log: cause => { console.error(cause); void appendFile(join(app.getPath("userData"), "training.log"), `${new Date().toISOString()} ${cause}\n`).catch(() => {}); },
+    });
+    const trainingSession = session.fromPartition("persist:training");
+    trainingSession.protocol.handle("fftraining", request => trainingWindow!.serve(request.url));
+    trainingSession.webRequest.onBeforeRequest((details, callback) => callback({ cancel: !trainingNetworkAllowed(details.url, trainingDev) }));
+    trainingSession.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
+    trainingSession.setPermissionCheckHandler(() => false);
+    trainingSession.on("will-download", event => event.preventDefault());
+    wireTrainingIpc(ipcMain, trainingWindow, () => launcher);
+    const reviewRunner = new ReviewRunner(join(here, "review.worker.js"));
+    const reviewMaps = new Map<string, string>();
+    let reviewGeneration = 0;
+    reviewBoard = new ReviewBoardController({
+      createView: options => new WebContentsView(options), launcher: () => launcher,
+      preload: join(here, "../preload/review.cjs"), dev: trainingDev,
+      inMatch: () => state.raw?.inGame === true,
+      prepare: async file => {
+        const generation = reviewGeneration;
+        const stale = () => generation !== reviewGeneration || state.raw?.inGame === true;
+        try {
+          const match = await matchFiles.get(file);
+          if (!match.gameId || !match.me.clientId) return { status: "unavailable", reason: "missingRecord" };
+          const record = await gameRecords.read(match.gameId);
+          if (stale()) return { status: "unavailable", reason: "cancelled" };
+          if (!record) return { status: "unavailable", reason: "missingRecord" };
+          const spec = sourceMap({ kind: "record", record, ownClientId: match.me.clientId, startTick: 0 });
+          if (!spec) return { status: "unavailable", reason: "invalidRecord" };
+          const map = await loadTrainingMap(training(), spec.mapId, spec.mapSize);
+          if (stale()) return { status: "unavailable", reason: "cancelled" };
+          if (map.status !== "ready") return map;
+          const manifest = await training().manifest();
+          if (stale()) return { status: "unavailable", reason: "cancelled" };
+          const entry = manifest.maps.find(m => m.id === spec.mapId);
+          if (!entry || !/^[a-z0-9_-]+$/.test(entry.key) || !/^[a-zA-Z0-9_-]+$/.test(manifest.upstream.commit)) return { status: "unavailable", reason: "missingMap" };
+          reviewMaps.clear();
+          for (const name of spec.mapSize === "Normal" ? ["manifest.json", "map.bin", "map4x.bin"] : ["manifest.json", "map4x.bin", "map16x.bin"]) reviewMaps.set(`maps/${entry.key}/${name}`, join(training().cacheDir, manifest.upstream.commit, entry.key, name));
+          return reviewRunner.start({ record, ownClientId: match.me.clientId, map: map.value, tick: 0 });
+        } catch { return { status: "unavailable", reason: "invalidRecord" }; }
+      },
+      seek: tick => reviewRunner.seek(tick),
+      cancel: () => { ++reviewGeneration; reviewRunner.close(); reviewMaps.clear(); },
+      status: value => { if (!launcher.isDestroyed()) launcher.webContents.send("review-board-status", value); },
+      step: direction => { if (!launcher.isDestroyed()) launcher.webContents.send("review-board-step", direction); },
+    });
+    const reviewSession = session.fromPartition("persist:review");
+    reviewSession.protocol.handle("fftraining", request => trainingWindow!.serve(request.url, reviewMaps));
+    reviewSession.webRequest.onBeforeRequest((details, callback) => callback({ cancel: !trainingNetworkAllowed(details.url, trainingDev) }));
+    reviewSession.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
+    reviewSession.setPermissionCheckHandler(() => false);
+    reviewSession.on("will-download", event => event.preventDefault());
+    wireReviewBoardIpc(ipcMain, reviewBoard, () => launcher);
+    launcher.on("close", () => reviewBoard?.close());
+    app.on("before-quit", () => reviewBoard?.close());
+    launcher.on("closed", () => trainingWindow?.close({ kind: "left" }));
+    app.on("before-quit", () => trainingWindow?.close({ kind: "left" }));
+    const refresher = new DrillRefresher(drills);
+    refreshDrills = () => refresher.run(async () => refreshDrillReviews(await matchFiles.list(), f => reviewRecordedMatch(matchFiles, gameRecords, f, state.settings.reserveFloor), () => state.raw?.inGame === true));
+    refreshDrillsLater = () => { for (const minutes of [3, 10]) setTimeout(() => void refreshDrills().catch(() => {}), minutes * 60_000).unref?.(); };
+    void refreshDrills().catch(() => {});
+    ipcMain.handle("drill-today", event => { authorized(event); return drills.today(); });
+    ipcMain.handle("drill-progress", event => { authorized(event); return drills.getProgress(); });
+    ipcMain.handle("training-open-log", async event => {
+      authorized(event);
+      const path = join(app.getPath("userData"), "training.log");
+      await writeFile(path, "FlashFront Training diagnostics\nIf Training fails to start, use Settings > About > Support report for system details.\n", { flag: "a" });
+      const error = await shell.openPath(path); if (error) throw new Error(error);
+    });
+    ipcMain.handle("drill-complete", (event, id: unknown) => { authorized(event); return drills.complete(String(id)); });
+    ipcMain.handle("drill-visit", (event, id: unknown) => { authorized(event); return drills.recordVisit(String(id)); });
+    ipcMain.handle("training-record", (event, file: unknown, retry: unknown) => {
+      authorized(event);
+      const r = retry as { tick?: unknown; mistake?: unknown } | undefined;
+      const moment = r && typeof r.tick === "number" && Number.isInteger(r.tick) && (r.mistake === "allyDecision" || r.mistake === "postsBeforePush" || r.mistake === "sendSize") ? { tick: r.tick, mistake: r.mistake as MistakeType } : undefined;
+      if (retry !== undefined && !moment) throw new Error("Invalid retry moment");
+      return loadTrainingRecord(training(), String(file), moment);
+    });
+    ipcMain.handle("training-map", (event, mapId: unknown, mapSize: unknown) => { authorized(event); return loadTrainingMap(training(), String(mapId), String(mapSize)); });
     ipcMain.handle("settings", async (event, input: unknown) => {
       authorized(event);
       const next = parseSettings(input);
       const changedPort = next.port !== state.settings.port;
       const changedProfile = next.publicId !== state.settings.publicId;
+      const changedFloor = next.reserveFloor !== state.settings.reserveFloor;
       state.settings = next;
+      if (changedFloor) void refreshDrills().catch(() => {});
+      applyLite();
       if (process.platform !== "darwin") launcher?.setTitleBarOverlay(titleBarColors(next.theme));
       await saveSettingsFile();
       if (changedProfile) void refreshProfile();
@@ -375,16 +630,16 @@ else {
       publishObs();
       publish();
     });
-    await Promise.all([load(launcher, "launcher"), load(overlay, "overlay")]);
-    launcher.show();
+    await Promise.all([load(launcher, "launcher"), load(overlay, "overlay"), load(nudgeWindow, "nudge", "nudge.html"), load(endWindow, "end-review", "end-review.html")]);
+    if (!trainingTest) launcher.show();
     if (app.isPackaged && !smoke) {
       // Import/check errors remain silent and cannot delay the launcher or game connection.
       void import("electron-updater").then(module => {
         if (!stopping) updater = startUpdater(module.default.autoUpdater, update => { state.update = update; publish(); });
       }).catch(() => console.warn("FlashFront updater unavailable."));
     }
-    try { obs = await startObs({ rendererDir: join(here, "../renderer"), devUrl, api: statsApi }); }
-    catch (e) { error(`OBS endpoint unavailable: ${String(e)}`); }
+    try { obs = await startObs({ rendererDir: join(here, "../renderer"), devUrl, api: statsApi, ...(trainingTest ? { port: 0 } : {}) }); }
+    catch (e) { console.error("OBS server", e); error("Stream connection unavailable. Close any other FlashFront copy, then restart FlashFront."); }
     registerHotkeys(); connect();
     void refreshProfile();
     recordTimer = setInterval(() => {
@@ -396,8 +651,12 @@ else {
       let next: boolean | null = null;
       try { const exe = foregroundProbe(); next = exe === null ? null : isGameProcess(exe); } catch { next = null; }
       if (next !== gameForeground) { gameForeground = next; publish(); }
+      // OpenFront's windows are topmost too: activating one (live 2026-10-23, 0.2.2 as well) lifts it over the HUD.
+      // Raise only when the foreground window changes; z-order only, the overlay never takes focus.
+      const window = foregroundProbe.window;
+      if (window !== foregroundWindow) { foregroundWindow = window; if (next && overlay.isVisible()) { overlay.moveTop(); nudgeSurface?.raise(); } }
     }, 250);
-    if (smoke) {
+    if (smoke && !trainingTest) {
       const { smokeCheck } = await import("./smoke");
       await smokeCheck(launcher, overlay, () => state);
       app.quit();
@@ -407,10 +666,13 @@ else {
   app.on("before-quit", event => {
     if (stopping) return;
     event.preventDefault(); stopping = true;
-    resolver?.stop(); spawnKey.stop(); updater?.stop(); clearInterval(recordTimer); clearInterval(boundsTimer); clearInterval(foregroundTimer); globalShortcut.unregisterAll(); source?.stop();
+    resolver?.stop(); gameRecords?.stop(); spawnKey.stop(); updater?.stop(); clearInterval(recordTimer); clearInterval(boundsTimer); clearInterval(foregroundTimer); globalShortcut.unregisterAll(); source?.stop();
     finished(recorder.finish());
     void Promise.all([reviewQueue, matchFiles?.flush(), settingsQueue, obs?.close()]).finally(() => {
       if (overlay && !overlay.isDestroyed()) overlay.destroy();
+      nudgeSurface?.dispose();
+      if (nudgeWindow && !nudgeWindow.isDestroyed()) nudgeWindow.destroy();
+      if (endWindow && !endWindow.isDestroyed()) endWindow.destroy();
       if (restarting) updater?.restart();
       app.quit();
     });

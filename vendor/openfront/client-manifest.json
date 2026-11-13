@@ -1,0 +1,3495 @@
+{
+ "upstream": {
+  "repo": "https://github.com/openfrontio/OpenFrontIO",
+  "tag": "v0.35.4",
+  "commit": "14ba82badb1e945ef2e758999238339404fdb788"
+ },
+ "sourceFiles": [
+  {
+   "path": "packages/engine-api/src/worker/WorkerMessages.ts",
+   "bytes": 6875,
+   "sha256": "e9cce540a479280b0e5d15fbe4a3db887302328c182ef037b6e05d405c04def1"
+  },
+  {
+   "path": "packages/engine/src/worker/Worker.worker.ts",
+   "bytes": 12338,
+   "sha256": "811dfd2dc9705fd36fa57412a0a0e17d05122ad6f6ef17e006a31e10e8007f3a"
+  },
+  {
+   "path": "packages/shared/src/AnonNames.ts",
+   "bytes": 5255,
+   "sha256": "544084f8be06d70c368bab586e769aadb217c534091a0a280c1afb2f54a8373e"
+  },
+  {
+   "path": "packages/shared/src/ApiSchemas.ts",
+   "bytes": 62950,
+   "sha256": "f01ab86df6a155bd051d566cbf0823601a4ddf57cb5e2e9dd8ae42ac23e7c07c"
+  },
+  {
+   "path": "packages/shared/src/AssetPaths.ts",
+   "bytes": 2195,
+   "sha256": "dace064f4579db17664be6606e826f7d0569d49b11bfbe4029aed37eeccb4a5b"
+  },
+  {
+   "path": "packages/shared/src/AssetUrls.ts",
+   "bytes": 2028,
+   "sha256": "2d59d592c800542bd1fa6c962e59320a8b3dcffe347cdfbef1297e596b88d03f"
+  },
+  {
+   "path": "packages/shared/src/Base64.ts",
+   "bytes": 1084,
+   "sha256": "b51d86a7422e0d9594d2ef05fad5e48844c77cd5fce02aa2d4d52bda7d7d0d6c"
+  },
+  {
+   "path": "packages/shared/src/ClanApiSchemas.ts",
+   "bytes": 12616,
+   "sha256": "313c7ec3336b3a7c809b8bcb09b4ef2d6fd8d142636ac99bd525bedb343bf4fc"
+  },
+  {
+   "path": "packages/shared/src/CloseCodes.ts",
+   "bytes": 2415,
+   "sha256": "93ef118c0634e32c7049c332304fd1daa3c097c6806b3f45a978aec0dd7b2191"
+  },
+  {
+   "path": "packages/shared/src/ClusterConfig.ts",
+   "bytes": 2261,
+   "sha256": "b2b1313d93b12b23a4553583b26ba6b6d1943740a846d036456a6864496cb994"
+  },
+  {
+   "path": "packages/shared/src/CosmeticSchemas.ts",
+   "bytes": 24476,
+   "sha256": "85bc046601705867c182b70c5d9e52cf85c513d4d31fa675c4af07c16292095a"
+  },
+  {
+   "path": "packages/shared/src/EventBus.ts",
+   "bytes": 1196,
+   "sha256": "0da2816b6a9fef83d4c7e19eaa0bd2c4e57210ccee00334eeaed5d7a1b7a8749"
+  },
+  {
+   "path": "packages/shared/src/FetchGameMapLoader.ts",
+   "bytes": 2799,
+   "sha256": "01eaabf11a36e1fa376a697ff1a2975d8987b2b7b3a935d52756e41c57d80bc3"
+  },
+  {
+   "path": "packages/shared/src/GameMapLoader.ts",
+   "bytes": 1773,
+   "sha256": "4efd153fba8161dee367de1efe910f5c43c4afd724bbaec1145aaae9a3df246c"
+  },
+  {
+   "path": "packages/shared/src/LevelBadgeWire.ts",
+   "bytes": 2672,
+   "sha256": "5f8de7bab2ecd63de7031cb87763d895d92846686319eeb9a22cca54aaa43f08"
+  },
+  {
+   "path": "packages/shared/src/PatternDecoder.ts",
+   "bytes": 1948,
+   "sha256": "fcd2c3cfba6778aa72b17482c8f91643238c46f670a015fad77e7811c9a32f6b"
+  },
+  {
+   "path": "packages/shared/src/ServerList.ts",
+   "bytes": 14572,
+   "sha256": "0d34ef87b4df91380aa5ce85170d272dbbbdf43baada5ae6e043cc75821d2a22"
+  },
+  {
+   "path": "packages/shared/src/SharedUtil.ts",
+   "bytes": 8089,
+   "sha256": "7ed8c709480dae329ca853e58616cae05e163604ead9d946cee08e590847de83"
+  },
+  {
+   "path": "packages/shared/src/WireSchemas.ts",
+   "bytes": 32627,
+   "sha256": "690492f276a576e49e0d33058dfe2c1b786041de65e395a0eb98e40ad55d1e57"
+  },
+  {
+   "path": "packages/shared/src/ZbinWire.ts",
+   "bytes": 3896,
+   "sha256": "1ccc982148e9b60da987588aef9bc5db64d3a6d699ab62845f75ea9d58bbdf23"
+  },
+  {
+   "path": "packages/shared/src/configuration/Env.ts",
+   "bytes": 2764,
+   "sha256": "54a2c88fadb9a3d7c88860673a66d0ebc50419a7d18bebeebe7997351678ebd6"
+  },
+  {
+   "path": "resources/atlases/emoji-atlas-meta.json",
+   "bytes": 1073,
+   "sha256": "6328943222a54ffbca5fe5c51e71f9e648d4b1ff07fff42828b864fe69df7d37"
+  },
+  {
+   "path": "resources/atlases/fx-atlas-meta.json",
+   "bytes": 1280,
+   "sha256": "0008ac07fadb46f1f1356bc32aa51370ec153580dca9ebcfe22723c7ab87e9d7"
+  },
+  {
+   "path": "resources/atlases/status-atlas-meta.json",
+   "bytes": 343,
+   "sha256": "5240c10bab65f7c758f3414958a7d6156f91aa2d9339dcf526f1eeba732d926c"
+  },
+  {
+   "path": "resources/countries.json",
+   "bytes": 86725,
+   "sha256": "ddd5593d11e419beef667c42f56d20b0208b7a4e6dd2cca87742f9c113e00b64"
+  },
+  {
+   "path": "resources/lang/en.json",
+   "bytes": 146037,
+   "sha256": "8981694160f6b1fdc2e14fce1e183c08fe0df56e7ec924e0a8ed313d90621794"
+  },
+  {
+   "path": "resources/lang/metadata.json",
+   "bytes": 4045,
+   "sha256": "7cbcd9be4f5fb5f7cbb2e3ab36f1394368c24d50ed19417b3421140ecc24c2be"
+  },
+  {
+   "path": "resources/news.json",
+   "bytes": 895,
+   "sha256": "ed95e82ab3c4baaffc89fefbe2c4de4d281e052352fa02c8b847cefa808b2ba0"
+  },
+  {
+   "path": "resources/streams.json",
+   "bytes": 79,
+   "sha256": "c3fd77944db0aae45ad051ba1b1e39a847be51fad333bb2f605c642f3fe920ab"
+  },
+  {
+   "path": "resources/version.txt",
+   "bytes": 8,
+   "sha256": "77da25594b1ab04bd9628f167582664123765b3e7553b343c24696abc4d64c39"
+  },
+  {
+   "path": "src/client/AccountIdentity.ts",
+   "bytes": 2031,
+   "sha256": "1bd2b0e66fac2368702c786fbea4d58313203093400de9a9b076c6285313f874"
+  },
+  {
+   "path": "src/client/AccountModal.ts",
+   "bytes": 48620,
+   "sha256": "690dc1e6937aa87a29387850c51b045b753d8fc798969209622bd4efbaffae02"
+  },
+  {
+   "path": "src/client/AccountSettingsModal.ts",
+   "bytes": 1647,
+   "sha256": "838d36350e2c8e556f3ba4b31715b769bba9568b3e7a18abac33f7bea844418a"
+  },
+  {
+   "path": "src/client/AdGatekeeper.ts",
+   "bytes": 6713,
+   "sha256": "dbf7aa4076b121ca52525dead7042710e214e5b12b165aa4fb174e9500ed6c3a"
+  },
+  {
+   "path": "src/client/Admiral.ts",
+   "bytes": 3892,
+   "sha256": "5e439a0cee0fd3394685d4d7fc733971bad53010fc04178853ac07099b0d6949"
+  },
+  {
+   "path": "src/client/Api.ts",
+   "bytes": 91038,
+   "sha256": "887c7d0226b8950e42032e141878da3957f8d23c79c2f0891ef1b8ccdc781c59"
+  },
+  {
+   "path": "src/client/ApiBase.ts",
+   "bytes": 816,
+   "sha256": "8f245bb5c3bc96c097e98ebdae357edc503f947e65718c8e34f628c66b9be39c"
+  },
+  {
+   "path": "src/client/Auth.ts",
+   "bytes": 35296,
+   "sha256": "aa4859ab77c9498153ae5b7da9265b2386e79987912532299123e1a17758cf63"
+  },
+  {
+   "path": "src/client/BootInterrupts.ts",
+   "bytes": 28710,
+   "sha256": "ce9bf2daaa02a4f564387cd0caf45b7260b9975381a90fa6124ca9ad0383f5eb"
+  },
+  {
+   "path": "src/client/ChangeUsernameModal.ts",
+   "bytes": 1531,
+   "sha256": "fd421f2fd8573133983bcd296a70330d6864ba516fd9b1c505c95308a7820093"
+  },
+  {
+   "path": "src/client/ClanApi.ts",
+   "bytes": 26037,
+   "sha256": "fb28077bc10010c5a3a7d2a0fb20d069288b075d91039c29d642802c5a2acb31"
+  },
+  {
+   "path": "src/client/ClanModal.ts",
+   "bytes": 32261,
+   "sha256": "cdd62aa2e5fa5c47e11b26ad47f2ca2867c8288df409b09b9b503d8ff6bb3d42"
+  },
+  {
+   "path": "src/client/ClientEnv.ts",
+   "bytes": 29353,
+   "sha256": "16f48386d7e1e9cc09a28e62dcacca7043984d13a1fa76cb014a9372c0f4e005"
+  },
+  {
+   "path": "src/client/ClientGameRunner.ts",
+   "bytes": 58528,
+   "sha256": "88be19e797c03ae32387d1badfb7f44b19a60fe5cae616ca276739d4a2c46168"
+  },
+  {
+   "path": "src/client/ClientPlatform.ts",
+   "bytes": 904,
+   "sha256": "679c0221b4748ffafec9c913e3f774410e618528f120ce6bff490daa962560c7"
+  },
+  {
+   "path": "src/client/Controller.ts",
+   "bytes": 1060,
+   "sha256": "fee99fbd1af430af1dfef55f84e9a7ef92111ceddcad05b8fb6f936dcf84db88"
+  },
+  {
+   "path": "src/client/Cosmetics.ts",
+   "bytes": 58769,
+   "sha256": "23760c5831c4f36cb13fc934183412dac092687f7f25b5f0c25ba350f1cdaada"
+  },
+  {
+   "path": "src/client/CrazyGamesSDK.ts",
+   "bytes": 11291,
+   "sha256": "64371e57ebd8cf51a0e7fcf1e8eabd41542e2eedee14553c38b1da0f4540501f"
+  },
+  {
+   "path": "src/client/CreatorCode.ts",
+   "bytes": 7321,
+   "sha256": "b3f90333605b1a56dacc56e333402cb07336e6860162dcb8d0042cabc4c7bbb8"
+  },
+  {
+   "path": "src/client/DesktopDisplay.ts",
+   "bytes": 9262,
+   "sha256": "493647dd6ab4085cd4ed1649c4c803b7056f0014adee5c70d5f6e8c9723adb62"
+  },
+  {
+   "path": "src/client/DesktopPresence.ts",
+   "bytes": 3643,
+   "sha256": "a7ddd60b9a47ce94e3fb886f5d877637a06204a1b39e3768aa4c05ce326978d7"
+  },
+  {
+   "path": "src/client/DesktopSessionRecovery.ts",
+   "bytes": 5259,
+   "sha256": "0b3ea51c6e8882c91055232de8f67b8efd0f69518ff34ff7b642e27874d8afa8"
+  },
+  {
+   "path": "src/client/DesktopShell.ts",
+   "bytes": 21082,
+   "sha256": "3fcc46b0726835b345ed4accd7c0d120abe4b9b9c75c8878db0c1093fbd48468"
+  },
+  {
+   "path": "src/client/EmojiKeys.ts",
+   "bytes": 3014,
+   "sha256": "66fc2bb4f4e4c5d584ef95ebe7d2f758ad4ea07162d5d2466b016577db9579fa"
+  },
+  {
+   "path": "src/client/EquippedCosmetics.ts",
+   "bytes": 3854,
+   "sha256": "d927d1776a5178d26e3f32bcb10bf9e74886785223d9e3e05755e3b48b44bbe6"
+  },
+  {
+   "path": "src/client/FeaturedStream.ts",
+   "bytes": 22929,
+   "sha256": "8c66b8a8b6c89f74b6825066500face571f1e7c1258bfab2f722126afc7205ea"
+  },
+  {
+   "path": "src/client/FriendsApi.ts",
+   "bytes": 4068,
+   "sha256": "3f608b93d7a1ae2848e96a86fdd54aa311530838635188cb31ccf712a3eb737a"
+  },
+  {
+   "path": "src/client/GameClientLoader.ts",
+   "bytes": 579,
+   "sha256": "e84af271e75a4be3a02377898447403768145791f5f85d06560f150bf75b0ec7"
+  },
+  {
+   "path": "src/client/GameMetrics.ts",
+   "bytes": 4461,
+   "sha256": "25ea36239c4a64f6e9eefb581c7e2d6a7760555c43798506098c06049d488fd7"
+  },
+  {
+   "path": "src/client/GameModeSelector.ts",
+   "bytes": 41534,
+   "sha256": "30bf14c0d40d65246e679c97e6cf4471940acffd3b5fffcd12bbaed94a9c754b"
+  },
+  {
+   "path": "src/client/GamePortal.ts",
+   "bytes": 2517,
+   "sha256": "38d46f0eefcd182383bcbc7ebeb7af0ef920ab475818721396b8040d86e27337"
+  },
+  {
+   "path": "src/client/GameRewards.ts",
+   "bytes": 8588,
+   "sha256": "dd2657169bd7e587909c2aeafc5e0c8ab0126a1d17e09b84687c551ea7cbf6ff"
+  },
+  {
+   "path": "src/client/GameStartingModal.ts",
+   "bytes": 1972,
+   "sha256": "70f8da6e15811ba4ea69b2fbc2f300fb06f2b1fb425737a3d0a8082fcb6f564b"
+  },
+  {
+   "path": "src/client/GameStatsModal.ts",
+   "bytes": 8884,
+   "sha256": "ff100828232c1fb52494021ffc6dcbe44ffacd79bf76c54ed45eb7e10721cf1d"
+  },
+  {
+   "path": "src/client/GameVersion.ts",
+   "bytes": 4627,
+   "sha256": "2e8771beb7adbd67856ad622c5d793ec9bb1947d91c8ea9c773d68474cf66801"
+  },
+  {
+   "path": "src/client/GraphicsPresets.ts",
+   "bytes": 4026,
+   "sha256": "43e7ef56cbde255a7efa57cc4877b374a54b3a2d492491642aafeea2291453ab"
+  },
+  {
+   "path": "src/client/HelpModal.ts",
+   "bytes": 58435,
+   "sha256": "32c72ba31775ac8a9d61785b1d1233b7f8b336e9d8267c58126c61fa3d6eec96"
+  },
+  {
+   "path": "src/client/HomepagePromos.ts",
+   "bytes": 14735,
+   "sha256": "4c53ab7f4e3b65f00a04f1588e1ed986b760a39d0518dbe0f609fa3f993caf1b"
+  },
+  {
+   "path": "src/client/HostLobbyModal.ts",
+   "bytes": 63911,
+   "sha256": "98f3239a5e33e6d64e73871a3c0940226d6e40cb94b3ea1cd5c851d6fcd5021e"
+  },
+  {
+   "path": "src/client/InGameModal.ts",
+   "bytes": 1995,
+   "sha256": "43e119d97606fe5b37c414298d4c4c87410763e621aa6f6a8c9c94fac10dd33b"
+  },
+  {
+   "path": "src/client/InputHandler.ts",
+   "bytes": 50618,
+   "sha256": "7abd01961706212339066e60b107017486cbbcb6e92aab310c4820657d450036"
+  },
+  {
+   "path": "src/client/InventoryModal.ts",
+   "bytes": 26761,
+   "sha256": "fee003fb042cff530a441f6f1dd1944723954136ea4c8e427ab3dfe9d362908f"
+  },
+  {
+   "path": "src/client/JoinLobbyModal.ts",
+   "bytes": 39696,
+   "sha256": "38cea38e95ada9131c56828fc465ef8bffc58575a9c774e40708d76beeb4f4d2"
+  },
+  {
+   "path": "src/client/LangSelector.ts",
+   "bytes": 13665,
+   "sha256": "9744e273e0ec66b00d61e97fb1a698966b090196f1a2da549cdc49d632f10dfe"
+  },
+  {
+   "path": "src/client/LanguageModal.ts",
+   "bytes": 4158,
+   "sha256": "40f3ac4d1b3de6ef6f638f0710032a854a9a2b95c7a1300667945eb7c749fb13"
+  },
+  {
+   "path": "src/client/Layout.ts",
+   "bytes": 2597,
+   "sha256": "8be991f8099626729d53e869ac7b2cd9686c4646c4b1aa935bb6b41447b50af0"
+  },
+  {
+   "path": "src/client/LazyModals.ts",
+   "bytes": 2703,
+   "sha256": "1dd0f9a780b0c6bfd4549932b792eb3deacd27af1860ab4f7e2f07cc998c04ed"
+  },
+  {
+   "path": "src/client/LeaderboardModal.ts",
+   "bytes": 6013,
+   "sha256": "07421f336bf378e33ba4426c3f243a65afa2031b2d1a0c6aa8fe29cd8ed38d87"
+  },
+  {
+   "path": "src/client/LinkResult.ts",
+   "bytes": 6745,
+   "sha256": "5152a06a218b39a0c6133250239f95d4adbf389ac180e947b54982584c8eb745"
+  },
+  {
+   "path": "src/client/LobbyEvents.ts",
+   "bytes": 790,
+   "sha256": "4a8272b9c0eb4b9458a34d18c99c3482e36b405f606271f786fa4902942c374c"
+  },
+  {
+   "path": "src/client/LobbyRosterLevels.ts",
+   "bytes": 2071,
+   "sha256": "feffc6f4e7d1182290682c9cd9405b5880ec47ef8cd2c6e7ca91624b552050d4"
+  },
+  {
+   "path": "src/client/LobbySocket.ts",
+   "bytes": 16033,
+   "sha256": "7822727794849df891a9cea70b284898fe027acce11ebf40b519519efee75541"
+  },
+  {
+   "path": "src/client/LocalServer.ts",
+   "bytes": 13191,
+   "sha256": "b06761050f10fa3bb7b451d3ef26f61637818bfb186797a31eeb6c7a377a3619"
+  },
+  {
+   "path": "src/client/LoginResult.ts",
+   "bytes": 2254,
+   "sha256": "7b6d3a38c3348bf59840e24b1418f793e9d8de8909ca28411a1ef1e6d4ca8cfe"
+  },
+  {
+   "path": "src/client/Main.ts",
+   "bytes": 92779,
+   "sha256": "2d0ba43baa5ebb36ce0da86ae0cfadf5699c7eb90c692a908b549e7b312e5bad"
+  },
+  {
+   "path": "src/client/MapLayerSettings.ts",
+   "bytes": 2132,
+   "sha256": "f4378edc3c744085a8a7b796c07672e344e33ac95c0b3eb565cc1421cf58620c"
+  },
+  {
+   "path": "src/client/Markdown.ts",
+   "bytes": 707,
+   "sha256": "71b6d8aa04d5f5384e84e40131bd5aeed09243c51e5ac69c84c1637d6e927052"
+  },
+  {
+   "path": "src/client/Matchmaking.ts",
+   "bytes": 22023,
+   "sha256": "035851504805340e8775c74f4758af1af7e74ab029e88ab0b21691d4eb9af029"
+  },
+  {
+   "path": "src/client/MenuChrome.ts",
+   "bytes": 5216,
+   "sha256": "bf8acfb958b38456bbd449421491f1de18ba8b41d948425693b89c809e8f9fc8"
+  },
+  {
+   "path": "src/client/ModalRouter.ts",
+   "bytes": 10108,
+   "sha256": "ce901bf7854c6215a422fa1f49b3d94f69c412f867155d737064c7888dc33a9b"
+  },
+  {
+   "path": "src/client/MomentShare.ts",
+   "bytes": 3558,
+   "sha256": "3a2889ca38612a19ef9ab1fbd80c8ed42e4ebfbcab46a6c522931b2fea8e0711"
+  },
+  {
+   "path": "src/client/MultiTabDetector.ts",
+   "bytes": 2894,
+   "sha256": "3a25dba01c83b236264dda01442a74c923b10107bcb42480484594a49d6a0162"
+  },
+  {
+   "path": "src/client/NavAccountButton.ts",
+   "bytes": 7085,
+   "sha256": "47e3f7f201a88606aa03a7820a57d5ca10158a7edd16ffc537499b08e8656cb6"
+  },
+  {
+   "path": "src/client/Navigation.ts",
+   "bytes": 6786,
+   "sha256": "5710aa5b9628ac3191a8f6857db45c8e62c69fc9c29e66849dcf69e2d2865f8e"
+  },
+  {
+   "path": "src/client/NewsMarkdown.ts",
+   "bytes": 1158,
+   "sha256": "ee159d1a89aa685a2c83484e9414110c8a9754f312609e4a88e353126c157a15"
+  },
+  {
+   "path": "src/client/NewsModal.ts",
+   "bytes": 1990,
+   "sha256": "d08693f4818a376850bcfaf3cca587c313455e022f39163c9c6f6abcc4f611f4"
+  },
+  {
+   "path": "src/client/OwnLevelBadge.ts",
+   "bytes": 1977,
+   "sha256": "899e08ddbeace619e416b916421b22a2ff983726cb907d1ac12a269b5ab5918c"
+  },
+  {
+   "path": "src/client/PagePin.ts",
+   "bytes": 2123,
+   "sha256": "7d3a8815157558017389205d646055bf1debbdec086624e50eca35ab50645e2d"
+  },
+  {
+   "path": "src/client/Payments.ts",
+   "bytes": 27620,
+   "sha256": "dc70f4f328f3cc9a42ceaedf20bc1090d8b2757a483253d87b2e132e398a4eff"
+  },
+  {
+   "path": "src/client/Platform.ts",
+   "bytes": 3407,
+   "sha256": "d815b809f1fde1799f551a48a2522bfc26d803e170ac5d4e663245bdee3241e1"
+  },
+  {
+   "path": "src/client/PlayerName.ts",
+   "bytes": 21298,
+   "sha256": "8e34ae5c361ffc124bd2afffac80530781849f2863e300b764c069a0f77656e6"
+  },
+  {
+   "path": "src/client/PlayerProfileModal.ts",
+   "bytes": 23553,
+   "sha256": "9bab50b0e81fe1fb3a0c180e9ba7d06dbd08b23550e077ea0aabb845d5443a56"
+  },
+  {
+   "path": "src/client/PlayerProgress.ts",
+   "bytes": 1608,
+   "sha256": "0b7319b6512ceab5a6e550b901f7ad31be2ac230d16f986156a2e46966e0496f"
+  },
+  {
+   "path": "src/client/PokiSDK.ts",
+   "bytes": 10090,
+   "sha256": "9883fbfa7077d767819a28954ca86bd9d8654cb1853762f324a0345f01cd62a0"
+  },
+  {
+   "path": "src/client/PortalAccountButton.ts",
+   "bytes": 2903,
+   "sha256": "6ba2c2b763b23e77c211acbb7b0bcc0187f81bba064f52bedf9a118bcd55f9f1"
+  },
+  {
+   "path": "src/client/PresenceGroup.ts",
+   "bytes": 5207,
+   "sha256": "23773f96b4904845904d94269f7b6ac544ca30cb1b1b5a74505e17178a9c2614"
+  },
+  {
+   "path": "src/client/ProfileMenuModal.ts",
+   "bytes": 2666,
+   "sha256": "502111b61bdef3a333367819529f4953ccb499bbff7684c492067fa268f73316"
+  },
+  {
+   "path": "src/client/ProgressProjection.ts",
+   "bytes": 2155,
+   "sha256": "c538efb7a1acf6dd39f51875c975dad11573a42428237d3410ec7040d8fc18a5"
+  },
+  {
+   "path": "src/client/Progression.ts",
+   "bytes": 11355,
+   "sha256": "0eacfb2c9a2692f5fc7888a7254fa54b197482406ab5ae98f6ad9e83395923a1"
+  },
+  {
+   "path": "src/client/ProgressionAccount.ts",
+   "bytes": 1524,
+   "sha256": "0a46391b26cce84a13f403c3b63ba5953ae395c6ca94aa442de3042839be2468"
+  },
+  {
+   "path": "src/client/ProgressionApi.ts",
+   "bytes": 9440,
+   "sha256": "f7a8d120ef6c2b9a4c4173b5863c48385db571c21ac1677f88c64812d8708de8"
+  },
+  {
+   "path": "src/client/ProvisionalProgress.ts",
+   "bytes": 22978,
+   "sha256": "a85329eabcd25faa042d677214ebfb173a0d413c98e6a6508b73499a48bd5714"
+  },
+  {
+   "path": "src/client/ProvisionalXp.ts",
+   "bytes": 10562,
+   "sha256": "ab5fa8534babeca57eb2fe858fbac0e9cc14b8a75338d13db1d61f3846ec69c3"
+  },
+  {
+   "path": "src/client/ProvisionalXpAtDeath.ts",
+   "bytes": 20925,
+   "sha256": "ad48511b78103293b46c48ef4580795f7af4f35ca7e5c63d7215183a81514df7"
+  },
+  {
+   "path": "src/client/RewardClaims.ts",
+   "bytes": 4103,
+   "sha256": "c9d4d4ae084852f0e95bbc7f78a59e5c9f95377f0bc3fd505379d8317b3bb10a"
+  },
+  {
+   "path": "src/client/RewardsModal.ts",
+   "bytes": 2073,
+   "sha256": "9423f4378f2f326db9242aa3d10f4b8865cc87c0e2df73c0c0efe400c9411ad6"
+  },
+  {
+   "path": "src/client/ServerList.ts",
+   "bytes": 45276,
+   "sha256": "097514e2b13069a89c4b0b0d106c4e2757630f0b1d92839f19fd4df6a770e80a"
+  },
+  {
+   "path": "src/client/SinglePlayerModal.ts",
+   "bytes": 47757,
+   "sha256": "5cfbe025832f1a3b9bbca5f2c480327f089a6bce1c3f3bcbccbf2e06d6456898"
+  },
+  {
+   "path": "src/client/SingleplayerHeartbeat.ts",
+   "bytes": 1741,
+   "sha256": "faba0abe6358a08ac82f8daeda0c074feb43acbf19fa49fa1c23863c65e6ddbe"
+  },
+  {
+   "path": "src/client/SocketClose.ts",
+   "bytes": 977,
+   "sha256": "c4c41183a2d33106b3e561d37d99401a73a261a2e6b99709e88461d26096381f"
+  },
+  {
+   "path": "src/client/StatsConstants.ts",
+   "bytes": 832,
+   "sha256": "63a27eb31d681718ee76f15103376d73056fb854bbf816ca20dd9cb16cba86ae"
+  },
+  {
+   "path": "src/client/SteamGrantNotices.ts",
+   "bytes": 10686,
+   "sha256": "5ba3d34295f5f43418827d6638c19dd83df46407dbc114deff1f97a2b24382fd"
+  },
+  {
+   "path": "src/client/SteamHandoff.ts",
+   "bytes": 2177,
+   "sha256": "87bb0d6c67e90fbab54abceb05286a37edc713845308ddcc7477e69585da67c3"
+  },
+  {
+   "path": "src/client/SteamHandoffModal.ts",
+   "bytes": 4449,
+   "sha256": "cec15b4cad0cc343c0c53ad51476e3c1afb527092e93216c2b52554f99e06045"
+  },
+  {
+   "path": "src/client/SteamLink.ts",
+   "bytes": 26172,
+   "sha256": "cdbb92498e4442f9e7cb124813c8cd049932da56acfcee160ee79ce2c09768d6"
+  },
+  {
+   "path": "src/client/SteamLinkModal.ts",
+   "bytes": 45120,
+   "sha256": "f78256e0dd09b10832ffbfab2c89c1b90b3e3e1aec737175691b0a8bcbe5c6fd"
+  },
+  {
+   "path": "src/client/SteamNotices.ts",
+   "bytes": 6023,
+   "sha256": "362f830b5b6bac20d06369cd0021838cb49b4be046b5b595f29097d8ee032e77"
+  },
+  {
+   "path": "src/client/SteamSDK.ts",
+   "bytes": 4470,
+   "sha256": "68c6be5c90af171f05e772c86161fef379b0b7c3c38cc5d4642a91f39fb2c1df"
+  },
+  {
+   "path": "src/client/Store.ts",
+   "bytes": 27070,
+   "sha256": "74c18070e064692bd917dddc20809dba481a34cb63879e46adc5d8b2c35b4e9b"
+  },
+  {
+   "path": "src/client/StreamsFeed.ts",
+   "bytes": 6774,
+   "sha256": "d16350f810bd707508dd0b5c7eba55e582ab79c3ddeebb3c25e4723013e0d6f2"
+  },
+  {
+   "path": "src/client/StripeInline.ts",
+   "bytes": 14319,
+   "sha256": "e331bd75a5ad54fbcca6dea83095ffa6248eea5ca274ee4f7f31e001e45a02f2"
+  },
+  {
+   "path": "src/client/SubscriptionModal.ts",
+   "bytes": 3104,
+   "sha256": "661dea6fca789d3d8d59f6292f06ad6511fe5ad1799e924bcc4b7a51a00222df"
+  },
+  {
+   "path": "src/client/SubscriptionPolicy.ts",
+   "bytes": 906,
+   "sha256": "f6c34817574b948216e0ef2efb7028be6e82cbf4204e075f8cd7962c664a9e3d"
+  },
+  {
+   "path": "src/client/Telemetry.ts",
+   "bytes": 14354,
+   "sha256": "f9d17d1f091b2591a43a41bf8c300de93d2aeba95f6d4b7214b1391ad709d18c"
+  },
+  {
+   "path": "src/client/TerrainMapFileLoader.ts",
+   "bytes": 991,
+   "sha256": "a7232b755a81533487202b08d9adedc3edffe96f92f7082e10db3221277ed85f"
+  },
+  {
+   "path": "src/client/TokenLoginModal.ts",
+   "bytes": 4908,
+   "sha256": "7d4717febbf09f76ee29797ba7ce65991abc69eab9d1cad50d52345470054a88"
+  },
+  {
+   "path": "src/client/TransformHandler.ts",
+   "bytes": 12994,
+   "sha256": "aef7899f5628d301e79682e172652a99a7c28d87ec80b163c275bb996f9c5627"
+  },
+  {
+   "path": "src/client/Transport.ts",
+   "bytes": 35221,
+   "sha256": "c65f4a094a3651166fda20a7d05760432631cedd84b69268c7552ec5a7e54f57"
+  },
+  {
+   "path": "src/client/TroubleshootingModal.ts",
+   "bytes": 7457,
+   "sha256": "570478984ef7732040bed1bcbf0b79d1b965efa20e3d39abd22c57d6675df7d4"
+  },
+  {
+   "path": "src/client/TurnstileToken.ts",
+   "bytes": 7876,
+   "sha256": "9e70d09303527d1420b75e0692bda382f274736c5dcc23bab7490a8d71771bec"
+  },
+  {
+   "path": "src/client/UIState.ts",
+   "bytes": 242,
+   "sha256": "10859ef5d5de8977a219fff5fd91a8c8700f9cce36ee66d51f4f2eea53bc84b8"
+  },
+  {
+   "path": "src/client/UserMeBroadcast.ts",
+   "bytes": 637,
+   "sha256": "5fc27dfcd50a6adc227f1c35583529352966943a0cebd3a87515c136fb33aa1b"
+  },
+  {
+   "path": "src/client/UserSettingModal.ts",
+   "bytes": 78121,
+   "sha256": "e72b13094027f1c0d9c0b5971868886cd500f56094285701030a4444954affc5"
+  },
+  {
+   "path": "src/client/UserSettings.ts",
+   "bytes": 43127,
+   "sha256": "e56f0c1261963d7e7eb0da64d134136e3b98203b8e41dd48b0117c1e536d1732"
+  },
+  {
+   "path": "src/client/UsernameInput.ts",
+   "bytes": 53483,
+   "sha256": "babc88cf9114ab2376b7e93cc21734edbbe1ffe100306e461b3a7c7aa4ee829d"
+  },
+  {
+   "path": "src/client/Utils.ts",
+   "bytes": 30352,
+   "sha256": "dc997d7780f359be944c6f530f88102224d6c5981807c591e774e73740c64f2b"
+  },
+  {
+   "path": "src/client/VersionedReplay.ts",
+   "bytes": 2260,
+   "sha256": "a6f516246ddbedf42e98dd9d61f8d0ef325317f75a9524b0bdc1748ddc76fb21"
+  },
+  {
+   "path": "src/client/WebGLFrameBuilder.ts",
+   "bytes": 24327,
+   "sha256": "be50324086b2cad6aa471762b8158f4b33f766ce961e5e1e49212a1db636222d"
+  },
+  {
+   "path": "src/client/WhenPageIdle.ts",
+   "bytes": 590,
+   "sha256": "e4bb318b15d4d55605a5b635da88fa83c38b71b0e5f1004f2261016e4282f03f"
+  },
+  {
+   "path": "src/client/WorkerClient.ts",
+   "bytes": 12563,
+   "sha256": "2d5c166bea3a40205919e24cc904a5f756045a2fd76da81f6642d90b655e3389"
+  },
+  {
+   "path": "src/client/XpMultipliers.ts",
+   "bytes": 492,
+   "sha256": "3b7e9c995fcea46ebdb3089246dd288ef0ef23d8bb35308c360b4042dbdf255d"
+  },
+  {
+   "path": "src/client/components/AccountSettingsPanel.ts",
+   "bytes": 20101,
+   "sha256": "c7594311352cabe0ea06743e4c1cdd6e70101b95dd8f22bdc0a12f121a2d17d0"
+  },
+  {
+   "path": "src/client/components/BannedModal.ts",
+   "bytes": 3610,
+   "sha256": "6fac36c7b16e4f56927ba6024d8ffa9ad60d783065005f4245419685b07d434a"
+  },
+  {
+   "path": "src/client/components/BaseModal.ts",
+   "bytes": 10950,
+   "sha256": "3a0991ef9875ec17ea1be35c905f9cedd871dba36d7e8872ba3449cf323ed269"
+  },
+  {
+   "path": "src/client/components/CapIcon.ts",
+   "bytes": 706,
+   "sha256": "de2e62b275b685d95df504fbd47b01c78afb8ce1fbd9bc9ef42aa618fb07813b"
+  },
+  {
+   "path": "src/client/components/Ceremony.ts",
+   "bytes": 7615,
+   "sha256": "307ce5eccab4b5d14f9cbe2897b303b6ca06e34ade386eef88301e75a9791f96"
+  },
+  {
+   "path": "src/client/components/ConfirmDialog.ts",
+   "bytes": 5428,
+   "sha256": "defa15b8c2002b5fbd4942129e7e7339f641cc8e0727de778faf22a15a3e8cd2"
+  },
+  {
+   "path": "src/client/components/CopyButton.ts",
+   "bytes": 8083,
+   "sha256": "8503e8fc8a180d967e67fa4c97ac892c1937e85d92a7bf4456c009ea18d5e967"
+  },
+  {
+   "path": "src/client/components/CosmeticBackground.ts",
+   "bytes": 2392,
+   "sha256": "f9ec522e97ad4343050d4f071f8cb71f1718a2b9521bb4bc3fa1f03f3a5ef220"
+  },
+  {
+   "path": "src/client/components/CosmeticCard.ts",
+   "bytes": 19216,
+   "sha256": "a4099d8f6d49ac1092ef19bdc3061a948c5aa12ad9d56e9a1e656adc9886c69f"
+  },
+  {
+   "path": "src/client/components/CosmeticInfo.ts",
+   "bytes": 4851,
+   "sha256": "0c769d78865946dff2cf5385bb55ea278b2aef31560cf362c0931b45de189cb9"
+  },
+  {
+   "path": "src/client/components/CosmeticPresentation.ts",
+   "bytes": 3841,
+   "sha256": "45a2d11ffe9e3699c0b4447ed9470e35bfaf5a0eb6f7b4eac67c2590180ddc17"
+  },
+  {
+   "path": "src/client/components/CosmeticPreview.ts",
+   "bytes": 10976,
+   "sha256": "58dcf21f8043e03e23704f57eba62ec6ac5901cf47c51d3f387f2eb3722353ba"
+  },
+  {
+   "path": "src/client/components/CosmeticPreviewBubble.ts",
+   "bytes": 2602,
+   "sha256": "e3146ecc2ef2640f3af655c0a463a5e51da1daf54391d80da48d7e0ea8f726e2"
+  },
+  {
+   "path": "src/client/components/CosmeticPreviewModal.ts",
+   "bytes": 15124,
+   "sha256": "aa48638cf259ddc12f4bbca0c2715943cf76f5f516370ce81fc6c8cda7a3138b"
+  },
+  {
+   "path": "src/client/components/CreatorCodePanel.ts",
+   "bytes": 11837,
+   "sha256": "90ce65972c95cc4c7157547cd1190f550ed889cef8ff808143e367521f8a3b07"
+  },
+  {
+   "path": "src/client/components/CurrencyDisplay.ts",
+   "bytes": 2900,
+   "sha256": "c8e6037bfa12d4329f9ddd19ee980272ccc8f346d67888f3d6d0ad70a9d146cf"
+  },
+  {
+   "path": "src/client/components/CustomCurrencyCard.ts",
+   "bytes": 5581,
+   "sha256": "ff6b8203deced4434e1e4d6fd38e20d0bc4fad7f63ee700b45c6b895e7a802c0"
+  },
+  {
+   "path": "src/client/components/DeleteAccountDialog.ts",
+   "bytes": 4215,
+   "sha256": "b7d09cb6628d3ae62336b5d8aa87dbb465ba16bf952833ec24a81af7a372c3f3"
+  },
+  {
+   "path": "src/client/components/DesktopNavBar.ts",
+   "bytes": 4663,
+   "sha256": "72da3a26b5c917dceac77d202ed04bd9de26610388af0e94d4490caaf440b5ab"
+  },
+  {
+   "path": "src/client/components/DesktopStatusBar.ts",
+   "bytes": 21535,
+   "sha256": "fcb22dbcefbf26cde1421eb4d042d64b592372f45ce1cb2b0c1bbf28c8acdebb"
+  },
+  {
+   "path": "src/client/components/DetailedGameViewFilters.ts",
+   "bytes": 10186,
+   "sha256": "27e966fd2fc006e0ef41d730ad2175bd4fa6b1ba47d19965eec1d06df4d4357d"
+  },
+  {
+   "path": "src/client/components/DetailedGameViewModal.ts",
+   "bytes": 29722,
+   "sha256": "243fed7a28516d7781357e6fbb6e943e08de3e57007cc94363be1f413754afd7"
+  },
+  {
+   "path": "src/client/components/Difficulties.ts",
+   "bytes": 4264,
+   "sha256": "8950f7456438ea4d80fe7d17406d879d778035ec11021cf6a420f5c6ed04a3f4"
+  },
+  {
+   "path": "src/client/components/DifficultyInfo.ts",
+   "bytes": 3312,
+   "sha256": "6689169fcf63bbe42740f0e711371e57e7896185b514144dc04084eb59f1ac0d"
+  },
+  {
+   "path": "src/client/components/DoomsdayClockPanel.ts",
+   "bytes": 11131,
+   "sha256": "77e73892d71c00135c62bb255e42fe51b0520c910385362ac00fcae63f9dfe75"
+  },
+  {
+   "path": "src/client/components/EffectPreview.ts",
+   "bytes": 30097,
+   "sha256": "1f4fdc998a8719b4dc2a9a806d9d03c42f31a326a18db1f82d2f6732147c68c8"
+  },
+  {
+   "path": "src/client/components/EffectsGrid.ts",
+   "bytes": 15820,
+   "sha256": "908a25a32397696715049ecaa9cefd3fc5e4cbde987c7ab32a847699d5d51108"
+  },
+  {
+   "path": "src/client/components/EquippedCosmeticsRow.ts",
+   "bytes": 5423,
+   "sha256": "90a1ae7c3a3ed548b3f8a26a247150fef62d06756f552e46aca90e85ecd78b0c"
+  },
+  {
+   "path": "src/client/components/FlareCosmetic.ts",
+   "bytes": 3546,
+   "sha256": "c300b6199704500846d5c41e5138a505a44960453004ad13ef4ef29ff7d22247"
+  },
+  {
+   "path": "src/client/components/FloatingTooltip.ts",
+   "bytes": 1887,
+   "sha256": "0ce5bd857106b3c3a617e79f3372cf1037fb2148e8b167c3ba65472869fa6761"
+  },
+  {
+   "path": "src/client/components/FluentSlider.ts",
+   "bytes": 6613,
+   "sha256": "ae61c89b4448f570ccc8d6189c2b6e321ee88aee1afa6ba6525a15e917795e36"
+  },
+  {
+   "path": "src/client/components/Footer.ts",
+   "bytes": 8045,
+   "sha256": "0e9f2970f4e9d8ea85d36e02da13bbc8407f111a7fd724926866ea68e46470f6"
+  },
+  {
+   "path": "src/client/components/FreePlayPerks.ts",
+   "bytes": 1699,
+   "sha256": "559505f6e081a58f39671d8fff0efb8eb2659491d39e6c0a0c3fde07fb1176a9"
+  },
+  {
+   "path": "src/client/components/FriendsList.ts",
+   "bytes": 17380,
+   "sha256": "29620b411820d21ae4292f10267559a1a3c18d13d1522d99b3a4cc14d22af8c2"
+  },
+  {
+   "path": "src/client/components/GameConfigSettings.ts",
+   "bytes": 22947,
+   "sha256": "a2f9821910140087a800a280d4ef274743e3252c9126068a15e64709d27ebc43"
+  },
+  {
+   "path": "src/client/components/GameStartAlertController.ts",
+   "bytes": 4710,
+   "sha256": "ea16dfbdf2a6c7fb0b8c6d18cb14444976e6003874b7158e19c24edda1478797"
+  },
+  {
+   "path": "src/client/components/GameXpPanel.ts",
+   "bytes": 86095,
+   "sha256": "5961409b7be20081f49f91d2b4993cc7d64a1dd7c80c545d1afa7b2a8880c85e"
+  },
+  {
+   "path": "src/client/components/GraphicsAdvancedSettings.ts",
+   "bytes": 46511,
+   "sha256": "482684610ddf890bfc060441cd210e9afe0fb0fb9ada75fcdd5e7a6e868b023e"
+  },
+  {
+   "path": "src/client/components/GraphicsPresetSelector.ts",
+   "bytes": 5737,
+   "sha256": "845fd965c11eab18e5d72488cf29134d959ea9c2325885a540c4d6436aaf03aa"
+  },
+  {
+   "path": "src/client/components/GraphicsPresetTools.ts",
+   "bytes": 6643,
+   "sha256": "3b375662ffc89800626c64cb5fe91fd255a03487d7e63641538c9d04d60370e1"
+  },
+  {
+   "path": "src/client/components/IOSAddToHomeScreenBanner.ts",
+   "bytes": 6299,
+   "sha256": "b9a8817c01d53e703c40af114f7a781d12348106fcc7166e4e8bbd16deec9f7e"
+  },
+  {
+   "path": "src/client/components/IdentityTokenCard.ts",
+   "bytes": 5857,
+   "sha256": "92739dec991b25a65041783d3eb089fc84234f66e4e81a008e8397326dc132b6"
+  },
+  {
+   "path": "src/client/components/InlineCheckout.ts",
+   "bytes": 21073,
+   "sha256": "f7dae8a1f752cf1ee9bd43d8afd77033cc8537c67c65932847b0224eedd858b5"
+  },
+  {
+   "path": "src/client/components/InputCard.ts",
+   "bytes": 2120,
+   "sha256": "7bc7fd1ec4fd92d3ff147ab62b68545bf2921ae5ffbab8eb709ce65534b18293"
+  },
+  {
+   "path": "src/client/components/InputCardStyles.ts",
+   "bytes": 748,
+   "sha256": "6137c6838db46bf91125feea2c78c94803703d1d8c04ce6682953fc1ace244c4"
+  },
+  {
+   "path": "src/client/components/InsufficientCurrencyDialog.ts",
+   "bytes": 1612,
+   "sha256": "6742527e42324d1afaaec0961ff79b3d7bddb0a812544b1e2569c70752f58e79"
+  },
+  {
+   "path": "src/client/components/InventoryLoadoutBar.ts",
+   "bytes": 3905,
+   "sha256": "2cb5ed32b35b82bc8d3a8cb28f953b1db98d7bd01a06d0e3f4f2dd929128ba2c"
+  },
+  {
+   "path": "src/client/components/InventoryLoadoutMenu.ts",
+   "bytes": 3432,
+   "sha256": "59783c022b985a0a5f7621f964134425cc88aa733bdad7dc975f4b3c02a0ea05"
+  },
+  {
+   "path": "src/client/components/LazyVisibility.ts",
+   "bytes": 1747,
+   "sha256": "a618a6d08f5f4bcf81a94570b1f41028b4d952e5370d8bec0df3286af18c09d5"
+  },
+  {
+   "path": "src/client/components/LegendCeremony.ts",
+   "bytes": 26285,
+   "sha256": "c111f250a7e9a910772e0947b321c833a37a61ff1d019477870cebc8c892b8a9"
+  },
+  {
+   "path": "src/client/components/LevelBadge.ts",
+   "bytes": 21069,
+   "sha256": "7364676dec803b084e7cc439532331a99417b887655e8523d7f9409a57fcf1c7"
+  },
+  {
+   "path": "src/client/components/LevelBadgeFill.ts",
+   "bytes": 5205,
+   "sha256": "ecbb0e34bf5b642aee0c6917273b75f58217fd2977861afeef2fbd8e7be85c48"
+  },
+  {
+   "path": "src/client/components/LevelBadgeIcons.ts",
+   "bytes": 11320,
+   "sha256": "afb9fc0f0d6fa002c03946cd13376792ef1557010eb0a58d44a2d394f44cab0f"
+  },
+  {
+   "path": "src/client/components/LevelBadgeLargeIcons.ts",
+   "bytes": 30037,
+   "sha256": "e7347f5e495b238bb09b77189be34dc84ab04121fdb872028af62d6fad38ccbc"
+  },
+  {
+   "path": "src/client/components/LevelBadgeSlot.ts",
+   "bytes": 2539,
+   "sha256": "ec3c9c233607ebfd7b0292c1aade9d7fd8fb4bf3031d1ba975cfe6a2d3a0da58"
+  },
+  {
+   "path": "src/client/components/ListLobbyDialog.ts",
+   "bytes": 5126,
+   "sha256": "7908036adf449723630b3ceb815dac29b4f01e08d3930cd59871dc083d8bf23b"
+  },
+  {
+   "path": "src/client/components/LobbyCard.ts",
+   "bytes": 15509,
+   "sha256": "20539e449d22f09fae5b4c3302c8f5efb03e2c7692d2bbf6326f5edacb57a4b0"
+  },
+  {
+   "path": "src/client/components/LobbyPlayerView.ts",
+   "bytes": 25442,
+   "sha256": "028072fb4163e74b2930ce6990d912b2c2acfbba6fc23bca06bbb7ce5f74b8e0"
+  },
+  {
+   "path": "src/client/components/MainLayout.ts",
+   "bytes": 1024,
+   "sha256": "25710c661b2659dd45aa05ad4e7fae21070977b16d1f53684e8f93ad1672681d"
+  },
+  {
+   "path": "src/client/components/MarketingConsentToast.ts",
+   "bytes": 5981,
+   "sha256": "685ed801b71b3d2bef51f6a5b431245a2d36ce3c3d194019705253efdb8a979b"
+  },
+  {
+   "path": "src/client/components/MobileNavBar.ts",
+   "bytes": 4682,
+   "sha256": "59a2670fba61111e2a48cb9db65d2826196eee14a4ca87cc687ded635b9f57bf"
+  },
+  {
+   "path": "src/client/components/NavAccountMenu.ts",
+   "bytes": 32665,
+   "sha256": "385b3a6eadd6c9d1a764e393210c375a3a0e19b5118764bdf3004070cc855596"
+  },
+  {
+   "path": "src/client/components/NavNotificationsController.ts",
+   "bytes": 4422,
+   "sha256": "e3bf9062aa5cc8a77003997c53cc9e3e25eb20b83922ee65fac56ff35ae4a60d"
+  },
+  {
+   "path": "src/client/components/NavUtilityIcons.ts",
+   "bytes": 7771,
+   "sha256": "26bd26144359c96a130c1cb19a3d36e741f45bae51ca70f5d8ba92d20c92b7c2"
+  },
+  {
+   "path": "src/client/components/NewsBox.ts",
+   "bytes": 6576,
+   "sha256": "e35596f119994876631b5687a090a6b3941b93abde93a3fd45e88f2bd89b37f3"
+  },
+  {
+   "path": "src/client/components/NotLoggedInWarning.ts",
+   "bytes": 2362,
+   "sha256": "f718abf331208b63f53c5ace19431bf4e27fc2f9a538432e622e5cc91c3eecab"
+  },
+  {
+   "path": "src/client/components/OvertimePanel.ts",
+   "bytes": 6269,
+   "sha256": "101c7e9aa15685ab761ff3f448ea77f093027dd437bc3467b3825d3d7101a01a"
+  },
+  {
+   "path": "src/client/components/PackContentsDialog.ts",
+   "bytes": 5150,
+   "sha256": "65784eab3a8f8f07d11dd52e09b8b22662270b7958eb8336e4bd03482b7725dd"
+  },
+  {
+   "path": "src/client/components/PastGameXpCard.ts",
+   "bytes": 11328,
+   "sha256": "811758ea0dcf34bf4d91f73a2afe0a217cf74396aef366fc74c8a6dbb583b45d"
+  },
+  {
+   "path": "src/client/components/PatternPreview.ts",
+   "bytes": 6639,
+   "sha256": "a6ec8592284c1f76dfab491faeb5c7d0121ca5ef4e0631cdf60b8b33be39fb23"
+  },
+  {
+   "path": "src/client/components/PlayPage.ts",
+   "bytes": 5021,
+   "sha256": "2c0c060755e922500423bc3268b3f6b30c96a1ecfa4b6261a1c6efe43a3d1e7e"
+  },
+  {
+   "path": "src/client/components/PlayerName.ts",
+   "bytes": 3495,
+   "sha256": "3a218793da7bdbbab374ecc225d8407308ad7173bb7bdf2a3f8d5bdc9a3a3d57"
+  },
+  {
+   "path": "src/client/components/PlutoniumIcon.ts",
+   "bytes": 1966,
+   "sha256": "4f8828aeeb5d849a3f8a986021d541509747c8a893a94c9e183d6fe9c6f050eb"
+  },
+  {
+   "path": "src/client/components/PrestigeFlow.ts",
+   "bytes": 45397,
+   "sha256": "1226a147e15952dca156b39022282919fc357f02d3dedfab44c8209d58f44af9"
+  },
+  {
+   "path": "src/client/components/ProfileCard.ts",
+   "bytes": 24649,
+   "sha256": "cb236a0f67b9c0c867a61eb4f54d315387b85e6a94a5aa7d448f6960da43f98e"
+  },
+  {
+   "path": "src/client/components/ProfileProgression.ts",
+   "bytes": 24821,
+   "sha256": "cf1851292dd0b62d9dedefb076362f5111a946ce3517fcb09fdaebe9e5e8ec02"
+  },
+  {
+   "path": "src/client/components/ProfileShare.ts",
+   "bytes": 16602,
+   "sha256": "fbf3459ae27a70e8ca9c49e610cedcdf84470354a7c6683f15ebba8008464e76"
+  },
+  {
+   "path": "src/client/components/ProgressionSection.ts",
+   "bytes": 369,
+   "sha256": "6c2d8b3db0fe6617c36c3503a0dc1ffc33051a832ab2194a878433d9e4d0b34b"
+  },
+  {
+   "path": "src/client/components/ProgressiveList.ts",
+   "bytes": 3102,
+   "sha256": "155158108c42aaac5b26a94c2f636281f5b3f5084ea2f2d7a3da84f60d47e69a"
+  },
+  {
+   "path": "src/client/components/PurchaseButton.ts",
+   "bytes": 22651,
+   "sha256": "85dbfde072b1eff9cadfacc365904d987cd0b4c771834a7a4366bc955e84dbfb"
+  },
+  {
+   "path": "src/client/components/PurchaseNudgeModal.ts",
+   "bytes": 3620,
+   "sha256": "21be56224d90dc46f7cff449359d2440aaa8c09aba35c87495a129826af54f09"
+  },
+  {
+   "path": "src/client/components/RankedModal.ts",
+   "bytes": 7813,
+   "sha256": "fa3a49ac61c7efd0eeb53eefb66330aa0c81991118926d41dcff7db8058ea554"
+  },
+  {
+   "path": "src/client/components/RewardTrack.ts",
+   "bytes": 46856,
+   "sha256": "b84d95253deceb5cdfcf206b314f1237ab10698124e5c8a3ac9531647e9bdb40"
+  },
+  {
+   "path": "src/client/components/RewardsPanel.ts",
+   "bytes": 8922,
+   "sha256": "afeccfcda150648cb49d3152fc2ca1867f10f241f54699d892845a813dbc480d"
+  },
+  {
+   "path": "src/client/components/StatsTable.ts",
+   "bytes": 13850,
+   "sha256": "972251459b35b799307dc0d24f17dfea6287c1e6ae087c53cd2ccb83ee02a726"
+  },
+  {
+   "path": "src/client/components/SteamWishlist.ts",
+   "bytes": 5051,
+   "sha256": "cd82ff59d131737c2f8e26529c3d5d8e47ffe51646cece44a8120ebd73abba1e"
+  },
+  {
+   "path": "src/client/components/SteamWishlistButton.ts",
+   "bytes": 3766,
+   "sha256": "43fec3a7b8d174ffcb272742579faeae4bc034aae82c99376c30b62eabb00c64"
+  },
+  {
+   "path": "src/client/components/StreamingNow.ts",
+   "bytes": 6828,
+   "sha256": "49177ec909b017214df6003ddc0b6da7b5e842983cee12f4ce15893602b4bce3"
+  },
+  {
+   "path": "src/client/components/SubscriptionPanel.ts",
+   "bytes": 19537,
+   "sha256": "447dc4e2692495e16c0e9654fe4091ebf050a754a7549d79140c63d6578431fa"
+  },
+  {
+   "path": "src/client/components/ToggleInputCard.ts",
+   "bytes": 6327,
+   "sha256": "c7a18c887525664630e31e2b45124bcefbaa1b13e3ff9d03fc787b29deaf085c"
+  },
+  {
+   "path": "src/client/components/TribeStatsView.ts",
+   "bytes": 6406,
+   "sha256": "308d6047be823f62342a501c1389c9d032cd06ca4ad92b3ea092e7ea9e0d244f"
+  },
+  {
+   "path": "src/client/components/TribesPanel.ts",
+   "bytes": 23304,
+   "sha256": "d2b3a2ad4c5fee2a25df0b3a4a8cb1fa87a1a7280888ae6b263fb1146cdbe475"
+  },
+  {
+   "path": "src/client/components/UsernamePanel.ts",
+   "bytes": 16085,
+   "sha256": "d12bd474908b213441c28add90c825272a7be18d926f8a2731840f571b3b3186"
+  },
+  {
+   "path": "src/client/components/WebGLGate.ts",
+   "bytes": 8533,
+   "sha256": "2898a6d8f05795b7b9a99e921db69bca6b4d634ef0b0f6e8c2ff5679b262a4f5"
+  },
+  {
+   "path": "src/client/components/XpBar.ts",
+   "bytes": 2699,
+   "sha256": "59dcaa2488813cbf68e4cc4cdfb02e21bfbfcf8d1e9a09b4690b876d13949325"
+  },
+  {
+   "path": "src/client/components/baseComponents/Button.ts",
+   "bytes": 3924,
+   "sha256": "51e5aca8629d32a10e41866a0bcf5157189c5b7a19ba6b2e7a11f9d581de9f4e"
+  },
+  {
+   "path": "src/client/components/baseComponents/Modal.ts",
+   "bytes": 7015,
+   "sha256": "c24af527903477c75165f33949764746d17b9b0deee7d1e84b614c6753ca26a6"
+  },
+  {
+   "path": "src/client/components/baseComponents/SharedStyles.ts",
+   "bytes": 2809,
+   "sha256": "3fe7731a191792018d6af611e9e2a58138825ac3f46165f6547266a1f7d5de6c"
+  },
+  {
+   "path": "src/client/components/baseComponents/ranking/GameInfoRanking.ts",
+   "bytes": 5694,
+   "sha256": "1316b6cfa26feb33d799d763dd074b30571fe94cb19feab8d771ff2dbde6683f"
+  },
+  {
+   "path": "src/client/components/baseComponents/ranking/PlayerRow.ts",
+   "bytes": 9463,
+   "sha256": "62c60afaa265d0c3c83f73218199457eeb41fd8e4aa6819969b275238b55ee29"
+  },
+  {
+   "path": "src/client/components/baseComponents/ranking/RankingControls.ts",
+   "bytes": 6691,
+   "sha256": "aebf977f25ef1d30fddbc3177c703d930fb3e473951ecda81c7e32be383c395d"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingColor.ts",
+   "bytes": 1745,
+   "sha256": "ca4f577064863e609e777f2a6b498e138910d9db2888a30c2805788876e942fd"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingKeybind.ts",
+   "bytes": 5884,
+   "sha256": "25721ab5542a1bc52e7763c89496345fb4fc4fd14c174393718bb4da36945dbd"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingNumber.ts",
+   "bytes": 2090,
+   "sha256": "f7861f11225450f3992ded874eb88884cec4187244860aca0940b1af3b61841e"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingSelect.ts",
+   "bytes": 3224,
+   "sha256": "2a26fb4bd6bb7bb6edf49bd6cd44e5fd9cea17c00ccfab35619fb43f54b92302"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingSlider.ts",
+   "bytes": 5154,
+   "sha256": "094fb86041c1b5cd78a70bd4c48b3c025faf37850aaed2faa36da9d3d9e2e484"
+  },
+  {
+   "path": "src/client/components/baseComponents/setting/SettingToggle.ts",
+   "bytes": 2748,
+   "sha256": "bfccb8fda28a09cf0d493f54277ce1ef61eb795ff4dfcd8f8f9c2dfd3553b6b8"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/DiscordUserHeader.ts",
+   "bytes": 1640,
+   "sha256": "5fcc0cf625e8d79902d9700d4ca9bd5f1db49ab16957900cb7674bdd6485c100"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/GameHistoryDates.ts",
+   "bytes": 3645,
+   "sha256": "3f96fb6fc29a0bc8bb0d00ff8578a87dac8115b6a7ce189437410dfd0200fb99"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/GameInfoView.ts",
+   "bytes": 15256,
+   "sha256": "d542adcee4314847fe5b140197008225152de21dff5307bf8c33c082169c34ae"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/GameTypeLabels.ts",
+   "bytes": 2294,
+   "sha256": "e2fc272df0a1e0ca15ff5614048894b4c98cc1b106e759e32250357bbf1751fd"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/PlayerGameHistoryView.ts",
+   "bytes": 21872,
+   "sha256": "4886124ba963215cbe2aacc032792a40d4eb28a5e5bb70fba71a5780a184b3b0"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/PlayerStatsSummary.ts",
+   "bytes": 16369,
+   "sha256": "009f1c9300bc24a3ebae9841ab8485664110d67ecd7ea79f5e22c1d4ea9e8ec0"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/PlayerStatsTable.ts",
+   "bytes": 7930,
+   "sha256": "232feeaa2ce7d1cde05d8023300d62b82f0338cb86ebcb02f89905eddb90981e"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/PlayerStatsTree.ts",
+   "bytes": 19393,
+   "sha256": "424a973ed4f8e9dd6022743bf47d9476f0b81b9d544aa4de95775bd14f2e3fad"
+  },
+  {
+   "path": "src/client/components/baseComponents/stats/SteamUserHeader.ts",
+   "bytes": 1919,
+   "sha256": "fea94ef624d0f96d1b71468f2b09e1eb786df655d9333d4c5148f5e4b430a4c7"
+  },
+  {
+   "path": "src/client/components/clan/ClanBansView.ts",
+   "bytes": 7010,
+   "sha256": "c99b19885337e4eb1910dad6b0e694d2706f28a8eddea00ac30aba313a04e785"
+  },
+  {
+   "path": "src/client/components/clan/ClanBoostDialog.ts",
+   "bytes": 14958,
+   "sha256": "cae89f7ae490060724b6e743bfc0b96db3f4d746473c561bb21606efd5dafca2"
+  },
+  {
+   "path": "src/client/components/clan/ClanBrowseView.ts",
+   "bytes": 12084,
+   "sha256": "13f654ab916a2afe26192f5c4f29a2ad6bc904e281e87e1aa7c3e44555a55548"
+  },
+  {
+   "path": "src/client/components/clan/ClanCard.ts",
+   "bytes": 4442,
+   "sha256": "4ef4ca02cea0cde0fe559d9df1228bd9c87a6c550b40c9968516d2dbe872c6e9"
+  },
+  {
+   "path": "src/client/components/clan/ClanDetailView.ts",
+   "bytes": 33316,
+   "sha256": "e48675611493fd4e188df5f40ee7487eb3a627dad47a23276d608d8ce09ba182"
+  },
+  {
+   "path": "src/client/components/clan/ClanDonateDialog.ts",
+   "bytes": 11664,
+   "sha256": "f55b09e8203cde9bf9829eeab1090f4843bfdfb68dc2dd9b5ea6f3c03d833cb2"
+  },
+  {
+   "path": "src/client/components/clan/ClanDonationsView.ts",
+   "bytes": 6641,
+   "sha256": "be3efa6891b6a0d60600548a122f55cf02827d6247ee5737bcbb8e9b7fa8e22b"
+  },
+  {
+   "path": "src/client/components/clan/ClanGameHistoryView.ts",
+   "bytes": 24851,
+   "sha256": "7c998bdfef2a07e7eb5b874b6d46ed87d665126ff6c8cd1e17f716e9bc654d92"
+  },
+  {
+   "path": "src/client/components/clan/ClanManageView.ts",
+   "bytes": 22872,
+   "sha256": "e7070af3d706e08e3a202c1ea8e4c8f1606487bee63b54947c5e503b671a9b7f"
+  },
+  {
+   "path": "src/client/components/clan/ClanMapView.ts",
+   "bytes": 2465,
+   "sha256": "95a4918bfdf9502cd69adb4d9ca1180215ea673fb9f318019b79431c3726c891"
+  },
+  {
+   "path": "src/client/components/clan/ClanMyRequestsView.ts",
+   "bytes": 3266,
+   "sha256": "44d6cd794cacd95d8e9eb8c3959b75840e6f806259d0756c3fe2ef59c3079fb9"
+  },
+  {
+   "path": "src/client/components/clan/ClanRequestsView.ts",
+   "bytes": 6883,
+   "sha256": "278eab1c05c6a7f8f17915419db4f23bcf9da73d14afae86389b3401d427d361"
+  },
+  {
+   "path": "src/client/components/clan/ClanShared.ts",
+   "bytes": 17526,
+   "sha256": "dadecafb40ec160bc1c0202839a19f8be9c24e7f4a36c5272ed87b68292f5261"
+  },
+  {
+   "path": "src/client/components/clan/ClanStatsBreakdown.ts",
+   "bytes": 5973,
+   "sha256": "e96e2c4610d43ad68b1eef486cb1a9696190c4fe49285b1d7e4cecdc60269ee4"
+  },
+  {
+   "path": "src/client/components/clan/ClanTransferView.ts",
+   "bytes": 8887,
+   "sha256": "52e38f9b0e0cf0a008b0a91a2fb05db6ff2993f6dfe16696daaaaa6bdf24a4ff"
+  },
+  {
+   "path": "src/client/components/cosmetics/CosmeticRenderCanvas.ts",
+   "bytes": 13734,
+   "sha256": "011dfc80f497fc26109f667c4ceecba39a29b8e30d471722a85edbbd64df7baf"
+  },
+  {
+   "path": "src/client/components/leaderboard/LeaderboardClanTable.ts",
+   "bytes": 16520,
+   "sha256": "c1db41cf69dc1efdb47ff7f1e8f4c9fcabb4c9cc67e734f80fbb204743173bea"
+  },
+  {
+   "path": "src/client/components/leaderboard/LeaderboardPlayerList.ts",
+   "bytes": 21556,
+   "sha256": "7957d43fbaf823a877f80b14314146914bd2310df98cbece6f57ed54cd987fa6"
+  },
+  {
+   "path": "src/client/components/leaderboard/LeaderboardTribeTable.ts",
+   "bytes": 13792,
+   "sha256": "0fcfa3c5b2e6fe6d7efbc8c8941a93eb2a80649bd90589320b97dfafe89ca715"
+  },
+  {
+   "path": "src/client/components/map/MapDisplay.ts",
+   "bytes": 6781,
+   "sha256": "c91d8019003328151b93addee306b6b67729a5b12583cd801542d8602752805a"
+  },
+  {
+   "path": "src/client/components/map/MapFavorites.ts",
+   "bytes": 1627,
+   "sha256": "aac7de23c6e44c0611f15e7ce4f70bf12297475d72aeac844f55ed9c0230f8c4"
+  },
+  {
+   "path": "src/client/components/map/MapPicker.ts",
+   "bytes": 13007,
+   "sha256": "38220996aad93de25d8f10547366b4056ab8d59ac2b2c362bae2602307aab803"
+  },
+  {
+   "path": "src/client/components/map/Medals.ts",
+   "bytes": 1456,
+   "sha256": "a153b7246a931083c4cd5b291dbb3a9d93bf00ce36fd12402e1f7b910924305b"
+  },
+  {
+   "path": "src/client/components/ui/ActionButton.ts",
+   "bytes": 2188,
+   "sha256": "70979964916816fd4f0f7aab20766592f0c41b436d7acb6814bdf6443137a084"
+  },
+  {
+   "path": "src/client/components/ui/Divider.ts",
+   "bytes": 806,
+   "sha256": "41bb4c7374bd386ead4530bdfdcbf8b807c0ba45cc725c480c7f3ca523f2e6f1"
+  },
+  {
+   "path": "src/client/components/ui/GoogleLinkButton.ts",
+   "bytes": 1304,
+   "sha256": "50aaee8b220fe4691178238a7d5dca4d1d5b0212dd598ce34f4451384a9067ed"
+  },
+  {
+   "path": "src/client/components/ui/InviteFriendsButton.ts",
+   "bytes": 1842,
+   "sha256": "ecd2d0bd5c3ee0f6883f5bb3519a8344806aaa3f02069d9af6c2a53bedb12744"
+  },
+  {
+   "path": "src/client/components/ui/ModalHeader.ts",
+   "bytes": 2484,
+   "sha256": "f6ae161a41b8776c154024322c5d824eda84387b17575d99ef7bdc9a3fe52d5f"
+  },
+  {
+   "path": "src/client/components/ui/PlayerNameLink.ts",
+   "bytes": 1369,
+   "sha256": "f9a6faa7c7f72dcde6d383f38d30d5a2c8c06e8df439e9d636d0b52571756949"
+  },
+  {
+   "path": "src/client/components/ui/SignedOutNotice.ts",
+   "bytes": 865,
+   "sha256": "b658dee53537998fbdcd63fccb2b522bd0ba13cae48d0d778efa7fc3374be7f5"
+  },
+  {
+   "path": "src/client/components/ui/SteamLinkButton.ts",
+   "bytes": 2417,
+   "sha256": "426a31a2a2f2cc126978aa105d37b43f4b9109654917d3585850072e8ec80851"
+  },
+  {
+   "path": "src/client/components/ui/StyledSelect.ts",
+   "bytes": 1910,
+   "sha256": "f307c8033e7bcd6cc81de3088ec9e5f0a5b00901d3c4811bbf138d40bad552d5"
+  },
+  {
+   "path": "src/client/components/ui/UsernameText.ts",
+   "bytes": 1635,
+   "sha256": "d452cc89236c8c79a1098ab726b86a723f87b90f7babab3df8b6543884189bac"
+  },
+  {
+   "path": "src/client/components/ui/VerifiedBadge.ts",
+   "bytes": 1337,
+   "sha256": "c7dd7f5ac43bebba204a5b3b39591f1c66ad999b41cbd0b9157b28406d35239c"
+  },
+  {
+   "path": "src/client/controllers/AmbienceController.ts",
+   "bytes": 5115,
+   "sha256": "eee065df1a4b14aff77add18b9ebc937a2a88bf4ed19e7b21d6659d62f1679ea"
+  },
+  {
+   "path": "src/client/controllers/AttackingTroopsController.ts",
+   "bytes": 7955,
+   "sha256": "583c281dbf78746192a9380327ba0dfe79497cc96793560b722745405763ebb4"
+  },
+  {
+   "path": "src/client/controllers/BuildPreviewController.ts",
+   "bytes": 23928,
+   "sha256": "1c990ac82aa693cea321d21e1e21e54e83be8a0f4fc9438dcecf413284060fcd"
+  },
+  {
+   "path": "src/client/controllers/HoverHighlightController.ts",
+   "bytes": 2869,
+   "sha256": "81682fa913ec49bd6439910e2e0e7a723c5c5957596c5c1183b0bb5a03b15a66"
+  },
+  {
+   "path": "src/client/controllers/LiveStatsController.ts",
+   "bytes": 2212,
+   "sha256": "3dd18063d85cb784028a7b2fb9c77b172090ae597ce35d8b799ea6b89407731a"
+  },
+  {
+   "path": "src/client/controllers/MapLayerController.ts",
+   "bytes": 2810,
+   "sha256": "f7b48ee120a83068040721ff0ac7743fdb52a835589121751c0204ffb2179e6c"
+  },
+  {
+   "path": "src/client/controllers/SoundEffectController.ts",
+   "bytes": 8487,
+   "sha256": "dbc3e79717620e677f1cbe8b5a7d1a5cdacb70bcc9c2cdc79fcdbb2f5b32a697"
+  },
+  {
+   "path": "src/client/controllers/StructureHighlightController.ts",
+   "bytes": 1025,
+   "sha256": "00092b1b2d0cbabd7a332bfb2e9ece855d8f853b9e377e7b120e39c06ae5e724"
+  },
+  {
+   "path": "src/client/controllers/ViewModeController.ts",
+   "bytes": 947,
+   "sha256": "83973946a616fb07971cfaea3e91d606ed3930300bec0c418947fa7b3879537e"
+  },
+  {
+   "path": "src/client/controllers/WarshipSelectionController.ts",
+   "bytes": 10928,
+   "sha256": "41b6d205b3642d2a3af7920cb28bab260cbbdd9113c29b40e428ec819dbd0ca5"
+  },
+  {
+   "path": "src/client/halloween.css",
+   "bytes": 22538,
+   "sha256": "c80db8873bec3825d28cb57b038bc55d7e0f38d04ab068f918d5ddd4e083cb73"
+  },
+  {
+   "path": "src/client/hud/FrameProfiler.ts",
+   "bytes": 1471,
+   "sha256": "265ef61dbb0d115a8f892131d2de614d5a22f83e746d873dc7f17bd64afcf649"
+  },
+  {
+   "path": "src/client/hud/GameRenderer.ts",
+   "bytes": 15237,
+   "sha256": "5191265b61e735346c3bc7ce59d6fe70421a964b73dc5d70b8560a465b429ca8"
+  },
+  {
+   "path": "src/client/hud/HotbarIcons.ts",
+   "bytes": 1318,
+   "sha256": "33f99b4ffe810e34fbefd49d54cdc9110bd40d413fdcb7afcb823c2c9ec94daa"
+  },
+  {
+   "path": "src/client/hud/PlayerIcons.ts",
+   "bytes": 5360,
+   "sha256": "6b3741d06f72c58762bf02076311be8f374729b943901b48bf8128133b2a3781"
+  },
+  {
+   "path": "src/client/hud/SpriteLoader.ts",
+   "bytes": 6346,
+   "sha256": "f6c59e682c553c48708cfa8be6583895687195d81dba46c2408b382a8cfdfdfa"
+  },
+  {
+   "path": "src/client/hud/Tutorial.ts",
+   "bytes": 9701,
+   "sha256": "9b0171e2e93c9892b939c2eb871b2cde22d971ff94436d66b6da12a2d6129468"
+  },
+  {
+   "path": "src/client/hud/layers/ActionableEvents.ts",
+   "bytes": 11595,
+   "sha256": "20beea0a489facfdfd8088e613a20d1a426877659596ab00bb36aa340136cbdb"
+  },
+  {
+   "path": "src/client/hud/layers/AlertFrame.ts",
+   "bytes": 7653,
+   "sha256": "63cca000137398af5b9f7f72c39d6178935675b682193b6c82b7dc62d3661a55"
+  },
+  {
+   "path": "src/client/hud/layers/AttacksDisplay.ts",
+   "bytes": 15960,
+   "sha256": "d4c4bc3092b498730cbcf92ca564c4135aeb78ca2368f7013b3b21beb0a524e8"
+  },
+  {
+   "path": "src/client/hud/layers/BuildMenu.ts",
+   "bytes": 13593,
+   "sha256": "db9eacc39df17350ef2a8424443f1d46cb44c59aa1bac7e4e16edd35a6455193"
+  },
+  {
+   "path": "src/client/hud/layers/ChatDisplay.ts",
+   "bytes": 4959,
+   "sha256": "cd8f6ab0331da31586717c3ba85f4ad4632e2f2beb39bfee31ec889a4640156b"
+  },
+  {
+   "path": "src/client/hud/layers/ChatIntegration.ts",
+   "bytes": 3136,
+   "sha256": "b52be831caad62c46f4a1ed48028d4022b84166a6783828bdac4c1320e97c0b0"
+  },
+  {
+   "path": "src/client/hud/layers/ChatModal.ts",
+   "bytes": 16401,
+   "sha256": "20e279a814906cc0aca909ddf549c06f97ee7326c8bf2ac0b68ef076fb33ba55"
+  },
+  {
+   "path": "src/client/hud/layers/ColumnPicker.ts",
+   "bytes": 4504,
+   "sha256": "cea590b91bec4925d062455accedda6b8dbbd19d9ccda96d761a7ebad2198145"
+  },
+  {
+   "path": "src/client/hud/layers/ControlPanel.ts",
+   "bytes": 24111,
+   "sha256": "a5e38b99764fa969880ecdc8ea7bf081c860266d3b2235c92986dba37f6eb6e6"
+  },
+  {
+   "path": "src/client/hud/layers/EmojiTable.ts",
+   "bytes": 10814,
+   "sha256": "3a7f821e75925e6b88dc2f9a9513b5890449135ded4c397a798bfe4a0f68ba01"
+  },
+  {
+   "path": "src/client/hud/layers/EventsDisplay.ts",
+   "bytes": 24021,
+   "sha256": "d18f149747346e2e618bd451020c6cb4af2b42585435e763fcb3efb1de8a9202"
+  },
+  {
+   "path": "src/client/hud/layers/GameLeftSidebar.ts",
+   "bytes": 7806,
+   "sha256": "f3202011d93554206616372fc03c7bd6214b35d0378059e71e5354de62bc32b4"
+  },
+  {
+   "path": "src/client/hud/layers/GameRightSidebar.ts",
+   "bytes": 15359,
+   "sha256": "ec51de911a855f682c2a2ebf676f75b74433254cfb09e5aabead95d1c77728df"
+  },
+  {
+   "path": "src/client/hud/layers/HeadsUpMessage.ts",
+   "bytes": 11590,
+   "sha256": "86cb3e377b16b8f15ccb766a6d8732db377b5e30f2d6e595c484d02e777381d0"
+  },
+  {
+   "path": "src/client/hud/layers/ImmunityTimer.ts",
+   "bytes": 2841,
+   "sha256": "5cd50cb0a659d9fefe5c3717379009f365da0c866f636821d9e375d094371bd9"
+  },
+  {
+   "path": "src/client/hud/layers/InGamePromo.ts",
+   "bytes": 4688,
+   "sha256": "6c09eff4cbf2deb9ecf6f6a0927d7c2c7ae683c013fdaaa30a1cf2ad6cbf4447"
+  },
+  {
+   "path": "src/client/hud/layers/MainRadialMenu.ts",
+   "bytes": 5916,
+   "sha256": "75d71f2fbd0de7af8bcd42c416da1f7bfcbd6b3fe5c8d1e1bdc58af0962f8436"
+  },
+  {
+   "path": "src/client/hud/layers/MultiTabModal.ts",
+   "bytes": 5817,
+   "sha256": "65e730fdf1ea51a3375116a8ce9a35b57b9b030203ce9ab555f79211467cbbd0"
+  },
+  {
+   "path": "src/client/hud/layers/NewLobbyPrompt.ts",
+   "bytes": 3564,
+   "sha256": "602f2d2b745f18f283c15c571a1d6c2ed8e30335d62082e62c12b0b413eae69a"
+  },
+  {
+   "path": "src/client/hud/layers/OnlyImages.ts",
+   "bytes": 461,
+   "sha256": "0e6d67f36315d2e78dbb5cd05dabf00c011bbc95671a2fb16233452a36941210"
+  },
+  {
+   "path": "src/client/hud/layers/PerformanceOverlay.ts",
+   "bytes": 41310,
+   "sha256": "45d6676f111a4b7a2177961487dba7708a8dcf995c3993d0be2012cda81dbc07"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerActionHandler.ts",
+   "bytes": 2738,
+   "sha256": "058d946b63c40b14f442bdef81904d207bcb671e6a2d84bf1fd5b68db7c5e3cf"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerInfoOverlay.ts",
+   "bytes": 32017,
+   "sha256": "0a77c7828cfc0023112676baa4e6938855971077ac9f640f8a42bcd223aa2a27"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerModerationModal.ts",
+   "bytes": 5615,
+   "sha256": "8643a707e43d3734ba1a4ab3266e5be9b83a0a6133381cd9246088fe15ae6823"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerPanel.ts",
+   "bytes": 43377,
+   "sha256": "79b01b7849139aeeb55ef2e6c028c1771f023328f18532b47f8a78da9b2cc4dd"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerReportModal.ts",
+   "bytes": 5832,
+   "sha256": "3bc92f7aaa355784d821fafc5a44d830d62dc1cab9de5a02ced25f104b0580ad"
+  },
+  {
+   "path": "src/client/hud/layers/PlayerStats.ts",
+   "bytes": 1224,
+   "sha256": "6cb653e2854f30261136df228fe7dd5e0cf699fe01716c5bc2d5c9206d50b9f7"
+  },
+  {
+   "path": "src/client/hud/layers/RadialMenu.ts",
+   "bytes": 43223,
+   "sha256": "d62d15700bab10b2a4aaef3c08acafbefec9bf7f026ce6fb6e45df6a4dafedd8"
+  },
+  {
+   "path": "src/client/hud/layers/RadialMenuElements.ts",
+   "bytes": 25859,
+   "sha256": "22b7b9444b7e6b08d6ddcd691254ad8716644daf3cab48995e5c936a52b34ff4"
+  },
+  {
+   "path": "src/client/hud/layers/RelationSmiley.ts",
+   "bytes": 1834,
+   "sha256": "17e6a4e27a1d8216ae07285eceaa4d48625d74c0c3703751a72685b561fe33c3"
+  },
+  {
+   "path": "src/client/hud/layers/ReplayPanel.ts",
+   "bytes": 3122,
+   "sha256": "2225a5efaab00b994b19f31cbd690742dad895c3c3baa1bfff5833b5af23d84c"
+  },
+  {
+   "path": "src/client/hud/layers/SendResourceModal.ts",
+   "bytes": 18701,
+   "sha256": "46aee73d3b1fbe782a7963e4fa4605c49494c601625ba1627939cb98edb8efbc"
+  },
+  {
+   "path": "src/client/hud/layers/SettingsModal.ts",
+   "bytes": 11441,
+   "sha256": "f4a341fad41d7b09ce916681d2052f8293de34aba4b03129006cdefceb7d23d6"
+  },
+  {
+   "path": "src/client/hud/layers/SpawnTimer.ts",
+   "bytes": 5902,
+   "sha256": "f5aa74c6826d08867616bb7dcf52c8229c5de332db551d4a5534b6aa1a51b895"
+  },
+  {
+   "path": "src/client/hud/layers/TeamStats.ts",
+   "bytes": 2163,
+   "sha256": "50ef6592c95a2b9e3cd62ec83584ae69f58bb01cec02ec353434a1b1743e706b"
+  },
+  {
+   "path": "src/client/hud/layers/TutorialPanel.ts",
+   "bytes": 20777,
+   "sha256": "72710f8bedf48675f7496adbc93115c6277e0e6ad08ed84c7dcfbd3d974a0ff6"
+  },
+  {
+   "path": "src/client/hud/layers/UnitDisplay.ts",
+   "bytes": 10460,
+   "sha256": "c4be51ac929735a5f5a72bf528ce7f916a877ca5cae74a6d191b4718510b5b88"
+  },
+  {
+   "path": "src/client/hud/layers/WinModal.ts",
+   "bytes": 38742,
+   "sha256": "84528ab9366772b99ee1ec8fad318a826e23f57d11b475afd629108db39dd5da"
+  },
+  {
+   "path": "src/client/hud/layers/lib/GoldRateTracker.ts",
+   "bytes": 4827,
+   "sha256": "9acf371fe38cdfb9d114587595a3f76886e2159c42872d1e250469ae122d68ca"
+  },
+  {
+   "path": "src/client/hud/layers/lib/StatsColumns.ts",
+   "bytes": 10474,
+   "sha256": "b9883bd647f77c0551de22541ae500870960c8e32b2226d185bfe53f6a4c3df1"
+  },
+  {
+   "path": "src/client/render/frame/RailroadCache.ts",
+   "bytes": 8878,
+   "sha256": "c7547e4b0a0ccc3904177d7414b238039f20eeff46a3543bd8eb158614490860"
+  },
+  {
+   "path": "src/client/render/frame/SpiralTrails.ts",
+   "bytes": 8352,
+   "sha256": "8ff46b9dd3a04734fd1c1f8da0660538da17b438de93d21df6a5f07b81da5f8f"
+  },
+  {
+   "path": "src/client/render/frame/TrailManager.ts",
+   "bytes": 5727,
+   "sha256": "1f345e2d4f41de1fafb27ba8e04c585143fa23eb2033fd370beb805a7f4cb0db"
+  },
+  {
+   "path": "src/client/render/frame/Upload.ts",
+   "bytes": 4051,
+   "sha256": "20fac27ca05c72f9c6d7f421b7942114e772e9c0aaa07b57a89844cc0a64ab8c"
+  },
+  {
+   "path": "src/client/render/frame/derive/AllianceClusters.ts",
+   "bytes": 1116,
+   "sha256": "ddb9c4c3fb6698218f6f3bdd51c9891206fe23a9402c3e85d2405f4932af0ac0"
+  },
+  {
+   "path": "src/client/render/frame/derive/AttackRings.ts",
+   "bytes": 760,
+   "sha256": "614cfd3a1b5d1dc33d27f609fe953495b15fa1f6b7e3a9de1097055da8d2ee90"
+  },
+  {
+   "path": "src/client/render/frame/derive/NukeTelegraphs.ts",
+   "bytes": 3431,
+   "sha256": "96892d0219acd165543e52cbaeebfc3632e7ad7fbb22fb313113951ed79087a7"
+  },
+  {
+   "path": "src/client/render/frame/derive/PlayerStatus.ts",
+   "bytes": 7037,
+   "sha256": "ba4a4f8461847397d302986bf2cec45caac544585d5394f7ffb14d9d82d9b692"
+  },
+  {
+   "path": "src/client/render/frame/derive/RelationMatrix.ts",
+   "bytes": 2819,
+   "sha256": "9f85d596486a0c5bd6e3a677fd5bee96eedf262669d0ccd7f04506ee39cee60d"
+  },
+  {
+   "path": "src/client/render/frame/derive/TerrainRowSpans.ts",
+   "bytes": 2853,
+   "sha256": "38951581b77ad726666dc8f9f1cee2ee75abdfb9d0e51df32228ef1ce421e688"
+  },
+  {
+   "path": "src/client/render/gl/Camera.ts",
+   "bytes": 5873,
+   "sha256": "d00692faf7b49b5a267c4ae8412ffbbfbec2d4e926e6ec0b115d36c966a417e5"
+  },
+  {
+   "path": "src/client/render/gl/DynamicBuffer.ts",
+   "bytes": 1550,
+   "sha256": "460b919864376b1bb49fde45c971569ce2d709d1ae1a5987157bfe11324d9090"
+  },
+  {
+   "path": "src/client/render/gl/GraphicsOverrides.ts",
+   "bytes": 5381,
+   "sha256": "87dc39cf86946509aac536876d5cd6a3285a132ed4c322e10107f4559240fbd0"
+  },
+  {
+   "path": "src/client/render/gl/MapRenderer.ts",
+   "bytes": 14638,
+   "sha256": "be513b7a6435055f50155b78513845bbc19f738245da74e6fdeaffdaae5ca626"
+  },
+  {
+   "path": "src/client/render/gl/RenderOverrides.ts",
+   "bytes": 8853,
+   "sha256": "a7763c39b824f9b90900bed09345f1f19e60b897b3ae49667fb773b8fc09570d"
+  },
+  {
+   "path": "src/client/render/gl/RenderSettings.ts",
+   "bytes": 16190,
+   "sha256": "c41279400a5920baf49f7801afcf3617a29b42b3782c80e618c8ff8eb1cce2dc"
+  },
+  {
+   "path": "src/client/render/gl/Renderer.ts",
+   "bytes": 52035,
+   "sha256": "c9a05cf16b52fcc811877cc0dcbe940d03e9992f1c14826947fe89fe55312e35"
+  },
+  {
+   "path": "src/client/render/gl/SettingsUtils.ts",
+   "bytes": 1561,
+   "sha256": "cb28464cfbb890259b20a38d113240bfa8ceaaa8b96ffed878a835a6c8730335"
+  },
+  {
+   "path": "src/client/render/gl/colorblind-theme.json",
+   "bytes": 6609,
+   "sha256": "6ad58b45b2a965ddedf9e2b65902d4f5e16918147df5c751997780fe67b539b9"
+  },
+  {
+   "path": "src/client/render/gl/debug/ConfigProp.ts",
+   "bytes": 338,
+   "sha256": "210a3f9ee26c6416c182e1f26389ab3f9e4880c962355f28b798eadf06d92193"
+  },
+  {
+   "path": "src/client/render/gl/debug/EffectEditor.ts",
+   "bytes": 5563,
+   "sha256": "1fcc2aae079f524abf977843582ae617674477fc973b8d828c9b16353c1baffc"
+  },
+  {
+   "path": "src/client/render/gl/debug/EffectEditorState.ts",
+   "bytes": 5923,
+   "sha256": "eedbbae392ef0de5b652a716cde561c96d2414774f8e242655ba44f9fa9b17c0"
+  },
+  {
+   "path": "src/client/render/gl/debug/Folder.ts",
+   "bytes": 405,
+   "sha256": "772a0f0b8090c22a0f151f011a58eae586664c0de349036ba5816bcfaac0b2b8"
+  },
+  {
+   "path": "src/client/render/gl/debug/Layout.ts",
+   "bytes": 20745,
+   "sha256": "9b2a6733c8f889a530e35f003fee20876af10f235227e21cfca0b6b36259fd5d"
+  },
+  {
+   "path": "src/client/render/gl/debug/Tree.ts",
+   "bytes": 721,
+   "sha256": "f025bfc23f0cf348ca5e2efb8dd24331382129ec9e2b8545cded462342de16ce"
+  },
+  {
+   "path": "src/client/render/gl/debug/Wiring.ts",
+   "bytes": 6211,
+   "sha256": "c10eb8d9bb0b787854cfb6ce6b641ab99adce2c1279edf2dd47a7d9e972572e3"
+  },
+  {
+   "path": "src/client/render/gl/debug/index.ts",
+   "bytes": 2061,
+   "sha256": "5671ea0c78b30a331bc7ded230853ffbc7be4e29602cc866b44776211a421b45"
+  },
+  {
+   "path": "src/client/render/gl/debug/props/Color.ts",
+   "bytes": 1968,
+   "sha256": "270ef9323eb223aa1ff35f8adf138cf333e2ef321cddbd3ff834845d796c80e2"
+  },
+  {
+   "path": "src/client/render/gl/debug/props/Slider.ts",
+   "bytes": 796,
+   "sha256": "f2a289c757b71953c8cd5b7803277b0f389972c97f57c10ea58a41726732c106"
+  },
+  {
+   "path": "src/client/render/gl/debug/props/Toggle.ts",
+   "bytes": 736,
+   "sha256": "2c4eeccfd70d78f032dd89d442d3ba1ee55cd00976b345cd216d678828002d15"
+  },
+  {
+   "path": "src/client/render/gl/default-theme.json",
+   "bytes": 7571,
+   "sha256": "c664d4df73e7f9d81261c8a15223e73c230e7286c7d189f33660db9cfcbca064"
+  },
+  {
+   "path": "src/client/render/gl/graphics-presets.json",
+   "bytes": 1586,
+   "sha256": "f296a1e5fb3941d430ce5258d6465c2829bb544fcc96b3d1e7b946b689bbe5a7"
+  },
+  {
+   "path": "src/client/render/gl/index.ts",
+   "bytes": 1256,
+   "sha256": "a2df78715e45262c748ef1f309195641a8d464145d8119579f73dffb6045de1d"
+  },
+  {
+   "path": "src/client/render/gl/initGL.ts",
+   "bytes": 5353,
+   "sha256": "ecfa86d88a3a47027ed395b26d4ab703fff481fec003f549f621abf19ee39d2e"
+  },
+  {
+   "path": "src/client/render/gl/passes/BarPass.ts",
+   "bytes": 12479,
+   "sha256": "0d2d35755c995db885925e6e3750bc4b699ee2010c9f156af49c57a56caf85e6"
+  },
+  {
+   "path": "src/client/render/gl/passes/BorderComputePass.ts",
+   "bytes": 8199,
+   "sha256": "847647e41a394784cb66ca533ede99d75538b058e7e5770e030eba97a2268737"
+  },
+  {
+   "path": "src/client/render/gl/passes/BorderScatterPass.ts",
+   "bytes": 7799,
+   "sha256": "01c0cc6e1937b4c16d916e07e623f8cb8ae3a3e6459fe35b5156249a787e0b3f"
+  },
+  {
+   "path": "src/client/render/gl/passes/BorderStampPass.ts",
+   "bytes": 5274,
+   "sha256": "d329a160ff74c0c39c899619705b730eb6d02238f2327aeafa203ed039fe1ce9"
+  },
+  {
+   "path": "src/client/render/gl/passes/CoordinateGridPass.ts",
+   "bytes": 4762,
+   "sha256": "4a8650c0c0c07ab9230a6ecd589dfe8613c295b02ca3d7748fb3db8c6752acb2"
+  },
+  {
+   "path": "src/client/render/gl/passes/CrosshairPass.ts",
+   "bytes": 6412,
+   "sha256": "90eea356d98562f6e2797cf98a04f1abbf93eab4f725961fa738e0c6da4acc24"
+  },
+  {
+   "path": "src/client/render/gl/passes/DefenseCoveragePass.ts",
+   "bytes": 10300,
+   "sha256": "f137411a61d914b79a81500aecd7f67c2c3f7db9522be44434a39ccdb4a69fb5"
+  },
+  {
+   "path": "src/client/render/gl/passes/FalloutBloomPass.ts",
+   "bytes": 13814,
+   "sha256": "d4c29ebaea3dfe7aa59c04379ba25a812ecc43eab995402fe17b3f1566223ff5"
+  },
+  {
+   "path": "src/client/render/gl/passes/FalloutLightPass.ts",
+   "bytes": 9480,
+   "sha256": "8e92b5c84fc14b1ac572f8f861c405d582a40da56a1fd14492e1cf344ff6c20e"
+  },
+  {
+   "path": "src/client/render/gl/passes/LightmapPass.ts",
+   "bytes": 6120,
+   "sha256": "d7f409144a10677f5f95157d1fe74421d68880ba0c8889ff1b8182546d930cfd"
+  },
+  {
+   "path": "src/client/render/gl/passes/MapLayerPass.ts",
+   "bytes": 9246,
+   "sha256": "c9383154ff57f53afae0d89347feab13b1ec11d7776d26a4f32c2ed2108a1c76"
+  },
+  {
+   "path": "src/client/render/gl/passes/MoveIndicatorPass.ts",
+   "bytes": 4005,
+   "sha256": "0d5b9584392b38d7109cd5b64b62ea1e7813669d8e206c2a0d3d21113c17c2bd"
+  },
+  {
+   "path": "src/client/render/gl/passes/NightCompositePass.ts",
+   "bytes": 2796,
+   "sha256": "3333384c7c65b1bf0eb83c9f4a4788979d17f1a50aa30c4f91db6c510724333a"
+  },
+  {
+   "path": "src/client/render/gl/passes/NukeTelegraphPass.ts",
+   "bytes": 5050,
+   "sha256": "b28b343d570130ec42a5a7221f22209d55383efdba0c01f8c2cb4d389f033a76"
+  },
+  {
+   "path": "src/client/render/gl/passes/NukeTrajectoryPass.ts",
+   "bytes": 11122,
+   "sha256": "d45861ed1e5c2deb3552c6a6c34088409291a01e42a3ab30a6c2f2f994b87991"
+  },
+  {
+   "path": "src/client/render/gl/passes/PointLightPass.ts",
+   "bytes": 10295,
+   "sha256": "777dc2c10954af3d0d575ba6587a76cbf16410b0d11de845e2c6792b257d74b4"
+  },
+  {
+   "path": "src/client/render/gl/passes/RailroadPass.ts",
+   "bytes": 15836,
+   "sha256": "c582690ef5cf7d0f795dd5c08a47dcf04e4b50d4b5cbd99b681a9d71b06c6f01"
+  },
+  {
+   "path": "src/client/render/gl/passes/RangeCirclePass.ts",
+   "bytes": 2833,
+   "sha256": "a08f3b6ba08c75c061e92cef4a47291ba2eff3a58ac0b8063891e804d1bcb2c0"
+  },
+  {
+   "path": "src/client/render/gl/passes/SamRadiusPass.ts",
+   "bytes": 17589,
+   "sha256": "8b938e982feeddd12664a025cf17ed82f9858dcb89aa95fc8a0ad31fc28aafd1"
+  },
+  {
+   "path": "src/client/render/gl/passes/SelectionBoxPass.ts",
+   "bytes": 3861,
+   "sha256": "9fedac54dc46e9c5f71e353964e7db5701953a23c1a584b5e9e5b5364d4ceae6"
+  },
+  {
+   "path": "src/client/render/gl/passes/SkinAtlasArray.ts",
+   "bytes": 4524,
+   "sha256": "7343307752331293788d4091a4302aad084a7eb0da91415550cc179aa6fc3727"
+  },
+  {
+   "path": "src/client/render/gl/passes/SmallPlayerGlowPass.ts",
+   "bytes": 9009,
+   "sha256": "8c3dbcd363d48c60cb2b71a1c2a9917a6894885552ed615308d3b94bfe5a163c"
+  },
+  {
+   "path": "src/client/render/gl/passes/SpawnOverlayPass.ts",
+   "bytes": 8033,
+   "sha256": "2a798b3ea076f8b898fe2843a0ea761667c62bf5b3fb4ef4a4ae1e7f00a2ed23"
+  },
+  {
+   "path": "src/client/render/gl/passes/SpiralRibbonPass.ts",
+   "bytes": 14089,
+   "sha256": "f62f435c4a369bb2e66b3052b53d55fa137d467f2a909227324a6df8892836f8"
+  },
+  {
+   "path": "src/client/render/gl/passes/StructureLevelPass.ts",
+   "bytes": 14796,
+   "sha256": "89055d2b0b0430dc9eba9506bcb42d9d1961c6ab37f1cc5db6f908ff258c388c"
+  },
+  {
+   "path": "src/client/render/gl/passes/StructurePass.ts",
+   "bytes": 17572,
+   "sha256": "30612c332c3e5343ac288f1d06227f591a55d2a66b36d1c36cd7c10593ff6a2f"
+  },
+  {
+   "path": "src/client/render/gl/passes/TerrainPass.ts",
+   "bytes": 5191,
+   "sha256": "12590f39efcd7a1f29e8c47068ac700d39cf75919a6259e0e3fefce1fccf384c"
+  },
+  {
+   "path": "src/client/render/gl/passes/TerritoryPass.ts",
+   "bytes": 17153,
+   "sha256": "6f8aa3ef3c047b330588e12279d887b84cee0da231a6b8a008846a88028ea841"
+  },
+  {
+   "path": "src/client/render/gl/passes/TileScatterPass.ts",
+   "bytes": 4314,
+   "sha256": "072244c8436860562e92103a37d1cfaa8c76e273ee27cfb8f35d434509f34daa"
+  },
+  {
+   "path": "src/client/render/gl/passes/TrailPass.ts",
+   "bytes": 6854,
+   "sha256": "109573b028cd8743d856ed601ca54a26e8de577867576938252e445d67ee74bd"
+  },
+  {
+   "path": "src/client/render/gl/passes/UnitPass.ts",
+   "bytes": 23830,
+   "sha256": "0cc3a6d8194834f2b218fa14b3b962aad04f06f8eb215642bf99af6296e430bb"
+  },
+  {
+   "path": "src/client/render/gl/passes/WorldTextPass.ts",
+   "bytes": 20700,
+   "sha256": "5ee214f3ac8a145ab9601d5a723c43c1fa612a9b015f69eb540c770183adc12b"
+  },
+  {
+   "path": "src/client/render/gl/passes/fx-pass/FxAttackRingPass.ts",
+   "bytes": 6869,
+   "sha256": "1aa0519addc58f60561cb966a1476b705825beb570dd44991ce08b0c812df5ce"
+  },
+  {
+   "path": "src/client/render/gl/passes/fx-pass/FxSettings.ts",
+   "bytes": 809,
+   "sha256": "4303aed00ae9e1033845146420d058051fdbf0eeb1e1447b99e7baef48e0161f"
+  },
+  {
+   "path": "src/client/render/gl/passes/fx-pass/FxShockwavePass.ts",
+   "bytes": 11206,
+   "sha256": "31fb01b6af9e0d7e8dd08b8c277a07811cbcc40bb539eb32978fe153341fc667"
+  },
+  {
+   "path": "src/client/render/gl/passes/fx-pass/FxSpritePass.ts",
+   "bytes": 16068,
+   "sha256": "b3615542e3363aabd14c71ae6e5a7ade90b390b4bf3398e7a404e7d68996e9c5"
+  },
+  {
+   "path": "src/client/render/gl/passes/fx-pass/index.ts",
+   "bytes": 4236,
+   "sha256": "4e47149bce2bd58ddfc43e4c9bc0266282fb5ae0d96fe9cfc3cc2afcf110c25f"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/AtlasData.ts",
+   "bytes": 3666,
+   "sha256": "edf0f6e33ea07652a41bdf7cb7cdb28915c801336486621e69e0568ffa5d3f27"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/DataTextures.ts",
+   "bytes": 2652,
+   "sha256": "c056220b1a0d6e58fe17cb7911eb7d9203e76cbf97d6967274c9db929f601fed"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/DebugProgram.ts",
+   "bytes": 3258,
+   "sha256": "6f42f91eba01c03744dc71629050322d914c299decd3c1ffff4822022443b320"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/FlagAtlasArray.ts",
+   "bytes": 7073,
+   "sha256": "4936edc1df524fdd0abb14c71cc96f4e4f89fd4ec0cb234bd11ceb207025ecfb"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/IconProgram.ts",
+   "bytes": 6461,
+   "sha256": "dbc554af3181109eac6fe9bf79500e7f8bf7cb029fbc6f3926bada9f62197faf"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/StatusIconProgram.ts",
+   "bytes": 6943,
+   "sha256": "1e66da6a5d2d7658779ef980175857dbf87fcaa8252e40ff887d43fbe9e35ae1"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/TextLayout.ts",
+   "bytes": 1730,
+   "sha256": "a44a1bfb6c0e24e8e023d683e6a2a9883a4e1580a0fdeac565b26986d453dc42"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/TextProgram.ts",
+   "bytes": 7946,
+   "sha256": "81a7054bac516898acdb9d3359b1ec80005f0cede857e703de2240750e9b19f7"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/Types.ts",
+   "bytes": 2757,
+   "sha256": "e614df07a9032c76f6342e1a6c586faf0d7aa71285c5d1b933596a553e5d06b3"
+  },
+  {
+   "path": "src/client/render/gl/passes/name-pass/index.ts",
+   "bytes": 30155,
+   "sha256": "3985d152fc566957b11398616fc81d533fea532583bc29b77dcc67e661f622fa"
+  },
+  {
+   "path": "src/client/render/gl/render-settings.json",
+   "bytes": 9009,
+   "sha256": "89aca4543e0ebe7fdf1b4cfa53c0dda598e4db73e27a4f99ee9876c533a795bc"
+  },
+  {
+   "path": "src/client/render/gl/shaders/bar/bar.frag.glsl",
+   "bytes": 1239,
+   "sha256": "009e8dba1e5460784ccaf5fbd186a30c9dddd92da34d9f6fd5201eb6e498b0ec"
+  },
+  {
+   "path": "src/client/render/gl/shaders/bar/bar.vert.glsl",
+   "bytes": 1077,
+   "sha256": "92be207f4f6b594fc1bdce51d3037a2d069746353be8364b7039953e23be9c02"
+  },
+  {
+   "path": "src/client/render/gl/shaders/border-compute/border-compute.frag.glsl",
+   "bytes": 3329,
+   "sha256": "7cc18a56440609e40e3458fefbc941982493c38ad7122307d84f1ad7c31533e5"
+  },
+  {
+   "path": "src/client/render/gl/shaders/border-compute/border-scatter.vert.glsl",
+   "bytes": 454,
+   "sha256": "8e80e580ef032eeb7a1795310e672a8fee1287ddcf096e74080b25f044a2aa50"
+  },
+  {
+   "path": "src/client/render/gl/shaders/crosshair/crosshair.frag.glsl",
+   "bytes": 3660,
+   "sha256": "1889e2ca50b894b599b6ce6b404f737c211446c10dae5b44a1a66ce781b0c589"
+  },
+  {
+   "path": "src/client/render/gl/shaders/crosshair/crosshair.vert.glsl",
+   "bytes": 591,
+   "sha256": "a1d2170b33a617aac055634aac9b14e87d81708f312f99cc9b8e59b6414737e0"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/border-stamp.frag.glsl",
+   "bytes": 2357,
+   "sha256": "d52aea0ae41571290e65c2e1eebdad60e247931acb933319d67e6b59ea6603d4"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/border-stamp.vert.glsl",
+   "bytes": 234,
+   "sha256": "b4cf9049fdd6c1e86b5317bc0adba311528330984c1608e7f7c85040d3e9e293"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/composite.frag.glsl",
+   "bytes": 486,
+   "sha256": "266dbf33ac199cd8565878e2af32cc15f4da6d8e7bc6399c06dd23f9e5cc3171"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/fallout-composite.frag.glsl",
+   "bytes": 146,
+   "sha256": "5118622d38eef327732815bd3e145ca8870c5da831669de1c87dc417d186e2c8"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/fallout-light.frag.glsl",
+   "bytes": 2155,
+   "sha256": "7f1167de4406fa9b5fb815edd3d90c6254ca1c8c65ae7d1636ba9aa94a4f1307"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/light.frag.glsl",
+   "bytes": 419,
+   "sha256": "1a10a2658cbae7ccc2f6c8b53e52e79c2ebae0c03aaaa18d4a8f0a738eb9d5f5"
+  },
+  {
+   "path": "src/client/render/gl/shaders/day-night/light.vert.glsl",
+   "bytes": 853,
+   "sha256": "19fd2ea43bc7af4ac6a893a223edb758913decde5d5b2978d5df13d572c5048d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/defense-coverage/defense-coverage.frag.glsl",
+   "bytes": 1172,
+   "sha256": "219f2c3ba13a27eb3e3d2c775e4c81a6718714dca8fa2ad5320d55bd47748084"
+  },
+  {
+   "path": "src/client/render/gl/shaders/defense-coverage/defense-coverage.vert.glsl",
+   "bytes": 991,
+   "sha256": "ae0bca30482ab7f057abbf30f84c6b7650ec4d404e40be86a1d9c1c17a1d9d61"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fallout-bloom/composite.frag.glsl",
+   "bytes": 215,
+   "sha256": "4d3c71ea30df7844a257d28ec7e5786f5c95b1b94387b33c501cfc0fb94798be"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fallout-bloom/extract.frag.glsl",
+   "bytes": 4173,
+   "sha256": "42804000b99252014abb2947a8c929dd29ed2936370c46de1c91cb0edc8aa2fb"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fallout-bloom/heat-decay.frag.glsl",
+   "bytes": 805,
+   "sha256": "8593e96b08a10f703d778bcbd5ad5d1dcc71dbc8f9b53dcd3ef9f4e609ca8c1b"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/attack-ring.frag.glsl",
+   "bytes": 1283,
+   "sha256": "55b675cc55c40705f126969cfca10361320564df3d45202e658a0d28f54af521"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/attack-ring.vert.glsl",
+   "bytes": 701,
+   "sha256": "45d1b58d8868a087d0612b34b3990de126ee34d535b3f2ab44209e94c4ed18b8"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/shockwave.frag.glsl",
+   "bytes": 9752,
+   "sha256": "2a3c0500e14459192de31b6d542c4da8d0259d1e389119727be299516fe210ae"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/shockwave.vert.glsl",
+   "bytes": 2507,
+   "sha256": "506fea0793f85827b8d3a0c38c06665aa283b1d60e2e86ab3b46813d2209e07a"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/sprite.frag.glsl",
+   "bytes": 268,
+   "sha256": "47c020f439d1909fd084c8b727b8e68fde2a10e599f0ef88f62af162a02a0a5b"
+  },
+  {
+   "path": "src/client/render/gl/shaders/fx/sprite.vert.glsl",
+   "bytes": 929,
+   "sha256": "6577b473985f92a0bcc6470122d0ee1f9dbd16d971fc818a2a711f2eac4fe4af"
+  },
+  {
+   "path": "src/client/render/gl/shaders/grid/grid.frag.glsl",
+   "bytes": 2548,
+   "sha256": "60339823df4a7a781eed5ba4eed02aa8fbfffea5ec9121cf4eff18134950c4dd"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-layer/layer.frag.glsl",
+   "bytes": 1556,
+   "sha256": "d87bc94e28e79702e839d86f8b5371daa67233f5efd15d04aaa991845567b547"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-layer/layer.vert.glsl",
+   "bytes": 329,
+   "sha256": "219a2e2dcb50b82914f084f503e486af40b01856fcce6ab85870aae242708b16"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/overlay.vert.glsl",
+   "bytes": 238,
+   "sha256": "7c730c4f35a0cf1a8327e80420e2d8cc246b1e7c99b3704917a01fa7b3221d42"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/spiral-composite.frag.glsl",
+   "bytes": 445,
+   "sha256": "25be4f7c35ff095e0e776317af92357e28a985235aaf6b2a9afd82a9ffbca767"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/spiral-ribbon.frag.glsl",
+   "bytes": 2820,
+   "sha256": "f65efb7b46d2b77f3023be9b3807662a633304534f751c4a79d9d53b21bcf80d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/spiral-ribbon.vert.glsl",
+   "bytes": 2444,
+   "sha256": "dc5bf1f7924f28247c4c5ff5de17c44b604512a703afeaabb6e0d5560194a950"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/territory.frag.glsl",
+   "bytes": 6351,
+   "sha256": "713514c1ad3358816fe14636f591fa9d502e270e5a3a8d2581d7e3515ad03625"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/tile-scatter.frag.glsl",
+   "bytes": 243,
+   "sha256": "97a56ba14db9ac72db9b9d8beaa57a4c6789971ba2d21a9be343022c5a2d6ad4"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/tile-scatter.vert.glsl",
+   "bytes": 566,
+   "sha256": "b26ce3ec57963149d4879b8e66545e35f7fa4e6da864d539a8c35948863eda42"
+  },
+  {
+   "path": "src/client/render/gl/shaders/map-overlay/trail.frag.glsl",
+   "bytes": 4349,
+   "sha256": "bcf7ec1fa6cb7e88893632ad5ec135361d8ff6c5d690400a7aadfac1471dbde7"
+  },
+  {
+   "path": "src/client/render/gl/shaders/move-indicator/move-indicator.frag.glsl",
+   "bytes": 2057,
+   "sha256": "7f213ce139fb32a8e6364e5fe69ca918c4561f0900fb46e36ca85f92ceaf8c96"
+  },
+  {
+   "path": "src/client/render/gl/shaders/move-indicator/move-indicator.vert.glsl",
+   "bytes": 454,
+   "sha256": "8c233bd2d6ec89fae8dfb6a01f32110bc9b2eeb1a55f9444ad21543593ee2638"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/debug-box.frag.glsl",
+   "bytes": 767,
+   "sha256": "a588a86a5d6bc5a515cd364e92f66b77fad242a6bb6738edbed93974cdeebffa"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/debug-box.vert.glsl",
+   "bytes": 3303,
+   "sha256": "ffd073de849e2ec4fb56386033015387a5a578c27645cb31a88d92138b7c702b"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/icon.frag.glsl",
+   "bytes": 636,
+   "sha256": "4eeb312f9473b729c41b6892273bee0388cce1a8db5b7c2fb71e4f219910202b"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/icon.vert.glsl",
+   "bytes": 6233,
+   "sha256": "6873403c35036e7b35e2609a17d9bcdc01e0d64e9d43063fc237955b066e80c3"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/name.frag.glsl",
+   "bytes": 3048,
+   "sha256": "c87c93ff566e9bc45a80a04cef8cfe4952f44b9323559a0e5d2004daee1f4bd3"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/name.vert.glsl",
+   "bytes": 7027,
+   "sha256": "4e4b04a9025aac8405ad66190c38659b11c7c66ed6279e04353df925a3179d00"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/status-icon.frag.glsl",
+   "bytes": 2936,
+   "sha256": "cf9418881570d4fd0e074fe75c4b11008957561bf63d189b696642cf8a6c0ea8"
+  },
+  {
+   "path": "src/client/render/gl/shaders/name/status-icon.vert.glsl",
+   "bytes": 12933,
+   "sha256": "5236f571298963120c61d3ec3b8612a2e709b6b5d0de7eba77cbc7892e81d10d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-telegraph/nuke-telegraph.frag.glsl",
+   "bytes": 2303,
+   "sha256": "60faac41258b6347ec2a6255ee08dfb424dee1d072fe2f4c599873ab5d91999d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-telegraph/nuke-telegraph.vert.glsl",
+   "bytes": 812,
+   "sha256": "fb06e44671a42ad2c7c894cbb783edf658951fb6ef32b75f32b86fc8a6353ed0"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-trajectory/nuke-trajectory-marker.frag.glsl",
+   "bytes": 1514,
+   "sha256": "680e2f2883883c17015ff470345cdcc10b962f56b419ed7884d0003e91fc7e8c"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-trajectory/nuke-trajectory-marker.vert.glsl",
+   "bytes": 811,
+   "sha256": "9c0b07292559caf16b01c69e1ca70fb8e724bb04502a825f34d9a81d2a9bd54e"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-trajectory/nuke-trajectory.frag.glsl",
+   "bytes": 2136,
+   "sha256": "3c63edf1ef5a9245b04702b4543b18fbbf6ddd554a6b7e588dfbe0191ac89e1f"
+  },
+  {
+   "path": "src/client/render/gl/shaders/nuke-trajectory/nuke-trajectory.vert.glsl",
+   "bytes": 1359,
+   "sha256": "476fa86b4e11c5634f396bf0d71f312d344bd50642d51e24f496caaad383f636"
+  },
+  {
+   "path": "src/client/render/gl/shaders/railroad/railroad.frag.glsl",
+   "bytes": 10995,
+   "sha256": "53e8d6b89cc06f545c733ad25ff809990af3d7f71c5ba04dc6baa568bdfc58a5"
+  },
+  {
+   "path": "src/client/render/gl/shaders/range-circle/range-circle.frag.glsl",
+   "bytes": 741,
+   "sha256": "36b8021882dbb7dfc7926322724dab6f1dc5ece3306d24a9bb2ac03d9736d952"
+  },
+  {
+   "path": "src/client/render/gl/shaders/range-circle/range-circle.vert.glsl",
+   "bytes": 624,
+   "sha256": "9cb4248c19a67cfea890b9f7807f757eea3d3c263deeb0f4ca9b5798f9210e93"
+  },
+  {
+   "path": "src/client/render/gl/shaders/sam-radius/sam-radius.frag.glsl",
+   "bytes": 2879,
+   "sha256": "8de33219e2e27f23269afaa090a19488d24b2eaf352aa3a21bfe7bff5b1bcec1"
+  },
+  {
+   "path": "src/client/render/gl/shaders/sam-radius/sam-radius.vert.glsl",
+   "bytes": 1022,
+   "sha256": "8c38fd42f74eb18b413074dd2a421623fcd830c56975c0001ab519d862fd13ed"
+  },
+  {
+   "path": "src/client/render/gl/shaders/selection-box/selection-box.frag.glsl",
+   "bytes": 1127,
+   "sha256": "3826aa6fe3f495fc521a29d455c378ffd950da3d129abcaa20a0467527491e7f"
+  },
+  {
+   "path": "src/client/render/gl/shaders/selection-box/selection-box.vert.glsl",
+   "bytes": 537,
+   "sha256": "bdf780d24533955bd6754c95c50de41291dfb93cb22f80e7e4f06b4247425f28"
+  },
+  {
+   "path": "src/client/render/gl/shaders/shared/blur.frag.glsl",
+   "bytes": 408,
+   "sha256": "f931994f68697dd4acdccc47c759e4b606d24b979ae4d9db084ccd81596d7a4f"
+  },
+  {
+   "path": "src/client/render/gl/shaders/shared/fullscreen-no-uv.vert.glsl",
+   "bytes": 117,
+   "sha256": "29b7f91ec2353a1c9c812676ccb946886385b98abfc1d07ff0938ad199cebd55"
+  },
+  {
+   "path": "src/client/render/gl/shaders/shared/fullscreen.vert.glsl",
+   "bytes": 168,
+   "sha256": "51f1d6a1b5d553d5f7af3e4def8e4cffbb6cfd1f81323aa7c48986e6f747abc0"
+  },
+  {
+   "path": "src/client/render/gl/shaders/shared/map-quad.vert.glsl",
+   "bytes": 404,
+   "sha256": "7c4d06b58930e546cea90ac461a2aa598076ac48b92d88289a15da67dca23f10"
+  },
+  {
+   "path": "src/client/render/gl/shaders/small-player-glow/composite.frag.glsl",
+   "bytes": 486,
+   "sha256": "79fda5863ca320d4eabadc170a6520c97a7a1db9578eb5aef2e4c081907f22bd"
+  },
+  {
+   "path": "src/client/render/gl/shaders/small-player-glow/extract.frag.glsl",
+   "bytes": 1003,
+   "sha256": "f8569dbe04616c5625c334b7e168ae0b805675a162d44322f9459aa15f39d662"
+  },
+  {
+   "path": "src/client/render/gl/shaders/spawn-overlay/spawn-overlay.frag.glsl",
+   "bytes": 2798,
+   "sha256": "cfc25d47c151f07e9172bdac9ff3b674bb862aa3246eb7c716e5180f3d679538"
+  },
+  {
+   "path": "src/client/render/gl/shaders/spawn-overlay/spawn-overlay.vert.glsl",
+   "bytes": 846,
+   "sha256": "f1c6dd6af6fb7be310b37b579078dcb9d489d197df6470ee3c81e84b0858a236"
+  },
+  {
+   "path": "src/client/render/gl/shaders/structure-level/structure-level.frag.glsl",
+   "bytes": 1773,
+   "sha256": "80445a65c0166252b3f3f3892dbed35ebf44d359d9375e4209907455d96d399d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/structure-level/structure-level.vert.glsl",
+   "bytes": 2791,
+   "sha256": "1fe218a8d124efb6e8d0126ed954fb53f8a92ec0e0790236da735eabf291c195"
+  },
+  {
+   "path": "src/client/render/gl/shaders/structure/structure.frag.glsl",
+   "bytes": 12054,
+   "sha256": "5a705888dc57f9137a2f1e3215a92cf73450d5990cff1f7afd7e554b0d085617"
+  },
+  {
+   "path": "src/client/render/gl/shaders/structure/structure.vert.glsl",
+   "bytes": 2230,
+   "sha256": "8a727a62f185b9dfca119427e19d8c6c81a092c2c8ae5890c8f19b6178cd4583"
+  },
+  {
+   "path": "src/client/render/gl/shaders/terrain/terrain.frag.glsl",
+   "bytes": 157,
+   "sha256": "eaa702f6ab214a166e7e012895989b4ac10b94b326a17ffeef45064eaf07070c"
+  },
+  {
+   "path": "src/client/render/gl/shaders/terrain/terrain.vert.glsl",
+   "bytes": 403,
+   "sha256": "616d6b13bc766e0fc919a5cd0387c6cf44f0df2e038f00bc4ee6a9e1eba7137d"
+  },
+  {
+   "path": "src/client/render/gl/shaders/unit/unit.frag.glsl",
+   "bytes": 9382,
+   "sha256": "a178084708dafce6b2134735633ac5f5e461a7f73a269064594d9f9e4edaadef"
+  },
+  {
+   "path": "src/client/render/gl/shaders/unit/unit.vert.glsl",
+   "bytes": 2254,
+   "sha256": "b759f7e42c9538992a5d7312e437d50c56fedcb6900b6733a1b4a09c2d36eda3"
+  },
+  {
+   "path": "src/client/render/gl/shaders/world-text/world-text.frag.glsl",
+   "bytes": 1742,
+   "sha256": "f6ae7cdc32448aa5087b2dce15a2e9c0359bee4d9ff7ec40dd21d61ea4a98780"
+  },
+  {
+   "path": "src/client/render/gl/shaders/world-text/world-text.vert.glsl",
+   "bytes": 2395,
+   "sha256": "5db7ccf633f023cbe78cbaf74af5b4ddd03f5b78aca2a03b3dc57c2048016943"
+  },
+  {
+   "path": "src/client/render/gl/utils/Affiliation.ts",
+   "bytes": 4902,
+   "sha256": "c5c286f08a7145e3296a0a974e35df436e0517c8bfebade6b3449eba98b2d16c"
+  },
+  {
+   "path": "src/client/render/gl/utils/ColorUtils.ts",
+   "bytes": 6736,
+   "sha256": "8c6c58b76973ddb8eab34741a13a2af2f5048c9bb3569f2ddd39ee443866a0a5"
+  },
+  {
+   "path": "src/client/render/gl/utils/Dpr.ts",
+   "bytes": 549,
+   "sha256": "7f78991c8825a305c7f5aac176cfcbe7d5777607c70d460d024b7109804e15c5"
+  },
+  {
+   "path": "src/client/render/gl/utils/EffectPalette.ts",
+   "bytes": 2613,
+   "sha256": "b2d27046f3ea287a4e47e03f52e00f344bc40d05e9787e79f238f15080f068c2"
+  },
+  {
+   "path": "src/client/render/gl/utils/GlUtils.ts",
+   "bytes": 8502,
+   "sha256": "6040b35c7c1f0d4f666624e674719a48e8fb20c8211700410fb52199a1cf7b15"
+  },
+  {
+   "path": "src/client/render/gl/utils/GpuResources.ts",
+   "bytes": 2090,
+   "sha256": "fa268e7a80fda297df731e76bd3c53aa238b4c08deb910e0aabd4c1de5dda1c9"
+  },
+  {
+   "path": "src/client/render/gl/utils/HeatManager.ts",
+   "bytes": 8243,
+   "sha256": "334eae2fa9ab275344f3af0e8c2c873c9c24df3d671b3aa4b5e15dd3297c5de0"
+  },
+  {
+   "path": "src/client/render/gl/utils/NukeTrajectory.ts",
+   "bytes": 10256,
+   "sha256": "64dd050fb5f946470f13909b8ad5c86ee2b8a3737c57176c91ef2e641c47d52a"
+  },
+  {
+   "path": "src/client/render/gl/utils/PlayerPalette.ts",
+   "bytes": 7211,
+   "sha256": "41a522ea732a8ea3d75a0ba4d004658fd92d7b55dfead48a40863714ae063be8"
+  },
+  {
+   "path": "src/client/render/gl/utils/TileCodec.ts",
+   "bytes": 626,
+   "sha256": "2cc5a8985535e6a92a581c14fc58e145fd0ac4a2b952ac0c8b63b1bde3226516"
+  },
+  {
+   "path": "src/client/render/preview/CosmeticPreviewRenderer.ts",
+   "bytes": 21663,
+   "sha256": "d95fd77a5aa39a32356fbe553ffd9cb2afd5f71bae9e5de7965ff6d3c5f04abc"
+  },
+  {
+   "path": "src/client/render/preview/PreviewAnimationTicker.ts",
+   "bytes": 23502,
+   "sha256": "cfebda603613a7169280b39809f2a4c38b7c4f5d81247ae38a4f6b14d0a6117e"
+  },
+  {
+   "path": "src/client/render/preview/PreviewMap.ts",
+   "bytes": 3639,
+   "sha256": "bd27262757bcc90a87a4c84a320465940034a08dc58e3b3065292bbd6a60ffc4"
+  },
+  {
+   "path": "src/client/render/preview/loadPreviewMap.ts",
+   "bytes": 1040,
+   "sha256": "a48fcd7895480810aafb1fd651fa3885aa4e2a006c28f9ca881f7768bab81f40"
+  },
+  {
+   "path": "src/client/render/preview/passes/PreviewTerritoryPass.ts",
+   "bytes": 8397,
+   "sha256": "5084cbc1f885c52b8eb620a90ecb86e2495ff827db7a9d862b9d77c0062831b4"
+  },
+  {
+   "path": "src/client/render/types/FrameData.ts",
+   "bytes": 3233,
+   "sha256": "2d98e5fb96a43163e2fe6dfac976d0045519b658182eed5996245aa050038db1"
+  },
+  {
+   "path": "src/client/render/types/FrameEvents.ts",
+   "bytes": 997,
+   "sha256": "c02ccd6ccc7dcc48b0959e97b77ed8381f060f4433aca1fc1d628d28a0aaaf6a"
+  },
+  {
+   "path": "src/client/render/types/Renderer.ts",
+   "bytes": 10059,
+   "sha256": "c6a7d343cea2fe3f0acbd26479f8f9616679d581aae7713c5ca79b3f92ad0ec5"
+  },
+  {
+   "path": "src/client/render/types/UnitType.ts",
+   "bytes": 3151,
+   "sha256": "97ac73c1bf87bd971da2099d40b95b39f3e85a2ba9716fbebcc6cf4c08ee8fd0"
+  },
+  {
+   "path": "src/client/render/types/index.ts",
+   "bytes": 1186,
+   "sha256": "b3547a7b36d9f1fc357e818781a3493fd113d2a21852fcb565939745af3433e1"
+  },
+  {
+   "path": "src/client/replay/BrowserGzip.ts",
+   "bytes": 704,
+   "sha256": "3aa31fd58fe65388a39de074999ad43e53f1710dcfb0f4cdd53063c0b6d9a901"
+  },
+  {
+   "path": "src/client/replay/LocalProcessing.ts",
+   "bytes": 3951,
+   "sha256": "619f27fd2c489afb08171a6d33cdc778c7465c120bc37ee989f38bb4071eaf16"
+  },
+  {
+   "path": "src/client/replay/ProcessorMessages.ts",
+   "bytes": 899,
+   "sha256": "7f1dd42f45c262f7562be963c87988b5c29a34b158724119d452b6320fced68a"
+  },
+  {
+   "path": "src/client/replay/ReplayAppearance.ts",
+   "bytes": 5175,
+   "sha256": "7f86843028de842b6e69c9120c6bbd94bf2e25521494b66dc3e2c80ba1e8fe3e"
+  },
+  {
+   "path": "src/client/replay/ReplayCamera.ts",
+   "bytes": 4583,
+   "sha256": "b1cfd67f1a4aa5207f31b2043f59d7c6fbeed5eee9176dd5fe3e34647025b6d9"
+  },
+  {
+   "path": "src/client/replay/ReplayControls.ts",
+   "bytes": 8964,
+   "sha256": "b4f6001cdf84c5afafe55e255a25fafefcad007f8932acfafc8007eb73fae483"
+  },
+  {
+   "path": "src/client/replay/ReplayEffects.ts",
+   "bytes": 1796,
+   "sha256": "469f75d5df8367b5e180716704ebba1e9d4f1bf9a4a0c7e0546235b87ff59b74"
+  },
+  {
+   "path": "src/client/replay/ReplayEntry.ts",
+   "bytes": 3361,
+   "sha256": "4c098a94cce3e6871b1db7b6b8137e60cc43f920e35ce170ad2448c4073d9c6b"
+  },
+  {
+   "path": "src/client/replay/ReplayFrameBuilder.ts",
+   "bytes": 16511,
+   "sha256": "edd69f3ef65a99a0dfee0431addcfdcfeba555cb4669a78d8b935f803343c630"
+  },
+  {
+   "path": "src/client/replay/ReplayGameAdapter.ts",
+   "bytes": 15336,
+   "sha256": "ed59fc8bf2600f200f3daea99ee26923dc5a474f675a30b04705f9216db4a221"
+  },
+  {
+   "path": "src/client/replay/ReplayNukedLayers.ts",
+   "bytes": 3273,
+   "sha256": "52c1b4272aca5b6a84b54f15d23ffc6554c6496392c1c138c54108fb913d4119"
+  },
+  {
+   "path": "src/client/replay/ReplayPalette.ts",
+   "bytes": 3933,
+   "sha256": "5777a2cc1da0567363f75f6cbbc67ca4a044864b1f67619a37ebe801499996ca"
+  },
+  {
+   "path": "src/client/replay/ReplayPlayback.ts",
+   "bytes": 7974,
+   "sha256": "9f568dee23d780a7ed304a9a559bdab68bade5e7aa10cbbc490afc594df25d59"
+  },
+  {
+   "path": "src/client/replay/ReplayProcessor.worker.ts",
+   "bytes": 2028,
+   "sha256": "543026187c21d95d3be61c8e474dce97e43cc80ae3e9c34bb89e97f537e68da3"
+  },
+  {
+   "path": "src/client/replay/ReplayRecord.ts",
+   "bytes": 2813,
+   "sha256": "3a870e43e36f4d782f64cb3390c322faab92bf9bb76eaddd8e539c576b67ffa1"
+  },
+  {
+   "path": "src/client/replay/ReplayStatus.ts",
+   "bytes": 3954,
+   "sha256": "1910d913462cda0c7d6601d5130f6df4ddc1e682395b3371ea7bc2593367ea7b"
+  },
+  {
+   "path": "src/client/replay/ReplayStore.ts",
+   "bytes": 11022,
+   "sha256": "8ede1374e415af768055172add670627b1be4d0aab19fd94b5135bcf786b71b4"
+  },
+  {
+   "path": "src/client/replay/ReplayTerrain.ts",
+   "bytes": 1967,
+   "sha256": "f1ac4bbbe94855ecdddb7c8732b4e8af092810e9eaba105c9cbfb0d1bd15bfd5"
+  },
+  {
+   "path": "src/client/replay/ReplayViewer.ts",
+   "bytes": 31826,
+   "sha256": "5838c3fae7a2d7aa2b658260511d91a73efe6af441a70de5d0b1db105fff0bf4"
+  },
+  {
+   "path": "src/client/replay/ReplayViewerRoute.ts",
+   "bytes": 504,
+   "sha256": "6b09cb644b89e0a89053684d5446cfb02596fd2a13dc3f7eb415f1f055c10554"
+  },
+  {
+   "path": "src/client/replay/codec/BinaryReader.ts",
+   "bytes": 2255,
+   "sha256": "a52c0986e39256cf3fcb4e23e29c0ef06a8e8559fbe55de5f8e6eec12c2d357c"
+  },
+  {
+   "path": "src/client/replay/codec/BinaryWriter.ts",
+   "bytes": 3356,
+   "sha256": "211b9059b1e10de1211c69c7592a0c76213ca460aa5270a3d5452863db77641b"
+  },
+  {
+   "path": "src/client/replay/codec/EntitySchema.ts",
+   "bytes": 14250,
+   "sha256": "86a237e383f152a7c5b7b97692fdbb781f41853bffc325a19961481844edc0d7"
+  },
+  {
+   "path": "src/client/replay/codec/FrameNormalizer.ts",
+   "bytes": 11318,
+   "sha256": "a7470c4b6b6a6dacee726602887d44b2241078d3835da71fb0f0ab147c04bb40"
+  },
+  {
+   "path": "src/client/replay/codec/PackedEvents.ts",
+   "bytes": 2700,
+   "sha256": "47578a08c121ee9051118904dd245f00b4ede8b9339f801de1cfa0a694b5356b"
+  },
+  {
+   "path": "src/client/replay/codec/ReplayTypes.ts",
+   "bytes": 5882,
+   "sha256": "9068fbebf9d4d21e48a008fbac50db7aabef06ae8e22e521d5c925492eb4ea93"
+  },
+  {
+   "path": "src/client/replay/codec/Terrain.ts",
+   "bytes": 430,
+   "sha256": "70cc93aaec85f79046a40789e4016d781d3b134f826630b20864fe93a4037cc8"
+  },
+  {
+   "path": "src/client/replay/codec/decode/ReplayReader.ts",
+   "bytes": 14935,
+   "sha256": "8d1a0e9ce08f83239e1468e372c55f0fca696ae12ec75d9875c614d689e185f1"
+  },
+  {
+   "path": "src/client/replay/codec/encode/EventCollector.ts",
+   "bytes": 4678,
+   "sha256": "1e32a02d7ed93341419394249e76e57ca0afaac8439bcbf150e41e6007f948e0"
+  },
+  {
+   "path": "src/client/replay/codec/encode/FrameEncoder.ts",
+   "bytes": 10935,
+   "sha256": "4ab1c13f4c40810d60e59a537befbb1903eb2fa7c2d02129d183f4390fb5c91d"
+  },
+  {
+   "path": "src/client/replay/codec/encode/StreamingEncoder.ts",
+   "bytes": 7173,
+   "sha256": "97e1a8bd75570e7d7a5f11b23e41eff28947fc4fc527b250633a3e2175271405"
+  },
+  {
+   "path": "src/client/replay/processor/ReplayProcessor.ts",
+   "bytes": 9535,
+   "sha256": "814568d02486fff790e21503eebe7a1226caaec1a49dceb2a57abca78cdd6347"
+  },
+  {
+   "path": "src/client/replay/processor/WorkerReplayEngine.ts",
+   "bytes": 2759,
+   "sha256": "1da75fe6a1e73ca52cc5a0861af959e5801ee7d92f02593756a8f6a28446e858"
+  },
+  {
+   "path": "src/client/sound/AudioMixer.ts",
+   "bytes": 23307,
+   "sha256": "41d5b12899668b38f1e0c4d99c6f34c5abab7a8942813cca588c00cc318d3104"
+  },
+  {
+   "path": "src/client/sound/CuePlayer.ts",
+   "bytes": 1436,
+   "sha256": "ddc40048069f1657878a1b61d11343fcf9de54a9f65427ea6b5fd0a4b2a9e3f7"
+  },
+  {
+   "path": "src/client/sound/MenuMusic.ts",
+   "bytes": 13882,
+   "sha256": "ea569d9beec0fccf5ad4c6297a4f05fb4b86fc6acb7c50593c0d633adc0b3b9d"
+  },
+  {
+   "path": "src/client/sound/SoundManager.ts",
+   "bytes": 14297,
+   "sha256": "c46ff87e888db34d965ee1bc2c5b83157919d91ec6d46a6857c840e40afff781"
+  },
+  {
+   "path": "src/client/sound/Sounds.ts",
+   "bytes": 5682,
+   "sha256": "ffa9617eb83a47ab76ce1727e2419421de6828c7a4dd2eb2eaf8008e96496999"
+  },
+  {
+   "path": "src/client/styles.css",
+   "bytes": 15407,
+   "sha256": "d9f8754c73c391828e985574393fea65318350d0c49ae7b325c7381d9d88844f"
+  },
+  {
+   "path": "src/client/styles/core/typography.css",
+   "bytes": 173,
+   "sha256": "eab8ef9bfb4ebc08320e0cc63f77a778254d862691cce84b23ba812c482483cf"
+  },
+  {
+   "path": "src/client/styles/core/variables.css",
+   "bytes": 895,
+   "sha256": "11b262f156b610510529b6e3a40b8fc4658b694c23068f44c13ec701713638d3"
+  },
+  {
+   "path": "src/client/styles/layout/container.css",
+   "bytes": 297,
+   "sha256": "ceb25108c396ef17e3ffe9af28930747f7db52b0b4cb4549625a0777f345f44e"
+  },
+  {
+   "path": "src/client/styles/layout/header.css",
+   "bytes": 766,
+   "sha256": "3a51bb8b3520be7618915fa183ad9444342e3b15b71a2657f7e0a8363b3db689"
+  },
+  {
+   "path": "src/client/theme/ColorAllocator.ts",
+   "bytes": 3332,
+   "sha256": "c5bb22fd1bf21a73323eae2419734eb6c08fb14fac55ab4d832a315a9c2d1725"
+  },
+  {
+   "path": "src/client/theme/ThemeProvider.ts",
+   "bytes": 11564,
+   "sha256": "c68859cc567e8586be59259994c2f51d9cd4c8feb35fd87093a484b69d0e964d"
+  },
+  {
+   "path": "src/client/utilities/Diagnostic.ts",
+   "bytes": 3001,
+   "sha256": "58f704e26c5a266c265c675ccf7676c66df9bcfadc49813d297fae32cdff125a"
+  },
+  {
+   "path": "src/client/utilities/DisableSafariPinchZoom.ts",
+   "bytes": 5586,
+   "sha256": "251de2308bca34ce69f2b56c4e494fe391f2668c433d88be65a54f821f49cd60"
+  },
+  {
+   "path": "src/client/utilities/GameConfigHelpers.ts",
+   "bytes": 3444,
+   "sha256": "0082df84ee13d2954811fc15656a3cb5ea62f8276121ed8c05079d44a6222634"
+  },
+  {
+   "path": "src/client/utilities/LobbySettingsSummary.ts",
+   "bytes": 8720,
+   "sha256": "3b0ff17a01274d65fe5507c772bfa5351621ab265e9bcffbd81cdaba77109990"
+  },
+  {
+   "path": "src/client/utilities/PlayerProfileUrl.ts",
+   "bytes": 2300,
+   "sha256": "8b167bb3148083982660b1251186f80f4bebf33e454e65673b6cce8f19636664"
+  },
+  {
+   "path": "src/client/utilities/ReducedMotion.ts",
+   "bytes": 232,
+   "sha256": "26f50dd985cacd7f840a63273b5ee94ddf2b93668a1f6a16fbc498f136c6c58d"
+  },
+  {
+   "path": "src/client/utilities/ReplaySpeedMultiplier.ts",
+   "bytes": 168,
+   "sha256": "f4d558ca6c59021158fcc0c912a81a40b7704e74ae3803dd3cc718b327e4a99a"
+  },
+  {
+   "path": "src/client/validations/username.ts",
+   "bytes": 5095,
+   "sha256": "cb1082de51971ad56a1007e44ec401df1ad53d70d0a3c2cd40acc2f8a89f7af1"
+  },
+  {
+   "path": "src/client/view/CosmeticVisibility.ts",
+   "bytes": 1669,
+   "sha256": "3e6d3c8745f85da1705a25f2efc227e8cf06b0858c1c58747af95cf6f7575022"
+  },
+  {
+   "path": "src/client/view/EntityState.ts",
+   "bytes": 8979,
+   "sha256": "3b8a26057569e65a7f8b9bb9647546c984bff72aeba69f7754d6454567005831"
+  },
+  {
+   "path": "src/client/view/GameView.ts",
+   "bytes": 37199,
+   "sha256": "551edd90734d1c1fc902e4813b3bca120f73c57f9024c293324cb60114a11d65"
+  },
+  {
+   "path": "src/client/view/MotionPlanResolver.ts",
+   "bytes": 8303,
+   "sha256": "d63e25085330d3c5ac6e36c55ec93f3534d5c98ab203d1a1f5458a7a77acbae8"
+  },
+  {
+   "path": "src/client/view/PlayerColors.ts",
+   "bytes": 1617,
+   "sha256": "48e17958beef29b4cf354d5736bd8c433da0a3caf75b3bcba977e9419eb77223"
+  },
+  {
+   "path": "src/client/view/PlayerStateUpdate.ts",
+   "bytes": 2884,
+   "sha256": "a9c8d9e6ded06af9b5453f3451982eaecab4cec4f4dc404b029aae04d99b0a54"
+  },
+  {
+   "path": "src/client/view/PlayerView.ts",
+   "bytes": 18365,
+   "sha256": "103060579cbc88796c3045b1d749293189443ea6c4357e14159085205bc36867"
+  },
+  {
+   "path": "src/client/view/UnitView.ts",
+   "bytes": 7092,
+   "sha256": "a13a37741bbff0daa41888ed975f626e97f6c0eff4854a5e62d5b023fbfd160a"
+  },
+  {
+   "path": "src/client/view/index.ts",
+   "bytes": 121,
+   "sha256": "b19e0d3a5931992bd85280ce7493e339fd94af261b94ff0358d92959aaa6367b"
+  }
+ ],
+ "assets": [
+  {
+   "path": "resources/atlases/emoji-atlas.png",
+   "bytes": 219817,
+   "sha256": "1427f7cfa17f20fd8588d1f75020d07a2ef98cee56629984bb8c3e9b0b3c172c"
+  },
+  {
+   "path": "resources/atlases/fx-atlas.png",
+   "bytes": 7860,
+   "sha256": "bb4506867afe183ec92c1bca9673343f9623d5cbc7855ad9c3ab7567105a8518"
+  },
+  {
+   "path": "resources/atlases/icon-atlas.png",
+   "bytes": 3295,
+   "sha256": "97fbc9711e899509d53b57692b4648d9f144f44ca972191df06e004a3f2af297"
+  },
+  {
+   "path": "resources/atlases/msdf-atlas.json",
+   "bytes": 434684,
+   "sha256": "90bf019d8fd20a47b69ed087a3e967f4bda0c87f7a115eed929aad20e246734c"
+  },
+  {
+   "path": "resources/atlases/msdf-atlas.png",
+   "bytes": 522694,
+   "sha256": "0e0dd28c1b0217e502f667e7b7377bfc0c567c7a7273c6d61b60f3ab0fcfd33f"
+  },
+  {
+   "path": "resources/atlases/status-atlas.png",
+   "bytes": 168316,
+   "sha256": "5904b95c62a1dd6b74978f1595f74804913d8feaed8c831eafa0be79eb945f21"
+  },
+  {
+   "path": "resources/atlases/unit-atlas.png",
+   "bytes": 595,
+   "sha256": "0514050c6e8d99a11882e02314d5f26cde98996b5010232b63b81aefb5131d52"
+  },
+  {
+   "path": "resources/flags/uk_us_flag.svg",
+   "bytes": 32361,
+   "sha256": "21fcf86e84513dfbc1e7e05d2fbaf329716f2a3ef53e19eab8f814d596128a29"
+  },
+  {
+   "path": "resources/fonts/round_6x6_modified.png",
+   "bytes": 910,
+   "sha256": "56465f3274758f8218e92b4bbff477bc99c88ee0e28fbdcc602d2d73180d4317"
+  },
+  {
+   "path": "resources/images/AllianceIcon.svg",
+   "bytes": 3197,
+   "sha256": "f05768293aab465aa46ab24e6ef09b6f77f0f1482ebcee65f2c853a4fc46dcf0"
+  },
+  {
+   "path": "resources/images/AllianceIconWhite.svg",
+   "bytes": 3156,
+   "sha256": "871cc38156f5826d5503784f2c81506570f4125958940e3cc27c0ab47f21d623"
+  },
+  {
+   "path": "resources/images/BackIconWhite.svg",
+   "bytes": 530,
+   "sha256": "c768cc9dfbabd6fa994030cbf3ed11bf2ef79bbfd113d9a2697f9c3bf95cabf0"
+  },
+  {
+   "path": "resources/images/BattleshipIconWhite.svg",
+   "bytes": 5147,
+   "sha256": "3c776d8cc7dea7d21dc31c0d52af792e4b02a2f2e6d00b926b610a84d4061b57"
+  },
+  {
+   "path": "resources/images/BoatIconWhite.svg",
+   "bytes": 1947,
+   "sha256": "5ee208a6ecd27abf398101dc109a3fee3bd6c213befd5bd22fe8fa393f4bfc1b"
+  },
+  {
+   "path": "resources/images/BottleCapIcon.svg",
+   "bytes": 918,
+   "sha256": "d9e241363b1cb3c702ff628e44fc054b21aa593dff63fbfe78ff6104e1cc2c40"
+  },
+  {
+   "path": "resources/images/BuildIconWhite.svg",
+   "bytes": 4934,
+   "sha256": "b1d6c361b2d313d85bc751c40265ec6ef8c79c29a1cdff5f5d53872635a4eaad"
+  },
+  {
+   "path": "resources/images/ChatIconWhite.svg",
+   "bytes": 587,
+   "sha256": "6e0f418f386ef40f42579e56a545109a043d957be409d8ee4032f8d625b97839"
+  },
+  {
+   "path": "resources/images/CityIconWhite.svg",
+   "bytes": 1707,
+   "sha256": "f51c6181899ff6831fa5a1f3fa06c067011a16c86e67a657e4b6e5d12491e6ae"
+  },
+  {
+   "path": "resources/images/ClaimIcon.svg",
+   "bytes": 523,
+   "sha256": "f2aa29381fd3d4d0e47b48bffd5144a73a00c370b74608028bdcfafd73bef60b"
+  },
+  {
+   "path": "resources/images/CrownIcon.svg",
+   "bytes": 1465,
+   "sha256": "23b67f83ae47a4797ac95b0ca3d7e90e0f6b9dfc75bb01baf4fa3c7cc860d1c9"
+  },
+  {
+   "path": "resources/images/DisconnectedIcon.svg",
+   "bytes": 15795,
+   "sha256": "906f09eaa04f7623fcb84d9498590548d2f91de247bfafccf83670a9a6abd733"
+  },
+  {
+   "path": "resources/images/DiscordLogo.svg",
+   "bytes": 1393,
+   "sha256": "3c3efb1add425233b23024f00b4a0013d64bdc412637c2b0ff2be37a8687e6c3"
+  },
+  {
+   "path": "resources/images/DonateGoldIconWhite.svg",
+   "bytes": 2315,
+   "sha256": "1373c3b51a48079d6ef96c37750c6234ecc545eea100a7dafea3539335d4feff"
+  },
+  {
+   "path": "resources/images/DonateTroopIconWhite.svg",
+   "bytes": 5471,
+   "sha256": "325daf4a342987d3b01705ca402c8f005aec5113422060bdd1fefd897457b144"
+  },
+  {
+   "path": "resources/images/DoomsdayClockSkull.svg",
+   "bytes": 1052,
+   "sha256": "a9e83f47665767926999144dabfa460e665fbf5d6b8d100c3b4b7ef079156db3"
+  },
+  {
+   "path": "resources/images/EmbargoBlackIcon.svg",
+   "bytes": 1415,
+   "sha256": "a1fcf5e4a727b7e7d25c54f722e2e7504855069af1cf98306df8e60891491ea0"
+  },
+  {
+   "path": "resources/images/EmbargoWhiteIcon.svg",
+   "bytes": 1427,
+   "sha256": "54897365b56a62faab15b3b6e84fbf4ba6648d7e1327c14436a6c8fcf186fd83"
+  },
+  {
+   "path": "resources/images/EmojiIconWhite.svg",
+   "bytes": 427,
+   "sha256": "f0666c39770e8f1c6aef447df8e1e3f3c541507f17b0b6f61fcf32ff0d44d0c0"
+  },
+  {
+   "path": "resources/images/ExitFullscreenIconWhite.svg",
+   "bytes": 321,
+   "sha256": "2250b30b656df08e3dbdd9932bbff439537a3664be4f89d8e8995a6359809924"
+  },
+  {
+   "path": "resources/images/ExitIconWhite.svg",
+   "bytes": 404,
+   "sha256": "c63a5b1a9cfe0d45f223ba91774bac7701009d8739b1c388c66e63a49110661f"
+  },
+  {
+   "path": "resources/images/FactoryIconWhite.svg",
+   "bytes": 859,
+   "sha256": "df44504decd623d18294bc327437463fb9317f396ec0e3590108a957cbaa3cdc"
+  },
+  {
+   "path": "resources/images/FastForwardIconSolidWhite.svg",
+   "bytes": 334,
+   "sha256": "3ed1915bf36d64ddb386b4bc68deebd74c89ebb7c8938f2e0ef14129d272632e"
+  },
+  {
+   "path": "resources/images/FullscreenIconWhite.svg",
+   "bytes": 317,
+   "sha256": "1a5e6eb3c42a7f24ee80d49fda42fc33f9b7ac11afeabf691dbeb9178f6fe9eb"
+  },
+  {
+   "path": "resources/images/GoldCoinIcon.svg",
+   "bytes": 816,
+   "sha256": "43dd530f1248a319e1ca9d99c069c360354fa193a07795d5a603b32e9e2de119"
+  },
+  {
+   "path": "resources/images/GoogleLogo.svg",
+   "bytes": 770,
+   "sha256": "6ef0e0d31f7189b38d92379e3878d445d09b3bf39985445ad4436247d737ccfe"
+  },
+  {
+   "path": "resources/images/GuildIconWhite.svg",
+   "bytes": 1962,
+   "sha256": "bc422e79191a58f5c52fb2d4e85b498842912a5409b609b0df94c957eabf70d8"
+  },
+  {
+   "path": "resources/images/InfoIcon.svg",
+   "bytes": 4486,
+   "sha256": "d611aba44f46fed8fee4d1dbecd011516371f610d5a04e7a65333dc579db7806"
+  },
+  {
+   "path": "resources/images/LeaderboardIconRegularWhite.svg",
+   "bytes": 212,
+   "sha256": "d0481d9ea273466f1744b8c6dc278893ec918e82f65b55b726faeae86d0cda3f"
+  },
+  {
+   "path": "resources/images/LeaderboardIconSolidWhite.svg",
+   "bytes": 203,
+   "sha256": "df7d51bdb98e6dc57083995a3f24f87f1f6537caca8067df99c7296991106788"
+  },
+  {
+   "path": "resources/images/LinkIconWhite.svg",
+   "bytes": 333,
+   "sha256": "569cea074fefc2508219bd45add391dfcbf6a4f8376adcdd33f57fce4b913028"
+  },
+  {
+   "path": "resources/images/MIRVIcon.svg",
+   "bytes": 18783,
+   "sha256": "32c74608702cab134cb8047ad0b9fc3078a89b0a65b3f3dcde339dc6762a335f"
+  },
+  {
+   "path": "resources/images/MedalIconWhite.svg",
+   "bytes": 955,
+   "sha256": "c378a8ba2ff41b0d7885796bf108f32f2278a94ce10d0b26406f375559f6b283"
+  },
+  {
+   "path": "resources/images/MissileSiloIconWhite.svg",
+   "bytes": 1970,
+   "sha256": "27f4b5bfbc13f75cdae5fc203e7dc129d1cf84684f23bb4e0a48a3cee180d8b6"
+  },
+  {
+   "path": "resources/images/MushroomCloudIconWhite.svg",
+   "bytes": 7178,
+   "sha256": "e5de524a6fcdfe34962604269e7f40657b997f83a6493855bac0d80defa4567c"
+  },
+  {
+   "path": "resources/images/NukeIconRed.svg",
+   "bytes": 4082,
+   "sha256": "5b99ae8108046f865eda2b4b01f3675545108f9244b3e1bed662ebfde635c7fd"
+  },
+  {
+   "path": "resources/images/NukeIconWhite.svg",
+   "bytes": 4083,
+   "sha256": "17fb9ddc0e7a1898b9ddb56c3e9ebe0642e69fcf34f5aef3a4cae17d9338aae4"
+  },
+  {
+   "path": "resources/images/PauseIconWhite.svg",
+   "bytes": 279,
+   "sha256": "0aad9a259454daef0090d839720052ca870564dc44265da5f90938833304c097"
+  },
+  {
+   "path": "resources/images/PlayIconWhite.svg",
+   "bytes": 270,
+   "sha256": "c0b5132f66c3f98d5616811d1c1e7078c3163d3b625829ae94cfbb3380426f9e"
+  },
+  {
+   "path": "resources/images/PlutoniumIcon.svg",
+   "bytes": 6520,
+   "sha256": "e7fa96c36af33cd484dc2e997951bb2b9eaba56dd0fa4cf8fb589e4dfafa2c7a"
+  },
+  {
+   "path": "resources/images/PortIcon.svg",
+   "bytes": 4139,
+   "sha256": "8a929d857f291f8e36f487878a3a4318f596399bc125da521d5d53fc2c15a4c6"
+  },
+  {
+   "path": "resources/images/ProfileIcon.svg",
+   "bytes": 1082,
+   "sha256": "4ea15b8e0ca7cae2b118d21608d8eb98c1950fec35efd497531cc08df582c032"
+  },
+  {
+   "path": "resources/images/RandomMap.webp",
+   "bytes": 8576,
+   "sha256": "198d002d4b6669083a7c02256736795f01ff8c30344c312bce26d238fd39b863"
+  },
+  {
+   "path": "resources/images/ReplayRegularIconWhite.svg",
+   "bytes": 248,
+   "sha256": "97f235b5dd959748498bf12e2a6321b2c695f6adec79c57c923d889024c72071"
+  },
+  {
+   "path": "resources/images/SamLauncherIconWhite.svg",
+   "bytes": 1983,
+   "sha256": "ba0b6ba738950c3b4d8cc6702f4fafed040aaf7725526f729369946b4ca98fd2"
+  },
+  {
+   "path": "resources/images/SettingIconWhite.svg",
+   "bytes": 276,
+   "sha256": "72b69517b844f429d0bb0f884c0fa5794fe0681451bacdf646b8f104edf816cf"
+  },
+  {
+   "path": "resources/images/ShieldIconWhite.svg",
+   "bytes": 2325,
+   "sha256": "ea48b11a278aa5266b9afaa366481e77139055af009f755f6d1003d6ccbec8a2"
+  },
+  {
+   "path": "resources/images/SirenIconWhite.svg",
+   "bytes": 1695,
+   "sha256": "5d31a5950f0481d3f2db1567a1ce4126aea3a014863d600aa4967a1b1c515ab1"
+  },
+  {
+   "path": "resources/images/SoldierIcon.svg",
+   "bytes": 1792,
+   "sha256": "ff21d78edc211c20b5103a5f21aea85277dceb31eec80d4d05984d852e894615"
+  },
+  {
+   "path": "resources/images/SoldierIconAquarius.svg",
+   "bytes": 1807,
+   "sha256": "dd19d1f524530ba93709cca55846dae6728998f8fa3731874cdef91758c2f0c8"
+  },
+  {
+   "path": "resources/images/StopIconWhite.svg",
+   "bytes": 1908,
+   "sha256": "a3883867751e48407337915d149802772e7b5ecb1b3a9b11b6a5c19401234461"
+  },
+  {
+   "path": "resources/images/SwordIcon.svg",
+   "bytes": 1419,
+   "sha256": "8481d910f717022579d7f4efb3cad0084686549295d5019c20f23844cc813236"
+  },
+  {
+   "path": "resources/images/SwordIconWhite.svg",
+   "bytes": 1359,
+   "sha256": "5d550882767cd41d047be5a11d14cabebd5fe36644f6c32f3587d86c6f783b15"
+  },
+  {
+   "path": "resources/images/TargetIcon.svg",
+   "bytes": 1267,
+   "sha256": "e053c034f6656bf0e8812edec6ed9c09c68d75591c2eb7fece08393c366fa0ce"
+  },
+  {
+   "path": "resources/images/TargetIconWhite.svg",
+   "bytes": 1252,
+   "sha256": "beb88b6fcb44284567171a0bb4df7053eb87d5e369940f2c3eea626ebf5f2a83"
+  },
+  {
+   "path": "resources/images/TeamIconRegularWhite.svg",
+   "bytes": 643,
+   "sha256": "7338c4ba14d6a1b635f021270e5324410ff236ec468b792a45e9bcd432bdbcf9"
+  },
+  {
+   "path": "resources/images/TeamIconSolidWhite.svg",
+   "bytes": 419,
+   "sha256": "0a1e88f9e5bbc7acee933ff7bcbb9d3f4e21163c04809e32da2f51cd0e16ec3a"
+  },
+  {
+   "path": "resources/images/TradingIconWhite.svg",
+   "bytes": 3477,
+   "sha256": "b1024793ad4633f1396f7513932880e0ecfa45d51f544093bdfbf0bb6244d8e3"
+  },
+  {
+   "path": "resources/images/TraitorIcon.svg",
+   "bytes": 3951,
+   "sha256": "844de8ddeb4de3033b90c22b265d16a1d2b7cb0ceca2a9cd8978f1f1df06957e"
+  },
+  {
+   "path": "resources/images/TraitorIconLightRed.svg",
+   "bytes": 17534,
+   "sha256": "8586413f25812067bdf620c422bada6d029718aa8db0ee281905305a38c8f457"
+  },
+  {
+   "path": "resources/images/TraitorIconWhite.svg",
+   "bytes": 1476,
+   "sha256": "bf36c6fac9ce61e2a58a73acdc5a64bcecb8a74421656eacb85a783bac1c07fd"
+  },
+  {
+   "path": "resources/images/TreeIconWhite.svg",
+   "bytes": 1318,
+   "sha256": "735c8821216e074b5e94059a4fc31d145ec90bc6cacff368199d60e2bd88c3ab"
+  },
+  {
+   "path": "resources/images/UpperLimitIcon.svg",
+   "bytes": 827,
+   "sha256": "465ef9d444709d014066768bc999d89958720480bf35b153f4f392610bc3ae4b"
+  },
+  {
+   "path": "resources/images/XIcon.svg",
+   "bytes": 4004,
+   "sha256": "e551f70f4b40fc79325dc3ef6b8c8976ee8e66df965e19dfd408a20f0d7f789a"
+  },
+  {
+   "path": "resources/images/helpModal/allianceRequest.webp",
+   "bytes": 68526,
+   "sha256": "aa809f4f658436583662f28e86f8b918ed0797c2e08585a5bc5e5a0e69e76d7a"
+  },
+  {
+   "path": "resources/images/helpModal/ally2.webp",
+   "bytes": 29520,
+   "sha256": "3c99b8d5a079003c093b466a4cc60203a7d786d28a9693e1d73b3ecc04a810f5"
+  },
+  {
+   "path": "resources/images/helpModal/controlPanel.webp",
+   "bytes": 3888,
+   "sha256": "7a2c18ce7288ea0ba66fb0d571f069e190453f42e07d8bb7d87d71b8504e55a3"
+  },
+  {
+   "path": "resources/images/helpModal/crown.webp",
+   "bytes": 85690,
+   "sha256": "d70a3a40c18a84a3b6e90817cb30365414b9c51cf442b581a205f5df619d9485"
+  },
+  {
+   "path": "resources/images/helpModal/embargo.webp",
+   "bytes": 74246,
+   "sha256": "615da049264242e263f55cd7df6b75d3f3e293834c4754f05a1b0a64e5d83349"
+  },
+  {
+   "path": "resources/images/helpModal/eventsPanel.webp",
+   "bytes": 10736,
+   "sha256": "d0342692cd468074e3cba856e4bcc7935ad5da3ede787026e1be5afad4b3985f"
+  },
+  {
+   "path": "resources/images/helpModal/eventsPanelAttack.webp",
+   "bytes": 7510,
+   "sha256": "cb65d73acdb940256fa6977747d5cf4f47eba33709185c8fd9d0384c3134ae52"
+  },
+  {
+   "path": "resources/images/helpModal/infoMenu2.webp",
+   "bytes": 8242,
+   "sha256": "5b519a9beda4b6d75e70189efe112e3280c396ac291cc40547011c13a84ac9f0"
+  },
+  {
+   "path": "resources/images/helpModal/infoMenu2Ally.webp",
+   "bytes": 9572,
+   "sha256": "fdfed478ecfb8b505a4e684e232c4c2107b490b6d03593125ae34f0a55dfcdab"
+  },
+  {
+   "path": "resources/images/helpModal/leaderboard2.webp",
+   "bytes": 7628,
+   "sha256": "419ef3d6c1b1b2965f55f5287dca546b684291e037d3fc053973baa54b85f238"
+  },
+  {
+   "path": "resources/images/helpModal/options2.webp",
+   "bytes": 3738,
+   "sha256": "b6c498dcbd443293f536c37140dc04cdc457c290206a87901dc0bf80b06af550"
+  },
+  {
+   "path": "resources/images/helpModal/playerInfoOverlay.webp",
+   "bytes": 5496,
+   "sha256": "85ec0fa743c61df3dffc7767609f94088109f93624ad22cf832365e586951817"
+  },
+  {
+   "path": "resources/images/helpModal/radialMenu2.webp",
+   "bytes": 23440,
+   "sha256": "4aa40b03d55e02e08b61a0c8280daa0312171828dab752ea7d743ed5f9999fe4"
+  },
+  {
+   "path": "resources/images/helpModal/radialMenuAlly.webp",
+   "bytes": 24120,
+   "sha256": "9e6f7af64c69f6afa6286a69f71f41b302a3b7912570232fed4320487b033fed"
+  },
+  {
+   "path": "resources/images/helpModal/traitor2.webp",
+   "bytes": 60150,
+   "sha256": "0c9d4417d66337e6f59ff2e71add28aa76fd126a7b54fd404d08fb4a1885e485"
+  },
+  {
+   "path": "resources/sprites/atombomb.png",
+   "bytes": 126,
+   "sha256": "378e0fbfd54a615f237b90a7e36318e1a38742ab28b3f2c9c28fd0e64d5754e6"
+  },
+  {
+   "path": "resources/sprites/hydrogenbomb.png",
+   "bytes": 140,
+   "sha256": "295abe4b5c31cda44c5d2eaca30803c94125e1d2ff5c92ba385bad2e24423dcf"
+  },
+  {
+   "path": "resources/sprites/mirv2.png",
+   "bytes": 177,
+   "sha256": "d3ec9d6f367368a9809c5273984067ac96c3bb1d29fc426861061fbf5547c921"
+  },
+  {
+   "path": "resources/sprites/samMissile.png",
+   "bytes": 102,
+   "sha256": "a249874e2e5007f1c13c3295097c2cabad39b37684420b4052a04d2a7b3c1036"
+  },
+  {
+   "path": "resources/sprites/tradeship.png",
+   "bytes": 104,
+   "sha256": "a2a18a4c4e519c996cca58de75b43040666edada37c0e0d4970197e610ea6c37"
+  },
+  {
+   "path": "resources/sprites/trainCarriage.png",
+   "bytes": 108,
+   "sha256": "ce85bfef485ce4c1713efbddb98fea10e1d4fadc45c87e3a9f13d0f94240150f"
+  },
+  {
+   "path": "resources/sprites/trainCarriageLoaded.png",
+   "bytes": 108,
+   "sha256": "ce85bfef485ce4c1713efbddb98fea10e1d4fadc45c87e3a9f13d0f94240150f"
+  },
+  {
+   "path": "resources/sprites/trainEngine.png",
+   "bytes": 104,
+   "sha256": "46e4889d76dbcc5dadb7a67e520a8d58b8775c91c28e72d69168df2d4fc7a0a0"
+  },
+  {
+   "path": "resources/sprites/transportship.png",
+   "bytes": 104,
+   "sha256": "939bd3877265ff3c84c9b533c152493eb63e1706d3f053dd2a8d23f12bd1b148"
+  },
+  {
+   "path": "resources/sprites/warship.png",
+   "bytes": 154,
+   "sha256": "bc8e7f3ff30fbaab1f93b3e227e180ca017613e3f51f98cb9256817e19b33ae2"
+  }
+ ],
+ "missing": [
+  "resources/fonts/OpenFront.ttf",
+  "resources/images/OpenFrontLogo.svg"
+ ]
+}

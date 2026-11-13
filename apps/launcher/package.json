@@ -1,22 +1,24 @@
 {
   "license": "AGPL-3.0-only",
   "name": "@flashfront/launcher",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "private": true,
   "type": "module",
   "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.training.json",
     "test": "vitest run --pool=threads",
-    "build": "tsc --noEmit && electron-vite build",
+    "build": "pnpm typecheck && electron-vite build",
     "postinstall": "node node_modules/electron/install.js",
     "lint": "tsc --noEmit",
-    "dist": "electron-vite build && electron-builder --win --publish never"
+    "dist": "electron-vite build && node --experimental-strip-types ../../tools/training/check-build.ts && electron-builder --win --publish never",
+    "dist:linux": "electron-vite build && node --experimental-strip-types ../../tools/training/check-build.ts && electron-builder --linux AppImage --publish never"
   },
   "dependencies": {
     "@flashfront/cdp": "workspace:*",
     "@flashfront/core": "workspace:*",
+    "@flashfront/training-engine": "workspace:*",
     "@flashfront/ui": "workspace:*",
     "electron-updater": "^6.8.9",
     "koffi": "^3.3.3",
@@ -31,7 +33,24 @@
     "electron": "^44.7.2",
     "electron-builder": "^26.15.3",
     "electron-vite": "^6.0.0",
-    "jsdom": "^27.0.0"
+    "jsdom": "^27.0.0",
+    "@grafana/faro-web-sdk": "2.12.0",
+    "@stripe/stripe-js": "9.15.0",
+    "@types/d3": "7.4.3",
+    "@types/howler": "2.2.12",
+    "colord": "2.10.0",
+    "d3": "7.9.0",
+    "dompurify": "3.4.13",
+    "howler": "2.2.4",
+    "intl-messageformat": "11.2.3",
+    "jose": "6.2.3",
+    "lil-gui": "0.21.0",
+    "lit": "3.3.2",
+    "marked": "18.0.5",
+    "nanoid": "5.1.16",
+    "zod": "4.4.2",
+    "@tailwindcss/vite": "^4.1.0",
+    "tailwindcss": "^4.1.0"
   },
   "productName": "FlashFront",
   "description": "FlashFront, a fair-play companion for OpenFront",
@@ -53,6 +72,7 @@
       "build/icon.png",
       "package.json",
       "!node_modules/@flashfront/**",
+      "!node_modules/@openfront/**",
       "!node_modules/@koromix/**",
       "!node_modules/koffi/**",
       "!node_modules/react/**",
@@ -60,15 +80,37 @@
       "!node_modules/scheduler/**",
       "!node_modules/ws/**"
     ],
-    "extraResources": [
-      {
-        "from": "../../node_modules/.pnpm/@koromix+koffi-win32-x64@3.3.3/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
-        "to": "koffi/win32_x64/koffi.node"
-      }
-    ],
     "win": {
       "target": "nsis",
-      "icon": "build/icon.ico"
+      "icon": "build/icon.ico",
+      "extraResources": [
+        {
+          "from": "../../node_modules/.pnpm/@koromix+koffi-win32-x64@3.3.3/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+          "to": "koffi/win32_x64/koffi.node"
+        },
+        {
+          "from": "build/training-maps",
+          "to": "training/maps"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icon.png",
+      "category": "Game",
+      "artifactName": "FlashFront-${version}.${ext}",
+      "extraResources": [
+        {
+          "from": "../../node_modules/.pnpm/@koromix+koffi-linux-x64@3.3.3/node_modules/@koromix/koffi-linux-x64/linux_x64/koffi.node",
+          "to": "koffi/linux_x64/koffi.node"
+        },
+        {
+          "from": "build/training-maps",
+          "to": "training/maps"
+        }
+      ]
     },
     "nsis": {
       "oneClick": true,

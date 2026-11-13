@@ -119,3 +119,14 @@ describe("gold rate from gold earned", () => {
     expect(prev.self!.goldPerSec).toBeLessThan(28_000);
   });
 });
+
+it("ally names and requests reach the snapshot, sized only from unambiguous rendered rows", () => {
+  const raw: RawExtract = { ...sample, me: { ...sample.me, alliances: [{ with: "ally:p7", name: "Ember" }], allianceRequests: [{ from: "ally:p7", name: "Ember", atWar: true }] }, leaderboard: [{ rank: 1, name: "[TAG] Ember", landPct: 12, gold: "", troops: "", isMe: false }] };
+  expect(mapToSnapshot(raw)?.self?.alliances[0]?.name).toBe("Ember");
+  expect(mapToSnapshot(raw)?.self?.allianceRequests?.[0]).toMatchObject({ name: "Ember", atWar: true, landPct: 12 });
+  expect(mapToSnapshot({ ...raw, leaderboard: [...raw.leaderboard!, ...raw.leaderboard!] })?.self?.allianceRequests?.[0]?.landPct).toBeUndefined();
+  for (const restricted of [{ ...raw, replay: true }, { ...raw, game: { rankedType: "ffa" } }]) {
+    expect(mapToSnapshot(restricted)?.self?.alliances[0]?.name).toBeUndefined();
+    expect(mapToSnapshot(restricted)?.self?.allianceRequests).toBeUndefined();
+  }
+});

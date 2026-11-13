@@ -1,0 +1,34 @@
+{
+ "drillId": "sends-02",
+ "cast": {
+  "labels": {
+   "You": "p1",
+   "Neighbour A": "p2"
+  },
+  "clients": {
+   "You": "YouDrill",
+   "Neighbour A": "NbrADril"
+  }
+ },
+ "coach": [
+  {
+   "tick": 900,
+   "actor": "p1",
+   "action": {
+    "kind": "wait"
+   }
+  }
+ ],
+ "wrong": [
+  {
+   "tick": 900,
+   "actor": "p1",
+   "action": {
+    "kind": "attack",
+    "target": null,
+    "troops": 69118
+   }
+  }
+ ],
+ "opponents": []
+}

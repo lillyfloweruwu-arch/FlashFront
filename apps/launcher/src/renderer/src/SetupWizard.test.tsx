@@ -24,7 +24,7 @@ it("Skip keeps a ticked Start hidden", async () => {
   const api = apiWith(async () => {});
   await act(async () => root.render(<SetupWizard api={api} state={state} />));
   await click("Start setup"); await click("Continue without checking");
-  await act(async () => host.querySelector<HTMLInputElement>('input[type="checkbox"]')!.click());
+  await act(async () => host.querySelector<HTMLInputElement>('input[type="radio"][value="true"]')!.click());
   await click("Skip setup");
   expect(api.saveSettings).toHaveBeenCalledWith(expect.objectContaining({ startHidden: true, setupDone: true }));
 });
@@ -43,4 +43,30 @@ it("Finish and launch launches after a good save", async () => {
   await toReady(); await click("Finish and launch OpenFront");
   expect(api.launch).toHaveBeenCalledTimes(1);
   expect(order).toEqual(["save", "launch"]);
+});
+
+it.each(["disconnected", "connected"])("keeps one primary action and step progress when %s", async status => {
+  const api = apiWith(async () => {});
+  await act(async () => root.render(<SetupWizard api={api} state={{ ...state, status } as LauncherState} />));
+  const checkStep = (step: number) => {
+    expect(host.querySelectorAll(".ff-button-primary")).toHaveLength(1);
+    expect(host.querySelectorAll(".setup-steps li")).toHaveLength(4);
+    expect(host.querySelectorAll(".setup-steps .done")).toHaveLength(step);
+    expect(host.querySelector(".setup-steps [aria-current=step]")).toBe(host.querySelectorAll(".setup-steps li")[step]);
+  };
+  checkStep(0);
+  await click("Start setup"); checkStep(1);
+  await click("Continue"); checkStep(2);
+  const hidden = () => host.querySelector<HTMLInputElement>('input[value="true"]')!;
+  const visible = () => host.querySelector<HTMLInputElement>('input[value="false"]')!;
+  expect(host.querySelectorAll('input[type="radio"]')).toHaveLength(2);
+  await act(async () => hidden().click());
+  expect(hidden().checked).toBe(true); expect(visible().checked).toBe(false);
+  await click("Back"); checkStep(1);
+  await click("Continue"); expect(hidden().checked).toBe(true);
+  await act(async () => visible().click());
+  await click("Continue"); checkStep(3);
+  await click(status === "connected" ? "Finish" : "Finish without launching");
+  expect(api.saveSettings).toHaveBeenCalledWith(expect.objectContaining({ startHidden: false, setupDone: true }));
+  expect(api.launch).not.toHaveBeenCalled();
 });

@@ -4,6 +4,8 @@ import { join, resolve } from "node:path";
 import { MAX_MATCH_BYTES, repairSpawnElimination, recordingCoverage, personalBests, reviewMode, nextMatchNotes, debrief, type RecordedMatch } from "@flashfront/core";
 
 export interface MatchListItem {
+  outcome?: RecordedMatch["outcome"];
+  gameId?: string;
   coverage?: number; best?: ReturnType<typeof personalBests>["FFA"];
   notes?: import("@flashfront/core").CoachNote[]; review?: import("@flashfront/core").Debrief;
   rankedType?: string;
@@ -19,7 +21,7 @@ export class MatchFiles {
   private index = new Map<string, { size: number; mtime: number; item: MatchListItem }>();
   private indexLoaded = false;
   private queue: Promise<unknown> = Promise.resolve();
-  constructor(userData: string) { this.directory = resolve(userData, "matches"); }
+  constructor(userData: string, private readonly onLastRecordingRemoved?: (gameId: string) => Promise<void>) { this.directory = resolve(userData, "matches"); }
   private async ensureDirectory() {
     await mkdir(this.directory, { recursive: true });
     const stat = await lstat(this.directory);
@@ -50,7 +52,7 @@ export class MatchFiles {
         const stat = await lstat(indexPath);
         if (stat.isFile() && !stat.isSymbolicLink() && stat.size < 8_000_000) {
           const saved = JSON.parse(await readFile(indexPath, "utf8"));
-          if (saved.version === 1 && Array.isArray(saved.entries)) this.index = new Map(saved.entries);
+          if (saved.version === 3 && Array.isArray(saved.entries)) this.index = new Map(saved.entries);
         }
       } catch { /* An absent or damaged index is rebuilt from validated recordings. */ }
     }
@@ -64,7 +66,7 @@ export class MatchFiles {
         let cached = this.index.get(file);
         if (!cached || cached.size !== stat.size || cached.mtime !== stat.mtimeMs || cached.item?.file !== file) {
           const m = await this.get(file); const mode = reviewMode(m);
-          const item: MatchListItem = { file, startedAt: m.startedAt, map: m.map, mode: m.mode, rankedType: m.rankedType,
+          const item: MatchListItem = { file, outcome: m.outcome, gameId: m.gameId, startedAt: m.startedAt, map: m.map, mode: m.mode, rankedType: m.rankedType,
             durationSec: m.durationSec, finalRank: m.summary.finalRank, practiceGoal: m.practiceGoal, type: m.type, endedAtSec: m.endedAtSec, summary: m.summary,
             coverage: recordingCoverage(m), best: mode ? personalBests([m])[mode] : undefined, notes: nextMatchNotes(m), review: debrief(m),
             sparkline: m.samples.filter((_, i) => i % Math.max(1, Math.ceil(m.samples.length / 120)) === 0)
@@ -77,14 +79,20 @@ export class MatchFiles {
     for (const file of this.index.keys()) if (!present.has(file)) { this.index.delete(file); changed = true; }
     if (changed) {
       const temporary = `${indexPath}.${randomUUID()}.tmp`;
-      try { await writeFile(temporary, JSON.stringify({ version: 1, entries: [...this.index] }), { flag: "wx" }); await rename(temporary, indexPath); }
+      try { await writeFile(temporary, JSON.stringify({ version: 3, entries: [...this.index] }), { flag: "wx" }); await rename(temporary, indexPath); }
       finally { await unlink(temporary).catch(() => {}); }
     }
     return matches.sort((a, b) => b.startedAt.localeCompare(a.startedAt) || b.file.localeCompare(a.file));
   }
   async list(): Promise<MatchListItem[]> { return this.entries(); }
   async retain(): Promise<void> {
-    for (const { file } of (await this.entries()).slice(200)) { await this.get(file); await unlink(this.path(file)); }
+    const entries = await this.entries(), remainingGames = new Set(entries.slice(0, 200).map(m => m.gameId));
+    const removedGames = new Set<string>();
+    for (const { file, gameId } of entries.slice(200)) {
+      await this.get(file); await unlink(this.path(file));
+      if (gameId && !remainingGames.has(gameId)) removedGames.add(gameId);
+    }
+    for (const gameId of removedGames) await this.onLastRecordingRemoved?.(gameId);
   }
   save(m: RecordedMatch): Promise<string> {
     const operation = this.queue.then(async () => {

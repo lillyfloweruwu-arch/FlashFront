@@ -19,7 +19,11 @@ it("the real repo's selection excludes every private area and keeps the build in
     /^tools\/probes\//, /^tools\/capture-playtest/, /^PRODUCT\.md$/, /\.local\.json$/, /^playtest\//])
     expect(files.filter(f => bad.test(f))).toEqual([]);
   expect(files).toEqual(expect.arrayContaining(["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml",
-    "apps/launcher/build/icon.ico", "packages/core/src/spawn/LICENSE-MAPDATA.md", "docs/brand/mark.svg"]));
+    "apps/launcher/build/icon.ico", "packages/core/src/spawn/LICENSE-MAPDATA.md", "docs/brand/mark.svg",
+    "vendor/openfront/LICENSE", "vendor/openfront/LICENSE-ASSETS", "vendor/openfront/CREDITS.md", "vendor/openfront/UPSTREAM.md",
+    "vendor/openfront/packages/engine/src/GameRunner.ts", "apps/launcher/resources/training/engine-manifest.json", "tools/training/vendor.ts"]));
+  // Engine source and notices ship; proprietary assets and spike/probe data never do.
+  expect(files.filter(f => /(^|\/)proprietary\/|engine-spike|\.superpowers\//.test(f))).toEqual([]);
 });
 
 it("normalises backslashes from git", () => {

@@ -3,6 +3,9 @@ packages:
   - apps/*
   - tools/spawn
   - tools/public
+  - tools/perf
+  - tools/training
+  - vendor/openfront/packages/*
 allowBuilds:
   '@tailwindcss/oxide': true
   electron-winstaller: false # Squirrel target unused; NSIS only

@@ -1,0 +1,57 @@
+{
+  "extends": "../../vendor/openfront/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable",
+      "WebWorker.ImportScripts"
+    ],
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "esModuleInterop": true,
+    "paths": {
+      "*": ["./node_modules/@types/*", "./node_modules/*"],
+      "@openfront/engine/*": [
+        "../../vendor/openfront/packages/engine/src/*"
+      ],
+      "@openfront/engine-api/*": [
+        "../../vendor/openfront/packages/engine-api/src/*"
+      ],
+      "@openfront/engine-lib/*": [
+        "../../vendor/openfront/packages/engine-lib/src/*"
+      ],
+      "@openfront/zbin": [
+        "../../vendor/openfront/packages/zbin/src/index.ts"
+      ],
+      "@openfront/shared/*": [
+        "../../vendor/openfront/client/packages/shared/src/*"
+      ],
+      "src/*": [
+        "../../vendor/openfront/client/src/*"
+      ],
+      "resources/*": [
+        "../../vendor/openfront/client/resources/*",
+        "../../vendor/openfront/resources/*"
+      ],
+      "@openfront/engine-api/worker/WorkerMessages": [
+        "../../vendor/openfront/client/packages/engine-api/src/worker/WorkerMessages.ts"
+      ]
+    },
+    "rootDirs": [
+      "../../vendor/openfront/packages/engine-api/src",
+      "../../vendor/openfront/client/packages/engine-api/src"
+    ],
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/training-client",
+    "src/renderer/training-entry.ts",
+    "src/main/record-drill.worker.ts",
+    "src/main/review.worker.ts",
+    "src/renderer/review-entry.ts"
+  ]
+}

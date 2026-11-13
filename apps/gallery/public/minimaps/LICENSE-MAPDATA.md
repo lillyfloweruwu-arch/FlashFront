@@ -4,6 +4,7 @@ Map data © OpenFront contributors, CC BY-SA 4.0
 
 Sources: https://github.com/openfrontio/OpenFrontIO/tree/v0.34.25/resources/maps
 https://github.com/openfrontio/OpenFrontIO/tree/v0.35.2/resources/maps
+https://github.com/openfrontio/OpenFrontIO/tree/v0.35.4/resources/maps (Brain Rot)
 
 License: https://creativecommons.org/licenses/by-sa/4.0/
 

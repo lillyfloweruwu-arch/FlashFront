@@ -1,0 +1,44 @@
+{
+ "drillId": "posts-02",
+ "cast": {
+  "labels": {
+   "You": "p1",
+   "Neighbour A": "p2"
+  },
+  "clients": {
+   "You": "YouDrill",
+   "Neighbour A": "NbrADril"
+  }
+ },
+ "coach": [
+  {
+   "tick": 890,
+   "actor": "p1",
+   "action": {
+    "kind": "buildPost",
+    "tile": 89172
+   }
+  }
+ ],
+ "wrong": [
+  {
+   "tick": 890,
+   "actor": "p1",
+   "action": {
+    "kind": "buildPost",
+    "tile": 141233
+   }
+  }
+ ],
+ "opponents": [
+  {
+   "tick": 1110,
+   "actor": "p2",
+   "action": {
+    "kind": "attack",
+    "target": "p1",
+    "troops": 161708
+   }
+  }
+ ]
+}

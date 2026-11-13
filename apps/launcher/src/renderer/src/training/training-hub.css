@@ -1,0 +1,38 @@
+.training-hub-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.training-hub-header p { margin-top: 8px; }
+.training-hub-header > button { flex-shrink: 0; }
+.training-tracks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.training-hub [data-track="allyDecision"] { --track-color: var(--ff-ally); }
+.training-hub [data-track="postsBeforePush"] { --track-color: var(--ff-caution); }
+.training-hub [data-track="sendSize"] { --track-color: var(--ff-good); }
+.training-track { position: relative; overflow: hidden; min-height: 170px; display: flex; align-items: end; border: 1px solid var(--glass-edge); border-radius: var(--radius-panel); background: var(--glass); box-shadow: var(--float), var(--lift); }
+.training-track-art { position: absolute; inset: 0; background-size: cover; background-position: 20% 30%; }
+.training-track:nth-child(2) .training-track-art { background-position: 70% 60%; }
+.training-track:nth-child(3) .training-track-art { background-position: 50% 80%; }
+.training-track::after { content: ""; position: absolute; inset: 0; background: var(--scrim-art); }
+.training-track-content { position: relative; z-index: 1; width: 100%; padding: 14px 16px; }
+.training-track h2 { font: 600 21px/1.05 var(--font-number); text-transform: uppercase; margin: 8px 0 4px; }
+.training-track-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.training-badge { display: inline-flex; align-items: center; justify-content: center; width: fit-content; border-radius: var(--radius-pill); border: 1px solid var(--glass-edge); padding: 3px 8px; font-size: var(--text-xs); color: var(--ff-muted); background: var(--glass); white-space: nowrap; }
+.training-coach { color: var(--track-color); }
+.training-weakest { color: var(--ff-caution); background: var(--warning-soft); }
+.training-pips { display: flex; gap: 5px; margin-top: 10px; }
+.training-pips i { width: 18px; height: 5px; border-radius: var(--radius-pill); background: var(--ff-edge); }
+.training-pips .is-passed { background: var(--ff-good); }
+.training-drill-list { padding: 4px 16px; overflow: hidden; }
+.training-drill-row { display: grid; grid-template-columns: 8px minmax(0, 1fr) minmax(80px, .25fr) 60px 90px; align-items: center; gap: 12px; width: 100%; border: 0; border-bottom: 1px solid var(--glass-edge); border-radius: 0; padding: 14px 0; text-align: left; background: transparent; }
+.training-drill-row:last-child { border-bottom: 0; }
+.training-drill-row:hover { background: var(--chart-area); }
+.training-drill-row:focus-visible { outline-offset: -2px; }
+.training-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--track-color); }
+.training-drill-title { font-weight: 500; }
+.training-badge[data-result="passed"] { color: var(--ff-good); background: var(--gain-soft); }
+.training-badge[data-result="tryAgain"] { color: var(--ff-rose); background: var(--danger-soft); }
+@media (max-width: 760px) {
+  .training-hub-header { align-items: start; flex-direction: column; gap: 12px; }
+  .training-tracks { grid-template-columns: 1fr; }
+  .training-drill-row { grid-template-columns: 8px minmax(0, 1fr) auto; }
+  .training-drill-title { grid-column: 2 / -1; }
+  .training-drill-row > .muted:first-of-type { grid-column: 2; }
+  .training-drill-row > .training-badge { grid-column: 2 / -1; }
+}

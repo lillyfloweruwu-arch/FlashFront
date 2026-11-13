@@ -30,7 +30,9 @@ const snapshot = () => {
 it("wires the chosen recovery floor, edit pins and displayed decision changes through HudRoot", async () => {
   vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
   const s = snapshot(); const report = vi.fn();
-  const render = (paused = false) => act(async () => root.render(<HudRoot snapshot={s} reserveFloor={55} editMode onDecision={report} featureHealth={{ attack: paused ? "paused" : "verified" }} />));
+  const layout = defaultLayout(1920); layout.decision.hidden = false; layout.build.hidden = false;
+  const store = { load: () => layout, save() {} };
+  const render = (paused = false) => act(async () => root.render(<HudRoot snapshot={s} reserveFloor={55} layoutStore={store} editMode onDecision={report} featureHealth={{ attack: paused ? "paused" : "verified" }} />));
   await render();
   s.tick += 10; s.elapsedSec++; s.self!.troops = 400000; s.self!.outgoingAttacks = 1; await render();
   expect(host.querySelector('[data-panel="decision"]')?.textContent).toContain("55%");
@@ -86,7 +88,7 @@ it("shows separate ship/train income and a signed change without rounding up", (
 it("keeps decision cards when only build estimates are paused, hiding just the idle-gold card", async () => {
   vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
   const s = snapshot(); s.self!.troops = 900000;
-  const layout = defaultLayout(1920, 1080); layout.gauge.hidden = true;
+  const layout = defaultLayout(1920, 1080); layout.gauge.hidden = true; layout.decision.hidden = false;
   const render = () => act(async () => root.render(<HudRoot snapshot={s} layoutStore={{ load: () => layout, save() {} }} featureHealth={{ build: "paused" }} />));
   for (let i = 0; i < 30; i++) { s.tick += 10; s.elapsedSec++; await render(); }
   const card = host.querySelector('[data-panel="decision"]');

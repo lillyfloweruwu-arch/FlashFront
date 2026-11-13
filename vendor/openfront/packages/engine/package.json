@@ -1,0 +1,16 @@
+{
+  "name": "@openfront/engine",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "@openfront/engine-api": "workspace:*",
+    "@openfront/engine-lib": "workspace:*",
+    "@openfront/zbin": "workspace:*",
+    "zod": "4.4.2"
+  }
+}

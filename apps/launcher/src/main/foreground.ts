@@ -5,7 +5,10 @@ import koffi from "koffi";
  * kernel32 through koffi); other platforms return null so callers fall back to page focus.
  * Read-only: GetForegroundWindow, GetWindowThreadProcessId, QueryFullProcessImageNameW.
  */
-export type ForegroundProbe = () => string | undefined | null;
+export type ForegroundProbe = (() => string | undefined | null) & {
+  /** Identity of the foreground window seen by the last call (its address), to notice a window switch. */
+  readonly window?: unknown;
+};
 
 export function createForegroundProbe(): ForegroundProbe {
   if (process.platform !== "win32") return () => null;
@@ -19,8 +22,10 @@ export function createForegroundProbe(): ForegroundProbe {
     const QueryFullProcessImageNameW = kernel32.func("bool __stdcall QueryFullProcessImageNameW(void* h, uint32 flags, _Out_ uint16* name, _Inout_ uint32* size)");
     const PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
     const cache = new Map<number, string | undefined>();
-    return () => {
+    let window: unknown;
+    const probe = () => {
       const hwnd = GetForegroundWindow();
+      window = hwnd ? koffi.address(hwnd) : undefined;
       if (!hwnd) return undefined;
       const pid = [0];
       GetWindowThreadProcessId(hwnd, pid);
@@ -36,5 +41,6 @@ export function createForegroundProbe(): ForegroundProbe {
         return path;
       } finally { CloseHandle(handle); }
     };
+    return Object.defineProperty(probe, "window", { get: () => window }) as ForegroundProbe;
   } catch { return () => null; }
 }

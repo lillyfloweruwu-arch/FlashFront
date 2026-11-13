@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import type { Decision, GameSnapshot } from "@flashfront/core";
-import { DEFAULT_HOTKEYS, incomingAlarm, matchesHotkey, openingItems, openingVisible, TradeMonitor, PushTracker } from "@flashfront/core";
+import { DEFAULT_HOTKEYS, attackPreview, zoneLabel, incomingAlarm, matchesHotkey, openingItems, openingVisible, TradeMonitor, PushTracker } from "@flashfront/core";
 import { OpeningPanel } from "./OpeningPanel";
 import { TradePanel } from "./TradePanel";
 import { GoalPanel, goalComplete } from "./GoalPanel";
@@ -39,6 +39,7 @@ const healthLabel = (status: HealthStatus) => status === "paused" ? "estimate pa
 const TRIM = { oldReports: 1, completedGoal: 2, tradeBreakdown: 3, buildAlternatives: 4, openingEvidence: 5, lastPush: 6 } as const;
 const MAX_TRIM = 6;
 interface HudRootProps {
+  lite?: boolean;
   subscribeCamera?: CameraSubscription; active?: boolean; snapshot: GameSnapshot; reserveFloor?: number; layoutStore?: LayoutStore; hotkey?: string; editHotkey?: string; keyboardEnabled?: boolean;
   editMode?: boolean; onEditModeChange?: (value: boolean) => void; snoozeHotkey?: string; snoozeSignal?: number; heatHeld?: boolean;
   hudPreset?: HudPreset; textSize?: "compact" | "comfortable"; ownTeam?: OwnTeam;
@@ -60,7 +61,7 @@ export function HudRoot(props: HudRootProps) {
   const store = useMemo(() => props.layoutStore ?? new LocalStorageLayoutStore(width, height), [props.layoutStore, width, height]);
   return <div ref={host} className="hud-host">{props.snapshot.mode !== "Ranked" && props.snapshot.observer !== "replay" && <HudPanels key={`${width}x${height}.${props.hudPreset ?? "custom"}`} {...props} layoutStore={store} viewport={{ width, height }} />}</div>;
 }
-function HudPanels({ subscribeCamera, active = true, snapshot, reserveFloor, layoutStore, viewport, hudPreset = "custom", textSize = "compact", ownTeam, onLayoutChange, featureHealth, onDecision, hotkey = DEFAULT_HOTKEYS.toggle, editHotkey = DEFAULT_HOTKEYS.edit, keyboardEnabled = true, editMode, onEditModeChange, snoozeHotkey = SNOOZE_HOTKEY, snoozeSignal = 0, heatHeld = true }: HudRootProps & { layoutStore: LayoutStore; viewport: { width: number; height: number } }) {
+function HudPanels({ subscribeCamera, active = true, snapshot, reserveFloor, layoutStore, viewport, hudPreset = "custom", textSize = "compact", ownTeam, onLayoutChange, featureHealth, onDecision, hotkey = DEFAULT_HOTKEYS.toggle, editHotkey = DEFAULT_HOTKEYS.edit, keyboardEnabled = true, editMode, onEditModeChange, snoozeHotkey = SNOOZE_HOTKEY, snoozeSignal = 0, heatHeld = true, lite = false }: HudRootProps & { layoutStore: LayoutStore; viewport: { width: number; height: number } }) {
   const health = (id: PanelId): HealthStatus => {
     const states = (dependencies[id] ?? []).map(feature => featureHealth?.[feature] ?? "verified");
     return states.includes("unavailable") ? "unavailable" : states.includes("paused") ? "paused" : "verified";
@@ -164,12 +165,12 @@ function HudPanels({ subscribeCamera, active = true, snapshot, reserveFloor, lay
   if (health("build") !== "verified") buildTracker.current = new BuildIdleTracker();
   const lastPush = { result: health("attack") === "verified" ? pushTracker.current.observe(snapshot) : undefined };
   const observedIdle = health("build") === "verified" ? buildTracker.current.observe(snapshot.self, snapshot.gameId, snapshot.elapsedSec) : 0;
-  const contents: Record<PanelId, ReactNode> = { decision: <DecisionCard decision={decision} editing={editing} onSnooze={snooze} snoozeHotkey={snoozeHotkey} />, clock: <MatchClock snapshot={snapshot} />, self: <SelfStatsBar self={snapshot.self} />, spawn: null, gauge: <GrowthGauge self={snapshot.self} phase={snapshot.phase} />,
+  const contents: Record<PanelId, ReactNode> = { decision: <DecisionCard decision={decision} editing={editing} onSnooze={snooze} snoozeHotkey={snoozeHotkey} />, clock: <MatchClock snapshot={snapshot} />, self: <SelfStatsBar self={snapshot.self} snapshot={snapshot} />, spawn: null, gauge: <GrowthGauge self={snapshot.self} phase={snapshot.phase} />,
     attack: <AttackPreview self={snapshot.self} phase={snapshot.phase} reserveFloor={reserveFloor} snapshot={snapshot} lastPush={lastPush} showLastPush={live(TRIM.lastPush)} />,
     build: <BuildPlanner compact alternatives={live(TRIM.buildAlternatives)} observedIdle={observedIdle} editing={editing} self={snapshot.self} elapsedSec={snapshot.elapsedSec} gameId={snapshot.gameId} map={snapshot.map} phase={snapshot.phase} />,
     alliances: <AlliancePanel snapshot={snapshot} />, events: <EventFeed snapshot={snapshot} filter={{ ...reportFilter, hideOld: !live(TRIM.oldReports) }} />,
     opening: <OpeningPanel snapshot={snapshot} evidence={live(TRIM.openingEvidence)} />,
-    trade: <TradePanel status={tradeStatus} breakdown={editing || (hudPreset === "learning" && trim < TRIM.tradeBreakdown)} />, goal: <GoalPanel goal={snapshot.practiceGoal} snapshot={snapshot} /> };
+    trade: <TradePanel self={snapshot.self} status={tradeStatus} breakdown={editing || (hudPreset === "learning" && trim < TRIM.tradeBreakdown)} />, goal: <GoalPanel goal={snapshot.practiceGoal} snapshot={snapshot} /> };
   const hasTradeIncome = (snapshot.self?.portLevels ?? 0) > 0 || (snapshot.self?.factoryLevels ?? 0) > 0;
   const baseHidden = (id: PanelId) => (layout[id].hidden && !editing) || (spawning && (id === "gauge" || id === "attack"))
     || (id === "decision" && (spawning || (!decision && !editing && health(id) === "verified")))
@@ -211,14 +212,14 @@ function HudPanels({ subscribeCamera, active = true, snapshot, reserveFloor, lay
     return () => { observer.disconnect(); cancelAnimationFrame(frame); };
   }, [active, visible, visibilityKey, editing, hudPreset, trim]);
   return <div ref={root} className={`hud-layer ${editing ? "editing" : ""}`} aria-label="Game HUD" style={{ visibility: visible ? "visible" : "hidden", "--font-scale": textSize === "comfortable" ? 1.15 : 1 } as CSSProperties}>
-    {health("spawn") === "verified" ? <SpawnHeatmap subscribeCamera={subscribeCamera} snapshot={snapshot} held={active && visible && heatHeld} /> : spawning && <SpawnHeatHint released={!heatHeld} status={healthLabel(health("spawn"))} />}
+    {health("spawn") === "verified" ? <SpawnHeatmap lite={lite} subscribeCamera={subscribeCamera} snapshot={snapshot} held={active && visible && heatHeld} /> : spawning && <SpawnHeatHint released={!heatHeld} status={healthLabel(health("spawn"))} />}
     <TeamSwatch snapshot={snapshot} team={ownTeam} />
     {panelIds.filter(id => id !== "spawn").map(id => <section key={id} data-panel={id} hidden={isHidden(id)} className={`panel hud-panel hud-${id}`} style={{ left: layout[id].x, top: layout[id].y }}>
       {editing ? <div className="edit-controls"><button className="drag-handle" aria-label={`Move ${titles[id]}`} onPointerDown={e => start(e, id)} onPointerMove={move} onPointerUp={() => { drag.current = null; }} onPointerCancel={() => { drag.current = null; }} onKeyDown={e => {
         const deltas: Record<string, [number, number]> = { ArrowLeft: [-10, 0], ArrowRight: [10, 0], ArrowUp: [0, -10], ArrowDown: [0, 10] };
         const delta = deltas[e.key]; const box = root.current; const panel = e.currentTarget.closest<HTMLElement>("[data-panel]");
         if (delta && box && panel) { e.preventDefault(); update(id, snapPosition(layout[id].x + delta[0], layout[id].y + delta[1], box.clientWidth, box.clientHeight, panel.offsetWidth, panel.offsetHeight)); }
-      }}><Icon name="drag" /> {titles[id]}</button><button aria-label={`${layout[id].collapsed ? "Expand" : "Collapse"} ${titles[id]}`} onClick={() => update(id, { collapsed: !layout[id].collapsed })}><Icon name={layout[id].collapsed ? "plus" : "minus"} /></button><button aria-label={`${layout[id].hidden ? "Show" : "Hide"} ${titles[id]}`} onClick={() => update(id, { hidden: !layout[id].hidden })}>{layout[id].hidden ? "Show" : "Hide"}</button></div> : <ModuleHeader title={titles[id]} icon={moduleIcons[id]} value={health(id) !== "verified" ? undefined : id === "alliances" ? snapshot.self?.alliances.length ?? 0 : id === "events" ? reports.length : id === "gauge" ? snapshot.phase : undefined} />}
+      }}><Icon name="drag" /> {titles[id]}</button><button aria-label={`${layout[id].collapsed ? "Expand" : "Collapse"} ${titles[id]}`} onClick={() => update(id, { collapsed: !layout[id].collapsed })}><Icon name={layout[id].collapsed ? "plus" : "minus"} /></button><button aria-label={`${layout[id].hidden ? "Show" : "Hide"} ${titles[id]}`} onClick={() => update(id, { hidden: !layout[id].hidden })}>{layout[id].hidden ? "Show" : "Hide"}</button></div> : <ModuleHeader title={titles[id]} icon={moduleIcons[id]} value={health(id) !== "verified" ? undefined : id === "alliances" ? snapshot.self?.alliances.length ?? 0 : id === "events" ? reports.length : id === "gauge" ? snapshot.phase === "spawn" ? "spawn" : snapshot.self ? zoneLabel(attackPreview(snapshot.self.troops, snapshot.self.maxTroops, snapshot.self.attackRatio).zoneNow) : undefined : undefined} />}
       {layout[id].hidden && editing && <p className="muted">Hidden outside edit mode.</p>}
       {active && visible && !isHidden(id) && !layout[id].collapsed && !layout[id].hidden && <div className="hud-panel-content">{health(id) === "verified" ? contents[id] : <p className="muted">{healthLabel(health(id))}</p>}</div>}
     </section>)}

@@ -49,7 +49,7 @@ async function cached(folder: string, file: "manifest.json" | "map16x.bin", vali
   throw Error(`Download failed: ${folder}/${file}`);
 }
 export async function fetchMap(folder: string, version = "0.34.25") {
-  if (!HEAT_MAPS.some(map => map.folder === folder) || !["0.34.25", "0.35.2"].includes(version)) throw Error("Unknown map folder or version");
+  if (!HEAT_MAPS.some(map => map.folder === folder) || !["0.34.25", "0.35.2", "0.35.4"].includes(version)) throw Error("Unknown map folder or version");
   const manifest = parseManifest(await cached(folder, "manifest.json", bytes => { parseManifest(bytes); }, version));
   const terrain = await cached(folder, "map16x.bin", bytes => validateTerrain(bytes, manifest), version);
   return { manifest, terrain };

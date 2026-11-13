@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { MockDataSource } from "./mock/MockDataSource";
-import { DecisionTracker, decisionSample, nextDecision, type DecisionHistory } from "./decisions";
+import { DecisionTracker, decisionCandidates, decisionSample, nextDecision, type DecisionHistory } from "./decisions";
 const snapshot = (t = 100) => {
   const s = new MockDataSource().getSnapshot(); s.phase = "playing"; s.elapsedSec = t; s.tick = t * 10;
   Object.assign(s.self!, { troops: 800000, maxTroops: 1000000, tilesOwned: 100, gold: 1e9, incomingAttacks: [], alliances: [] });
@@ -77,4 +77,17 @@ it("reports whether a card is snoozed", () => {
   expect(tracker.isSnoozed(100)).toBe(false);
   tracker.observe(s, 100); tracker.snooze(100);
   expect(tracker.isSnoozed(150)).toBe(true); expect(tracker.isSnoozed(221)).toBe(false);
+});
+
+it("candidates lists every active decision at once without display filtering", () => {
+  const s = snapshot(); const h = history(); s.self!.gold = 0; s.self!.troops = 400000;
+  h.samples = [decisionSample({ ...s, elapsedSec: 99 })!];
+  s.self!.troops = 200000; s.self!.incomingAttacks = [{ from: "Incoming attack", troops: 160000 }];
+  // Existing noAlly predicate suppresses it during danger; no outgoing increase means no recovery.
+  expect(decisionCandidates(s, h).map(d => d.kind)).toEqual(["danger", "exposed"]);
+  const tracker = new DecisionTracker(); tracker.observe(s, 100);
+  expect(tracker.candidates.map(d => d.kind)).toContain("danger");
+  tracker.snooze(100); tracker.observe(s, 101, 35, ["danger"]);
+  expect(tracker.candidates.map(d => d.kind)).toContain("danger");
+  expect(decisionCandidates({ ...s, observer: "replay" }, h)).toEqual([]);
 });
