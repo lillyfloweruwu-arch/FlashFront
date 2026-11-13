@@ -42,7 +42,7 @@ export const VERSION_PATTERN = /^\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$/;
 /** GitHub release page for a launcher version (What's new "Full notes"). */
 export function releaseNotesUrl(version: unknown): string {
   if (typeof version !== "string" || !VERSION_PATTERN.test(version)) throw new Error("Invalid version");
-  return `https://github.com/destoryer10/FlashFront/releases/tag/v${version}`;
+  return `https://github.com/lillyfloweruwu-arch/FlashFront/releases/tag/v${version}`;
 }
 export function parseSettings(value: unknown): Settings {
   if (!value || typeof value !== "object") throw new Error("Invalid settings");

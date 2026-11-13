@@ -39,7 +39,7 @@
   "build": {
     "publish": {
       "provider": "github",
-      "owner": "destoryer10",
+      "owner": "lillyfloweruwu-arch",
       "repo": "FlashFront"
     },
     "appId": "com.flashfront.launcher",

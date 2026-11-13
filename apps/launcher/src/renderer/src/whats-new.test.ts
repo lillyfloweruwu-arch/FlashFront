@@ -38,6 +38,6 @@ it("shows What's new once after an update, records first installs silently and n
 });
 
 it("links Full notes to the GitHub release tag", () => {
-  expect(releaseNotesUrl("0.2.1")).toBe("https://github.com/destoryer10/FlashFront/releases/tag/v0.2.1");
+  expect(releaseNotesUrl("0.2.1")).toBe("https://github.com/lillyfloweruwu-arch/FlashFront/releases/tag/v0.2.1");
   expect(() => releaseNotesUrl("0.2.1/../../evil")).toThrow();
 });
