@@ -75,7 +75,8 @@ it("the worker accepts exactly the record builds the manifest proved", () => {
   const protocol = readFileSync(join(repoRoot, "packages/training-engine/src/protocol.ts"), "utf8");
   expect(manifest.recordCommits[0]).toBe(manifest.upstream.commit);
   expect(protocol).toContain(`ENGINE_COMMIT = "${manifest.upstream.commit}"`);
-  const listed = [...protocol.matchAll(/"([0-9a-f]{40})"/g)].map((m) => m[1]);
+  const reviewOnly = protocol.match(/V0355_COMMIT = "([0-9a-f]{40})"/)?.[1]; // replay-only, never a built engine
+  const listed = [...protocol.matchAll(/"([0-9a-f]{40})"/g)].map((m) => m[1]).filter((c) => c !== reviewOnly);
   expect(new Set(listed)).toEqual(new Set(manifest.recordCommits));
 });
 
